@@ -1,0 +1,3265 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/17/2018 11:13:33 PM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="DFW2-APPDEV-002"
+  DTS:CreatorName="CORP\nmallela"
+  DTS:DTSID="{49ED12BE-026D-4E58-8ECA-4DC3CC73D250}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.7507.2"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Lendly_Placement"
+  DTS:PackageType="5"
+  DTS:VersionBuild="133"
+  DTS:VersionGUID="{4E8D730E-CF07-4949-9145-6461F0571916}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
+      DTS:CreationName="EXCEL"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{70398E52-E3FF-4594-B951-472DB86CF36B}"
+      DTS:ObjectName="Excel Connection Manager">
+      <DTS:PropertyExpression
+        DTS:Name="ExcelFilePath">@[User::filename]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=M:\Lendly\In\LendlyPlacement.xlsx;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Flat File Connection Manager]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{22CC0EC4-E5BF-453E-A471-D6AA769CC3EF}"
+      DTS:ObjectName="Flat File Connection Manager">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::FullInboundDirectory] + @[User::filename]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x0022_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="M:\Lendly\In\M:\Lendly\In\LendlyPlacement.xlsx">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Client Reference Number"
+              DTS:DTSID="{AED243AB-29EC-4730-9054-CC7739D10AC7}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Principal balance Due"
+              DTS:DTSID="{364548EC-2009-4A2C-AD11-F876B7556749}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Interest Balance Due"
+              DTS:DTSID="{28CFF170-65BF-49E3-B0D5-8ED98044D6FA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Total Amount Due"
+              DTS:DTSID="{480B9767-33B3-4331-A1F4-B6A34BFBF01A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Total Amount Past Due"
+              DTS:DTSID="{36B1D611-802C-4EE9-9438-ED925EA4B845}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Service Date"
+              DTS:DTSID="{2BF07528-C141-41E6-A9C3-B192FB415C9D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Deliquency Date"
+              DTS:DTSID="{87301B51-01EF-40B6-8A78-504564091A3B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Last Payment Amount"
+              DTS:DTSID="{26F8C6A0-C32E-449F-822C-1473C1706CA8}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Last Payment Date"
+              DTS:DTSID="{8BC53B6B-1E1A-4A34-B224-AAB8A68B03BE}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Interest Rate"
+              DTS:DTSID="{1F42C3CF-43A2-4AE8-A613-C49BD7EEB7BA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Payment Frequency"
+              DTS:DTSID="{7E9AA1CB-2D97-4B82-887A-B308A31F20F5}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Original Payment Amount"
+              DTS:DTSID="{F6C8E8AD-C4BC-4661-BAC7-CF3F9C411562}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Customer First Name"
+              DTS:DTSID="{C341603A-413B-4CB5-BAC8-FD5C6BB23A3E}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Customer Last Name"
+              DTS:DTSID="{C7657CBA-720E-45AF-B33A-F69D5C14AB8C}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="100"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Customer Address"
+              DTS:DTSID="{51A9ED23-738A-4D7A-86B6-D506A9E970CE}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Customer Address 2"
+              DTS:DTSID="{98C14E30-26DF-4E0E-89B4-E5022577CCD9}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Customer City"
+              DTS:DTSID="{9C6F105F-77A2-4C9F-9354-7F68B35326D7}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Customer State"
+              DTS:DTSID="{E56DDAE0-1730-4000-B31C-ECE551881278}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Customer Zip"
+              DTS:DTSID="{BE8E3A7F-3D1A-411E-A61B-109A12922592}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Customer SSN"
+              DTS:DTSID="{017DA257-F13E-4CA0-8527-14C3061CBFC9}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Customer DOB"
+              DTS:DTSID="{FBCA3D5F-B89C-4F08-9F61-7CEBB30985C5}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="100"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Customer Email Address"
+              DTS:DTSID="{0352FB4F-54C4-4916-B56D-5001774DB3DD}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Customer Home Phone"
+              DTS:DTSID="{61F5A26B-DF1E-4A81-9DF9-1CB62D3FE273}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Customer Employer"
+              DTS:DTSID="{5DBEA6A3-32B7-4DF9-9191-079C0012A95D}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[OutboundFile]"
+      DTS:CreationName="FLATFILE"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{77C0C9F2-C6B0-4BA4-A170-8A4347F43528}"
+      DTS:ObjectName="OutboundFile">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Package::OutboundFolder]  + @[$Package::OutboundFilePrefix] + @[User::filename] + ".txt"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="M:\Lendly\Out\ArtivaNB-THIRDPROD-Lendly-M:\Lendly\In\LendlyPlacement.xlsx.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="5000"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="RowData"
+              DTS:DTSID="{928AFB58-294A-4B0A-BF3C-CE08320E9BE0}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SMTP Connection Manager]"
+      DTS:CreationName="SMTP"
+      DTS:DelayValidation="True"
+      DTS:Description="SMTP Connection Manager"
+      DTS:DTSID="{AE440EBB-6398-4A74-AEA7-2E15E5482874}"
+      DTS:ObjectName="SMTP Connection Manager">
+      <DTS:ObjectData>
+        <SmtpConnectionManager
+          ConnectionString="SmtpServer=10.99.12.39;UseWindowsAuthentication=False;EnableSsl=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{F1372392-2A40-4F09-BCB0-13934D8810F6}"
+      DTS:ObjectName="ArchiveFolder">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">M:\Lendly\Archive\</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{25F7F996-9BC3-4878-BF17-67B0D16D9D45}"
+      DTS:ObjectName="EmailFrom">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">reports@radiusgs.com</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{1AFB37F8-B6BE-4D3E-AFB7-5FF6F22269DE}"
+      DTS:ObjectName="EmailToList">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">ClientServices-All@radiusgs.com;Lois.Mongeluzi@radiusgs.com;Pat.Danner@radiusgs.com;nagarani.mallela@radiusgs.com;bilal.shaikh@radiusgs.com;aditya.hulyal@radiusgs.com</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{4385AAC0-3828-4790-8BF8-262910C48338}"
+      DTS:ObjectName="FileFormat">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">*Placement*.csv</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{40242297-190A-4C37-B322-C791A30A61A5}"
+      DTS:ObjectName="InboundFolder">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">M:\Lendly\In\</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{6990DCE9-5E04-4573-A13B-9BA447577C4D}"
+      DTS:ObjectName="OutboundFilePrefix">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">ArtivaNB-THIRDPROD-Lendly-</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{861014E1-11EE-459A-B1A5-8F3ABAA693B2}"
+      DTS:ObjectName="OutboundFolder">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">M:\Lendly\Out\</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="3"
+      DTS:DTSID="{C7AC2F0D-E90A-42C4-B04E-279172306BBA}"
+      DTS:ObjectName="WorksheetIndex">
+      <DTS:Property
+        DTS:DataType="3"
+        DTS:Name="ParameterValue">0</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{29D12707-6BD8-43CD-AB0F-5A390BAAE7D5}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="filename">
+      <DTS:VariableValue
+        DTS:DataType="8">M:\Lendly\In\LendlyPlacement.xlsx</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F7AD8583-D984-4F20-BF70-69F7BC10CAFC}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="Replace( @[User::filename],&quot;.csv&quot;,&quot;.xlsx&quot;)"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="filenamexls">
+      <DTS:VariableValue
+        DTS:DataType="8">M:\Lendly\In\LendlyPlacement.xlsx</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{32355006-51A5-4473-A26D-3D57FFF17CEA}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Package::InboundFolder]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FullInboundDirectory">
+      <DTS:VariableValue
+        DTS:DataType="8">M:\Lendly\In\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{75D573AA-A9A6-4D5A-915B-FD47F1C07FDC}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PlacementAmount">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1CC09ECF-614A-44A2-A3BA-0B7C35804ACE}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="PlacementCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Foreach Loop Container"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:DelayValidation="True"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{0F06C93F-0121-4DF8-AD03-6A1F1372CBBE}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach Loop Container">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="DTS.ForEachFileEnumerator.3"
+        DTS:DTSID="{B1CCB826-9A50-48FA-BAC4-6E55148987A6}"
+        DTS:ObjectName="{6A23A5BE-3802-4681-895A-5BC5AB1CF1E6}">
+        <DTS:PropertyExpression
+          DTS:Name="Directory">@[$Package::InboundFolder]</DTS:PropertyExpression>
+        <DTS:PropertyExpression
+          DTS:Name="FileSpec">@[$Package::FileFormat]</DTS:PropertyExpression>
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="M:\Lendly\In\" />
+            <FEFEProperty
+              FileSpec="*Placement*.csv" />
+            <FEFEProperty
+              FileNameRetrievalType="1" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Process Placements"
+          DTS:CreationName="SSIS.Pipeline.3"
+          DTS:DelayValidation="True"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{A14E9C42-D8C9-4634-B8FF-6C761BC0010C}"
+          DTS:ExecutableType="SSIS.Pipeline.3"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Process Placements"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Foreach Loop Container\Process Placements\Flat File Source"
+                  componentClassID="{D23FD76B-F51D-420F-BBCB-19CBF6AC1AB4}"
+                  contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Flat File Source"
+                  localeId="1033"
+                  name="Flat File Source"
+                  usesDispositions="true"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether zero-length columns are treated as null."
+                      name="RetainNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                      name="FileNameColumnName"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Flat File Connection Manager]"
+                      connectionManagerRefId="Package.ConnectionManagers[Flat File Connection Manager]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output]"
+                      name="Flat File Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Client Reference Number]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Client Reference Number]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Client Reference Number]"
+                          name="Client Reference Number"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Principal balance Due]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Principal balance Due]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Principal balance Due]"
+                          name="Principal balance Due"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Interest Balance Due]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Interest Balance Due]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Interest Balance Due]"
+                          name="Interest Balance Due"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Total Amount Due]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Total Amount Due]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Total Amount Due]"
+                          name="Total Amount Due"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Total Amount Past Due]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Total Amount Past Due]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Total Amount Past Due]"
+                          name="Total Amount Past Due"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Service Date]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Service Date]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Service Date]"
+                          name="Service Date"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Deliquency Date]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Deliquency Date]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Deliquency Date]"
+                          name="Deliquency Date"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Last Payment Amount]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Last Payment Amount]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Last Payment Amount]"
+                          name="Last Payment Amount"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Last Payment Date]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Last Payment Date]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Last Payment Date]"
+                          name="Last Payment Date"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Interest Rate]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Interest Rate]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Interest Rate]"
+                          name="Interest Rate"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Payment Frequency]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Payment Frequency]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Payment Frequency]"
+                          name="Payment Frequency"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Original Payment Amount]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Original Payment Amount]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Original Payment Amount]"
+                          name="Original Payment Amount"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer First Name]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer First Name]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer First Name]"
+                          name="Customer First Name"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Last Name]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer Last Name]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Last Name]"
+                          name="Customer Last Name"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Address]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer Address]"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Address]"
+                          name="Customer Address"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Address 2]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer Address 2]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Address 2]"
+                          name="Customer Address 2"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer City]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer City]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer City]"
+                          name="Customer City"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer State]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer State]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer State]"
+                          name="Customer State"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Zip]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer Zip]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Zip]"
+                          name="Customer Zip"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer SSN]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer SSN]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer SSN]"
+                          name="Customer SSN"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer DOB]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer DOB]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer DOB]"
+                          name="Customer DOB"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Email Address]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer Email Address]"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Email Address]"
+                          name="Customer Email Address"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Home Phone]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer Home Phone]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Home Phone]"
+                          name="Customer Home Phone"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Employer]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer Employer]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Employer]"
+                          name="Customer Employer"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Client Reference Number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Client Reference Number" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Principal balance Due]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Principal balance Due" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Interest Balance Due]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Interest Balance Due" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Total Amount Due]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Total Amount Due" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Total Amount Past Due]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Total Amount Past Due" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Service Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Service Date" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Deliquency Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Deliquency Date" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Last Payment Amount]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Last Payment Amount" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Last Payment Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Last Payment Date" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Interest Rate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Interest Rate" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Payment Frequency]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Payment Frequency" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Original Payment Amount]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Original Payment Amount" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer First Name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Customer First Name" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer Last Name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Customer Last Name" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer Address]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="Customer Address" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer Address 2]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Customer Address 2" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer City]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Customer City" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer State]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Customer State" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer Zip]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Customer Zip" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer SSN]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Customer SSN" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer DOB]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Customer DOB" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer Email Address]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="Customer Email Address" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer Home Phone]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Customer Home Phone" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Customer Employer]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Customer Employer" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Error Output]"
+                      isErrorOut="true"
+                      name="Flat File Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          codePage="1252"
+                          dataType="text"
+                          description="Flat File Source Error Output Column"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          name="Flat File Source Error Output Column" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Process Placements\OutboundFile"
+                  componentClassID="{8DA75FED-1B7C-407D-B2AD-2B24209CCCA4}"
+                  contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Flat File Destination"
+                  localeId="1033"
+                  name="OutboundFile">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether the data will overwrite or append to the destination file."
+                      name="Overwrite">true</property>
+                    <property
+                      dataType="System.Null"
+                      description="Specifies the text to write to the destination file before any data is written."
+                      expressionType="Notify"
+                      name="Header" />
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Process Placements\OutboundFile.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[OutboundFile]"
+                      connectionManagerRefId="Package.ConnectionManagers[OutboundFile]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Process Placements\OutboundFile.Inputs[Flat File Destination Input]"
+                      hasSideEffects="true"
+                      name="Flat File Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\OutboundFile.Inputs[Flat File Destination Input].Columns[RowData]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="5000"
+                          cachedName="RowData"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process Placements\OutboundFile.Inputs[Flat File Destination Input].ExternalColumns[RowData]"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Process Placements.Outputs[Output 0].Columns[RowData]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process Placements\OutboundFile.Inputs[Flat File Destination Input].ExternalColumns[RowData]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5000"
+                          name="RowData" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Process Placements\Process Placements"
+                  componentClassID="{874F7595-FB5F-40FF-96AF-FBFF8250E3EF}"
+                  contactInfo="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;8"
+                  description="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum."
+                  name="Process Placements"
+                  version="8">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Stores the source code of the component"
+                      isArray="true"
+                      name="SourceCode"
+                      state="cdata">
+                      <arrayElements
+                        arrayElementCount="30">
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\AssemblyInfo.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("SC_e930b84d7eea429da6eefe68a5e29cff")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("SC_e930b84d7eea429da6eefe68a5e29cff")]
+[assembly: AssemblyCopyright("Copyright @  2018")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.0.0")]
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Resources.resx]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[main.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[#region Namespaces
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+using RGS.ArtivaGeneralPurpose.Data.Records;
+using System.Collections.Generic;
+using FileHelpers;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+#endregion
+
+[Microsoft.SqlServer.Dts.Pipeline.SSISScriptComponentEntryPointAttribute]
+public class ScriptMain : UserComponent
+{
+
+    int iPlacementCount = 0;
+    decimal dclPlacementAmount = 0;
+
+    public override void PreExecute()
+    {
+        base.PreExecute();
+
+        iPlacementCount = 0;
+        dclPlacementAmount = 0;
+    }
+
+    public override void PostExecute()
+    {
+        base.PostExecute();
+
+        Variables.PlacementCount = iPlacementCount;
+        Variables.PlacementAmount = dclPlacementAmount.ToString();
+    }
+
+    public override void Input0_ProcessInputRow(Input0Buffer Row)
+    {
+        if (string.IsNullOrEmpty(Row.ClientReferenceNumber))
+            return;
+
+        if (!string.IsNullOrEmpty(Row.ClientReferenceNumber))
+        {
+            iPlacementCount = iPlacementCount + 1;
+            dclPlacementAmount = dclPlacementAmount + Convert.ToDecimal(Row.PrincipalbalanceDue);
+
+            Create_10AccountRecord(Row);
+            Create_20PartyRecord(Row);
+            Create_100PlacementInfoRecord(Row);
+            Create_ClientBankingInformation807(Row);
+            Create_ImportantNote_INOTE(Row);
+        }
+    }
+
+    private void Create_10AccountRecord(Input0Buffer Row)
+    {
+        var dtCurrentMonthStartDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+        var dtDaysBack180 = dtCurrentMonthStartDay.AddDays(-180);
+        var dtDelinquency = new DateTime(dtDaysBack180.Year, dtDaysBack180.Month, 1);
+        var dtSOL = new DateTime(dtDaysBack180.Year, dtDaysBack180.Month, 1);
+        var decInterestRate = Convert.ToDecimal(Row.InterestRate);
+
+        var record10 = new AccountInformation_10();
+
+        string strClientID = string.Empty;
+        if (decInterestRate >= 126)
+            strClientID = "DCLACH";
+        else
+            strClientID = "DCLYDD";
+
+        record10.ClientID = strClientID;
+        record10.ClientReferenceNumber = Row.ClientReferenceNumber.Trim().ToString().ToUpper();
+        if (!string.IsNullOrEmpty(Row.PrincipalbalanceDue))
+            record10.PrincipalInitalBalance = Convert.ToDecimal(Row.PrincipalbalanceDue);
+
+        if (!string.IsNullOrEmpty(Row.InterestBalanceDue))
+            record10.InterestInitialBalance = Convert.ToDecimal(Row.InterestBalanceDue);
+
+        if (!string.IsNullOrEmpty(Row.ServiceDate))
+            record10.ServiceDate = Convert.ToDateTime(Row.ServiceDate);
+
+        if (!string.IsNullOrEmpty(Row.DeliquencyDate))
+        {
+            record10.DelinquencyDate = Convert.ToDateTime(Row.DeliquencyDate);
+            record10.SOLDate = Convert.ToDateTime(Row.DeliquencyDate);
+        }
+
+        if (!string.IsNullOrEmpty(Row.LastPaymentAmount))
+            record10.ClientLastPayAmount = Convert.ToDecimal(Row.LastPaymentAmount);
+
+        if (!string.IsNullOrEmpty(Row.LastPaymentDate))
+            record10.ClientLastPayDate = Convert.ToDateTime(Row.LastPaymentDate);
+
+        record10.InterestRate = decInterestRate / 100;
+
+        record10.SOLState = Row.CustomerState.ToString().ToUpper();
+        record10.ListedDate = DateTime.Today;
+        record10.SOLAgreementType = "WRITTEN";
+        record10.DebtDescription = "Your loan serviced by Lendly LLC";
+
+        AddPlacementRecord(record10);
+    }
+
+    private void Create_20PartyRecord(Input0Buffer Row)
+    {
+        var record20 = new PartyInformation_20();
+        record20.RelationshipTypeKey = "PRIM";
+
+        record20.FirstName = Row.CustomerFirstName.Trim().ToUpper();
+        record20.LastName = Row.CustomerLastName.Trim().ToUpper();
+        record20.EmailAddress = Row.CustomerEmailAddress.Trim();
+
+        if (!Row.CustomerAddress_IsNull)
+            record20.AddressLine = Row.CustomerAddress.ToString().Trim().ToUpper();
+
+        if (!Row.CustomerAddress2_IsNull)
+            record20.AddressUnit_AptOrPOBox = Row.CustomerAddress2.ToString().Trim().ToUpper();
+
+        if (!Row.CustomerCity_IsNull)
+            record20.City = Row.CustomerCity.ToString().Trim();
+
+        if (!Row.CustomerState_IsNull)
+            record20.State = Row.CustomerState.ToString().Trim();
+
+        if (!Row.CustomerZip_IsNull)
+            record20.PostalCode = Row.CustomerZip.ToString().Trim();
+
+        if (!Row.CustomerSSN_IsNull)
+            record20.SocialSecurityNumber = Row.CustomerSSN.ToString().Trim();
+
+        if (!Row.CustomerDOB_IsNull)
+            record20.DateOfBirth = Convert.ToDateTime(Row.CustomerDOB);
+        
+
+        string strHomePhone = string.Empty;
+        if (!Row.CustomerHomePhone_IsNull)
+        {
+            strHomePhone = Row.CustomerHomePhone.Trim();
+            record20.PrimaryPhoneNumber = strHomePhone;
+        }
+       
+        if (!Row.CustomerEmployer_IsNull)
+            record20.PlaceOfEmployment = Row.CustomerEmployer;
+
+        AddPlacementRecord(record20);
+    }
+
+    private void Create_ImportantNote_INOTE(Input0Buffer Row)
+    {
+        var recordINote = new ImportantNote_INOTE();
+        recordINote.AccountId = string.Empty;
+        recordINote.Note = "RECALL DATE : " + DateTime.Now.AddDays(30).ToString("MM/dd/yyyy");
+            
+        AddPlacementRecord(recordINote);
+    }
+
+    private void Create_ClientBankingInformation807(Input0Buffer Row)
+    {
+        var record807 = new ClientBankingInformation_807();
+        record807.NetPrincipal = Convert.ToDecimal(Row.PrincipalbalanceDue);
+        record807.DelinquentAmount = Convert.ToDecimal(Row.TotalAmountPastDue);
+        if(!Row.ServiceDate_IsNull)
+            record807.AccountOpenDate = Convert.ToDateTime(Row.ServiceDate);
+        record807.InterestRate = Row.InterestRate;
+        record807.PaymentFrequency = Row.PaymentFrequency;
+        record807.MonthlyPaymentAmount = Convert.ToDecimal(Row.OriginalPaymentAmount);
+        AddPlacementRecord(record807);
+    }
+
+    private void Create_100PlacementInfoRecord(Input0Buffer Row)
+    {
+        var record100 = new PlacementInformation_100();
+        record100.IncomingFileName = Variables.filename.Replace(Variables.InboundFolder, "");
+        record100.PlacementLevel = "1";
+        record100.DateLoaded = DateTime.Today;
+        record100.BKEffectiveDate = Convert.ToDateTime(Row.DeliquencyDate);
+
+        record100.PrincipalBalanceAtPlacement = Row.PrincipalbalanceDue_IsNull ? 0 : Convert.ToDecimal(Row.PrincipalbalanceDue);
+        record100.InterestBalanceAtPlacement = Row.InterestBalanceDue_IsNull ? 0 : Convert.ToDecimal(Row.InterestBalanceDue);
+        record100.TotalAmountAtPlacement = Row.TotalAmountDue_IsNull ? 0 : Convert.ToDecimal(Row.TotalAmountDue);
+
+        AddPlacementRecord(record100);
+    }
+
+    private void Insert_203AcctFreeFormTextRecords(Input0Buffer Row)
+    {
+        var record203 = new AccountFreeFormText_203();
+        //record203.FreeFormText = String.Format("STATION:" + Row.Station);
+        //AddPlacementRecord(record203);
+    }
+
+    private void AddPlacementRecord<T>(T record) where T : GeneralPurposeRecordBase
+    {
+        var recordList = new List<T>();
+        recordList.Add(record);
+        var recordString = CommonEngine.WriteString<T>(recordList);
+        if (IsRowDataValid(recordString))
+        {
+            Output0Buffer.AddRow();
+            Output0Buffer.RowData = recordString.ToUpper();
+        }
+    }
+    private bool IsRowDataValid(string rowData)
+    {
+        if (rowData.Contains(","))
+        {
+            string rowData2 = rowData.Substring(rowData.IndexOf(","));
+            if (Regex.IsMatch(rowData2, @"[^,""]"))
+                return true;
+        }
+        return false;
+    }
+}]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[BufferWrapper.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services buffer wrappers
+*  This module defines classes for accessing data flow buffers
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+
+public class Input0Buffer: ScriptBuffer
+
+{
+    public Input0Buffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String ClientReferenceNumber
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[0]);
+        }
+    }
+    public bool ClientReferenceNumber_IsNull
+    {
+        get
+        {
+            return IsNull(0);
+        }
+    }
+
+    public String PrincipalbalanceDue
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[1]);
+        }
+    }
+    public bool PrincipalbalanceDue_IsNull
+    {
+        get
+        {
+            return IsNull(1);
+        }
+    }
+
+    public String InterestBalanceDue
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[2]);
+        }
+    }
+    public bool InterestBalanceDue_IsNull
+    {
+        get
+        {
+            return IsNull(2);
+        }
+    }
+
+    public String TotalAmountDue
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[3]);
+        }
+    }
+    public bool TotalAmountDue_IsNull
+    {
+        get
+        {
+            return IsNull(3);
+        }
+    }
+
+    public String TotalAmountPastDue
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[4]);
+        }
+    }
+    public bool TotalAmountPastDue_IsNull
+    {
+        get
+        {
+            return IsNull(4);
+        }
+    }
+
+    public String ServiceDate
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[5]);
+        }
+    }
+    public bool ServiceDate_IsNull
+    {
+        get
+        {
+            return IsNull(5);
+        }
+    }
+
+    public String DeliquencyDate
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[6]);
+        }
+    }
+    public bool DeliquencyDate_IsNull
+    {
+        get
+        {
+            return IsNull(6);
+        }
+    }
+
+    public String LastPaymentAmount
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[7]);
+        }
+    }
+    public bool LastPaymentAmount_IsNull
+    {
+        get
+        {
+            return IsNull(7);
+        }
+    }
+
+    public String LastPaymentDate
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[8]);
+        }
+    }
+    public bool LastPaymentDate_IsNull
+    {
+        get
+        {
+            return IsNull(8);
+        }
+    }
+
+    public String InterestRate
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[9]);
+        }
+    }
+    public bool InterestRate_IsNull
+    {
+        get
+        {
+            return IsNull(9);
+        }
+    }
+
+    public String PaymentFrequency
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[10]);
+        }
+    }
+    public bool PaymentFrequency_IsNull
+    {
+        get
+        {
+            return IsNull(10);
+        }
+    }
+
+    public String OriginalPaymentAmount
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[11]);
+        }
+    }
+    public bool OriginalPaymentAmount_IsNull
+    {
+        get
+        {
+            return IsNull(11);
+        }
+    }
+
+    public String CustomerFirstName
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[12]);
+        }
+    }
+    public bool CustomerFirstName_IsNull
+    {
+        get
+        {
+            return IsNull(12);
+        }
+    }
+
+    public String CustomerLastName
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[13]);
+        }
+    }
+    public bool CustomerLastName_IsNull
+    {
+        get
+        {
+            return IsNull(13);
+        }
+    }
+
+    public String CustomerAddress
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[14]);
+        }
+    }
+    public bool CustomerAddress_IsNull
+    {
+        get
+        {
+            return IsNull(14);
+        }
+    }
+
+    public String CustomerAddress2
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[15]);
+        }
+    }
+    public bool CustomerAddress2_IsNull
+    {
+        get
+        {
+            return IsNull(15);
+        }
+    }
+
+    public String CustomerCity
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[16]);
+        }
+    }
+    public bool CustomerCity_IsNull
+    {
+        get
+        {
+            return IsNull(16);
+        }
+    }
+
+    public String CustomerState
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[17]);
+        }
+    }
+    public bool CustomerState_IsNull
+    {
+        get
+        {
+            return IsNull(17);
+        }
+    }
+
+    public String CustomerZip
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[18]);
+        }
+    }
+    public bool CustomerZip_IsNull
+    {
+        get
+        {
+            return IsNull(18);
+        }
+    }
+
+    public String CustomerSSN
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[19]);
+        }
+    }
+    public bool CustomerSSN_IsNull
+    {
+        get
+        {
+            return IsNull(19);
+        }
+    }
+
+    public String CustomerDOB
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[20]);
+        }
+    }
+    public bool CustomerDOB_IsNull
+    {
+        get
+        {
+            return IsNull(20);
+        }
+    }
+
+    public String CustomerHomePhone
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[21]);
+        }
+    }
+    public bool CustomerHomePhone_IsNull
+    {
+        get
+        {
+            return IsNull(21);
+        }
+    }
+
+    public String CustomerEmployer
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[22]);
+        }
+    }
+    public bool CustomerEmployer_IsNull
+    {
+        get
+        {
+            return IsNull(22);
+        }
+    }
+
+    public String CustomerEmailAddress
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[23]);
+        }
+    }
+    public bool CustomerEmailAddress_IsNull
+    {
+        get
+        {
+            return IsNull(23);
+        }
+    }
+
+    new public bool NextRow()
+    {
+        return base.NextRow();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+
+public class Output0Buffer: ScriptBuffer
+
+{
+    public Output0Buffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String RowData
+    {
+        set
+        {
+            this[0] = value;
+        }
+    }
+    public bool RowData_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(0);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    new public void AddRow()
+    {
+        base.AddRow();
+    }
+
+    new public void SetEndOfRowset()
+    {
+        base.SetEndOfRowset();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[ComponentWrapper.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services component wrapper
+*  This module defines the base class for your component
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+
+public class UserComponent: ScriptComponent
+{
+    public Connections Connections;
+    public Variables Variables;
+    public UserComponent()
+    {
+        Connections = new Connections(this);
+        Variables = new Variables(this);
+    }
+
+    public Output0Buffer Output0Buffer;
+
+    int InputsFinished = 0;
+
+    public override void ProcessInput(int InputID, string InputName, PipelineBuffer Buffer, OutputNameMap OutputMap)
+    {
+
+        if (InputName.Equals(@"Input 0", StringComparison.Ordinal))
+        {
+            Input0_ProcessInput(new Input0Buffer(Buffer, GetColumnIndexes(InputID), OutputMap));
+        }
+
+        if (Buffer.EndOfRowset)
+        {
+            InputsFinished = InputsFinished + 1;
+            if (InputsFinished == 1)
+            {
+                FinishOutputs();
+                MarkOutputsFinished();
+            }
+        }
+
+    }
+
+    public virtual void FinishOutputs()
+    {
+    }
+
+    private void MarkOutputsFinished()
+    {
+
+        if (null != Output0Buffer)
+        {
+            Output0Buffer.SetEndOfRowset();
+            Output0Buffer = null;
+        }
+
+    }
+
+    public override void PrimeOutput(int Outputs, int[] OutputIDs, PipelineBuffer[] Buffers, OutputNameMap OutputMap)
+    {
+       for(int Idx = 0; Idx < Outputs; Idx++)
+       {
+            if(OutputIDs[Idx] == GetOutputID(OutputMap, @"Output 0"))
+            {
+                Output0Buffer = new Output0Buffer(Buffers[Idx], GetColumnIndexes(OutputIDs[Idx]), OutputMap);
+            }
+        }
+
+        CreateNewOutputRows();
+
+    }
+
+    public virtual void CreateNewOutputRows()
+    {
+    }
+
+    public virtual void Input0_ProcessInput(Input0Buffer Buffer)
+    {
+        while (Buffer.NextRow())
+        {
+            Input0_ProcessInputRow(Buffer);
+        }
+    }
+
+    public virtual void Input0_ProcessInputRow(Input0Buffer Row)
+    {
+    }
+
+}
+
+public class Connections
+{
+    ScriptComponent ParentComponent;
+
+    public Connections(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+}
+
+public class Variables
+{
+    ScriptComponent ParentComponent;
+
+    public Variables(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+    public String filename
+    {
+        get
+        {
+            return (String)(ParentComponent.ReadOnlyVariables["filename"].GetValueWithContext(ScriptComponent.EvaluatorContext));
+        }
+    }
+
+    public String InboundFolder
+    {
+        get
+        {
+            return (String)(ParentComponent.ReadOnlyVariables["InboundFolder"].GetValueWithContext(ScriptComponent.EvaluatorContext));
+        }
+    }
+
+    public String PlacementAmount
+    {
+        get
+        {
+            return (String)(ParentComponent.ReadWriteVariables["PlacementAmount"].GetValueWithContext(ScriptComponent.EvaluatorContext));
+        }
+        set
+        {
+            ParentComponent.ReadWriteVariables["PlacementAmount"].Value = value;
+        }
+    }
+
+    public Int32 PlacementCount
+    {
+        get
+        {
+            return (Int32)(ParentComponent.ReadWriteVariables["PlacementCount"].GetValueWithContext(ScriptComponent.EvaluatorContext));
+        }
+        set
+        {
+            ParentComponent.ReadWriteVariables["PlacementCount"].Value = value;
+        }
+    }
+
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Resources.Designer.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_e930b84d7eea429da6eefe68a5e29cff.Properties.Resources.get_ResourceManager():System.Resources.Resou" +
+    "rceManager")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_e930b84d7eea429da6eefe68a5e29cff.Properties.Resources.get_Culture():System.Globalization.CultureIn" +
+    "fo")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_e930b84d7eea429da6eefe68a5e29cff.Properties.Resources.set_Culture(System.Globalization.CultureInfo" +
+    "):Void")]
+
+namespace SC_e930b84d7eea429da6eefe68a5e29cff.Properties {
+    
+    
+    /// <summary>
+    ///   A strongly-typed resource class, for looking up localized strings, etc.
+    /// </summary>
+    // This class was auto-generated by the StronglyTypedResourceBuilder
+    // class via a tool like ResGen or Visual Studio.
+    // To add or remove a member, edit your .ResX file then rerun ResGen
+    // with the /str option, or rebuild your VS project.
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    internal class Resources {
+        
+        private static global::System.Resources.ResourceManager resourceMan;
+        
+        private static global::System.Globalization.CultureInfo resourceCulture;
+        
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources() {
+        }
+        
+        /// <summary>
+        ///   Returns the cached ResourceManager instance used by this class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if ((resourceMan == null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SC_e930b84d7eea429da6eefe68a5e29cff.Properties.Resources", typeof(Resources).Assembly);
+                    resourceMan = temp;
+                }
+                return resourceMan;
+            }
+        }
+        
+        /// <summary>
+        ///   Overrides the current thread's CurrentUICulture property for all
+        ///   resource lookups using this strongly typed resource class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
+                return resourceCulture;
+            }
+            set {
+                resourceCulture = value;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Project]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF16LE]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="4.0" schemaVersion="1.0">
+	<msb:PropertyGroup>
+		<msb:Language>msBuild</msb:Language>
+		<msb:CodeName>SC_e930b84d7eea429da6eefe68a5e29cff</msb:CodeName>
+		<msb:ProjectId>{793F82F8-6DE4-4CDD-99EA-DA75A7FBAF66}</msb:ProjectId>
+		<msb:DisplayName>SC_e930b84d7eea429da6eefe68a5e29cff</msb:DisplayName>
+	</msb:PropertyGroup>
+	<msb:ItemGroup>
+		<msb:Project Include="SC_e930b84d7eea429da6eefe68a5e29cff.csproj"/>
+		<msb:File Include="main.cs"/>
+		<msb:File Include="BufferWrapper.cs"/>
+		<msb:File Include="Properties\Settings.Designer.cs"/>
+		<msb:File Include="Properties\AssemblyInfo.cs"/>
+		<msb:File Include="Properties\Settings.settings"/>
+		<msb:File Include="Properties\Resources.Designer.cs"/>
+		<msb:File Include="ComponentWrapper.cs"/>
+		<msb:File Include="Properties\Resources.resx"/>
+		<msb:Breakpoint Include="255b195377944dbfb2477e709463e3e0">
+			<msb:FileName>main.cs</msb:FileName>
+			<msb:ColumnNumber>9</msb:ColumnNumber>
+			<msb:Enabled>True</msb:Enabled>
+			<msb:LineNumber>151</msb:LineNumber>
+			<msb:Condition></msb:Condition>
+			<msb:ConditionType>1</msb:ConditionType>
+			<msb:Language>C#</msb:Language>
+			<msb:HitCountType>1</msb:HitCountType>
+			<msb:HitCountTarget>1</msb:HitCountTarget>
+		</msb:Breakpoint>
+	</msb:ItemGroup>
+</c:Project>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Settings.Designer.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_e930b84d7eea429da6eefe68a5e29cff.Properties.Settings.get_Default():SC_e930b84d7eea429da6eefe68a5e29cff.Properties.Sett" +
+    "ings")]
+
+namespace SC_e930b84d7eea429da6eefe68a5e29cff.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Settings.settings]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[SC_e930b84d7eea429da6eefe68a5e29cff.csproj]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8971BA50-D22E-4B37-A0B5-718AF2ADEB0E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SC_e930b84d7eea429da6eefe68a5e29cff</RootNamespace>
+    <AssemblyName>SC_e930b84d7eea429da6eefe68a5e29cff</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FileHelpers, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>R:\Software\1.1.0.0\FileHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="RGS.ArtivaGeneralPurpose, Version=1.20.0.0, Culture=neutral, PublicKeyToken=972530eacd4bf30a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>R:\Software\1.1.0.0\RGS.ArtivaGeneralPurpose.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Compile Include="main.cs" />
+    <Compile Include="BufferWrapper.cs" />
+    <Compile Include="ComponentWrapper.cs" />
+    <Reference Include="Microsoft.SqlServer.TxScript, Version=11.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.PipelineHost, Version=11.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.DTSPipelineWrap, Version=11.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.DTSRuntimeWrap, Version=11.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <!-- Include the build rules for a C# project.-->
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- This section defines VSTA properties that describe the host-changable project properties. -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
+        <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" DebugInfoExeName="devenv.exe" DebugInfoCommandLine="/vstaHostDebugUri:&quot;vstadebug9630d1ba-eb59-4fd9-9feb-cc5abdfbf3d0/f6d473eb-237e-417c-a7fb-d2913293fd12&quot;" />
+        <Host Name="ScriptComponent" IconIndex="0" />
+        <ProjectClient>
+          <HostIdentifier>SSIS_SC110</HostIdentifier>
+        </ProjectClient>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>]]></arrayElement>
+                      </arrayElements>
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Stores the binary representation of the component"
+                      isArray="true"
+                      name="BinaryCode"
+                      state="cdata">
+                      <arrayElements
+                        arrayElementCount="2">
+                        <arrayElement
+                          dataType="System.String"><![CDATA[SC_e930b84d7eea429da6eefe68a5e29cff.dll]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[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
+oQAsD7cAoQBHD7cAKQGyDAYAHACyDAYAHAC1AXQAOQE2B+EAEQE4DvIAEQHwBvcAEQFVB/wASQFf
+BwEBsQCyDAcBsQBSDBEBsQADDhUBuQBLB/wAsQCWChkBsQBJER4BsQD4Dh4BsQCuCiIBsQCdCgEA
+UQGyDBAAsQArEQYAsQD1DgYAyQCyDAYAEQExDigByQAXDjABuQDlDh4ByQA6AToB0QCyDAYAyQDt
+DUEBYQGlCkcByQAOEU4BaQHfEFQByQDWDUEBaQHgBlsBiQG9AmABiQGhEWkB4QCyDG8BAQGyDAYA
+LgALABwCLgATACUCLgAbAEQCLgAjAE0CLgArAHYCLgAzAHYCLgA7AHYCLgBDAE0CLgBLAHwCLgBT
+AHYCLgBbAJMCQwBjANsCAwFrANsCYQF7ANsC6QZzAEQCCQdzAEQCMwCIAJMAqgDFANUANgEDAAEA
+BAAxAAcAMwAIADcACQA5AAAA0gsBAgAAtwkFAgAAogYBAgAASQkFAgAAiwYBAgAAKwkFAgAAugYB
+AgAAaAkFAgAAzQYBAgAAggkFAgAAFwQBAgAArggFAgAAbQQBAgAA4AgFAgAALRABAgAAUAoFAgAA
+RwQBAgAAxQgFAgAAkAQBAgAA+ggFAgAAfBEBAgAAbQoFAgAAExABAgAALwoFAgAA+QIBAgAAdAgF
+AgAA5AIBAgAAWAgFAgAAnQ4BAgAAFAoFAgAApwABAgAA+wcFAgAAshEBAgAAiQoFAgAAvwQBAgAA
+EgkFAgAAuQsBAgAAoAkFAgAAZQEBAgAALggFAgAAHQEBAgAAFwgFAgAAawMBAgAAkQgFAgAAoQwB
+AgAA2AkFAgAAhA4BAgAA9AkFAgAAdwEBAgAARQgFAgAAGQMBAgAAFAwBAgAA/w8BAgAAxQ8JAgAA
+XQwNAgAArgMSAgAACA8XAgIADgADAAIADwAFAAIAEAAHAAIAEQAJAAIAEgALAAIAEwANAAIAFAAP
+AAIAFQARAAIAFgATAAIAFwAVAAIAGAAXAAIAGQAZAAIAGgAbAAIAGwAdAAIAHAAfAAIAHQAhAAIA
+HgAjAAIAHwAlAAIAIAAnAAIAIQApAAIAIgArAAIAIwAtAAIAJAAvAAIAJQAxAAIAJgAzAAIAJwA1
+AAIAKAA3AAIAKQA5AAIAKgA7AAIAKwA9AAIALAA/AAIALQBBAAIALgBDAAIALwBFAAIAMABHAAIA
+MQBJAAIAMgBLAAIAMwBNAAIANABPAAIANQBRAAIANgBTAAIANwBVAAIAOABXAAIAOQBZAAIAOgBb
+AAIAOwBdAAIAPABfAAIAPQBhAAEAQQBjAAEAQgBlAAIAUABnAAIAUQBpAAIAUgBrAAEAUwBrAAIA
+VABtAAEAVQBtAAIAVwBvAAIAWABxAAEAWQBxAAIAWgBzAGwArwDZAASAAAABAAAAAAAAAAAAAAAA
+APgGAAAEAAAAAAAAAAAAAAB3AYcBAAAAAAsAAAAAAAAAAAAAAIABeRAAAAAAAQABAAAAAAAAAAAA
+iQHnAwAAAAALAAAAAAAAAAAAAACAAZ4QAAAAAAQAAAAAAAAAAAAAAHcBtwoAAAAAAwACAAcAAAAA
+AAAAkgF0DgAAAAALAAAAAAAAAAAAAACAAZILAAAAAAAAAAABAAAAVQ0AAAAAAAAVAHEBFACDABQA
+jgAUAKUAFADAABQA0AC5AO0AAQBVAAAAAAAAUGxhY2VtZW50SW5mb3JtYXRpb25fMTAwAElEVFNW
+YXJpYWJsZTEwMABJRFRTVmFyaWFibGVzMTAwAElEVFNFdmFsdWF0b3JDb250ZXh0MTAwAEFjY291
+bnRJbmZvcm1hdGlvbl8xMABQYXJ0eUluZm9ybWF0aW9uXzIwAE51bGxhYmxlYDEASUVudW1lcmFi
+bGVgMQBMaXN0YDEASW50MzIAZ2V0X0N1c3RvbWVyQWRkcmVzczIAQWNjb3VudEZyZWVGb3JtVGV4
+dF8yMDMAQ2xpZW50QmFua2luZ0luZm9ybWF0aW9uXzgwNwBDcmVhdGVfQ2xpZW50QmFua2luZ0lu
+Zm9ybWF0aW9uODA3ADxNb2R1bGU+AGdldF9DdXN0b21lckRPQgBDbGllbnRJRABJbnB1dElEAEdl
+dE91dHB1dElEAENyZWF0ZV9JbXBvcnRhbnROb3RlX0lOT1RFAGdldF9DdXN0b21lclNTTgBUAHNl
+dF9Sb3dEYXRhAHJvd0RhdGEAbXNjb3JsaWIAU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMAQWNj
+b3VudElkAEFkZABEYXRlTG9hZGVkAElucHV0c0ZpbmlzaGVkAE1hcmtPdXRwdXRzRmluaXNoZWQA
+SXNSb3dEYXRhVmFsaWQAQ3JlYXRlXzEwMFBsYWNlbWVudEluZm9SZWNvcmQAQWRkUGxhY2VtZW50
+UmVjb3JkAENyZWF0ZV8xMEFjY291bnRSZWNvcmQAQ3JlYXRlXzIwUGFydHlSZWNvcmQAcmVjb3Jk
+AFJlcGxhY2UASW50ZXJlc3RJbml0aWFsQmFsYW5jZQBQcmluY2lwYWxJbml0YWxCYWxhbmNlAGRl
+ZmF1bHRJbnN0YW5jZQBQb3N0YWxDb2RlAFJ1bnRpbWVUeXBlSGFuZGxlAEdldFR5cGVGcm9tSGFu
+ZGxlAEluY29taW5nRmlsZU5hbWUAZ2V0X0N1c3RvbWVyTGFzdE5hbWUAZ2V0X0N1c3RvbWVyRmly
+c3ROYW1lAElucHV0TmFtZQBnZXRfZmlsZW5hbWUAVG9EYXRlVGltZQBBZGRyZXNzTGluZQBDb21t
+b25FbmdpbmUATWljcm9zb2Z0LlNxbFNlcnZlci5EdHMuUGlwZWxpbmUAZ2V0X0N1c3RvbWVySG9t
+ZVBob25lAFNPTEFncmVlbWVudFR5cGUAZ2V0X0N1bHR1cmUAc2V0X0N1bHR1cmUAcmVzb3VyY2VD
+dWx0dXJlAEdlbmVyYWxQdXJwb3NlUmVjb3JkQmFzZQBBcHBsaWNhdGlvblNldHRpbmdzQmFzZQBS
+R1MuQXJ0aXZhR2VuZXJhbFB1cnBvc2UAU09MRGF0ZQBMaXN0ZWREYXRlAGdldF9TZXJ2aWNlRGF0
+ZQBCS0VmZmVjdGl2ZURhdGUAQWNjb3VudE9wZW5EYXRlAGdldF9MYXN0UGF5bWVudERhdGUAQ2xp
+ZW50TGFzdFBheURhdGUAZ2V0X0RlbGlxdWVuY3lEYXRlAERlbGlucXVlbmN5RGF0ZQBnZXRfSW50
+ZXJlc3RSYXRlAFNPTFN0YXRlAEVkaXRvckJyb3dzYWJsZVN0YXRlAGdldF9DdXN0b21lclN0YXRl
+AE5vdGUAQ29tcGlsZXJHZW5lcmF0ZWRBdHRyaWJ1dGUARGVidWdnZXJOb25Vc2VyQ29kZUF0dHJp
+YnV0ZQBEZWJ1Z2dhYmxlQXR0cmlidXRlAEVkaXRvckJyb3dzYWJsZUF0dHJpYnV0ZQBBc3NlbWJs
+eVRpdGxlQXR0cmlidXRlAEFzc2VtYmx5VHJhZGVtYXJrQXR0cmlidXRlAFRhcmdldEZyYW1ld29y
+a0F0dHJpYnV0ZQBBc3NlbWJseUNvbmZpZ3VyYXRpb25BdHRyaWJ1dGUAQXNzZW1ibHlEZXNjcmlw
+dGlvbkF0dHJpYnV0ZQBDb21waWxhdGlvblJlbGF4YXRpb25zQXR0cmlidXRlAEFzc2VtYmx5UHJv
+ZHVjdEF0dHJpYnV0ZQBBc3NlbWJseUNvcHlyaWdodEF0dHJpYnV0ZQBTU0lTU2NyaXB0Q29tcG9u
+ZW50RW50cnlQb2ludEF0dHJpYnV0ZQBBc3NlbWJseUNvbXBhbnlBdHRyaWJ1dGUAUnVudGltZUNv
+bXBhdGliaWxpdHlBdHRyaWJ1dGUAUHJlRXhlY3V0ZQBQb3N0RXhlY3V0ZQBnZXRfSW50ZXJlc3RC
+YWxhbmNlRHVlAGdldF9QcmluY2lwYWxiYWxhbmNlRHVlAGdldF9Ub3RhbEFtb3VudER1ZQBnZXRf
+VG90YWxBbW91bnRQYXN0RHVlAHNldF9WYWx1ZQB2YWx1ZQBJbmRleE9mAFNDX2U5MzBiODRkN2Vl
+YTQyOWRhNmVlZmU2OGE1ZTI5Y2ZmAFN5c3RlbS5SdW50aW1lLlZlcnNpb25pbmcAV3JpdGVTdHJp
+bmcAVG9TdHJpbmcAR2V0U3RyaW5nAFN1YnN0cmluZwBJc01hdGNoAGdldF9Nb250aABEYXRlT2ZC
+aXJ0aABUb0RlY2ltYWwATmV0UHJpbmNpcGFsAG9wX0dyZWF0ZXJUaGFuT3JFcXVhbABTeXN0ZW0u
+Q29tcG9uZW50TW9kZWwAUGxhY2VtZW50TGV2ZWwAU0NfZTkzMGI4NGQ3ZWVhNDI5ZGE2ZWVmZTY4
+YTVlMjljZmYuZGxsAGdldF9DdXN0b21lckFkZHJlc3MyX0lzTnVsbABnZXRfQ3VzdG9tZXJET0Jf
+SXNOdWxsAGdldF9DdXN0b21lclNTTl9Jc051bGwAc2V0X1Jvd0RhdGFfSXNOdWxsAGdldF9DdXN0
+b21lckxhc3ROYW1lX0lzTnVsbABnZXRfQ3VzdG9tZXJGaXJzdE5hbWVfSXNOdWxsAGdldF9DdXN0
+b21lckhvbWVQaG9uZV9Jc051bGwAZ2V0X1NlcnZpY2VEYXRlX0lzTnVsbABnZXRfTGFzdFBheW1l
+bnREYXRlX0lzTnVsbABnZXRfRGVsaXF1ZW5jeURhdGVfSXNOdWxsAGdldF9JbnRlcmVzdFJhdGVf
+SXNOdWxsAGdldF9DdXN0b21lclN0YXRlX0lzTnVsbABnZXRfSW50ZXJlc3RCYWxhbmNlRHVlX0lz
+TnVsbABnZXRfUHJpbmNpcGFsYmFsYW5jZUR1ZV9Jc051bGwAZ2V0X1RvdGFsQW1vdW50RHVlX0lz
+TnVsbABnZXRfVG90YWxBbW91bnRQYXN0RHVlX0lzTnVsbABnZXRfQ3VzdG9tZXJaaXBfSXNOdWxs
+AGdldF9DbGllbnRSZWZlcmVuY2VOdW1iZXJfSXNOdWxsAGdldF9DdXN0b21lckVtcGxveWVyX0lz
+TnVsbABnZXRfQ3VzdG9tZXJFbWFpbEFkZHJlc3NfSXNOdWxsAGdldF9DdXN0b21lckFkZHJlc3Nf
+SXNOdWxsAGdldF9PcmlnaW5hbFBheW1lbnRBbW91bnRfSXNOdWxsAGdldF9MYXN0UGF5bWVudEFt
+b3VudF9Jc051bGwAZ2V0X1BheW1lbnRGcmVxdWVuY3lfSXNOdWxsAGdldF9DdXN0b21lckNpdHlf
+SXNOdWxsAFNldE51bGwAZ2V0X0l0ZW0Ac2V0X0l0ZW0AU3lzdGVtAFRyaW0AcmVzb3VyY2VNYW4A
+U2NyaXB0TWFpbgBvcF9EaXZpc2lvbgBTeXN0ZW0uQ29uZmlndXJhdGlvbgBTeXN0ZW0uR2xvYmFs
+aXphdGlvbgBTeXN0ZW0uUmVmbGVjdGlvbgBvcF9BZGRpdGlvbgBJbnZhbGlkT3BlcmF0aW9uRXhj
+ZXB0aW9uAERlYnREZXNjcmlwdGlvbgBTdHJpbmdDb21wYXJpc29uAEN1bHR1cmVJbmZvAFplcm8A
+T3V0cHV0TmFtZU1hcABPdXRwdXRNYXAATWljcm9zb2Z0LlNxbFNlcnZlci5EVFNSdW50aW1lV3Jh
+cABnZXRfQ3VzdG9tZXJaaXAAZ2V0X1llYXIAZ2V0X0NsaWVudFJlZmVyZW5jZU51bWJlcgBQcmlt
+YXJ5UGhvbmVOdW1iZXIAU29jaWFsU2VjdXJpdHlOdW1iZXIAZ2V0X0luYm91bmRGb2xkZXIASW5w
+dXQwQnVmZmVyAE91dHB1dDBCdWZmZXIAUGlwZWxpbmVCdWZmZXIAU2NyaXB0QnVmZmVyAGdldF9S
+ZXNvdXJjZU1hbmFnZXIAVG9VcHBlcgBNaWNyb3NvZnQuU3FsU2VydmVyLkR0cy5SdW50aW1lLldy
+YXBwZXIAZ2V0X0N1c3RvbWVyRW1wbG95ZXIALmN0b3IALmNjdG9yAE91dHB1dElEcwBTeXN0ZW0u
+RGlhZ25vc3RpY3MAUkdTLkFydGl2YUdlbmVyYWxQdXJwb3NlLkRhdGEuUmVjb3JkcwBJbnNlcnRf
+MjAzQWNjdEZyZWVGb3JtVGV4dFJlY29yZHMAU3lzdGVtLlJ1bnRpbWUuQ29tcGlsZXJTZXJ2aWNl
+cwBTeXN0ZW0uUmVzb3VyY2VzAFNDX2U5MzBiODRkN2VlYTQyOWRhNmVlZmU2OGE1ZTI5Y2ZmLlBy
+b3BlcnRpZXMuUmVzb3VyY2VzLnJlc291cmNlcwBEZWJ1Z2dpbmdNb2RlcwBTQ19lOTMwYjg0ZDdl
+ZWE0MjlkYTZlZWZlNjhhNWUyOWNmZi5Qcm9wZXJ0aWVzAGdldF9SZWFkV3JpdGVWYXJpYWJsZXMA
+Z2V0X1JlYWRPbmx5VmFyaWFibGVzAEJ1ZmZlckNvbHVtbkluZGV4ZXMAR2V0Q29sdW1uSW5kZXhl
+cwBTZXR0aW5ncwBFcXVhbHMAQ29udGFpbnMAU3lzdGVtLlRleHQuUmVndWxhckV4cHJlc3Npb25z
+AENvbm5lY3Rpb25zAEJ1ZmZlcnMARmlsZUhlbHBlcnMAZ2V0X0N1c3RvbWVyRW1haWxBZGRyZXNz
+AGdldF9DdXN0b21lckFkZHJlc3MARmluaXNoT3V0cHV0cwBDcmVhdGVOZXdPdXRwdXRSb3dzAEFk
+ZERheXMAQ29uY2F0AE9iamVjdABnZXRfRW5kT2ZSb3dzZXQAU2V0RW5kT2ZSb3dzZXQAZ2V0X0Rl
+ZmF1bHQAUHJpbmNpcGFsQmFsYW5jZUF0UGxhY2VtZW50AEludGVyZXN0QmFsYW5jZUF0UGxhY2Vt
+ZW50AFRvdGFsQW1vdW50QXRQbGFjZW1lbnQAUGxhY2VPZkVtcGxveW1lbnQAVXNlckNvbXBvbmVu
+dABQYXJlbnRDb21wb25lbnQAU2NyaXB0Q29tcG9uZW50AGdldF9QbGFjZW1lbnRDb3VudABzZXRf
+UGxhY2VtZW50Q291bnQAaVBsYWNlbWVudENvdW50AGdldF9QbGFjZW1lbnRBbW91bnQAc2V0X1Bs
+YWNlbWVudEFtb3VudABkY2xQbGFjZW1lbnRBbW91bnQAZ2V0X09yaWdpbmFsUGF5bWVudEFtb3Vu
+dABnZXRfTGFzdFBheW1lbnRBbW91bnQATW9udGhseVBheW1lbnRBbW91bnQARGVsaW5xdWVudEFt
+b3VudABDbGllbnRMYXN0UGF5QW1vdW50AE1pY3Jvc29mdC5TcWxTZXJ2ZXIuVHhTY3JpcHQAQ29u
+dmVydABNaWNyb3NvZnQuU3FsU2VydmVyLlBpcGVsaW5lSG9zdABJbnB1dDBfUHJvY2Vzc0lucHV0
+AFByaW1lT3V0cHV0AEdldFZhbHVlV2l0aENvbnRleHQAU2NyaXB0Q29tcG9uZW50RXZhbENvbnRl
+eHQAZ2V0X0V2YWx1YXRvckNvbnRleHQAZ2V0X05vdwBBZGRSb3cASW5wdXQwX1Byb2Nlc3NJbnB1
+dFJvdwBOZXh0Um93AFJlZ2V4AEFkZHJlc3NVbml0X0FwdE9yUE9Cb3gAZ2V0X1RvZGF5AGdldF9Q
+YXltZW50RnJlcXVlbmN5AFJlbGF0aW9uc2hpcFR5cGVLZXkAZ2V0X0Fzc2VtYmx5AGdldF9DdXN0
+b21lckNpdHkASXNOdWxsT3JFbXB0eQAAAAAADUQAQwBMAEEAQwBIAAANRABDAEwAWQBEAEQAAA9X
+AFIASQBUAFQARQBOAABBWQBvAHUAcgAgAGwAbwBhAG4AIABzAGUAcgB2AGkAYwBlAGQAIABiAHkA
+IABMAGUAbgBkAGwAeQAgAEwATABDAAAJUABSAEkATQAAHVIARQBDAEEATABMACAARABBAFQARQAg
+ADoAIAAAFU0ATQAvAGQAZAAvAHkAeQB5AHkAAAEAAzEAAAMsAAALWwBeACwAIgBdAACAm0kAcwBO
+AHUAbABsACAAcAByAG8AcABlAHIAdAB5ACAAYwBhAG4AbgBvAHQAIABiAGUAIABzAGUAdAAgAHQA
+bwAgAEYAYQBsAHMAZQAuACAAQQBzAHMAaQBnAG4AIABhACAAdgBhAGwAdQBlACAAdABvACAAdABo
+AGUAIABjAG8AbAB1AG0AbgAgAGkAbgBzAHQAZQBhAGQALgAAD0kAbgBwAHUAdAAgADAAABFPAHUA
+dABwAHUAdAAgADAAABFmAGkAbABlAG4AYQBtAGUAABtJAG4AYgBvAHUAbgBkAEYAbwBsAGQAZQBy
+AAAfUABsAGEAYwBlAG0AZQBuAHQAQQBtAG8AdQBuAHQAAB1QAGwAYQBjAGUAbQBlAG4AdABDAG8A
+dQBuAHQAAHFTAEMAXwBlADkAMwAwAGIAOAA0AGQANwBlAGUAYQA0ADIAOQBkAGEANgBlAGUAZgBl
+ADYAOABhADUAZQAyADkAYwBmAGYALgBQAHIAbwBwAGUAcgB0AGkAZQBzAC4AUgBlAHMAbwB1AHIA
+YwBlAHMAALzfUggHGMxIul3QZ9dq84sABCABAQgDIAABBSABARERBCABAQ4FIAEBEXkDIAAOBAAB
+Ag4FAAEROQ4IAAIRORE5ETkNBwYRPRE9ETkSQQ4RPQQAABE9AyAACAYgAwEICAgFIAERPQ0CBg4H
+AAICETkROQMGETkFAAERPQ4HFRGAkQERPQUgAQETAAgGFRGAkQERPQQKARJBBQcCEkUOBAoBEkUG
+BwISSRE9BCABDg4FAAIODg4ECgESSQQHARJNBxURgJEBETkIBhURgJEBETkECgESTQQHARJRBSAC
+Dg4OBAoBElEDBwEOBxUSgJkBHgALEAEBDhUSgKEBHgAECgEeAAQgAQIOBCABCA4EIAEOCAUAAgIO
+DgkgAwESXR0IEmEDBhJdAwYdCAQgAQIIAyAAAgUgAgEIHAcgAgIOEYCtBSABHQgIAwcBCAYAAggS
+YQ4FIAASgLEGIAESgLUcBQAAEoC5BiABHBKAvQQgAQEcCAABEoDFEYDJBSAAEoDNByACAQ4SgM0I
+t3pcVhk04IkIiYRdzYCAzJEI+gztSkVRp4IIPgwI1ZzD1lcCBggDBhIYAwYSHAMGEhADBhJlAwYS
+cQMGEnUDBhIkBSABARIMBjABAQEeAAQgAQECCSAEAQgOEl0SYQsgBAEIHQgdEl0SYQUgAQESZQQA
+ABJxBAAAEnUFAAEBEnUEAAASJAMAAAEDKAAOAygAAgMoAAgECAAScQQIABJ1BAgAEiQIAQAIAAAA
+AAAeAQABAFQCFldyYXBOb25FeGNlcHRpb25UaHJvd3MBCAEAAgAAAAAAKAEAI1NDX2U5MzBiODRk
+N2VlYTQyOWRhNmVlZmU2OGE1ZTI5Y2ZmAAAFAQAAAAAWAQARQ29weXJpZ2h0IEAgIDIwMTgAAEcB
+ABouTkVURnJhbWV3b3JrLFZlcnNpb249djQuMAEAVA4URnJhbWV3b3JrRGlzcGxheU5hbWUQLk5F
+VCBGcmFtZXdvcmsgNAQBAAAAtAAAAM7K774BAAAAkQAAAGxTeXN0ZW0uUmVzb3VyY2VzLlJlc291
+cmNlUmVhZGVyLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1
+YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkjU3lzdGVtLlJlc291cmNlcy5SdW50aW1lUmVz
+b3VyY2VTZXQCAAAAAAAAAAAAAABQQURQQURQtAAAAPBTAAAAAAAAAAAAAApUAAAAIAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAD8UwAAAAAAAAAAAAAAAF9Db3JEbGxNYWluAG1zY29yZWUuZGxsAAAAAAD/
+JQAgABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAEAAAABgAAIAAAAAA
+AAAAAAAAAAAAAAEAAQAAADAAAIAAAAAAAAAAAAAAAAAAAAEAAAAAAEgAAABYYAAA7AMAAAAAAAAA
+AAAA7AM0AAAAVgBTAF8AVgBFAFIAUwBJAE8ATgBfAEkATgBGAE8AAAAAAL0E7/4AAAEAAAABAAAA
+AAAAAAEAAAAAAD8AAAAAAAAABAAAAAIAAAAAAAAAAAAAAAAAAABEAAAAAQBWAGEAcgBGAGkAbABl
+AEkAbgBmAG8AAAAAACQABAAAAFQAcgBhAG4AcwBsAGEAdABpAG8AbgAAAAAAAACwBEwDAAABAFMA
+dAByAGkAbgBnAEYAaQBsAGUASQBuAGYAbwAAACgDAAABADAAMAAwADAAMAA0AGIAMAAAABoAAQAB
+AEMAbwBtAG0AZQBuAHQAcwAAAAAAAAAiAAEAAQBDAG8AbQBwAGEAbgB5AE4AYQBtAGUAAAAAAAAA
+AABwACQAAQBGAGkAbABlAEQAZQBzAGMAcgBpAHAAdABpAG8AbgAAAAAAUwBDAF8AZQA5ADMAMABi
+ADgANABkADcAZQBlAGEANAAyADkAZABhADYAZQBlAGYAZQA2ADgAYQA1AGUAMgA5AGMAZgBmAAAA
+MAAIAAEARgBpAGwAZQBWAGUAcgBzAGkAbwBuAAAAAAAxAC4AMAAuADAALgAwAAAAcAAoAAEASQBu
+AHQAZQByAG4AYQBsAE4AYQBtAGUAAABTAEMAXwBlADkAMwAwAGIAOAA0AGQANwBlAGUAYQA0ADIA
+OQBkAGEANgBlAGUAZgBlADYAOABhADUAZQAyADkAYwBmAGYALgBkAGwAbAAAAEgAEgABAEwAZQBn
+AGEAbABDAG8AcAB5AHIAaQBnAGgAdAAAAEMAbwBwAHkAcgBpAGcAaAB0ACAAQAAgACAAMgAwADEA
+OAAAACoAAQABAEwAZQBnAGEAbABUAHIAYQBkAGUAbQBhAHIAawBzAAAAAAAAAAAAeAAoAAEATwBy
+AGkAZwBpAG4AYQBsAEYAaQBsAGUAbgBhAG0AZQAAAFMAQwBfAGUAOQAzADAAYgA4ADQAZAA3AGUA
+ZQBhADQAMgA5AGQAYQA2AGUAZQBmAGUANgA4AGEANQBlADIAOQBjAGYAZgAuAGQAbABsAAAAaAAk
+AAEAUAByAG8AZAB1AGMAdABOAGEAbQBlAAAAAABTAEMAXwBlADkAMwAwAGIAOAA0AGQANwBlAGUA
+YQA0ADIAOQBkAGEANgBlAGUAZgBlADYAOABhADUAZQAyADkAYwBmAGYAAAA0AAgAAQBQAHIAbwBk
+AHUAYwB0AFYAZQByAHMAaQBvAG4AAAAxAC4AMAAuADAALgAwAAAAOAAIAAEAQQBzAHMAZQBtAGIA
+bAB5ACAAVgBlAHIAcwBpAG8AbgAAADEALgAwAC4AMAAuADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUAAADAAAABw0AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
+                      </arrayElements>
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the Microsoft Visual Studio Tools for Applications project. Project names must be unique within a package."
+                      name="VSTAProjectName"
+                      typeConverter="NOTBROWSABLE">SC_e930b84d7eea429da6eefe68a5e29cff</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the programming language used by the script."
+                      name="ScriptLanguage"
+                      typeConverter="Microsoft.SqlServer.VSTAHosting.ScriptingLanguages, Microsoft.SqlServer.VSTAScriptingLib, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">CSharp</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a comma-separated list of read-only variables."
+                      name="ReadOnlyVariables"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIVariablePickerDlg, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">User::filename,$Package::InboundFolder</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a comma-separated list of read/write variables."
+                      name="ReadWriteVariables"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIWriteableVariablePickerDlg, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">User::PlacementAmount,User::PlacementCount</property>
+                    <property
+                      dataType="System.String"
+                      description="List of breakpoints present on the script."
+                      isArray="true"
+                      name="BreakpointCollection"
+                      typeConverter="NOTBROWSABLE">
+                      <arrayElements
+                        arrayElementCount="1">
+                        <arrayElement
+                          dataType="System.String">&lt;SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"&gt;
+&lt;SOAP-ENV:Body&gt;
+&lt;a1:ScriptBreakpointInfo id="ref-1" xmlns:a1="http://schemas.microsoft.com/clr/nsassem/Microsoft.SqlServer.VSTAHosting/Microsoft.SqlServer.VSTAScriptingLib%2C%20Version%3D11.0.0.0%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3D89845dcd8080cc91"&gt;
+&lt;Enabled&gt;true&lt;/Enabled&gt;
+&lt;File id="ref-3"&gt;main.cs&lt;/File&gt;
+&lt;FileLine&gt;151&lt;/FileLine&gt;
+&lt;FileColumn&gt;9&lt;/FileColumn&gt;
+&lt;/a1:ScriptBreakpointInfo&gt;
+&lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</arrayElement>
+                      </arrayElements>
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Checksum to match component metedata against compiled codes."
+                      name="MetadataChecksum"
+                      typeConverter="NOTBROWSABLE">9fe3ed9a8c79a5c2c9f46258a14b8514</property>
+                    <property
+                      dataType="System.String"
+                      description="Checksum to match component metedata against compiled codes."
+                      name="MetadataShaChecksum"
+                      typeConverter="NOTBROWSABLE">6083d81cceb34cdf272642f4510b5001cbc8de6b</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">Microsoft.SqlServer.Dts.Pipeline.ScriptComponentHost, Microsoft.SqlServer.TxScript, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0]"
+                      hasSideEffects="true"
+                      name="Input 0">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Client Reference Number]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Client Reference Number"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Client Reference Number]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Principal balance Due]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Principal balance Due"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Principal balance Due]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Interest Balance Due]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Interest Balance Due"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Interest Balance Due]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Total Amount Due]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Total Amount Due"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Total Amount Due]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Total Amount Past Due]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Total Amount Past Due"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Total Amount Past Due]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Service Date]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Service Date"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Service Date]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Deliquency Date]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Deliquency Date"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Deliquency Date]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Last Payment Amount]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Last Payment Amount"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Last Payment Amount]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Last Payment Date]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Last Payment Date"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Last Payment Date]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Interest Rate]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Interest Rate"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Interest Rate]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Payment Frequency]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Payment Frequency"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Payment Frequency]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Original Payment Amount]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Original Payment Amount"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Original Payment Amount]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Customer First Name]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Customer First Name"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer First Name]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Customer Last Name]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Customer Last Name"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Last Name]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Customer Address]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="Customer Address"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Address]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Customer Address 2]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Customer Address 2"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Address 2]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Customer City]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Customer City"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer City]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Customer State]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Customer State"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer State]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Customer Zip]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Customer Zip"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Zip]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Customer SSN]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Customer SSN"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer SSN]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Customer DOB]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Customer DOB"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer DOB]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Customer Home Phone]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Customer Home Phone"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Home Phone]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Customer Employer]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Customer Employer"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Employer]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0].Columns[Customer Email Address]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="Customer Email Address"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output].Columns[Customer Email Address]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Process Placements\Process Placements.Outputs[Output 0]"
+                      hasSideEffects="true"
+                      name="Output 0">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process Placements\Process Placements.Outputs[Output 0].Columns[RowData]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5000"
+                          lineageId="Package\Foreach Loop Container\Process Placements\Process Placements.Outputs[Output 0].Columns[RowData]"
+                          name="RowData" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Foreach Loop Container\Process Placements.Paths[Flat File Source Output]"
+                  endId="Package\Foreach Loop Container\Process Placements\Process Placements.Inputs[Input 0]"
+                  name="Flat File Source Output"
+                  startId="Package\Foreach Loop Container\Process Placements\Flat File Source.Outputs[Flat File Source Output]" />
+                <path
+                  refId="Package\Foreach Loop Container\Process Placements.Paths[Output 0]"
+                  endId="Package\Foreach Loop Container\Process Placements\OutboundFile.Inputs[Flat File Destination Input]"
+                  name="Output 0"
+                  startId="Package\Foreach Loop Container\Process Placements\Process Placements.Outputs[Output 0]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Send Ack Mail"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.SendMailTask.SendMailTask, Microsoft.SqlServer.SendMailTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Send Mail Task"
+          DTS:Disabled="True"
+          DTS:DTSID="{780d02b6-1ff8-47fb-92cf-ae831453341f}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.SendMailTask.SendMailTask, Microsoft.SqlServer.SendMailTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Send Ack Mail"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="FromLine">@[$Package::EmailFrom]</DTS:PropertyExpression>
+          <DTS:PropertyExpression
+            DTS:Name="MessageSource">"Name Of Client File: " + @[User::filename]   + "\n" + 
+"Total Count Of Placements: " + (DT_WSTR,10) @[User::PlacementCount] + "\n" +
+"Total Amount Placed: $ " +  @[User::PlacementAmount]</DTS:PropertyExpression>
+          <DTS:PropertyExpression
+            DTS:Name="ToLine">@[$Package::EmailToList]</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SendMailTask:SendMailTaskData
+              SendMailTask:SMTPServer="{AE440EBB-6398-4A74-AEA7-2E15E5482874}"
+              SendMailTask:From="reports@radiusgs.com"
+              SendMailTask:To="ClientServices-All@radiusgs.com;Lois.Mongeluzi@radiusgs.com;Pat.Danner@radiusgs.com;nagarani.mallela@radiusgs.com;bilal.shaikh@radiusgs.com;aditya.hulyal@radiusgs.com"
+              SendMailTask:Subject="Lendly Placement"
+              SendMailTask:MessageSource="Name Of Client File: M:\Lendly\In\LendlyPlacement.xlsx&#xA;Total Count Of Placements: 0&#xA;Total Amount Placed: $ " xmlns:SendMailTask="www.microsoft.com/sqlserver/dts/tasks/sendmailtask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{00B4CA5A-0D7F-4245-A8CF-C344E42286DA}"
+          DTS:From="Package\Foreach Loop Container\Process Placements"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Foreach Loop Container\Send Ack Mail" />
+      </DTS:PrecedenceConstraints>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{1F01E0DD-E706-4B3F-A583-C21293303C7A}"
+          DTS:ObjectName="{1F01E0DD-E706-4B3F-A583-C21293303C7A}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::filename" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="171,42"
+          Id="Package\Foreach Loop Container\Process Placements"
+          TopLeft="5.5,5.5" />
+        <NodeLayout
+          Size="146,42"
+          Id="Package\Foreach Loop Container\Send Ack Mail"
+          TopLeft="14,95" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+          TopLeft="89,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47.5"
+              Start="0,0"
+              End="0,40">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="280,192"
+          Size="280,235"
+          Id="Package\Foreach Loop Container"
+          TopLeft="5.50000000000003,5.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Foreach Loop Container\Process Placements">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="171,42"
+          Id="Package\Foreach Loop Container\Process Placements\Process Placements"
+          TopLeft="17.5,107.5" />
+        <NodeLayout
+          Size="144,42"
+          Id="Package\Foreach Loop Container\Process Placements\OutboundFile"
+          TopLeft="32,209.5" />
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Foreach Loop Container\Process Placements\Flat File Source"
+          TopLeft="31,4" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Process Placements.Paths[Output 0]"
+          TopLeft="103.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Process Placements.Paths[Flat File Source Output]"
+          TopLeft="104.75,46">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61.5"
+              Start="0,0"
+              End="0,54">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

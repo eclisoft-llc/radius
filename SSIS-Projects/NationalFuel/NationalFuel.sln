@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "NationalFuel", "NationalFuel\NationalFuel.dtproj", "{FD33D87B-449E-4356-A265-7F0F504A81E1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD33D87B-449E-4356-A265-7F0F504A81E1}.Development|Default.ActiveCfg = Development
+		{FD33D87B-449E-4356-A265-7F0F504A81E1}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://jacs8063.ccscollect.com:8080/tfs/rgscollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = NationalFuel\\NationalFuel.dtproj
+		SccProjectName1 = NationalFuel
+		SccLocalPath1 = NationalFuel
+	EndGlobalSection
+EndGlobal

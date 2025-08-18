@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "RegionalAcceptance", "RegionalAcceptance\RegionalAcceptance.dtproj", "{0CE73A06-B67F-464D-BD0C-EEA7CAA5BB17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OB-Remit", "OB-Remit\OB-Remit.csproj", "{BA839A72-FBB1-46A8-877A-EB7737CF3C37}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Development|Any CPU = Development|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0CE73A06-B67F-464D-BD0C-EEA7CAA5BB17}.Debug|Any CPU.ActiveCfg = Development
+		{0CE73A06-B67F-464D-BD0C-EEA7CAA5BB17}.Debug|Any CPU.Build.0 = Development
+		{0CE73A06-B67F-464D-BD0C-EEA7CAA5BB17}.Development|Any CPU.ActiveCfg = Development
+		{0CE73A06-B67F-464D-BD0C-EEA7CAA5BB17}.Development|Any CPU.Build.0 = Development
+		{0CE73A06-B67F-464D-BD0C-EEA7CAA5BB17}.Release|Any CPU.ActiveCfg = Development
+		{0CE73A06-B67F-464D-BD0C-EEA7CAA5BB17}.Release|Any CPU.Build.0 = Development
+		{BA839A72-FBB1-46A8-877A-EB7737CF3C37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA839A72-FBB1-46A8-877A-EB7737CF3C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA839A72-FBB1-46A8-877A-EB7737CF3C37}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA839A72-FBB1-46A8-877A-EB7737CF3C37}.Development|Any CPU.Build.0 = Debug|Any CPU
+		{BA839A72-FBB1-46A8-877A-EB7737CF3C37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA839A72-FBB1-46A8-877A-EB7737CF3C37}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://jacs8063.ccscollect.com:8080/tfs/rgscollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = OB-Remit\\OB-Remit.csproj
+		SccProjectName1 = OB-Remit
+		SccLocalPath1 = OB-Remit
+		SccProjectUniqueName2 = RegionalAcceptance\\RegionalAcceptance.dtproj
+		SccProjectName2 = RegionalAcceptance
+		SccLocalPath2 = RegionalAcceptance
+	EndGlobalSection
+EndGlobal

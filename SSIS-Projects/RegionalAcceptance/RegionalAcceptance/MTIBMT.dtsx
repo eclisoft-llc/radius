@@ -1,0 +1,4035 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/7/2020 12:19:08 PM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="DFW2-APPDEV-006"
+  DTS:CreatorName="CORP\nokeke"
+  DTS:DTSID="{084DA70D-53F6-46A2-906D-B72C24DE0D83}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="MTIBMT"
+  DTS:PackageType="5"
+  DTS:VersionBuild="77"
+  DTS:VersionGUID="{C468D25F-753A-4A63-B8E6-98B448A4969F}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ARTIVA]"
+      DTS:CreationName="ADO.NET:System.Data.Odbc.OdbcConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{21D9CA10-3555-4DE5-A9A3-50BD3E310AE7}"
+      DTS:ObjectName="ARTIVA">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">"DSN="+  @[$Project::Namespace]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="DSN=THIRDPROD;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ArtivaMTComaker]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{382F4730-5FE6-4DC2-B09C-140FE5903AA3}"
+      DTS:ObjectName="ArtivaMTComaker">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::PathArtiva]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="M:\RegionalAcceptance\Outbound\ArtivaMT-THIRDPROD-Regional Acceptance Corp-MT-0-111202175417P.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="5000"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Data"
+              DTS:DTSID="{27BFA756-0D05-4BD0-A7C7-5A2F5BD0B389}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[CodeNotFoundEx]"
+      DTS:CreationName="FLATFILE"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{4788cf81-cfb8-4a8f-9426-fe2525f05fea}"
+      DTS:ObjectName="CodeNotFoundEx">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::MTCodeNotFound]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="RaggedRight"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="M:\RegionalAcceptance\Outbound\0-MTCodeNotFound.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="5000"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Message"
+              DTS:DTSID="{202C0599-76C1-4EC9-A04C-CC4DDAA51040}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Exceptions]"
+      DTS:CreationName="FLATFILE"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{20B9716C-E9DD-4633-ACDF-04582C42FC9F}"
+      DTS:ObjectName="Exceptions">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::ExceptionReportFile]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="RaggedRight"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="M:\RegionalAcceptance\Outbound\0-ExceptionReport.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="5000"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Message"
+              DTS:DTSID="{202C0599-76C1-4EC9-A04C-CC4DDAA51040}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Legal_Input_File]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{7CFADD74-07DF-4AC0-BF7F-B3A6BFE9A544}"
+      DTS:ObjectName="Legal_Input_File">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="M:\RegionalAcceptance\Inbound\sampleplacement.dl-Legal-6-6-2020.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Account Number"
+              DTS:DTSID="{882D1ECB-B7D4-41C6-9592-E3F08D0768BF}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Record Type"
+              DTS:DTSID="{ED041032-7050-4A5D-8F9C-4E5DA94630BB}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Sequence Number"
+              DTS:DTSID="{442178E6-02D8-4CB6-841A-C8C09A36123B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Suit Reason"
+              DTS:DTSID="{D23BCF0E-CEC6-4DEF-84BD-32D0FFEBE52D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Suit File Date"
+              DTS:DTSID="{39834901-F94B-4B8E-9DDD-9FECB275104A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Case Number1"
+              DTS:DTSID="{2B9CEBB9-E877-485B-B85E-FEA22C8586B9}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Court Name"
+              DTS:DTSID="{08CC1D79-FF2E-4984-A501-C0F7D9F509C4}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Judgment Recorded Date"
+              DTS:DTSID="{DD3D6714-E2CA-48C1-8E11-18A88202C150}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Judgment Book"
+              DTS:DTSID="{905E356E-ACED-4E71-ABDF-356A4BC3767D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Judgment Page"
+              DTS:DTSID="{2D6BE410-1BFF-479E-A764-0E2499D135D8}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Judgment Expiration Date"
+              DTS:DTSID="{710AC573-6E5C-4802-A01B-F37B75111156}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Creditor Meeting Location"
+              DTS:DTSID="{E0AAF2FF-5C72-4E28-9216-3F5AFAC79EC1}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Creditor Meeting Date"
+              DTS:DTSID="{8B002263-5F3F-4F70-93A6-14D1E80BF5C6}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Case Number2"
+              DTS:DTSID="{C3570B61-98F8-4914-931A-54BAC5683A94}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Filed Date"
+              DTS:DTSID="{0BEBDE7B-F5A7-4682-A791-25D3C6EEACC7}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Bar Date"
+              DTS:DTSID="{75056FF0-0939-47C7-8FA6-1C5C675B48F0}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Dismiss Date"
+              DTS:DTSID="{D2D37F30-FC2C-4E69-BE84-603C5D8C3BCA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Discharge Date"
+              DTS:DTSID="{6321681B-347E-4F73-89CB-97F91E436199}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Reaffirm Date"
+              DTS:DTSID="{A7CB91C0-9AB5-4B03-965C-3E6F50AAADD3}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Stay Lifted Date"
+              DTS:DTSID="{E37F6B51-B12C-47D3-9045-B87D8757FA9B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Bankruptcy Asset Indicator"
+              DTS:DTSID="{2359AA20-D6C2-46BC-9DA0-1BD6C3D65B53}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BANKRUPTCY USER-DEFINED ALPHA 2"
+              DTS:DTSID="{97C306C3-4ECE-4CB3-9480-9EED2677610F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BANKRUPTCY USER-DEFINED ALPHA 3"
+              DTS:DTSID="{ADEAAE98-7095-4906-A890-FE8B94B09647}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BANKRUPTCY USER-DEFINED VALUE 1"
+              DTS:DTSID="{9382971F-EE8F-4971-BE69-4FEDDAE8FB45}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BANKRUPTCY USER-DEFINED VALUE 2"
+              DTS:DTSID="{12002AB3-E70D-4479-99BC-C56A8ADCAA13}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BANKRUPTCY USER-DEFINED VALUE 3"
+              DTS:DTSID="{62067028-750F-42EC-852C-D3A82FA372A5}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Bankrutpcy Filing Date"
+              DTS:DTSID="{AE8731FA-F04B-4919-9D5F-89A0BC13811B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BANKRUPTCY USER - DEFINED DATE 2"
+              DTS:DTSID="{7CD2791F-110B-4FD7-A040-557675F8312F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BANKRUPTCY USER-DEFINED DATE 3"
+              DTS:DTSID="{34034C88-1933-42A0-A40B-35D76CB51452}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="LEGAL USER AMOUNT 1"
+              DTS:DTSID="{3063D754-BCCB-4E09-BE61-FF10DAD2F552}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="LEGAL USER AMOUNT 2"
+              DTS:DTSID="{F7DF79BB-5D46-4485-89A7-6F0457140306}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="LEGAL USER AMOUNT 3"
+              DTS:DTSID="{975D305D-7327-4D30-BE1E-B71D79990807}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="LEGAL USER AMOUNT 4"
+              DTS:DTSID="{F20FF4A5-67BC-4EA5-A966-CFF363D6E224}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="LEGAL USER AMOUNT 5"
+              DTS:DTSID="{9203FD2F-FA80-48E0-956B-85E6DF45C65D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="LEGAL USER AMOUNT 6"
+              DTS:DTSID="{265654A2-9A94-488B-B4E5-EE191FBAD1B3}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="LEGAL USER AMOUNT 7"
+              DTS:DTSID="{123F6D24-4B22-442B-88B0-FA653F44801D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="LEGAL USER AMOUNT 8"
+              DTS:DTSID="{B83F2A06-49B9-4A12-A312-2B60AD7A66B2}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Bankruptcy Attorney Name"
+              DTS:DTSID="{7213BD61-E8A1-4D50-A280-AF8CA9AED1E5}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Bankruptcy Attorney Addr 1"
+              DTS:DTSID="{AB2AEB84-8885-42E6-BA7E-2D55FB0DB150}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Bankruptcy Attorney Addr 2"
+              DTS:DTSID="{FE1FFFFE-17FB-42D9-B5B3-FDBBD41A4A45}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Bankruptcy Attorney City"
+              DTS:DTSID="{BADAC3CD-F487-42EB-A03C-72C18ED963A4}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Bankruptcy Attorney State"
+              DTS:DTSID="{3F7DF422-47E7-45BE-A057-7BBA5DFF7068}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Bankruptcy Attorney Zip"
+              DTS:DTSID="{146E34F1-96E8-4D8D-9304-B8F57C6606BA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Bankruptcy Attorney Phone"
+              DTS:DTSID="{02614A45-B465-4C99-BC0F-E235CF52F6C7}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="LEGAL USER VARIABLE 8"
+              DTS:DTSID="{CD02C60E-19BC-4561-8D3B-313132290A74}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="LEGAL USER VARIABLE 9"
+              DTS:DTSID="{AC6FB6F1-8B8D-42AE-9964-97582C3D3A6F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="LEGAL USER VARIABLE 10"
+              DTS:DTSID="{AB579ABB-AA09-4AD1-8101-D67240393C54}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="LEGAL USER VARIABLE 11"
+              DTS:DTSID="{636CAABC-86D5-492C-8266-E3B0A63ECD04}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="LEGAL USER PHONE 2"
+              DTS:DTSID="{C62609C5-C898-4527-8F21-876243BE988D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="LEGAL USER PHONE 3"
+              DTS:DTSID="{F8364783-FCC4-474C-ADF5-13652D521224}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="LEGAL USER PHONE 4"
+              DTS:DTSID="{D448D720-600C-4D12-99DF-EEB3B4397175}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Bankruptcy Chapter"
+              DTS:DTSID="{5BE389A2-DA76-4EE8-995D-1F4280A13216}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Filler"
+              DTS:DTSID="{1350CC23-4DDA-480E-B71D-34AC3E878068}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Agency Code"
+              DTS:DTSID="{7B13DC0F-5C36-49F4-9F7A-E197B9868726}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Format Code"
+              DTS:DTSID="{CB035EEE-5A73-4ABC-937B-BE8AF5F5E06D}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MT_Input_File]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{85C84CDB-B343-4EFC-B704-7DB8E013CBE2}"
+      DTS:ObjectName="MT_Input_File">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::FullInboundDirectory] +  @[User::CurrentFile]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="M:\RegionalAcceptance\Inbound\0">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Transaction Date"
+              DTS:DTSID="{986ACFF2-2577-4891-872B-F2F43B0AA02F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Transaction Time"
+              DTS:DTSID="{75551DE0-9340-4625-9C7E-AEAB4D3FE8DF}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Account Number"
+              DTS:DTSID="{60E2D4C3-577E-4438-824E-482E330D5773}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Transaction Code"
+              DTS:DTSID="{BCB8F6D9-84A2-4CC8-ABEC-600E39F33034}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Field Code"
+              DTS:DTSID="{8BDF82B3-C201-492F-BB2C-A29A6ACD5ACD}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="New Value"
+              DTS:DTSID="{7704E462-25B5-441B-A106-AF30E6D1D92D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Internal - External flag"
+              DTS:DTSID="{9CC15D78-E595-40F9-9B6C-295A7BC107C2}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="DPS ID   Recoverer Code"
+              DTS:DTSID="{43CC2685-7888-4D9E-8971-183E40088A0A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Recoverer ID"
+              DTS:DTSID="{5B43FF44-EA10-4693-A25B-3F19DFA7E3E9}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Loan Code"
+              DTS:DTSID="{469DCACB-9132-4D50-945A-375E020606E8}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Not Used"
+              DTS:DTSID="{FBAD700F-F731-4ECD-8EFB-3A38841F2DFC}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{46767C1A-EBE2-4D00-864A-11F983933F94}"
+      DTS:ObjectName="ClientName">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">Regional Acceptance Corp</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{5E759636-E246-438B-8202-1859F17FFEE8}"
+      DTS:ObjectName="InboundDirectory">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">Inbound\</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{873601A8-D803-4956-8C0C-19AE88CB16D7}"
+      DTS:ObjectName="InboundFileMask">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">*-MT-*.csv</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{8C8F1474-CAA3-401F-8A52-373158814066}"
+      DTS:ObjectName="OutboundDirectory">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">Outbound\</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2395A67D-4EE8-46FA-8744-D157E40F9507}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CurrentFile">
+      <DTS:VariableValue
+        DTS:DataType="8">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E59C0E05-6AD4-46E0-819B-DF4083C9E941}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="REPLACE(REPLACE(REPLACE(LEFT(  (DT_WSTR, 99) @[System::StartTime]  ,19)&#xA;,&quot;:&quot;,&quot;&quot;),&quot;/&quot;,&quot;&quot;),&quot; &quot;,&quot;&quot;)"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="DateStamp">
+      <DTS:VariableValue
+        DTS:DataType="8">111202175417P</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4470F51C-DC1A-41FA-BF61-1F5728252969}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::FullInboundDirectory] +  @[User::CurrentFile]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="DeleteFile">
+      <DTS:VariableValue
+        DTS:DataType="8">M:\RegionalAcceptance\Inbound\0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{536711A2-6FA0-4296-97DF-D25BBFDF4379}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::FullOutboundDirectory]  +  @[User::CurrentFile]  + &quot;-ExceptionReport.csv&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ExceptionReportFile">
+      <DTS:VariableValue
+        DTS:DataType="8">M:\RegionalAcceptance\Outbound\0-ExceptionReport.csv</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{114F2C4F-F54B-4638-A336-B6E36002BE5D}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::LocalPath]+ @[$Package::InboundDirectory]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FullInboundDirectory">
+      <DTS:VariableValue
+        DTS:DataType="8">M:\RegionalAcceptance\Inbound\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{51699768-7FE9-4FF2-A2D7-0CC9A23458AB}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::LocalPath] + @[$Package::OutboundDirectory]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FullOutboundDirectory">
+      <DTS:VariableValue
+        DTS:DataType="8">M:\RegionalAcceptance\Outbound\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{755D7AF1-2D87-4E6B-99E4-6555A6F1959F}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::FullOutboundDirectory]  +  @[User::CurrentFile]  + &quot;-MTCodeNotFound.csv&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="MTCodeNotFound">
+      <DTS:VariableValue
+        DTS:DataType="8">M:\RegionalAcceptance\Outbound\0-MTCodeNotFound.csv</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{829EB248-2AE9-4D87-A9D4-611F77173CA2}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::FullOutboundDirectory]+ &quot;ArtivaMT-&quot;+  @[$Project::Namespace] +&quot;-&quot; + @[$Project::ClientName]  + &quot;-MT-&quot; + @[User::CurrentFile]  + &quot;-&quot; +  @[User::DateStamp] + &quot;.csv&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PathArtiva">
+      <DTS:VariableValue
+        DTS:DataType="8">M:\RegionalAcceptance\Outbound\ArtivaMT-THIRDPROD-Regional Acceptance Corp-MT-0-111202175417P.csv</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Foreach Loop Container"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{8915491d-fa29-4f71-abca-4afd1626ae9d}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach Loop Container">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="DTS.ForEachFileEnumerator.3"
+        DTS:DTSID="{2be4b037-a019-42b1-ba9c-a49d71416107}"
+        DTS:ObjectName="{E135B64F-EF71-4DDD-8453-1A4A95126D0C}">
+        <DTS:PropertyExpression
+          DTS:Name="Directory">@[User::FullInboundDirectory]</DTS:PropertyExpression>
+        <DTS:PropertyExpression
+          DTS:Name="FileSpec">@[$Package::InboundFileMask]</DTS:PropertyExpression>
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="M:\RegionalAcceptance\Inbound\" />
+            <FEFEProperty
+              FileSpec="*-MT-*.csv" />
+            <FEFEProperty
+              FileNameRetrievalType="1" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Delete_InFile"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="File System Task"
+          DTS:DTSID="{C2597B90-DD75-4823-AABB-5A41D6B73EC1}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Delete_InFile"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="DeleteFile"
+              TaskSourcePath="User::DeleteFile"
+              TaskIsSourceVariable="True" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Process"
+          DTS:CreationName="SSIS.Pipeline.3"
+          DTS:DelayValidation="True"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{8e4d97d3-9fa6-42a9-ab09-48460822492a}"
+          DTS:ExecutableType="SSIS.Pipeline.3"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Process">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Foreach Loop Container\Process\Artiva MT Comaker File"
+                  componentClassID="DTSAdapter.FlatFileDestination.3"
+                  contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Flat File Destination"
+                  localeId="1033"
+                  name="Artiva MT Comaker File">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether the data will overwrite or append to the destination file."
+                      name="Overwrite">true</property>
+                    <property
+                      dataType="System.Null"
+                      description="Specifies the text to write to the destination file before any data is written."
+                      expressionType="Notify"
+                      name="Header" />
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Process\Artiva MT Comaker File.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[ArtivaMTComaker]"
+                      connectionManagerRefId="Package.ConnectionManagers[ArtivaMTComaker]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Process\Artiva MT Comaker File.Inputs[Flat File Destination Input]"
+                      hasSideEffects="true"
+                      name="Flat File Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process\Artiva MT Comaker File.Inputs[Flat File Destination Input].Columns[Data]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="5000"
+                          cachedName="Data"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process\Artiva MT Comaker File.Inputs[Flat File Destination Input].ExternalColumns[Data]"
+                          lineageId="Package\Foreach Loop Container\Process\Proess.Outputs[ArtivaMT].Columns[Data]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process\Artiva MT Comaker File.Inputs[Flat File Destination Input].ExternalColumns[Data]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5000"
+                          name="Data" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Process\Exception File"
+                  componentClassID="DTSAdapter.FlatFileDestination.3"
+                  contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Flat File Destination"
+                  localeId="1033"
+                  name="Exception File">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether the data will overwrite or append to the destination file."
+                      name="Overwrite">false</property>
+                    <property
+                      dataType="System.Null"
+                      description="Specifies the text to write to the destination file before any data is written."
+                      expressionType="Notify"
+                      name="Header" />
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Process\Exception File.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Exceptions]"
+                      connectionManagerRefId="Package.ConnectionManagers[Exceptions]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Process\Exception File.Inputs[Flat File Destination Input]"
+                      hasSideEffects="true"
+                      name="Flat File Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process\Exception File.Inputs[Flat File Destination Input].Columns[Data]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="5000"
+                          cachedName="Data"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process\Exception File.Inputs[Flat File Destination Input].ExternalColumns[Message]"
+                          lineageId="Package\Foreach Loop Container\Process\Proess.Outputs[Exceptions].Columns[Data]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process\Exception File.Inputs[Flat File Destination Input].ExternalColumns[Message]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5000"
+                          name="Message" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Process\Get_Mt_Data"
+                  componentClassID="DTSAdapter.FlatFileSource.3"
+                  contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Flat File Source"
+                  localeId="1033"
+                  name="Get_Mt_Data"
+                  usesDispositions="true"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether zero-length columns are treated as null."
+                      name="RetainNulls">true</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                      name="FileNameColumnName"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[MT_Input_File]"
+                      connectionManagerRefId="Package.ConnectionManagers[MT_Input_File]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output]"
+                      name="Flat File Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Account Number]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Account Number]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Account Number]"
+                          name="Account Number"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Transaction Date]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Transaction Date]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Transaction Date]"
+                          name="Transaction Date"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Transaction Time]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Transaction Time]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Transaction Time]"
+                          name="Transaction Time"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Transaction Code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Transaction Code]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Transaction Code]"
+                          name="Transaction Code"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Field Code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Field Code]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Field Code]"
+                          name="Field Code"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[New Value]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[New Value]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[New Value]"
+                          name="New Value"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Internal - External flag]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Internal - External flag]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Internal - External flag]"
+                          name="Internal - External flag"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[DPS ID   Recoverer Code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[DPS ID   Recoverer Code]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[DPS ID   Recoverer Code]"
+                          name="DPS ID   Recoverer Code"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Recoverer ID]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Recoverer ID]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Recoverer ID]"
+                          name="Recoverer ID"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Loan Code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Loan Code]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Loan Code]"
+                          name="Loan Code"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Not Used]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Not Used]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Not Used]"
+                          name="Not Used"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Account Number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Account Number" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Transaction Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Transaction Date" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Transaction Time]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Transaction Time" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Transaction Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Transaction Code" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Field Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Field Code" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[New Value]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="New Value" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Internal - External flag]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Internal - External flag" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[DPS ID   Recoverer Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="DPS ID   Recoverer Code" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Recoverer ID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Recoverer ID" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Loan Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Loan Code" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].ExternalColumns[Not Used]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Not Used" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Error Output]"
+                      isErrorOut="true"
+                      name="Flat File Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          codePage="1252"
+                          dataType="text"
+                          description="Flat File Source Error Output Column"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          name="Flat File Source Error Output Column" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Process\MTCodeNotFound"
+                  componentClassID="DTSAdapter.FlatFileDestination.3"
+                  contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Flat File Destination"
+                  localeId="1033"
+                  name="MTCodeNotFound">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether the data will overwrite or append to the destination file."
+                      name="Overwrite">true</property>
+                    <property
+                      dataType="System.Null"
+                      description="Specifies the text to write to the destination file before any data is written."
+                      expressionType="Notify"
+                      name="Header" />
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Process\MTCodeNotFound.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[CodeNotFoundEx]"
+                      connectionManagerRefId="Package.ConnectionManagers[CodeNotFoundEx]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Process\MTCodeNotFound.Inputs[Flat File Destination Input]"
+                      hasSideEffects="true"
+                      name="Flat File Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process\MTCodeNotFound.Inputs[Flat File Destination Input].Columns[Data]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8000"
+                          cachedName="Data"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Process\MTCodeNotFound.Inputs[Flat File Destination Input].ExternalColumns[Message]"
+                          lineageId="Package\Foreach Loop Container\Process\Proess.Outputs[CodeNotFound].Columns[Data]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Process\MTCodeNotFound.Inputs[Flat File Destination Input].ExternalColumns[Message]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5000"
+                          name="Message" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Process\Proess"
+                  componentClassID="DTS.ManagedComponentWrapper.3"
+                  contactInfo="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;8"
+                  description="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum."
+                  name="Proess"
+                  version="8">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Stores the source code of the component"
+                      isArray="true"
+                      name="SourceCode"
+                      state="cdata">
+                      <arrayElements
+                        arrayElementCount="30">
+                        <arrayElement
+                          dataType="System.String"><![CDATA[ComponentWrapper.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services component wrapper
+*  This module defines the base class for your component
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+
+public class UserComponent: ScriptComponent
+{
+    public Connections Connections;
+    public Variables Variables;
+    public UserComponent()
+    {
+        Connections = new Connections(this);
+        Variables = new Variables(this);
+    }
+
+    public ExceptionsBuffer ExceptionsBuffer;
+
+    public CodeNotFoundBuffer CodeNotFoundBuffer;
+
+    public ArtivaMTBuffer ArtivaMTBuffer;
+
+    int InputsFinished = 0;
+
+    public override void ProcessInput(int InputID, string InputName, PipelineBuffer Buffer, OutputNameMap OutputMap)
+    {
+
+        if (InputName.Equals(@"Input 0", StringComparison.Ordinal))
+        {
+            Input0_ProcessInput(new Input0Buffer(Buffer, GetColumnIndexes(InputID), OutputMap));
+        }
+
+        if (Buffer.EndOfRowset)
+        {
+            InputsFinished = InputsFinished + 1;
+            if (InputsFinished == 1)
+            {
+                FinishOutputs();
+                MarkOutputsFinished();
+            }
+        }
+
+    }
+
+    public virtual void FinishOutputs()
+    {
+    }
+
+    private void MarkOutputsFinished()
+    {
+
+        if (null != ExceptionsBuffer)
+        {
+            ExceptionsBuffer.SetEndOfRowset();
+            ExceptionsBuffer = null;
+        }
+
+        if (null != CodeNotFoundBuffer)
+        {
+            CodeNotFoundBuffer.SetEndOfRowset();
+            CodeNotFoundBuffer = null;
+        }
+
+        if (null != ArtivaMTBuffer)
+        {
+            ArtivaMTBuffer.SetEndOfRowset();
+            ArtivaMTBuffer = null;
+        }
+
+    }
+
+    public override void PrimeOutput(int Outputs, int[] OutputIDs, PipelineBuffer[] Buffers, OutputNameMap OutputMap)
+    {
+       for(int Idx = 0; Idx < Outputs; Idx++)
+       {
+            if(OutputIDs[Idx] == GetOutputID(OutputMap, @"Exceptions"))
+            {
+                ExceptionsBuffer = new ExceptionsBuffer(Buffers[Idx], GetColumnIndexes(OutputIDs[Idx]), OutputMap);
+            }
+            if(OutputIDs[Idx] == GetOutputID(OutputMap, @"CodeNotFound"))
+            {
+                CodeNotFoundBuffer = new CodeNotFoundBuffer(Buffers[Idx], GetColumnIndexes(OutputIDs[Idx]), OutputMap);
+            }
+            if(OutputIDs[Idx] == GetOutputID(OutputMap, @"ArtivaMT"))
+            {
+                ArtivaMTBuffer = new ArtivaMTBuffer(Buffers[Idx], GetColumnIndexes(OutputIDs[Idx]), OutputMap);
+            }
+        }
+
+        CreateNewOutputRows();
+
+    }
+
+    public virtual void CreateNewOutputRows()
+    {
+    }
+
+    public virtual void Input0_ProcessInput(Input0Buffer Buffer)
+    {
+        while (Buffer.NextRow())
+        {
+            Input0_ProcessInputRow(Buffer);
+        }
+    }
+
+    public virtual void Input0_ProcessInputRow(Input0Buffer Row)
+    {
+    }
+
+}
+
+public class Connections
+{
+    ScriptComponent ParentComponent;
+
+    public Connections(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+    public IDTSConnectionManager100 CodeNotFoundConnection
+    {
+        get
+        {
+            return ParentComponent.ComponentMetaData.RuntimeConnectionCollection.GetRuntimeConnectionByName(@"CodeNotFoundConnection").ConnectionManager;
+        }
+    }
+
+    public IDTSConnectionManager100 ExceptionConnection
+    {
+        get
+        {
+            return ParentComponent.ComponentMetaData.RuntimeConnectionCollection.GetRuntimeConnectionByName(@"ExceptionConnection").ConnectionManager;
+        }
+    }
+
+    public IDTSConnectionManager100 Artiva
+    {
+        get
+        {
+            return ParentComponent.ComponentMetaData.RuntimeConnectionCollection.GetRuntimeConnectionByName(@"Artiva").ConnectionManager;
+        }
+    }
+
+}
+
+public class Variables
+{
+    ScriptComponent ParentComponent;
+
+    public Variables(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+    public String CurrentFile
+    {
+        get
+        {
+            return (String)(ParentComponent.ReadOnlyVariables["CurrentFile"].GetValueWithContext(ScriptComponent.EvaluatorContext));
+        }
+    }
+
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Resources.resx]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[main.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[#region Help:  Introduction to the Script Component
+/* The Script Component allows you to perform virtually any operation that can be accomplished in
+ * a .Net application within the context of an Integration Services data flow.
+ *
+ * Expand the other regions which have "Help" prefixes for examples of specific ways to use
+ * Integration Services features within this script component. */
+#endregion
+
+#region Namespaces
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+using RGS.ArtivaGeneralPurpose.Data.Records;
+using System.Linq;
+using System.Collections.Generic;
+using FileHelpers;
+using System.Data.Odbc;
+using System.Globalization;
+#endregion
+
+/// <summary>
+/// This is the class to which to add your code.  Do not change the name, attributes, or parent
+/// of this class.
+/// </summary>
+[Microsoft.SqlServer.Dts.Pipeline.SSISScriptComponentEntryPointAttribute]
+public class ScriptMain : UserComponent
+{
+    private bool _exceptionReportCreated = false;
+    private bool _codeNotFoundReportCreated = false;
+
+    #region Help:  Using Integration Services variables and parameters
+    /* To use a variable in this script, first ensure that the variable has been added to
+     * either the list contained in the ReadOnlyVariables property or the list contained in
+     * the ReadWriteVariables property of this script component, according to whether or not your
+     * code needs to write into the variable.  To do so, save this script, close this instance of
+     * Visual Studio, and update the ReadOnlyVariables and ReadWriteVariables properties in the
+     * Script Transformation Editor window.
+     * To use a parameter in this script, follow the same steps. Parameters are always read-only.
+     *
+     * Example of reading from a variable or parameter:
+     *  DateTime startTime = Variables.MyStartTime;
+     *
+     * Example of writing to a variable:
+     *  Variables.myStringVariable = "new value";
+     */
+    #endregion
+
+    #region Help:  Using Integration Services Connnection Managers
+    /* Some types of connection managers can be used in this script component.  See the help topic
+     * "Working with Connection Managers Programatically" for details.
+     *
+     * To use a connection manager in this script, first ensure that the connection manager has
+     * been added to either the list of connection managers on the Connection Managers page of the
+     * script component editor.  To add the connection manager, save this script, close this instance of
+     * Visual Studio, and add the Connection Manager to the list.
+     *
+     * If the component needs to hold a connection open while processing rows, override the
+     * AcquireConnections and ReleaseConnections methods.
+     * 
+     * Example of using an ADO.Net connection manager to acquire a SqlConnection:
+     *  object rawConnection = Connections.SalesDB.AcquireConnection(transaction);
+     *  SqlConnection salesDBConn = (SqlConnection)rawConnection;
+     *
+     * Example of using a File connection manager to acquire a file path:
+     *  object rawConnection = Connections.Prices_zip.AcquireConnection(transaction);
+     *  string filePath = (string)rawConnection;
+     *
+     * Example of releasing a connection manager:
+     *  Connections.SalesDB.ReleaseConnection(rawConnection);
+     */
+    #endregion
+
+    #region Help:  Firing Integration Services Events
+    /* This script component can fire events.
+     *
+     * Example of firing an error event:
+     *  ComponentMetaData.FireError(10, "Process Values", "Bad value", "", 0, out cancel);
+     *
+     * Example of firing an information event:
+     *  ComponentMetaData.FireInformation(10, "Process Values", "Processing has started", "", 0, fireAgain);
+     *
+     * Example of firing a warning event:
+     *  ComponentMetaData.FireWarning(10, "Process Values", "No rows were received", "", 0);
+     */
+    #endregion
+
+    /// <summary>
+    /// This method is called once, before rows begin to be processed in the data flow.
+    ///
+    /// You can remove this method if you don't need to do anything here.
+    /// </summary>
+
+    private Dictionary<string, string> trancodes;
+    private Dictionary<string, string> recallcodes;
+    private Dictionary<string, string> fieldcodes;
+    //System.Data.Odbc.OdbcConnection ArtivaCOnnection;
+    OdbcConnection conn;
+    public override void PreExecute()
+    {
+        base.PreExecute();
+
+        trancodes = new Dictionary<string, string> { { "DP", "DP" },
+            { "DPNSF", "DPNSF" }, { "DBJ", "DBJ" },
+            { "CRJ", "CRJ" } };
+        recallcodes = new Dictionary<string, string>
+        {
+            {"AEX", "All Efforts Exhausted"},
+{"BNK", "Bankruptcy"},
+{"CEASE", "Cease and Desist"},
+{"DISPUTE", "RP Disputes Debt"},
+{"DSA", "Debt Settlemnet Company"},
+{"FRAUD", "RP Claims Fraud"},
+{"INCAR", "Incarcerated"},
+{"PIF", "Paid in Full"},
+{"SETTLE","Settled in Full"},
+{"STATUTE", "Statute of Limitations"},
+{"UNCOL", "Uncollectable"},
+{"DECEASED", "Deceased"},
+{"CCR", "Closed Client Request"},
+{"COMPLT", "RP has filed a Complaint"},
+{"SCRA", "Military"},
+{"LIT", "Litigant"},
+{"OOO", "Company out of Business"},
+{"SMB", "Small Balance Account"}};
+
+        /** Key is the fieldname (for C fields, the cliententityid is stripped), 
+         * Value is a CSV of the field description and label,
+         *  x indicates if it's a null check field, c means set ARRELATIONSHIP|ARRELTYPID = 'COMAKER',
+         * p means set ARRELATIONSHIP|ARRELTYPID = 'PRIM',
+         * n means do not set ARRELATIONSHIP|ARRELTYPID,
+         * and the last value is the artiva update field name
+         * 
+         **/
+        fieldcodes = new Dictionary<string, string> { {"CAD1","COMAKER ADDR LINE1,X,c,ARENADR"},
+{"CAD2","COMAKER ADDR LINE2,X,c,ARENUNT"},
+//{"CAD3","COMAKER ADDR LINE3,X,,"},
+{"CCNM","CORP COMAKER NAME,X,c,ARENLNM"},
+{"CTYP","COMAKER CUSTOMER TYPE,,n,"},
+{"CBDY","COMAKER BIRTHDAY,,n,"},
+{"COPH","COMAKER WORK PHONE,X,n,ARENPOEPH"},
+{"CMOB","COMAKER MOBILE PHONE, ,,"},
+{"CEML","COMAKER EMAIL ADDRESS,x,n,ARENEMAIL"},
+{"CEMP","COMAKER EMPLOYMENT STATUS,,n,"},
+{"CMEX","COMAKER MTH EXPENSE,,n,"},
+{"CMIN","COMAKER MTH INCOME,,n,"},
+{"COEX","COMAKER OTHER EXPENSE,,n,"},
+{"COIN","COMAKER OTHER INCOME,,n,"},
+{"CCTY","COMAKER CITY,x,c,ARENCTY"},
+{"CFNM","IND CMK FIRST NAME,x,c,ARENFNM"},
+{"CHPH","COMAKER HOME PHONE,x,c,ARENPH"},
+{"CLNM","IND CMK LAST NAME,x,c,ARENLNM"},
+{"COWN","COMAKER OWN/RENT CDE,,n,"},
+{"CSTC","COMAKER STATE CODE,x,c,ARENST"},
+{"CTAX","COMAKER TAX-ID,x,c,ARENSSN"},
+{"CTTL","COMAKER TITLE,,n,"},
+{"CZIP","COMAKER ZIP,x,c,ARENZIP"},
+{"CLBF","COMAKER LIABILITY SWITCH,,n,"},
+{"CDCF","COMAKER NO CONTACT FLAG,,n,"},
+{"CBCC","COMAKER CBR REPORTING FLAG,,n,"},
+{"CLDT","COMAKER COURT DATE,,n,"},
+{"MAD1","DEBTOR ADDRESS LINE1,x,p,ARENADR"},
+{"MAD2","DEBTOR ADDRESS LINE2,x,p,ARENUNT"},
+//{"MAD3","DEBTOR ADDRESS LINE3,x,,"},
+{"MTTL","DEBTOR SALUTATION/TITLE,,n,"},
+{"MEML","DEBTOR EMAIL ADDRESS,x,n,ARENEMAIL"},
+{"MCNM","DEBTOR CORP NAME,,n,"},
+{"MCTY","DEBTOR CITY,x,p,ARENCTY"},
+{"MFNM","DEBTOR FIRST NAME,x,p,ARENFNM"},
+{"MHPH","DEBTOR HOME PHONE,x,p,ARENPH"},
+{"MMOB","MOBILE PHONE,x,n,"},
+{"MLNM","DEBTOR LAST NAME,x,p,ARENLNM"},
+{"MLDT","DEBTOR COURT DATE,,n,"},
+{"MMEX","DEBTOR MTH EXPENSE,,n,"},
+{"MMIN","DEBTOR MTH INCOME,,n,"},
+{"MOEX","DEBTOR OTHER EXPENSE,,n,"},
+{"MOIN","DEBTOR OTHER INCOME,,n,"},
+{"MOPH","DEBTOR OFFICE PHONE,x,p,ARENPOEPH"},
+{"MOWN","DEBTOR OWN/RENT CODE,,n,"},
+{"MSTC","DEBTOR STATE CODE,x,p,ARENST"},
+{"MTYP","CUSTOMER TYPE,,n,"},
+{"MBRD","BAR DATE, ,n,"},
+{"MDSD","DISMISSAL DATE,,n,"},
+{"MRAD","REAFFIRMATION DATE,,n,"},
+{"MSLD","STAY LIFTED DATE,,n,"},
+{"MPRD","PLAN RECEIVED DATE,,n,"},
+{"MPAE","BKT PLAN APPROVED DATE,,n,"},
+{"MPCD","BKT PLAN CONVERTED DATE,,n,"},
+{"MPCV","BKT PLAN CONVERTED NUMBER,,n,"},
+{"MNMD","BKT PLAN MEETING DATE,,n,"},
+{"MPFD","BKT POC FILE DATE,,n,"},
+{"MPAD","BKT POC ACCEPTANCE DATE,,n,"},
+{"MPAA","BKT POC AMENDMENT DATE,,n,"},
+{"MCLM","CLAIM AMOUNT,,n,"},
+{"MBCN","PROOF OF CLAIM NUMBER,,n,"},
+{"MBCT","CLAIM TYPE,,n,"},
+{"MBKC","BKT CHAPTER NUMBER,,n,"},
+{"MBNR","CASE NUMBER,,n,"},
+{"MPCN","PREVIOUS CASE NUMBER,,n,"},
+{"MSFG","SECURED FLAG,,n,"},
+{"MEAD","DEBTOR EMPLOYER ADDRESS,x,n,"},
+{"MEMP","DEBTOR EMPLOYMENT STATUS,,n,"},
+{"MSCR","DEBTOR CREDIT/RECOVERY SCORE,x,p,ZZENCLNTSCORE"},
+{"MTAX","DEBTOR TAX ID,x,p,ARENSSN"},
+{"MZIP","DEBTOR ZIP,x,p,ARENZIP"},
+{"MDCF","DEBTOR NO CONTACT FLAG,x,n,"}
+
+
+ };
+        conn = new OdbcConnection(Connections.Artiva.ConnectionString);
+        conn.Open();
+
+    }
+
+    /// <summary>
+    /// This method is called after all the rows have passed through this component.
+    ///
+    /// You can delete this method if you don't need to do anything here.
+    /// </summary>
+    public override void PostExecute()
+    {
+        base.PostExecute();
+        if (!_exceptionReportCreated)
+            System.IO.File.Delete(Connections.ExceptionConnection.ConnectionString);
+        if (!_codeNotFoundReportCreated)
+            System.IO.File.Delete(Connections.CodeNotFoundConnection.ConnectionString);
+
+        if (conn != null)
+        {
+            conn.Close();
+            conn.Dispose();
+        }
+
+
+    }
+    int InputRecordCount;
+    FileHelpers.DelimitedFileEngine<AccountFreeFormTextMntOnly_203> FHE = new FileHelpers.DelimitedFileEngine<AccountFreeFormTextMntOnly_203>();
+    /// <summary>
+    /// This method is called once for every row that passes through the component from Input0.
+    ///
+    /// Example of reading a value from a column in the the row:
+    ///  string zipCode = Row.ZipCode
+    ///
+    /// Example of writing a value to a column in the row:
+    ///  Row.ZipCode = zipCode
+    /// </summary>
+    /// <param name="Row">The row that is currently passing through the component</param>
+    public override void Input0_ProcessInputRow(Input0Buffer Row)
+    {
+        try
+        {
+
+            InputRecordCount++;
+            //ArtivaCOnnection = Connections.Artiva.AcquireConnection(null) as System.Data.Odbc.OdbcConnection;
+
+
+            string Aracid = string.Empty;
+            using (OdbcCommand cmd = new OdbcCommand(string.Format("SELECT ARACID FROM %STARTTABLE ARCLIENT INNER JOIN ARACCOUNT on ARCLID = ARACCLTID AND ARCLID IN ('RAC100','RAC505') WHERE ARACCLACCT = '{0}'", Row.AccountNumber.Trim()), conn, null))
+            {
+                if (conn.State != ConnectionState.Open)
+                    conn.Open();
+
+                cmd.CommandTimeout = 30000000;
+
+                var aracid = cmd.ExecuteScalar();
+
+                if (aracid == DBNull.Value || aracid == null || aracid.ToString() == "")
+                {
+                    _exceptionReportCreated = true;
+                    ExceptionsBuffer.AddRow();
+                    ExceptionsBuffer.Data = string.Format("Unable to find account!  Row Number:{0} Client Reference Number:{1} .  Update Skipped", InputRecordCount, Row.AccountNumber);
+                    return;
+                }
+                else
+                {
+                    Aracid = aracid.ToString();
+                }
+            }
+
+            
+            string fc = Row.FieldCode.Trim();
+            string cltd = fc.Substring(1, 2);
+
+            string fck = fc.Replace(cltd, "");
+            bool isupd = false;
+            //bool isnullcheck = false;
+            bool isvalidfield = fieldcodes.ContainsKey(fck);
+            
+            bool iscomaker = false;
+            string updpc = "";
+            string updfield = "";
+            string updvalue = "";
+            string label = "";
+            string isbiz = "";
+
+            if (isvalidfield)
+            {
+                string query = "";
+
+                string[] opts = fieldcodes[fck].Split(',');
+
+                label = opts[0] + ": ";
+                updpc = opts[2];
+                updfield = opts[3];
+                iscomaker = fieldcodes[fck].Contains("COMAKER");
+                if (!string.IsNullOrEmpty(opts[1])){
+                    if (fc.StartsWith("C"))
+                    {
+   
+                        query = string.Format("SELECT DISTINCT " + updfield + ",ARENBUSINESS FROM %STARTTABLE ARCLIENT INNER JOIN ARACCOUNT on ARCLID = ARACCLTID AND ARCLID IN ('RAC100','RAC505') " +
+                        "INNER JOIN ARRELATIONSHIP ON ARRELACID = ARACID AND ARRELTYPID = 'COMAK' INNER JOIN ARENTITY ON ARRELENID = ARENID WHERE ARACCLACCT = '{0}' AND ZZENCLENTID='{1}'", Row.AccountNumber.Trim(), cltd);
+                    }
+                    else
+                    {
+                        query = string.Format("SELECT DISTINCT " + updfield + ",ARENBUSINESS FROM %STARTTABLE ARCLIENT INNER JOIN ARACCOUNT on ARCLID = ARACCLTID AND ARCLID IN ('RAC100','RAC505') " +
+                        "INNER JOIN ARENTITY ON ARACCOUNT.ARACRPID = ARENID WHERE ARACCLACCT = '{0}'", Row.AccountNumber.Trim());
+
+                    }
+
+                    isupd = true;
+                    using (OdbcCommand cmd = new OdbcCommand(query, conn, null))
+                    {
+                        if (conn.State != ConnectionState.Open)
+                            conn.Open();
+
+                        cmd.CommandTimeout = 30000000;
+
+                        var updfieldval = cmd.ExecuteReader();
+                        while (updfieldval.Read())
+                        {
+                            updvalue = updfieldval[updfield] == DBNull.Value || updfieldval[updfield] == null || updfieldval[updfield].ToString() == "" ? "" : updfieldval[updfield].ToString();
+                            isbiz = updfieldval["ARENBUSINESS"] == DBNull.Value || updfieldval["ARENBUSINESS"] == null || updfieldval["ARENBUSINESS"].ToString() == "" ? "" : updfieldval["ARENBUSINESS"].ToString();
+                        }
+                        
+
+
+                    }
+
+                }
+
+                var rec203s = new List<AccountFreeFormText_203>();
+                var rec205s = new List<ConsumerFreeFormText_205>();
+
+
+                addRec(Aracid, Row.NewValue, updpc, isupd, updfield, updvalue, iscomaker, label, rec203s, rec205s, isbiz, fck);
+
+
+                for (int i = 0; i < rec203s.Count; i++)
+                    AddPlacementRow(rec203s[i]);
+                for (int i = 0; i < rec205s.Count; i++)
+                    AddPlacementRow(rec205s[i]);
+
+            } else if(fck == "MSTS")
+            {
+                if (Row.NewValue.Trim() == "411")
+                {
+                    using (OdbcCommand cmd = new OdbcCommand(string.Format("SELECT DISTINCT  ARACCLACCT FROM %STARTTABLE ARCLIENT INNER JOIN ARACCOUNT on ARCLID = ARACCLTID AND ARCLID IN ('RAC100', 'RAC505') " +
+                        "INNER JOIN ARENTITY ON ARACCOUNT.ARACRPID = ARENID INNER JOIN ARRELATIONSHIP ON ARRELACID = ARACID " +
+                        "INNER JOIN AFACCOUNT ON AFACCOUNT.AFACACCTID = ARACCOUNT.ARACID INNER JOIN ARPAHIST AS ARP ON ARP.ARPAHID = ARRELPAHID AND ARP.ARPAHACTIVE = '*' " +
+                        "WHERE ARACCLACCT = '{0}' AND ARACLPYDTE >= DATEADD(DAY, -60, GETDATE())", Row.AccountNumber.Trim()), conn, null))
+                    {
+                        if (conn.State != ConnectionState.Open)
+                            conn.Open();
+
+                        cmd.CommandTimeout = 30000000;
+
+                        var aracid = cmd.ExecuteScalar();
+
+                        if (aracid == DBNull.Value || aracid == null || aracid.ToString() == "")
+                        {
+
+                            CloseAccount_C c = new CloseAccount_C();
+                            c.AccountId = Aracid;
+                            c.CloseCode = "RETURN";
+
+
+                            ClientRecallInfo_201 rec201 = new ClientRecallInfo_201();
+                            rec201.AccountId = Aracid;
+                            rec201.DateOfRecall = getRecalldate(Row.TransactionDate);
+                            rec201.RecallCode = "RECALL";
+                            rec201.RecallReason = "ARRECALL";
+                            rec201.ClientRecallFileName = Variables.CurrentFile.Split('-')[0];
+                            rec201.ResendRecall = false;
+
+                            var recC = new List<CloseAccount_C>() { c };
+                            var r201 = new List<ClientRecallInfo_201>() { rec201 };
+                            for (int i = 0; i < recC.Count; i++)
+                                AddPlacementRow(recC[i]);
+                            for (int i = 0; i < r201.Count; i++)
+                                AddPlacementRow(r201[i]);
+                        }
+                        else
+                        {
+                            Aracid = aracid.ToString();
+                            var rec200 = new KeeperInfo_200();
+
+                            rec200.AccountId = Aracid;
+                            rec200.DateRequestedToKeep = DateTime.Now;
+                            rec200.DateRequestSentToClient = DateTime.Today;
+                            rec200.KeeperCode = "HAK";
+                            rec200.KeeperReason = "Postdated Payment";
+
+                            AddPlacementRow(rec200);
+
+
+
+
+                        }
+                    }
+                }
+            } else
+            {
+                
+
+                if (fck != "MLCT" && fck != "MLPD")
+                {
+
+                    _codeNotFoundReportCreated = true;
+                    CodeNotFoundBuffer.AddRow();
+                    CodeNotFoundBuffer.Data = string.Format("Account Number:{0} Transaction Code:{1} Field Code:{2} New Value:{3}.  reject maintenance code not found", Row.AccountNumber, Row.TransactionCode, Row.FieldCode, Row.NewValue);
+                    
+                }
+
+                return;
+
+
+            }
+
+
+
+
+
+        }
+        catch (Exception ex)
+        {
+            bool cancel = false;
+            ComponentMetaData.FireError(10, "Exception in notes script", ex.Message, "", 0, out cancel);
+            if (ex.InnerException != null)
+            {
+                ComponentMetaData.FireError(10, "Exception inner exception", ex.InnerException.Message, "", 0, out cancel);
+            }
+            ComponentMetaData.FireError(10, "Exception StackTrace", ex.StackTrace, "", 0, out cancel);
+            return;
+        }
+    }
+
+    private void addRec(string id,string val,string updprimcmk,bool isupd,string updfield,string updvalue, bool iscmk, string label, 
+        List<AccountFreeFormText_203> rec203s, List<ConsumerFreeFormText_205> rec205s, string isbiz,string field)
+    {
+        if (string.IsNullOrEmpty(val))
+            return;
+        if (isupd && string.IsNullOrEmpty(updvalue))
+        {
+            if (field != "CCNM")
+            {
+
+                var upd = new UpdateAccount_UPD();
+                upd.AccountId = id;
+                upd.UpdateField = updfield;
+                upd.UpdateValue = val;
+ 
+                if(updprimcmk == "c")
+                    upd.RelationshipKey = "COMAK";
+
+                AddPlacementRow(upd);
+
+            } else if(field == "CCNM" && isbiz == "Y")
+            {
+                var upd = new UpdateAccount_UPD();
+                upd.AccountId = id;
+                upd.UpdateField = updfield;
+                upd.UpdateValue = val;
+
+                if(updprimcmk == "c")
+                    upd.RelationshipKey = "COMAK";
+
+                AddPlacementRow(upd);
+
+
+            }
+
+
+
+        }
+        else
+        {
+            if(field == "CMOB" && !string.IsNullOrEmpty(updvalue))
+            {
+                AddPlacementRow(new SkipPhone_214() { AccountId = id, ContactPhone = val });
+            } else
+            {
+                if (field == "CBDY")
+                    label = "DOB: ";
+                
+                if (iscmk)
+                {
+                    add205(id, label, val, rec205s);
+                }
+                else
+                {
+                    add203(id, label, val, rec203s);
+
+                }
+            }
+
+
+        }
+
+
+        
+    }
+
+    private string getnum(string v)
+    {
+
+        return Convert.ToDecimal(v.TrimStart(new Char[] { '0' })).ToString("00.00");
+    }
+    private string formatNumber(string v)
+    {
+        if (string.IsNullOrEmpty(v))
+            return "";
+        else
+        {
+            
+            var ibm = new Dictionary<string, string>() {
+            { "{", "0" },{ "}", "-0" },
+            { "A", "1" },{ "J", "-1" },
+            { "B", "2" },{ "K", "-2" },
+            { "C", "3" },{ "L", "-3" },
+            { "D", "4" },{ "M", "-4" },
+            { "E", "5" },{ "N", "-5" },
+            { "F", "6" },{ "O", "-6" },
+            { "G", "7" },{ "P", "-7" },
+            { "H", "8" },{ "Q", "-8" },
+            { "I", "9" },{ "R", "-9" }};
+
+            string lastchar = "";
+            string val = "";
+            bool iszero = false;
+            bool isneg = false;
+
+            if (ibm.ContainsKey(v[v.Length - 1].ToString())){
+
+                lastchar = ibm[v[v.Length - 1].ToString()];
+
+                isneg = lastchar.StartsWith("-");
+
+                val = v.TrimStart(new Char[] { '0' });
+                val = val.Remove(val.Length - 1, 1) + lastchar.Replace("-", "");
+
+                iszero = val == "0";
+
+            } else
+            {
+                
+                val = v.TrimStart(new Char[] { '0' });
+                iszero = String.IsNullOrEmpty(val);
+            }
+                                   
+
+            if (!iszero)
+            {
+                int l = val.Length;
+                if (l == 1 || l == 2)
+                    val += ".00";
+                else
+                    val = val.Insert(val.Length - 2, ".");
+
+                val = isneg ? "-" + val : val;
+
+            }
+
+
+            return iszero ? "0.00" : val;
+        }
+        
+
+    }
+
+    private void add203(string accid,string label, string data, List<AccountFreeFormText_203> rec203s)
+    {
+        if (string.IsNullOrEmpty(data))
+            return;
+
+        rec203s.Add(new AccountFreeFormText_203 {AccountId= accid, FreeFormText = label + data });
+    }
+
+    private void add205(string accid, string label, string data, List<ConsumerFreeFormText_205> rec205s)
+    {
+        if (string.IsNullOrEmpty(data))
+            return;
+
+        rec205s.Add(new ConsumerFreeFormText_205 { AccountId = accid, FreeFormText = label + data });
+    }
+
+    private string getFormateddate(string str)
+    {
+
+        str = str.Length < 8 && str.Substring(0, 1) != "0" ? "0" + str : str;
+        str = str.Length < 8 ? str.Insert(2, "0") : str;
+
+        return str;
+    }
+    private string getDate(string d)
+    {
+
+        CultureInfo enUS = new CultureInfo("en-US");
+        DateTime dateValue;
+        bool isdate = DateTime.TryParseExact(getFormateddate(d), "yyyyMMdd", enUS,
+                          DateTimeStyles.None, out dateValue);
+
+        if (isdate)
+            return dateValue.ToString("MMddyyyy");
+        else
+            return "";
+    }
+
+    private DateTime? getRecalldate(string d)
+    {
+
+        CultureInfo enUS = new CultureInfo("en-US");
+        DateTime dateValue;
+        bool isdate = DateTime.TryParseExact(getFormateddate(d), "yyyyMMdd", enUS,
+                          DateTimeStyles.None, out dateValue);
+
+        if (isdate)
+            return dateValue;
+        else
+            return null;
+    }
+
+    private void AddPlacementRow<T>(T record) where T : GeneralPurposeRecordBase
+    {
+        var recordList = new List<T>();
+        recordList.Add(record);
+        var recordString = CommonEngine.WriteString<T>(recordList);
+        string recordType = recordString.Split(',')[0];
+
+        if (string.IsNullOrWhiteSpace(recordType.Replace(recordString, "").Replace("COMAK", "").Replace(",", "").Replace(".", "").Replace("0", "").Replace("/", "").Replace("N", "")))
+            return;
+
+          ArtivaMTBuffer.AddRow();
+          ArtivaMTBuffer.Data = recordString.ToUpper();
+    }
+}
+
+
+
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[BufferWrapper.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services buffer wrappers
+*  This module defines classes for accessing data flow buffers
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+
+public class Input0Buffer: ScriptBuffer
+
+{
+    public Input0Buffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String AccountNumber
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[0]);
+        }
+    }
+    public bool AccountNumber_IsNull
+    {
+        get
+        {
+            return IsNull(0);
+        }
+    }
+
+    public String TransactionDate
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[1]);
+        }
+    }
+    public bool TransactionDate_IsNull
+    {
+        get
+        {
+            return IsNull(1);
+        }
+    }
+
+    public String TransactionTime
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[2]);
+        }
+    }
+    public bool TransactionTime_IsNull
+    {
+        get
+        {
+            return IsNull(2);
+        }
+    }
+
+    public String TransactionCode
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[3]);
+        }
+    }
+    public bool TransactionCode_IsNull
+    {
+        get
+        {
+            return IsNull(3);
+        }
+    }
+
+    public String FieldCode
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[4]);
+        }
+    }
+    public bool FieldCode_IsNull
+    {
+        get
+        {
+            return IsNull(4);
+        }
+    }
+
+    public String NewValue
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[5]);
+        }
+    }
+    public bool NewValue_IsNull
+    {
+        get
+        {
+            return IsNull(5);
+        }
+    }
+
+    public String InternalExternalflag
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[6]);
+        }
+    }
+    public bool InternalExternalflag_IsNull
+    {
+        get
+        {
+            return IsNull(6);
+        }
+    }
+
+    public String DPSIDRecovererCode
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[7]);
+        }
+    }
+    public bool DPSIDRecovererCode_IsNull
+    {
+        get
+        {
+            return IsNull(7);
+        }
+    }
+
+    public String RecovererID
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[8]);
+        }
+    }
+    public bool RecovererID_IsNull
+    {
+        get
+        {
+            return IsNull(8);
+        }
+    }
+
+    public String LoanCode
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[9]);
+        }
+    }
+    public bool LoanCode_IsNull
+    {
+        get
+        {
+            return IsNull(9);
+        }
+    }
+
+    public String NotUsed
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[10]);
+        }
+    }
+    public bool NotUsed_IsNull
+    {
+        get
+        {
+            return IsNull(10);
+        }
+    }
+
+    new public bool NextRow()
+    {
+        return base.NextRow();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+
+public class ExceptionsBuffer: ScriptBuffer
+
+{
+    public ExceptionsBuffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String Data
+    {
+        set
+        {
+            this[0] = value;
+        }
+    }
+    public bool Data_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(0);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    new public void AddRow()
+    {
+        base.AddRow();
+    }
+
+    new public void SetEndOfRowset()
+    {
+        base.SetEndOfRowset();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+
+public class CodeNotFoundBuffer: ScriptBuffer
+
+{
+    public CodeNotFoundBuffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String Data
+    {
+        set
+        {
+            this[0] = value;
+        }
+    }
+    public bool Data_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(0);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    new public void AddRow()
+    {
+        base.AddRow();
+    }
+
+    new public void SetEndOfRowset()
+    {
+        base.SetEndOfRowset();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+
+public class ArtivaMTBuffer: ScriptBuffer
+
+{
+    public ArtivaMTBuffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String Data
+    {
+        set
+        {
+            this[0] = value;
+        }
+    }
+    public bool Data_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(0);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    new public void AddRow()
+    {
+        base.AddRow();
+    }
+
+    new public void SetEndOfRowset()
+    {
+        base.SetEndOfRowset();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Settings.Designer.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_4ac8cb4c75d34a55855dc106f555b957.Properties.Settings.get_Default():SC_4ac8cb4c75d34a55855dc106f555b957.Properties.Sett" +
+    "ings")]
+
+namespace SC_4ac8cb4c75d34a55855dc106f555b957.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[SC_4ac8cb4c75d34a55855dc106f555b957.csproj]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A8865E69-B834-4E85-93DB-5BBD5E761F1B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SC_4ac8cb4c75d34a55855dc106f555b957</RootNamespace>
+    <AssemblyName>SC_4ac8cb4c75d34a55855dc106f555b957</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonClasses, Version=1.1.0.0, Culture=neutral, PublicKeyToken=1f7181b3d59d8c40, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>R:\Software\CommonClasses\1.1.0.0\CommonClasses.dll</HintPath>
+    </Reference>
+    <Reference Include="FileHelpers, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>R:\Software\FileHelpers\1.1.0.0\FileHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="RGS.ArtivaGeneralPurpose, Version=1.20.0.0, Culture=neutral, PublicKeyToken=972530eacd4bf30a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>R:\Software\1.1.0.0\RGS.ArtivaGeneralPurpose.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.SqlServer.TxScript, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSRuntimeWrap, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSPipelineWrap, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.PipelineHost, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Compile Include="main.cs" />
+    <Compile Include="BufferWrapper.cs" />
+    <Compile Include="ComponentWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <!-- Include the build rules for a C# project.-->
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- This section defines VSTA properties that describe the host-changable project properties. -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
+        <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" />
+        <Host Name="ScriptComponent" IconIndex="0" />
+        <ProjectClient>
+          <HostIdentifier>SSIS_SC110</HostIdentifier>
+        </ProjectClient>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Project]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF16LE]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+	<msb:PropertyGroup>
+		<msb:CodeName>SC_4ac8cb4c75d34a55855dc106f555b957</msb:CodeName>
+		<msb:Language>msBuild</msb:Language>
+		<msb:DisplayName>SC_4ac8cb4c75d34a55855dc106f555b957</msb:DisplayName>
+		<msb:ProjectId>{DA30ED14-06B8-4F0B-8EF6-6B34AC9FB2E8}</msb:ProjectId>
+	</msb:PropertyGroup>
+	<msb:ItemGroup>
+		<msb:Project Include="SC_4ac8cb4c75d34a55855dc106f555b957.csproj"/>
+		<msb:File Include="Properties\AssemblyInfo.cs"/>
+		<msb:File Include="Properties\Settings.settings"/>
+		<msb:File Include="Properties\Resources.resx"/>
+		<msb:File Include="Properties\Resources.Designer.cs"/>
+		<msb:File Include="Properties\Settings.Designer.cs"/>
+		<msb:File Include="main.cs"/>
+		<msb:File Include="BufferWrapper.cs"/>
+		<msb:File Include="ComponentWrapper.cs"/>
+	</msb:ItemGroup>
+</c:Project>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\AssemblyInfo.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("SC_4ac8cb4c75d34a55855dc106f555b957")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("SC_4ac8cb4c75d34a55855dc106f555b957")]
+[assembly: AssemblyCopyright("Copyright @  2019")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Settings.settings]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Resources.Designer.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_4ac8cb4c75d34a55855dc106f555b957.Properties.Resources.get_ResourceManager():System.Resources.Resou" +
+    "rceManager")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_4ac8cb4c75d34a55855dc106f555b957.Properties.Resources.get_Culture():System.Globalization.CultureIn" +
+    "fo")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_4ac8cb4c75d34a55855dc106f555b957.Properties.Resources.set_Culture(System.Globalization.CultureInfo" +
+    "):Void")]
+
+namespace SC_4ac8cb4c75d34a55855dc106f555b957.Properties {
+    
+    
+    /// <summary>
+    ///   A strongly-typed resource class, for looking up localized strings, etc.
+    /// </summary>
+    // This class was auto-generated by the StronglyTypedResourceBuilder
+    // class via a tool like ResGen or Visual Studio.
+    // To add or remove a member, edit your .ResX file then rerun ResGen
+    // with the /str option, or rebuild your VS project.
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    internal class Resources {
+        
+        private static global::System.Resources.ResourceManager resourceMan;
+        
+        private static global::System.Globalization.CultureInfo resourceCulture;
+        
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources() {
+        }
+        
+        /// <summary>
+        ///   Returns the cached ResourceManager instance used by this class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if ((resourceMan == null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SC_4ac8cb4c75d34a55855dc106f555b957.Properties.Resources", typeof(Resources).Assembly);
+                    resourceMan = temp;
+                }
+                return resourceMan;
+            }
+        }
+        
+        /// <summary>
+        ///   Overrides the current thread's CurrentUICulture property for all
+        ///   resource lookups using this strongly typed resource class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
+                return resourceCulture;
+            }
+            set {
+                resourceCulture = value;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                      </arrayElements>
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Stores the binary representation of the component"
+                      isArray="true"
+                      name="BinaryCode"
+                      state="cdata">
+                      <arrayElements
+                        arrayElementCount="2">
+                        <arrayElement
+                          dataType="System.String"><![CDATA[SC_4ac8cb4c75d34a55855dc106f555b957.dll]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAM7v/F8AAAAAAAAAAOAAIiALATAAAGIAAAAIAAAAAAAAkoAA
+AAAgAAAAoAAAAAAAEAAgAAAAAgAABAAAAAAAAAAEAAAAAAAAAADgAAAAAgAAAAAAAAMAQIUAABAA
+ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAECAAABPAAAAAKAAAHgEAAAAAAAAAAAAAAAAAAAA
+AAAAAMAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAAmGAAAAAgAAAAYgAAAAIA
+AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAHgEAAAAoAAAAAYAAABkAAAAAAAAAAAAAAAAAABAAABA
+LnJlbG9jAAAMAAAAAMAAAAACAAAAagAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAAB0
+gAAAAAAAAEgAAAACAAUAkDcAAPhHAAABAAAAAAAAAIh/AAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAABMwBQAOBgAAAAAAAAIoEAAACgJzEQAACiVyAQAAcHIBAABw
+bxIAAAolcgcAAHByBwAAcG8SAAAKJXITAABwchMAAHBvEgAACiVyGwAAcHIbAABwbxIAAAp9AwAA
+BAJzEQAACiVyIwAAcHIrAABwbxIAAAolclcAAHByXwAAcG8SAAAKJXJ1AABwcoEAAHBvEgAACiVy
+owAAcHKzAABwbxIAAAolctUAAHBy3QAAcG8SAAAKJXINAQBwchkBAHBvEgAACiVyOQEAcHJFAQBw
+bxIAAAolcl8BAHByZwEAcG8SAAAKJXKBAQBwco8BAHBvEgAACiVyrwEAcHK/AQBwbxIAAAolcu0B
+AHBy+QEAcG8SAAAKJXIVAgBwcicCAHBvEgAACiVyOQIAcHJBAgBwbxIAAAolcm0CAHByewIAcG8S
+AAAKJXKtAgBwcrcCAHBvEgAACiVyyQIAcHLRAgBwbxIAAAolcuMCAHBy6wIAcG8SAAAKJXIbAwBw
+ciMDAHBvEgAACn0EAAAEAnMRAAAKJXJPAwBwclkDAHBvEgAACiVylwMAcHKhAwBwbxIAAAolct8D
+AHBy6QMAcG8SAAAKJXIlBABwci8EAHBvEgAACiVyYwQAcHJtBABwbxIAAAolcpcEAHByoQQAcG8S
+AAAKJXLjBABwcu0EAHBvEgAACiVyHwUAcHIpBQBwbxIAAAolcnEFAHByewUAcG8SAAAKJXK3BQBw
+csEFAHBvEgAACiVy8QUAcHL7BQBwbxIAAAolcikGAHByMwYAcG8SAAAKJXJnBgBwcnEGAHBvEgAA
+CiVyowYAcHKtBgBwbxIAAAolct8GAHBy6QYAcG8SAAAKJXInBwBwcjEHAHBvEgAACiVybQcAcHJ3
+BwBwbxIAAAolcrMHAHByvQcAcG8SAAAKJXLvBwBwcvkHAHBvEgAACiVyNQgAcHI/CABwbxIAAAol
+cnUIAHByfwgAcG8SAAAKJXKjCABwcq0IAHBvEgAACiVy3QgAcHLnCABwbxIAAAolciEJAHByKwkA
+cG8SAAAKJXJjCQBwcm0JAHBvEgAACiVyqwkAcHK1CQBwbxIAAAolcuMJAHBy7QkAcG8SAAAKJXIv
+CgBwcjkKAHBvEgAACiVyewoAcHKFCgBwbxIAAAolcr0KAHByxwoAcG8SAAAKJXINCwBwchcLAHBv
+EgAACiVyQQsAcHJLCwBwbxIAAAolcnsLAHByhQsAcG8SAAAKJXLBCwBwcssLAHBvEgAACiVyBQwA
+cHIPDABwbxIAAAolcjMMAHByPQwAcG8SAAAKJXJ3DABwcoEMAHBvEgAACiVyrQwAcHK3DABwbxIA
+AAolcuUMAHBy7wwAcG8SAAAKJXIbDQBwciUNAHBvEgAACiVyVw0AcHJhDQBwbxIAAAolcpENAHBy
+mw0AcG8SAAAKJXLfDQBwcukNAHBvEgAACiVyGw4AcHIlDgBwbxIAAAolcl8OAHByaQ4AcG8SAAAK
+JXKNDgBwcpcOAHBvEgAACiVysw4AcHK9DgBwbxIAAAolcuMOAHBy7Q4AcG8SAAAKJXIbDwBwciUP
+AHBvEgAACiVyTw8AcHJZDwBwbxIAAAolcocPAHBykQ8AcG8SAAAKJXLHDwBwctEPAHBvEgAACiVy
+CRAAcHITEABwbxIAAAolck8QAHByWRAAcG8SAAAKJXKNEABwcpcQAHBvEgAACiVywxAAcHLNEABw
+bxIAAAolcgURAHByDxEAcG8SAAAKJXJFEQBwck8RAHBvEgAACiVycREAcHJ7EQBwbxIAAAolcq8R
+AHByuREAcG8SAAAKJXLXEQBwcuERAHBvEgAACiVyDxIAcHIZEgBwbxIAAAolcjkSAHByQxIAcG8S
+AAAKJXJ1EgBwcn8SAHBvEgAACiVyoRIAcHKrEgBwbxIAAAolcuUSAHBy7xIAcG8SAAAKJXIpEwBw
+cjMTAHBvEgAACiVykRMAcHKbEwBwbxIAAAolcs8TAHBy2RMAcG8SAAAKJXIHFABwchEUAHBvEgAA
+Cn0FAAAEAgJ7CQAABG9EAAAGbxMAAApzFAAACn0GAAAEAnsGAAAEbxUAAAoqAAATMAEAXwAAAAAA
+AAACKBYAAAoCewEAAAQtFQJ7CQAABG9DAAAGbxMAAAooFwAACgJ7AgAABC0VAnsJAAAEb0IAAAZv
+EwAACigXAAAKAnsGAAAELBYCewYAAARvGAAACgJ7BgAABG8ZAAAKKgAbMA0AQQYAAAEAABECAnsH
+AAAEF1h9BwAABH4aAAAKCnJJFABwA28PAAAGbxsAAAooHAAACgJ7BgAABBRzHQAAChMLAnsGAAAE
+bx4AAAoXLgsCewYAAARvFQAAChELIIDDyQFvHwAAChELbyAAAAoTDBEMfiEAAAouFxEMLBMRDG8i
+AAAKcmYVAHAoIwAACiw9Ahd9AQAABAJ7CwAABG8qAAAGAnsLAAAEcmgVAHACewcAAASMNQAAAQNv
+DwAABigkAAAKbygAAAbdfgUAABEMbyIAAAoK3gwRCywHEQtvJQAACtwDbxcAAAZvGwAACgsHFxhv
+JgAACgwHCHJmFQBwbycAAAoNFhMEAnsFAAAECW8oAAAKFhMFcmYVAHATBnJmFQBwEwdyZhUAcBMI
+cmYVAHATCXJmFQBwEwo5NwIAAHJmFQBwEw0CewUAAAQJbykAAAoXjTcAAAElFh8snW8qAAAKJRaa
+chUWAHAoKwAAChMJJRiaEwYlGZoTBwJ7BQAABAlvKQAACnIbFgBwbywAAAoTBReaKC0AAAo6WgEA
+AAdyKxYAcG8uAAAKLCZyLxYAcBEHclEWAHAoLwAACgNvDwAABm8bAAAKCCgkAAAKEw0rI3IvFgBw
+EQdygBgAcCgvAAAKA28PAAAGbxsAAAooHAAAChMNFxMEEQ0CewYAAAQUcx0AAAoTEAJ7BgAABG8e
+AAAKFy4LAnsGAAAEbxUAAAoRECCAw8kBbx8AAAoREG8wAAAKExE4pAAAABEREQdvMQAACn4hAAAK
+LjUREREHbzEAAAosKhEREQdvMQAACm8iAAAKcmYVAHAoIwAACi0QERERB28xAAAKbyIAAAorBXJm
+FQBwEwgREXIDGgBwbzEAAAp+IQAACi4+ERFyAxoAcG8xAAAKLDAREXIDGgBwbzEAAApvIgAACnJm
+FQBwKCMAAAotExERcgMaAHBvMQAACm8iAAAKKwVyZhUAcBMKERFvMgAACjpQ////3gwRECwHERBv
+JQAACtxzMwAAChMOczQAAAoTDwIGA28ZAAAGEQYRBBEHEQgRBREJEQ4RDxEKCSgEAAAGFhMSKxUC
+EQ4REm81AAAKKAEAACsREhdYExIREhEObzYAAAoy4BYTEysVAhEPERNvNwAACigCAAArERMXWBMT
+ERMRD284AAAKMuA4WwIAAAlyHRoAcCgjAAAKOeABAAADbxkAAAZvGwAACnInGgBwKCMAAAo5MQIA
+AHIvGgBwA28PAAAGbxsAAAooHAAACgJ7BgAABBRzHQAAChMUAnsGAAAEbx4AAAoXLgsCewYAAARv
+FQAAChEUIIDDyQFvHwAAChEUbyAAAAoTFREVfiEAAAouGhEVLBYRFW8iAAAKcmYVAHAoIwAACjnr
+AAAAczkAAAoTFhEWBn06AAAKERZysB0AcH07AAAKczwAAAoTFxEXBn09AAAKERcCA28RAAAGKAsA
+AAZ9PgAAChEXcr4dAHB9PwAAChEXcswdAHB9QAAAChEXAnsKAAAEb0YAAAYXjTcAAAElFh8tnW8q
+AAAKFpp9QQAAChEXFn1CAAAKc0MAAAolERZvRAAAChMYc0UAAAolERdvRgAAChMZFhMaKxUCERgR
+Gm9HAAAKKAMAACsRGhdYExoRGhEYb0gAAAoy4BYTGysVAhEZERtvSQAACigEAAArERsXWBMbERsR
+GW9KAAAKMuArWREVbyIAAAoKc0sAAAoTHBEcBn1MAAAKERwoTQAACnNOAAAKfU8AAAoRHChQAAAK
+c04AAAp9UQAAChEcct4dAHB9UgAAChEccuYdAHB9UwAACgIRHCgFAAAr3ncRFCwHERRvJQAACtwJ
+cgoeAHAoVAAACixeCXIUHgBwKFQAAAosUQIXfQIAAAQCewwAAARvMAAABgJ7DAAABHIeHgBwGo0T
+AAABJRYDbw8AAAaiJRcDbxUAAAaiJRgDbxcAAAaiJRkDbxkAAAaiKFUAAApvLgAABt54Ex0WEx4C
+KFYAAAofCnLxHgBwER1vVwAACnJmFQBwFhIeb1gAAAoRHW9ZAAAKLCYCKFYAAAofCnIlHwBwER1v
+WQAACm9XAAAKcmYVAHAWEh5vWAAACgIoVgAACh8KclkfAHARHW9aAAAKcmYVAHAWEh5vWAAACt4A
+KgAAAEFkAAACAAAANwAAAJUAAADMAAAADAAAAAAAAAACAAAA/QEAAOUAAADiAgAADAAAAAAAAAAC
+AAAAuAMAAJcBAABPBQAADAAAAAAAAAAAAAAAAAAAAMgFAADIBQAAeAAAABsAAAETMAUAKAEAAAIA
+ABEEKC0AAAosASoOBDm0AAAADgYoLQAACjmoAAAADgxy3wMAcChUAAAKLDxzWwAACgoGA31cAAAK
+Bg4FfV0AAAoGBH1eAAAKBXKDHwBwKCMAAAosCwZyhx8AcH1fAAAKAgYoBgAAKyoODHLfAwBwKCMA
+AAo5sAAAAA4LcpMfAHAoIwAACjmfAAAAc1sAAAoLBwN9XAAACgcOBX1dAAAKBwR9XgAACgVygx8A
+cCgjAAAKLAsHcocfAHB9XwAACgIHKAYAACsqDgxy4wQAcCgjAAAKLCMOBigtAAAKLRoCc2AAAAol
+A31hAAAKJQR9YgAACigHAAArKg4McmMEAHAoIwAACiwHcpcfAHAQCA4HLA0CAw4IBA4KKAgAAAYq
+AgMOCAQOCSgHAAAGKhMwBQAkAAAAAwAAEQMXjTcAAAElFh8wnW9jAAAKKGQAAAoKEgByox8AcChl
+AAAKKhMwBQBiAgAABAAAEQMoLQAACiwGcmYVAHAqcxEAAAolcq8fAHBysx8AcG8SAAAKJXK3HwBw
+crsfAHBvEgAACiVywR8AcHLFHwBwbxIAAAolcskfAHByzR8AcG8SAAAKJXLTHwBwctcfAHBvEgAA
+CiVy2x8AcHLfHwBwbxIAAAolcisWAHBy5R8AcG8SAAAKJXLpHwBwcu0fAHBvEgAACiVy8x8AcHL3
+HwBwbxIAAAolcvsfAHBy/x8AcG8SAAAKJXIFIABwcgkgAHBvEgAACiVyDSAAcHIRIABwbxIAAAol
+chcgAHByGyAAcG8SAAAKJXIfIABwciMgAHBvEgAACiVyKSAAcHItIABwbxIAAAolcjEgAHByNSAA
+cG8SAAAKJXI7IABwcj8gAHBvEgAACiVyQyAAcHJHIABwbxIAAAolck0gAHByUSAAcG8SAAAKJXJV
+IABwclkgAHBvEgAACgpyZhUAcAtyZhUAcAwWDRYTBAYDA29mAAAKF1lvZwAAChMFEgUoaAAACm8o
+AAAKLHAGAwNvZgAAChdZb2cAAAoTBRIFKGgAAApvKQAACgsHcl8gAHBvLgAAChMEAxeNNwAAASUW
+HzCdb2MAAAoMCAhvZgAAChdZF29pAAAKB3JfIABwcmYVAHBvJwAACigrAAAKDAhysx8AcCgjAAAK
+DSsZAxeNNwAAASUWHzCdb2MAAAoMCCgtAAAKDQktRwhvZgAAChMGEQYXLgURBhgzDghyYyAAcCgr
+AAAKDCsUCAhvZgAAChhZcmsgAHBvagAACgwRBC0DCCsLcl8gAHAIKCsAAAoMCS0CCCpybyAAcCqq
+BSgtAAAKLAEqDgRzawAACiUDfWwAAAolBAUoKwAACn1tAAAKb24AAAoqqgUoLQAACiwBKg4Ec28A
+AAolA31wAAAKJQQFKCsAAAp9cQAACm9yAAAKKhMwAwBJAAAAAAAAAANvZgAACh4vFAMWF28mAAAK
+crMfAHAoVAAACi0DAysLcrMfAHADKCsAAAoQAQNvZgAACh4yAwMrDAMYcrMfAHBvagAAChABAyoA
+AAATMAUANQAAAAUAABFyeSAAcHNzAAAKCgIDKAkAAAZyhSAAcAYWEgEodAAACiwNEgFylyAAcCh1
+AAAKKnJmFQBwKgAAABMwBQAzAAAABgAAEXJ5IABwc3MAAAoKAgMoCQAABnKFIABwBhYSASh0AAAK
+LAcHc04AAAoqEgL+FQYAABsIKgATMAUArwAAAAcAABFzdgAACiUDb3cAAAooCAAAKwoGF403AAAB
+JRYfLJ1vKgAAChaaBnJmFQBwbycAAApyhx8AcHJmFQBwbycAAApyqSAAcHJmFQBwbycAAApyayAA
+cHJmFQBwbycAAApysx8AcHJmFQBwbycAAApyrSAAcHJmFQBwbycAAApyDSAAcHJmFQBwbycAAAoo
+eQAACiwBKgJ7DQAABG82AAAGAnsNAAAEBm96AAAKbzQAAAYqSgJzewAACn0IAAAEAig5AAAGKioC
+AwQFKHwAAAoqUgJ7fQAACgJ7fgAAChaUb38AAAoqIgIWKIAAAAoqUgJ7fQAACgJ7fgAACheUb38A
+AAoqIgIXKIAAAAoqUgJ7fQAACgJ7fgAAChiUb38AAAoqIgIYKIAAAAoqUgJ7fQAACgJ7fgAAChmU
+b38AAAoqIgIZKIAAAAoqUgJ7fQAACgJ7fgAAChqUb38AAAoqIgIaKIAAAAoqUgJ7fQAACgJ7fgAA
+ChuUb38AAAoqIgIbKIAAAAoqUgJ7fQAACgJ7fgAAChyUb38AAAoqIgIcKIAAAAoqUgJ7fQAACgJ7
+fgAACh2Ub38AAAoqIgIdKIAAAAoqUgJ7fQAACgJ7fgAACh6Ub38AAAoqIgIeKIAAAAoqVgJ7fQAA
+CgJ7fgAACh8JlG9/AAAKKiYCHwkogAAACipWAnt9AAAKAnt+AAAKHwqUb38AAAoqJgIfCiiAAAAK
+Kh4CKIEAAAoqHgIoggAACiomAhYDKIMAAAoqWgMsCAIWKIQAAAoqcrEgAHBzhQAACnoeAiiGAAAK
+Kh4CKIcAAAoqfgIoiAAACgICc0EAAAZ9CQAABAICc0UAAAZ9CgAABCoTMAQATwAAAAAAAAAEck4h
+AHAab4kAAAosFQIFAgMoigAACg4Ecw4AAAZvPwAABgVviwAACiwjAgJ7DgAABBdYfQ4AAAQCew4A
+AAQXMwwCbzsAAAYCKDwAAAYqBioAAAATMAIATwAAAAAAAAACewsAAAQsEgJ7CwAABG8rAAAGAhR9
+CwAABAJ7DAAABCwSAnsMAAAEbzEAAAYCFH0MAAAEAnsNAAAELBICew0AAARvNwAABgIUfQ0AAAQq
+ABMwBQCXAAAACAAAERYKOIIAAAAEBpQOBHJeIQBwKIwAAAozGQIFBpoCBAaUKIoAAAoOBHMnAAAG
+fQsAAAQEBpQOBHJ0IQBwKIwAAAozGQIFBpoCBAaUKIoAAAoOBHMtAAAGfQwAAAQEBpQOBHKOIQBw
+KIwAAAozGQIFBpoCBAaUKIoAAAoOBHMzAAAGfQ0AAAQGF1gKBgM/d////wJvPgAABipKKwcCA29A
+AAAGA28lAAAGLfEqOgIojQAACgIDfQ8AAAQqggJ7DwAABG9WAAAKb44AAApyoCEAcG+PAAAKb5AA
+AAoqggJ7DwAABG9WAAAKb44AAApyziEAcG+PAAAKb5AAAAoqggJ7DwAABG9WAAAKb44AAApy9iEA
+cG+PAAAKb5AAAAoqOgIojQAACgIDfRAAAAQqlgJ7EAAABG+RAAAKcgQiAHBvkgAACiiTAAAKb5QA
+AAp0MAAAASoeAiiNAAAKKq5+EQAABC0echwiAHDQCgAAAiiVAAAKb5YAAApzlwAACoARAAAEfhEA
+AAQqGn4SAAAEKh4CgBIAAAQqGn4TAAAEKh4CKJgAAAoqLnNMAAAGgBMAAAQqAEJTSkIBAAEAAAAA
+AAwAAAB2NC4wLjMwMzE5AAAAAAUAbAAAAKgPAAAjfgAAFBAAAAgRAAAjU3RyaW5ncwAAAAAcIQAA
+kCIAACNVUwCsQwAAEAAAACNHVUlEAAAAvEMAADwEAAAjQmxvYgAAAAAAAAACAAABVxWiCQkdAAAA
++gEzABYAAAEAAABKAAAACwAAABMAAABNAAAAOgAAAJgAAAAQAAAACAAAAAgAAAAjAAAAJAAAAAgA
+AAABAAAACQAAAAEAAAABAAAACAAAAAEAAAAAAFoIAQAAAAAABgCMBlQNBgAgB1QNBgDYBRsNDwDI
+DQAABgAFBjAKBgBvBjAKBgBQBjAKBgAHBzAKBgCsBjAKBgDFBjAKBgAcBjAKBgA3BpcHCgDgBn0E
+BgAIAV8CDgBvCkcCEgDlAKgOFgAtAS4NDgAUA0cCBgDyDsIJBgD7AF8CFgAVAS4NFgBhAS4NDgDa
+C0cCFgCuAS4NFgC3AC4NFgCoAC4NBgDUCsIJFgDhAS4NBgAYCMIJBgAcCwsKBgBTBMIJBgDMAMIJ
+FgDYBC4NCgBWDH0EGgA2DH0ECgAoC30ECgBgD30EHgBmAJUMBgC7BRsNBgBnDHQNIgB0BSoIIgDs
+BSoIIgDxBPYJBgCgBVQNDgBiCt4KBgAUBPcBIgBmDyoIBgDeB8IJDgAgCkcCDgCJBQMCDgAKA94K
+BgCCCMIJBgACAcIJBgDZA8IJBgCbC8IJDgDNC94KJgABAL0MFgBTAS4NBgC5D8IJBgD3C8IJBgA9
+DgsKEgBwBKgOBgDXAF8CBgCxCsIJBgALC8IJJgAqAL0MJgBNAL0MHgB/AJUMHgAaAJUMlwA2EAAA
+HgCQAJUMBgCrBMIJBgDlA8IJBgDQEDAKAAAAAKUBAAAAAAEAAQABABAA5gkAABwAAQABAAEAEAAH
+DAAAiQAJAA4AAQAQAEUMAACJAAkAJwABABAAIwwAAIkACQAtAAEAEAAUDAAAiQAJADMAAQAQAEIP
+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
+BgCBAeUHoQCBAS0DpwAMAMAQrQAMALAJswCBARgPugCBAdYOwQCBAYEOxwCBAfMQzACBAfoHxwCB
+AdYO0QCRAOkL2ADBAbAJ3QDBAYQC4gAUAPAMBgAcAPAMBgAUALAJ9AAUAHAP/wAcALAJ9AAcAHAP
+/wDBAPAMBgDBAHoCcgDBAHUDcgDJAPAMBgDJAHoCcgDJAE0ICAHJAH8DcgDJAPEKcgDJABkEcgDJ
+AEAIEQEkAPAMBgAkAIkCGwEsAPAMBgAsAIkCGwEkALAJ9AAkAHAP/wAsALAJ9AAsAHAP/wDRAPAM
+BgDRAHoCcgD5AGgQMgE0APAMGwHRAIcLCAH5AKYQMgHRACoPCAHRAKsDcgDRAP4KcgCBAeUQlACB
+Ad0ORAEpARgCSwHZAM0DKwDJAeYMUQHZAMsKXAHZAEgDKwDhAPAMBgDhAHoCcgDhAPUCcgDhAFUH
+cgDhALAQcgDRAfAMBgDRAXoCcgDRAZ4EcgCBAagPeAHZARYIfgHpANIHhAGBAe8H/wCBAZYOmAG5
+AdIHKwCBAXcHoQCBAbIPnQGpAPAMBgCpAHoCcgCpABUQcgAUAIkCGwGxAPAMBgCxAHoCcgCxABUQ
+cgAcAIkCGwHxAPAMEAD5AOQOqgH5ANIHhAE8APAMBgA8AIkCGwHxAbEH0gGBATUDzACBAY0MKwBE
+APAMBgARAfAM6gERAVwM9gERAUwO+wEZAdsH/wERAaEJBAIRAZ4Q4gARAQwP4gARAbkJCQIRAagJ
+AQABAvAMEAARAXAQBgARAQkPBgApAfAMBgCBAXoODwIpAWAOFwIZAfkO4gApAdUBIQKZAPAMBgDJ
+AUIKKQIRAjgELwIZAncMNgIpAScOPAIhArAJQgIpAVEQSQIpAiIQTwJBAvcDVgJBAswQXwJBAfAM
+ZQJZAfAMBgAuAAsAeAMuABMAgQMuABsAoAMuACMAqQMuACsA0gMuADMA0gMuADsA0gMuAEMAqQMu
+AEsA2AMuAFMA0gMuAFsA7wNDAGMANwRDAWsANwRhAnsANwQpBHMAoANJBHMAoAM0AGEBcwGJAaMB
+uQHHAR0CAwABAAQAFwAFABkABgAbAAgAHQAJACAACgAhAAsAIwAAAL8LWgMAAJMJXgMAADQFWgMA
+AEQJXgMAAGAEWgMAACkJXgMAAJsDWgMAAPAIXgMAAGsDWgMAAMcIXgMAAGUHWgMAAF8JXgMAAIIH
+WgMAAHMJXgMAALoDWgMAAAsJXgMAAMEBWgMAAI0IXgMAAI4DWgMAANwIXgMAALQCWgMAALQIXgMA
+ACkCWgMAAKQIXgMAACkCWgMAAKQIXgMAACkCWgMAAKQIXgMAAIIKYgMAAJ0KYgMAADcCYgMAAA0E
+WgMAAGcMaAMAANAEbgMAACIPcwMCAA8AAwACABAABQACABEABwACABIACQACABMACwACABQADQAC
+ABUADwACABYAEQACABcAEwACABgAFQACABkAFwACABoAGQACABsAGwACABwAHQACAB0AHwACAB4A
+IQACAB8AIwACACAAJQACACEAJwACACIAKQACACMAKwACACQALQABACgALwABACkAMQABAC4AMwAB
+AC8ANQABADQANwABADUAOQACAEIAOwACAEMAPQACAEQAPwACAEYAQQACAEgAQwACAEkARQABAEoA
+RQACAEsARwAcAOYA7QAUASEBNwHLAeMBBIAAAAEAAAABHjeDAAAAAAAAgQEAAAQAAAAAAAAAAAAA
+AG0CPgIAAAAACwAAAAAAAAAAAAAAdgKLDwAAAAAEAAAAAAAAAAAAAABtAgMCAAAAAAMAAgAHAAAA
+AAAAAH8CqA4AAAAAAQABAAAAAAAAAAAAiAIPBQAAAAALAAAAAAAAAAAAAAB2AsEPAAAAAAsAAAAA
+AAAAAAAAAHYCQAsAAAAABAAAAAAAAAAAAAAAbQLCCQAAAAALAAAAAAAAAAAAAAB2AmMLAAAAAAAA
+AAABAAAAhQ0AAAAAAAAZAAECGAD6ABgAAwEYACgBGAAtARgAPwEYAGgBGABtAfEA3gEBAIUAAAAA
+AABJRFRTQ29tcG9uZW50TWV0YURhdGExMDAASURUU1ZhcmlhYmxlMTAwAElEVFNSdW50aW1lQ29u
+bmVjdGlvbkNvbGxlY3Rpb24xMDAASURUU1J1bnRpbWVDb25uZWN0aW9uMTAwAElEVFNDb25uZWN0
+aW9uTWFuYWdlcjEwMABJRFRTVmFyaWFibGVzMTAwAElEVFNFdmFsdWF0b3JDb250ZXh0MTAwAEtl
+ZXBlckluZm9fMjAwAENsaWVudFJlY2FsbEluZm9fMjAxAE51bGxhYmxlYDEASUVudW1lcmFibGVg
+MQBEZWxpbWl0ZWRGaWxlRW5naW5lYDEATGlzdGAxAEludDMyAERpY3Rpb25hcnlgMgBBY2NvdW50
+RnJlZUZvcm1UZXh0XzIwMwBBY2NvdW50RnJlZUZvcm1UZXh0TW50T25seV8yMDMAYWRkMjAzAFNr
+aXBQaG9uZV8yMTQAQ29uc3VtZXJGcmVlRm9ybVRleHRfMjA1AGFkZDIwNQBTQ180YWM4Y2I0Yzc1
+ZDM0YTU1ODU1ZGMxMDZmNTU1Yjk1NwA8TW9kdWxlPgBDbG9zZUFjY291bnRfQwBnZXRfUmVjb3Zl
+cmVySUQASW5wdXRJRABHZXRPdXRwdXRJRABVcGRhdGVBY2NvdW50X1VQRABGSEUAU3lzdGVtLklP
+AFQAU3lzdGVtLkRhdGEAc2V0X0RhdGEAZ2V0X0NvbXBvbmVudE1ldGFEYXRhAGRhdGEAZ2V0X0Fy
+dGl2YQBtc2NvcmxpYgBTeXN0ZW0uRGF0YS5PZGJjAGFkZFJlYwBTeXN0ZW0uQ29sbGVjdGlvbnMu
+R2VuZXJpYwBBY2NvdW50SWQAUmVhZABBZGQASW5wdXRzRmluaXNoZWQATWFya091dHB1dHNGaW5p
+c2hlZABnZXRfTm90VXNlZABfY29kZU5vdEZvdW5kUmVwb3J0Q3JlYXRlZABfZXhjZXB0aW9uUmVw
+b3J0Q3JlYXRlZABhY2NpZABVcGRhdGVGaWVsZAB1cGRmaWVsZABEYkNvbW1hbmQAT2RiY0NvbW1h
+bmQAaXN1cGQAcmVjb3JkAFJlcGxhY2UASXNOdWxsT3JXaGl0ZVNwYWNlAGdldF9TdGFja1RyYWNl
+AGRlZmF1bHRJbnN0YW5jZQBnZXRfRmllbGRDb2RlAENsb3NlQ29kZQBSZWNhbGxDb2RlAGdldF9M
+b2FuQ29kZQBnZXRfVHJhbnNhY3Rpb25Db2RlAEtlZXBlckNvZGUAZ2V0X0RQU0lEUmVjb3ZlcmVy
+Q29kZQBnZXRfTWVzc2FnZQBJRGlzcG9zYWJsZQBSdW50aW1lVHlwZUhhbmRsZQBHZXRUeXBlRnJv
+bUhhbmRsZQBnZXRfQ3VycmVudEZpbGUAQ2xpZW50UmVjYWxsRmlsZU5hbWUASW5wdXROYW1lAEdl
+dFJ1bnRpbWVDb25uZWN0aW9uQnlOYW1lAERhdGVUaW1lAGdldF9UcmFuc2FjdGlvblRpbWUAQ29t
+bW9uRW5naW5lAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRHRzLlBpcGVsaW5lAENvbnRhY3RQaG9uZQBU
+eXBlAGdldF9DdWx0dXJlAHNldF9DdWx0dXJlAHJlc291cmNlQ3VsdHVyZQBHZW5lcmFsUHVycG9z
+ZVJlY29yZEJhc2UAQXBwbGljYXRpb25TZXR0aW5nc0Jhc2UAQ2xvc2UAUkdTLkFydGl2YUdlbmVy
+YWxQdXJwb3NlAERpc3Bvc2UAZ2V0X1RyYW5zYWN0aW9uRGF0ZQBnZXREYXRlAGdldEZvcm1hdGVk
+ZGF0ZQBnZXRSZWNhbGxkYXRlAGdldF9TdGF0ZQBFZGl0b3JCcm93c2FibGVTdGF0ZQBDb25uZWN0
+aW9uU3RhdGUARGVsZXRlAENvbXBpbGVyR2VuZXJhdGVkQXR0cmlidXRlAERlYnVnZ2VyTm9uVXNl
+ckNvZGVBdHRyaWJ1dGUARGVidWdnYWJsZUF0dHJpYnV0ZQBFZGl0b3JCcm93c2FibGVBdHRyaWJ1
+dGUAQXNzZW1ibHlUaXRsZUF0dHJpYnV0ZQBBc3NlbWJseVRyYWRlbWFya0F0dHJpYnV0ZQBUYXJn
+ZXRGcmFtZXdvcmtBdHRyaWJ1dGUAQXNzZW1ibHlDb25maWd1cmF0aW9uQXR0cmlidXRlAEFzc2Vt
+Ymx5RGVzY3JpcHRpb25BdHRyaWJ1dGUAQ29tcGlsYXRpb25SZWxheGF0aW9uc0F0dHJpYnV0ZQBB
+c3NlbWJseVByb2R1Y3RBdHRyaWJ1dGUAQXNzZW1ibHlDb3B5cmlnaHRBdHRyaWJ1dGUAU1NJU1Nj
+cmlwdENvbXBvbmVudEVudHJ5UG9pbnRBdHRyaWJ1dGUAQXNzZW1ibHlDb21wYW55QXR0cmlidXRl
+AFJ1bnRpbWVDb21wYXRpYmlsaXR5QXR0cmlidXRlAFByZUV4ZWN1dGUAUG9zdEV4ZWN1dGUAVXBk
+YXRlVmFsdWUAZ2V0X05ld1ZhbHVlAHVwZHZhbHVlAFJlbW92ZQBnZXRfSW50ZXJuYWxFeHRlcm5h
+bGZsYWcAU3lzdGVtLlJ1bnRpbWUuVmVyc2lvbmluZwBXcml0ZVN0cmluZwBnZXRfQ29ubmVjdGlv
+blN0cmluZwBUb1N0cmluZwBHZXRTdHJpbmcAU3Vic3RyaW5nAGdldF9MZW5ndGgAU3RhcnRzV2l0
+aAB1cGRwcmltY21rAGlzY21rAFRvRGVjaW1hbAB2YWwAbGFiZWwAU3lzdGVtLkNvbXBvbmVudE1v
+ZGVsAFJlc2VuZFJlY2FsbABEYXRlT2ZSZWNhbGwAU0NfNGFjOGNiNGM3NWQzNGE1NTg1NWRjMTA2
+ZjU1NWI5NTcuZGxsAERCTnVsbABnZXRfUmVjb3ZlcmVySURfSXNOdWxsAHNldF9EYXRhX0lzTnVs
+bABnZXRfTm90VXNlZF9Jc051bGwAZ2V0X0ZpZWxkQ29kZV9Jc051bGwAZ2V0X0xvYW5Db2RlX0lz
+TnVsbABnZXRfVHJhbnNhY3Rpb25Db2RlX0lzTnVsbABnZXRfRFBTSURSZWNvdmVyZXJDb2RlX0lz
+TnVsbABnZXRfVHJhbnNhY3Rpb25UaW1lX0lzTnVsbABnZXRfVHJhbnNhY3Rpb25EYXRlX0lzTnVs
+bABnZXRfTmV3VmFsdWVfSXNOdWxsAGdldF9JbnRlcm5hbEV4dGVybmFsZmxhZ19Jc051bGwAZ2V0
+X0FjY291bnROdW1iZXJfSXNOdWxsAFNldE51bGwAZ2V0X0l0ZW0Ac2V0X0l0ZW0AU3lzdGVtAFRy
+aW0AZ2V0bnVtAHJlc291cmNlTWFuAE9wZW4AU2NyaXB0TWFpbgBjb25uAFN5c3RlbS5Db25maWd1
+cmF0aW9uAFN5c3RlbS5HbG9iYWxpemF0aW9uAE9kYmNUcmFuc2FjdGlvbgBTeXN0ZW0uUmVmbGVj
+dGlvbgBnZXRfUnVudGltZUNvbm5lY3Rpb25Db2xsZWN0aW9uAERiQ29ubmVjdGlvbgBPZGJjQ29u
+bmVjdGlvbgBnZXRfQ29kZU5vdEZvdW5kQ29ubmVjdGlvbgBnZXRfRXhjZXB0aW9uQ29ubmVjdGlv
+bgBJbnZhbGlkT3BlcmF0aW9uRXhjZXB0aW9uAGdldF9Jbm5lckV4Y2VwdGlvbgBTeXN0ZW0uRGF0
+YS5Db21tb24AUmVjYWxsUmVhc29uAEtlZXBlclJlYXNvbgBTdHJpbmdDb21wYXJpc29uAEN1bHR1
+cmVJbmZvAE91dHB1dE5hbWVNYXAAT3V0cHV0TWFwAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRFRTUnVu
+dGltZVdyYXAATWljcm9zb2Z0LlNxbFNlcnZlci5EVFNQaXBlbGluZVdyYXAARGF0ZVJlcXVlc3Rl
+ZFRvS2VlcABDaGFyAEV4ZWN1dGVTY2FsYXIAZm9ybWF0TnVtYmVyAGdldF9BY2NvdW50TnVtYmVy
+AERiRGF0YVJlYWRlcgBPZGJjRGF0YVJlYWRlcgBFeGVjdXRlUmVhZGVyAElGb3JtYXRQcm92aWRl
+cgBJbnB1dDBCdWZmZXIAQXJ0aXZhTVRCdWZmZXIAQ29kZU5vdEZvdW5kQnVmZmVyAFBpcGVsaW5l
+QnVmZmVyAEV4Y2VwdGlvbnNCdWZmZXIAU2NyaXB0QnVmZmVyAGdldF9SZXNvdXJjZU1hbmFnZXIA
+Z2V0X0Nvbm5lY3Rpb25NYW5hZ2VyAFRvVXBwZXIATWljcm9zb2Z0LlNxbFNlcnZlci5EdHMuUnVu
+dGltZS5XcmFwcGVyAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRHRzLlBpcGVsaW5lLldyYXBwZXIARmly
+ZUVycm9yAC5jdG9yAC5jY3RvcgBzdHIAcmVjMjAzcwByZWMyMDVzAE91dHB1dElEcwBTeXN0ZW0u
+RGlhZ25vc3RpY3MAUkdTLkFydGl2YUdlbmVyYWxQdXJwb3NlLkRhdGEuUmVjb3JkcwBTeXN0ZW0u
+UnVudGltZS5Db21waWxlclNlcnZpY2VzAFN5c3RlbS5SZXNvdXJjZXMAU0NfNGFjOGNiNGM3NWQz
+NGE1NTg1NWRjMTA2ZjU1NWI5NTcuUHJvcGVydGllcy5SZXNvdXJjZXMucmVzb3VyY2VzAERlYnVn
+Z2luZ01vZGVzAGZpZWxkY29kZXMAcmVjYWxsY29kZXMAdHJhbmNvZGVzAFNDXzRhYzhjYjRjNzVk
+MzRhNTU4NTVkYzEwNmY1NTViOTU3LlByb3BlcnRpZXMAZ2V0X1JlYWRPbmx5VmFyaWFibGVzAERh
+dGVUaW1lU3R5bGVzAEJ1ZmZlckNvbHVtbkluZGV4ZXMAR2V0Q29sdW1uSW5kZXhlcwBTZXR0aW5n
+cwBFcXVhbHMAQ29udGFpbnMAQ29ubmVjdGlvbnMAZ2V0X0NoYXJzAEJ1ZmZlcnMARmlsZUhlbHBl
+cnMARmluaXNoT3V0cHV0cwBDcmVhdGVOZXdPdXRwdXRSb3dzAENvbmNhdABGb3JtYXQAVHJ5UGFy
+c2VFeGFjdABPYmplY3QAZ2V0X0VuZE9mUm93c2V0AFNldEVuZE9mUm93c2V0AFNwbGl0AGdldF9E
+ZWZhdWx0AERhdGVSZXF1ZXN0U2VudFRvQ2xpZW50AFVzZXJDb21wb25lbnQAUGFyZW50Q29tcG9u
+ZW50AFNjcmlwdENvbXBvbmVudABnZXRfQ291bnQASW5wdXRSZWNvcmRDb3VudABNaWNyb3NvZnQu
+U3FsU2VydmVyLlR4U2NyaXB0AFRyaW1TdGFydABJbnNlcnQAQ29udmVydABNaWNyb3NvZnQuU3Fs
+U2VydmVyLlBpcGVsaW5lSG9zdABzZXRfQ29tbWFuZFRpbWVvdXQASW5wdXQwX1Byb2Nlc3NJbnB1
+dABQcmltZU91dHB1dABGcmVlRm9ybVRleHQAR2V0VmFsdWVXaXRoQ29udGV4dABTY3JpcHRDb21w
+b25lbnRFdmFsQ29udGV4dABnZXRfRXZhbHVhdG9yQ29udGV4dAB2AGdldF9Ob3cAQWRkUm93AEFk
+ZFBsYWNlbWVudFJvdwBJbnB1dDBfUHJvY2Vzc0lucHV0Um93AE5leHRSb3cAZ2V0X1RvZGF5AFJl
+bGF0aW9uc2hpcEtleQBDb250YWluc0tleQBnZXRfQXNzZW1ibHkAb3BfRXF1YWxpdHkAb3BfSW5l
+cXVhbGl0eQBJc051bGxPckVtcHR5AGlzYml6AAAABUQAUAAAC0QAUABOAFMARgAAB0QAQgBKAAAH
+QwBSAEoAAAdBAEUAWAAAK0EAbABsACAARQBmAGYAbwByAHQAcwAgAEUAeABoAGEAdQBzAHQAZQBk
+AAAHQgBOAEsAABVCAGEAbgBrAHIAdQBwAHQAYwB5AAALQwBFAEEAUwBFAAAhQwBlAGEAcwBlACAA
+YQBuAGQAIABEAGUAcwBpAHMAdAAAD0QASQBTAFAAVQBUAEUAACFSAFAAIABEAGkAcwBwAHUAdABl
+AHMAIABEAGUAYgB0AAAHRABTAEEAAC9EAGUAYgB0ACAAUwBlAHQAdABsAGUAbQBuAGUAdAAgAEMA
+bwBtAHAAYQBuAHkAAAtGAFIAQQBVAEQAAB9SAFAAIABDAGwAYQBpAG0AcwAgAEYAcgBhAHUAZAAA
+C0kATgBDAEEAUgAAGUkAbgBjAGEAcgBjAGUAcgBhAHQAZQBkAAAHUABJAEYAABlQAGEAaQBkACAA
+aQBuACAARgB1AGwAbAAADVMARQBUAFQATABFAAAfUwBlAHQAdABsAGUAZAAgAGkAbgAgAEYAdQBs
+AGwAAA9TAFQAQQBUAFUAVABFAAAtUwB0AGEAdAB1AHQAZQAgAG8AZgAgAEwAaQBtAGkAdABhAHQA
+aQBvAG4AcwAAC1UATgBDAE8ATAAAG1UAbgBjAG8AbABsAGUAYwB0AGEAYgBsAGUAABFEAEUAQwBF
+AEEAUwBFAEQAABFEAGUAYwBlAGEAcwBlAGQAAAdDAEMAUgAAK0MAbABvAHMAZQBkACAAQwBsAGkA
+ZQBuAHQAIABSAGUAcQB1AGUAcwB0AAANQwBPAE0AUABMAFQAADFSAFAAIABoAGEAcwAgAGYAaQBs
+AGUAZAAgAGEAIABDAG8AbQBwAGwAYQBpAG4AdAAACVMAQwBSAEEAABFNAGkAbABpAHQAYQByAHkA
+AAdMAEkAVAAAEUwAaQB0AGkAZwBhAG4AdAAAB08ATwBPAAAvQwBvAG0AcABhAG4AeQAgAG8AdQB0
+ACAAbwBmACAAQgB1AHMAaQBuAGUAcwBzAAAHUwBNAEIAACtTAG0AYQBsAGwAIABCAGEAbABhAG4A
+YwBlACAAQQBjAGMAbwB1AG4AdAAACUMAQQBEADEAAD1DAE8ATQBBAEsARQBSACAAQQBEAEQAUgAg
+AEwASQBOAEUAMQAsAFgALABjACwAQQBSAEUATgBBAEQAUgAACUMAQQBEADIAAD1DAE8ATQBBAEsA
+RQBSACAAQQBEAEQAUgAgAEwASQBOAEUAMgAsAFgALABjACwAQQBSAEUATgBVAE4AVAAACUMAQwBO
+AE0AADtDAE8AUgBQACAAQwBPAE0AQQBLAEUAUgAgAE4AQQBNAEUALABYACwAYwAsAEEAUgBFAE4A
+TABOAE0AAAlDAFQAWQBQAAAzQwBPAE0AQQBLAEUAUgAgAEMAVQBTAFQATwBNAEUAUgAgAFQAWQBQ
+AEUALAAsAG4ALAAACUMAQgBEAFkAAClDAE8ATQBBAEsARQBSACAAQgBJAFIAVABIAEQAQQBZACwA
+LABuACwAAAlDAE8AUABIAABBQwBPAE0AQQBLAEUAUgAgAFcATwBSAEsAIABQAEgATwBOAEUALABY
+ACwAbgAsAEEAUgBFAE4AUABPAEUAUABIAAAJQwBNAE8AQgAAMUMATwBNAEEASwBFAFIAIABNAE8A
+QgBJAEwARQAgAFAASABPAE4ARQAsACAALAAsAAAJQwBFAE0ATAAAR0MATwBNAEEASwBFAFIAIABF
+AE0AQQBJAEwAIABBAEQARABSAEUAUwBTACwAeAAsAG4ALABBAFIARQBOAEUATQBBAEkATAAACUMA
+RQBNAFAAADtDAE8ATQBBAEsARQBSACAARQBNAFAATABPAFkATQBFAE4AVAAgAFMAVABBAFQAVQBT
+ACwALABuACwAAAlDAE0ARQBYAAAvQwBPAE0AQQBLAEUAUgAgAE0AVABIACAARQBYAFAARQBOAFMA
+RQAsACwAbgAsAAAJQwBNAEkATgAALUMATwBNAEEASwBFAFIAIABNAFQASAAgAEkATgBDAE8ATQBF
+ACwALABuACwAAAlDAE8ARQBYAAAzQwBPAE0AQQBLAEUAUgAgAE8AVABIAEUAUgAgAEUAWABQAEUA
+TgBTAEUALAAsAG4ALAAACUMATwBJAE4AADFDAE8ATQBBAEsARQBSACAATwBUAEgARQBSACAASQBO
+AEMATwBNAEUALAAsAG4ALAAACUMAQwBUAFkAADFDAE8ATQBBAEsARQBSACAAQwBJAFQAWQAsAHgA
+LABjACwAQQBSAEUATgBDAFQAWQAACUMARgBOAE0AAD1JAE4ARAAgAEMATQBLACAARgBJAFIAUwBU
+ACAATgBBAE0ARQAsAHgALABjACwAQQBSAEUATgBGAE4ATQAACUMASABQAEgAADtDAE8ATQBBAEsA
+RQBSACAASABPAE0ARQAgAFAASABPAE4ARQAsAHgALABjACwAQQBSAEUATgBQAEgAAAlDAEwATgBN
+AAA7SQBOAEQAIABDAE0ASwAgAEwAQQBTAFQAIABOAEEATQBFACwAeAAsAGMALABBAFIARQBOAEwA
+TgBNAAAJQwBPAFcATgAAMUMATwBNAEEASwBFAFIAIABPAFcATgAvAFIARQBOAFQAIABDAEQARQAs
+ACwAbgAsAAAJQwBTAFQAQwAAO0MATwBNAEEASwBFAFIAIABTAFQAQQBUAEUAIABDAE8ARABFACwA
+eAAsAGMALABBAFIARQBOAFMAVAAACUMAVABBAFgAADVDAE8ATQBBAEsARQBSACAAVABBAFgALQBJ
+AEQALAB4ACwAYwAsAEEAUgBFAE4AUwBTAE4AAQlDAFQAVABMAAAjQwBPAE0AQQBLAEUAUgAgAFQA
+SQBUAEwARQAsACwAbgAsAAAJQwBaAEkAUAAAL0MATwBNAEEASwBFAFIAIABaAEkAUAAsAHgALABj
+ACwAQQBSAEUATgBaAEkAUAAACUMATABCAEYAADlDAE8ATQBBAEsARQBSACAATABJAEEAQgBJAEwA
+SQBUAFkAIABTAFcASQBUAEMASAAsACwAbgAsAAAJQwBEAEMARgAAN0MATwBNAEEASwBFAFIAIABO
+AE8AIABDAE8ATgBUAEEAQwBUACAARgBMAEEARwAsACwAbgAsAAAJQwBCAEMAQwAAPUMATwBNAEEA
+SwBFAFIAIABDAEIAUgAgAFIARQBQAE8AUgBUAEkATgBHACAARgBMAEEARwAsACwAbgAsAAAJQwBM
+AEQAVAAALUMATwBNAEEASwBFAFIAIABDAE8AVQBSAFQAIABEAEEAVABFACwALABuACwAAAlNAEEA
+RAAxAABBRABFAEIAVABPAFIAIABBAEQARABSAEUAUwBTACAATABJAE4ARQAxACwAeAAsAHAALABB
+AFIARQBOAEEARABSAAAJTQBBAEQAMgAAQUQARQBCAFQATwBSACAAQQBEAEQAUgBFAFMAUwAgAEwA
+SQBOAEUAMgAsAHgALABwACwAQQBSAEUATgBVAE4AVAAACU0AVABUAEwAADdEAEUAQgBUAE8AUgAg
+AFMAQQBMAFUAVABBAFQASQBPAE4ALwBUAEkAVABMAEUALAAsAG4ALAAACU0ARQBNAEwAAEVEAEUA
+QgBUAE8AUgAgAEUATQBBAEkATAAgAEEARABEAFIARQBTAFMALAB4ACwAbgAsAEEAUgBFAE4ARQBN
+AEEASQBMAAAJTQBDAE4ATQAAKUQARQBCAFQATwBSACAAQwBPAFIAUAAgAE4AQQBNAEUALAAsAG4A
+LAAACU0AQwBUAFkAAC9EAEUAQgBUAE8AUgAgAEMASQBUAFkALAB4ACwAcAAsAEEAUgBFAE4AQwBU
+AFkAAAlNAEYATgBNAAA7RABFAEIAVABPAFIAIABGAEkAUgBTAFQAIABOAEEATQBFACwAeAAsAHAA
+LABBAFIARQBOAEYATgBNAAAJTQBIAFAASAAAOUQARQBCAFQATwBSACAASABPAE0ARQAgAFAASABP
+AE4ARQAsAHgALABwACwAQQBSAEUATgBQAEgAAAlNAE0ATwBCAAAjTQBPAEIASQBMAEUAIABQAEgA
+TwBOAEUALAB4ACwAbgAsAAAJTQBMAE4ATQAAOUQARQBCAFQATwBSACAATABBAFMAVAAgAE4AQQBN
+AEUALAB4ACwAcAAsAEEAUgBFAE4ATABOAE0AAAlNAEwARABUAAArRABFAEIAVABPAFIAIABDAE8A
+VQBSAFQAIABEAEEAVABFACwALABuACwAAAlNAE0ARQBYAAAtRABFAEIAVABPAFIAIABNAFQASAAg
+AEUAWABQAEUATgBTAEUALAAsAG4ALAAACU0ATQBJAE4AACtEAEUAQgBUAE8AUgAgAE0AVABIACAA
+SQBOAEMATwBNAEUALAAsAG4ALAAACU0ATwBFAFgAADFEAEUAQgBUAE8AUgAgAE8AVABIAEUAUgAg
+AEUAWABQAEUATgBTAEUALAAsAG4ALAAACU0ATwBJAE4AAC9EAEUAQgBUAE8AUgAgAE8AVABIAEUA
+UgAgAEkATgBDAE8ATQBFACwALABuACwAAAlNAE8AUABIAABDRABFAEIAVABPAFIAIABPAEYARgBJ
+AEMARQAgAFAASABPAE4ARQAsAHgALABwACwAQQBSAEUATgBQAE8ARQBQAEgAAAlNAE8AVwBOAAAx
+RABFAEIAVABPAFIAIABPAFcATgAvAFIARQBOAFQAIABDAE8ARABFACwALABuACwAAAlNAFMAVABD
+AAA5RABFAEIAVABPAFIAIABTAFQAQQBUAEUAIABDAE8ARABFACwAeAAsAHAALABBAFIARQBOAFMA
+VAAACU0AVABZAFAAACNDAFUAUwBUAE8ATQBFAFIAIABUAFkAUABFACwALABuACwAAAlNAEIAUgBE
+AAAbQgBBAFIAIABEAEEAVABFACwAIAAsAG4ALAAACU0ARABTAEQAACVEAEkAUwBNAEkAUwBTAEEA
+TAAgAEQAQQBUAEUALAAsAG4ALAAACU0AUgBBAEQAAC1SAEUAQQBGAEYASQBSAE0AQQBUAEkATwBO
+ACAARABBAFQARQAsACwAbgAsAAAJTQBTAEwARAAAKVMAVABBAFkAIABMAEkARgBUAEUARAAgAEQA
+QQBUAEUALAAsAG4ALAAACU0AUABSAEQAAC1QAEwAQQBOACAAUgBFAEMARQBJAFYARQBEACAARABB
+AFQARQAsACwAbgAsAAAJTQBQAEEARQAANUIASwBUACAAUABMAEEATgAgAEEAUABQAFIATwBWAEUA
+RAAgAEQAQQBUAEUALAAsAG4ALAAACU0AUABDAEQAADdCAEsAVAAgAFAATABBAE4AIABDAE8ATgBW
+AEUAUgBUAEUARAAgAEQAQQBUAEUALAAsAG4ALAAACU0AUABDAFYAADtCAEsAVAAgAFAATABBAE4A
+IABDAE8ATgBWAEUAUgBUAEUARAAgAE4AVQBNAEIARQBSACwALABuACwAAAlNAE4ATQBEAAAzQgBL
+AFQAIABQAEwAQQBOACAATQBFAEUAVABJAE4ARwAgAEQAQQBUAEUALAAsAG4ALAAACU0AUABGAEQA
+ACtCAEsAVAAgAFAATwBDACAARgBJAEwARQAgAEQAQQBUAEUALAAsAG4ALAAACU0AUABBAEQAADdC
+AEsAVAAgAFAATwBDACAAQQBDAEMARQBQAFQAQQBOAEMARQAgAEQAQQBUAEUALAAsAG4ALAAACU0A
+UABBAEEAADVCAEsAVAAgAFAATwBDACAAQQBNAEUATgBEAE0ARQBOAFQAIABEAEEAVABFACwALABu
+ACwAAAlNAEMATABNAAAhQwBMAEEASQBNACAAQQBNAE8AVQBOAFQALAAsAG4ALAAACU0AQgBDAE4A
+ADNQAFIATwBPAEYAIABPAEYAIABDAEwAQQBJAE0AIABOAFUATQBCAEUAUgAsACwAbgAsAAAJTQBC
+AEMAVAAAHUMATABBAEkATQAgAFQAWQBQAEUALAAsAG4ALAAACU0AQgBLAEMAAC1CAEsAVAAgAEMA
+SABBAFAAVABFAFIAIABOAFUATQBCAEUAUgAsACwAbgAsAAAJTQBCAE4AUgAAH0MAQQBTAEUAIABO
+AFUATQBCAEUAUgAsACwAbgAsAAAJTQBQAEMATgAAMVAAUgBFAFYASQBPAFUAUwAgAEMAQQBTAEUA
+IABOAFUATQBCAEUAUgAsACwAbgAsAAAJTQBTAEYARwAAIVMARQBDAFUAUgBFAEQAIABGAEwAQQBH
+ACwALABuACwAAAlNAEUAQQBEAAA5RABFAEIAVABPAFIAIABFAE0AUABMAE8AWQBFAFIAIABBAEQA
+RABSAEUAUwBTACwAeAAsAG4ALAAACU0ARQBNAFAAADlEAEUAQgBUAE8AUgAgAEUATQBQAEwATwBZ
+AE0ARQBOAFQAIABTAFQAQQBUAFUAUwAsACwAbgAsAAAJTQBTAEMAUgAAXUQARQBCAFQATwBSACAA
+QwBSAEUARABJAFQALwBSAEUAQwBPAFYARQBSAFkAIABTAEMATwBSAEUALAB4ACwAcAAsAFoAWgBF
+AE4AQwBMAE4AVABTAEMATwBSAEUAAAlNAFQAQQBYAAAzRABFAEIAVABPAFIAIABUAEEAWAAgAEkA
+RAAsAHgALABwACwAQQBSAEUATgBTAFMATgAACU0AWgBJAFAAAC1EAEUAQgBUAE8AUgAgAFoASQBQ
+ACwAeAAsAHAALABBAFIARQBOAFoASQBQAAAJTQBEAEMARgAAN0QARQBCAFQATwBSACAATgBPACAA
+QwBPAE4AVABBAEMAVAAgAEYATABBAEcALAB4ACwAbgAsAACBG1MARQBMAEUAQwBUACAAQQBSAEEA
+QwBJAEQAIABGAFIATwBNACAAJQBTAFQAQQBSAFQAVABBAEIATABFACAAQQBSAEMATABJAEUATgBU
+ACAASQBOAE4ARQBSACAASgBPAEkATgAgAEEAUgBBAEMAQwBPAFUATgBUACAAbwBuACAAQQBSAEMA
+TABJAEQAIAA9ACAAQQBSAEEAQwBDAEwAVABJAEQAIABBAE4ARAAgAEEAUgBDAEwASQBEACAASQBO
+ACAAKAAnAFIAQQBDADEAMAAwACcALAAnAFIAQQBDADUAMAA1ACcAKQAgAFcASABFAFIARQAgAEEA
+UgBBAEMAQwBMAEEAQwBDAFQAIAA9ACAAJwB7ADAAfQAnAAEBAICrVQBuAGEAYgBsAGUAIAB0AG8A
+IABmAGkAbgBkACAAYQBjAGMAbwB1AG4AdAAhACAAIABSAG8AdwAgAE4AdQBtAGIAZQByADoAewAw
+AH0AIABDAGwAaQBlAG4AdAAgAFIAZQBmAGUAcgBlAG4AYwBlACAATgB1AG0AYgBlAHIAOgB7ADEA
+fQAgAC4AIAAgAFUAcABkAGEAdABlACAAUwBrAGkAcABwAGUAZAAABToAIAAAD0MATwBNAEEASwBF
+AFIAAANDAAAhUwBFAEwARQBDAFQAIABEAEkAUwBUAEkATgBDAFQAIAAAgi0sAEEAUgBFAE4AQgBV
+AFMASQBOAEUAUwBTACAARgBSAE8ATQAgACUAUwBUAEEAUgBUAFQAQQBCAEwARQAgAEEAUgBDAEwA
+SQBFAE4AVAAgAEkATgBOAEUAUgAgAEoATwBJAE4AIABBAFIAQQBDAEMATwBVAE4AVAAgAG8AbgAg
+AEEAUgBDAEwASQBEACAAPQAgAEEAUgBBAEMAQwBMAFQASQBEACAAQQBOAEQAIABBAFIAQwBMAEkA
+RAAgAEkATgAgACgAJwBSAEEAQwAxADAAMAAnACwAJwBSAEEAQwA1ADAANQAnACkAIABJAE4ATgBF
+AFIAIABKAE8ASQBOACAAQQBSAFIARQBMAEEAVABJAE8ATgBTAEgASQBQACAATwBOACAAQQBSAFIA
+RQBMAEEAQwBJAEQAIAA9ACAAQQBSAEEAQwBJAEQAIABBAE4ARAAgAEEAUgBSAEUATABUAFkAUABJ
+AEQAIAA9ACAAJwBDAE8ATQBBAEsAJwAgAEkATgBOAEUAUgAgAEoATwBJAE4AIABBAFIARQBOAFQA
+SQBUAFkAIABPAE4AIABBAFIAUgBFAEwARQBOAEkARAAgAD0AIABBAFIARQBOAEkARAAgAFcASABF
+AFIARQAgAEEAUgBBAEMAQwBMAEEAQwBDAFQAIAA9ACAAJwB7ADAAfQAnACAAQQBOAEQAIABaAFoA
+RQBOAEMATABFAE4AVABJAEQAPQAnAHsAMQB9ACcAAYGBLABBAFIARQBOAEIAVQBTAEkATgBFAFMA
+UwAgAEYAUgBPAE0AIAAlAFMAVABBAFIAVABUAEEAQgBMAEUAIABBAFIAQwBMAEkARQBOAFQAIABJ
+AE4ATgBFAFIAIABKAE8ASQBOACAAQQBSAEEAQwBDAE8AVQBOAFQAIABvAG4AIABBAFIAQwBMAEkA
+RAAgAD0AIABBAFIAQQBDAEMATABUAEkARAAgAEEATgBEACAAQQBSAEMATABJAEQAIABJAE4AIAAo
+ACcAUgBBAEMAMQAwADAAJwAsACcAUgBBAEMANQAwADUAJwApACAASQBOAE4ARQBSACAASgBPAEkA
+TgAgAEEAUgBFAE4AVABJAFQAWQAgAE8ATgAgAEEAUgBBAEMAQwBPAFUATgBUAC4AQQBSAEEAQwBS
+AFAASQBEACAAPQAgAEEAUgBFAE4ASQBEACAAVwBIAEUAUgBFACAAQQBSAEEAQwBDAEwAQQBDAEMA
+VAAgAD0AIAAnAHsAMAB9ACcAARlBAFIARQBOAEIAVQBTAEkATgBFAFMAUwAACU0AUwBUAFMAAAc0
+ADEAMQAAg39TAEUATABFAEMAVAAgAEQASQBTAFQASQBOAEMAVAAgACAAQQBSAEEAQwBDAEwAQQBD
+AEMAVAAgAEYAUgBPAE0AIAAlAFMAVABBAFIAVABUAEEAQgBMAEUAIABBAFIAQwBMAEkARQBOAFQA
+IABJAE4ATgBFAFIAIABKAE8ASQBOACAAQQBSAEEAQwBDAE8AVQBOAFQAIABvAG4AIABBAFIAQwBM
+AEkARAAgAD0AIABBAFIAQQBDAEMATABUAEkARAAgAEEATgBEACAAQQBSAEMATABJAEQAIABJAE4A
+IAAoACcAUgBBAEMAMQAwADAAJwAsACAAJwBSAEEAQwA1ADAANQAnACkAIABJAE4ATgBFAFIAIABK
+AE8ASQBOACAAQQBSAEUATgBUAEkAVABZACAATwBOACAAQQBSAEEAQwBDAE8AVQBOAFQALgBBAFIA
+QQBDAFIAUABJAEQAIAA9ACAAQQBSAEUATgBJAEQAIABJAE4ATgBFAFIAIABKAE8ASQBOACAAQQBS
+AFIARQBMAEEAVABJAE8ATgBTAEgASQBQACAATwBOACAAQQBSAFIARQBMAEEAQwBJAEQAIAA9ACAA
+QQBSAEEAQwBJAEQAIABJAE4ATgBFAFIAIABKAE8ASQBOACAAQQBGAEEAQwBDAE8AVQBOAFQAIABP
+AE4AIABBAEYAQQBDAEMATwBVAE4AVAAuAEEARgBBAEMAQQBDAEMAVABJAEQAIAA9ACAAQQBSAEEA
+QwBDAE8AVQBOAFQALgBBAFIAQQBDAEkARAAgAEkATgBOAEUAUgAgAEoATwBJAE4AIABBAFIAUABB
+AEgASQBTAFQAIABBAFMAIABBAFIAUAAgAE8ATgAgAEEAUgBQAC4AQQBSAFAAQQBIAEkARAAgAD0A
+IABBAFIAUgBFAEwAUABBAEgASQBEACAAQQBOAEQAIABBAFIAUAAuAEEAUgBQAEEASABBAEMAVABJ
+AFYARQAgAD0AIAAnACoAJwAgAFcASABFAFIARQAgAEEAUgBBAEMAQwBMAEEAQwBDAFQAIAA9ACAA
+JwB7ADAAfQAnACAAQQBOAEQAIABBAFIAQQBDAEwAUABZAEQAVABFACAAPgA9ACAARABBAFQARQBB
+AEQARAAoAEQAQQBZACwAIAAtADYAMAAsACAARwBFAFQARABBAFQARQAoACkAKQABDVIARQBUAFUA
+UgBOAAANUgBFAEMAQQBMAEwAABFBAFIAUgBFAEMAQQBMAEwAAAdIAEEASwAAI1AAbwBzAHQAZABh
+AHQAZQBkACAAUABhAHkAbQBlAG4AdAAACU0ATABDAFQAAAlNAEwAUABEAACA0UEAYwBjAG8AdQBu
+AHQAIABOAHUAbQBiAGUAcgA6AHsAMAB9ACAAVAByAGEAbgBzAGEAYwB0AGkAbwBuACAAQwBvAGQA
+ZQA6AHsAMQB9ACAARgBpAGUAbABkACAAQwBvAGQAZQA6AHsAMgB9ACAATgBlAHcAIABWAGEAbAB1
+AGUAOgB7ADMAfQAuACAAIAByAGUAagBlAGMAdAAgAG0AYQBpAG4AdABlAG4AYQBuAGMAZQAgAGMA
+bwBkAGUAIABuAG8AdAAgAGYAbwB1AG4AZAAAM0UAeABjAGUAcAB0AGkAbwBuACAAaQBuACAAbgBv
+AHQAZQBzACAAcwBjAHIAaQBwAHQAADNFAHgAYwBlAHAAdABpAG8AbgAgAGkAbgBuAGUAcgAgAGUA
+eABjAGUAcAB0AGkAbwBuAAApRQB4AGMAZQBwAHQAaQBvAG4AIABTAHQAYQBjAGsAVAByAGEAYwBl
+AAADYwAAC0MATwBNAEEASwAAA1kAAAtEAE8AQgA6ACAAAAswADAALgAwADAAAAN7AAADMAAAA30A
+AAUtADAAAQNBAAADMQAAA0oAAAUtADEAAQNCAAADMgAAA0sAAAUtADIAAQMzAAADTAAABS0AMwAB
+A0QAAAM0AAADTQAABS0ANAABA0UAAAM1AAADTgAABS0ANQABA0YAAAM2AAADTwAABS0ANgABA0cA
+AAM3AAADUAAABS0ANwABA0gAAAM4AAADUQAABS0AOAABA0kAAAM5AAADUgAABS0AOQABAy0AAQcu
+ADAAMAAAAy4AAAkwAC4AMAAwAAALZQBuAC0AVQBTAAEReQB5AHkAeQBNAE0AZABkAAARTQBNAGQA
+ZAB5AHkAeQB5AAADLAAAAy8AAICbSQBzAE4AdQBsAGwAIABwAHIAbwBwAGUAcgB0AHkAIABjAGEA
+bgBuAG8AdAAgAGIAZQAgAHMAZQB0ACAAdABvACAARgBhAGwAcwBlAC4AIABBAHMAcwBpAGcAbgAg
+AGEAIAB2AGEAbAB1AGUAIAB0AG8AIAB0AGgAZQAgAGMAbwBsAHUAbQBuACAAaQBuAHMAdABlAGEA
+ZAAuAAAPSQBuAHAAdQB0ACAAMAAAFUUAeABjAGUAcAB0AGkAbwBuAHMAABlDAG8AZABlAE4AbwB0
+AEYAbwB1AG4AZAAAEUEAcgB0AGkAdgBhAE0AVAAALUMAbwBkAGUATgBvAHQARgBvAHUAbgBkAEMA
+bwBuAG4AZQBjAHQAaQBvAG4AACdFAHgAYwBlAHAAdABpAG8AbgBDAG8AbgBuAGUAYwB0AGkAbwBu
+AAANQQByAHQAaQB2AGEAABdDAHUAcgByAGUAbgB0AEYAaQBsAGUAAHFTAEMAXwA0AGEAYwA4AGMA
+YgA0AGMANwA1AGQAMwA0AGEANQA1ADgANQA1AGQAYwAxADAANgBmADUANQA1AGIAOQA1ADcALgBQ
+AHIAbwBwAGUAcgB0AGkAZQBzAC4AUgBlAHMAbwB1AHIAYwBlAHMAAAAAyMEVaw+ymUij1NhnzfX5
+WQAEIAEBCAMgAAEFIAEBEREEIAEBDgYgAQERgKUGFRI5Ag4OByACARMAEwEDIAAOBAABAQ49Bx8O
+Dg4OAgIODg4ODhJJHA4VElEBElUVElEBElkSSRJdCAgSSRwSYRJlFRJRARJhFRJRARJlCAgSaRJt
+AgIGDgUAAg4OHAkgAwEOEj0SgMUFIAARgMkDIAAcBAYSgNEFAAICDg4GAAMODhwcBSACDggIBSAC
+Dg4OBSABAhMABiABEwETAAYgAR0OHQMFAAIODg4EIAECDgQAAQIOBgADDg4ODgQgABJdBCABHA4D
+IAACBhUSUQESVQYVElEBElkFIAETAAgECgESVQMgAAgECgESWQgGFRGAgQERfQIGAgYVElEBEmEF
+IAEBEwAGFRJRARJlBAoBEmEECgESZQQAABF9BxURgIEBEX0ECgESaQYAAg4OHRwFIAASgOUKIAYB
+CA4ODggQAgQgABJtBgcCEnEScQQKARJxBQoBEoDpBAcBEXUFIAEOHQMFAAERdQ4EIAEODg4HBxUS
+OQIODg4OAgIDCAQgAQMIBSACDggOBgcCEnkRfQ4ABQIODhKA8RGA9RARfQ0HAxJ5EX0VEYCBARF9
+AwcBDgYVElEBHgALEAEBDhUSgP0BHgAECgEeAAYVEkEBEkULIAMBEoCNHQgSgJEEBhKAjQMGHQgE
+IAEOCAQgAQIIBSACAQgcByACAg4RgQUFIAEdCAgDBwEIBwACCBKAkQ4FIAASgQkGIAESgQ0OBSAA
+EoCZBSAAEoERBiABEoEVHAUAABKBGQYgARwSgR0IAAESgSERgSUFIAASgSkHIAIBDhKBKQi3elxW
+GTTgiQiJhF3NgIDMkQg+DAjVnMPWVwj6DO1KRVGnggcGFRI5Ag4OAwYSPQIGCAcGFRJBARJFAwYS
+IAMGEiQDBhIQAwYSFAMGEhgEBhKAlQQGEoChAwYSeQMGEiwFIAEBEgwZIAwBDg4OAg4OAg4VElEB
+ElUVElEBElkODgwgBAEODg4VElEBElUMIAQBDg4OFRJRARJZCiABFRGAgQERfQ4GMAEBAR4ABCAB
+AQILIAQBCA4SgI0SgJENIAQBCB0IHRKAjRKAkQYgAQESgJUFAAASgKEEAAASeQUAAQESeQQAABIs
+AwAAAQMoAA4DKAACBSgAEoCZBQgAEoChBAgAEnkECAASLAgBAAgAAAAAAB4BAAEAVAIWV3JhcE5v
+bkV4Y2VwdGlvblRocm93cwEIAQACAAAAAAAoAQAjU0NfNGFjOGNiNGM3NWQzNGE1NTg1NWRjMTA2
+ZjU1NWI5NTcAAAUBAAAAABYBABFDb3B5cmlnaHQgQCAgMjAxOQAARwEAGi5ORVRGcmFtZXdvcmss
+VmVyc2lvbj12NC4wAQBUDhRGcmFtZXdvcmtEaXNwbGF5TmFtZRAuTkVUIEZyYW1ld29yayA0BAEA
+AAC0AAAAzsrvvgEAAACRAAAAbFN5c3RlbS5SZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29y
+bGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3
+YTVjNTYxOTM0ZTA4OSNTeXN0ZW0uUmVzb3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAAAAAAA
+AAAAAFBBRFBBRFC0AAAAaIAAAAAAAAAAAAAAgoAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHSA
+AAAAAAAAAAAAAAAAX0NvckRsbE1haW4AbXNjb3JlZS5kbGwAAAAAAP8lACAAEAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAQAAAAGAAAgAAAAAAAAAAAAAAAAAAAAQABAAAAMAAAgAAA
+AAAAAAAAAAAAAAAAAQAAAAAASAAAAFigAAAaBAAAAAAAAAAAAAAaBDQAAABWAFMAXwBWAEUAUgBT
+AEkATwBOAF8ASQBOAEYATwAAAAAAvQTv/gAAAQAAAAEAN4MBHgAAAQA3gwEePwAAAAAAAAAEAAAA
+AgAAAAAAAAAAAAAAAAAAAEQAAAABAFYAYQByAEYAaQBsAGUASQBuAGYAbwAAAAAAJAAEAAAAVABy
+AGEAbgBzAGwAYQB0AGkAbwBuAAAAAAAAALAEegMAAAEAUwB0AHIAaQBuAGcARgBpAGwAZQBJAG4A
+ZgBvAAAAVgMAAAEAMAAwADAAMAAwADQAYgAwAAAAGgABAAEAQwBvAG0AbQBlAG4AdABzAAAAAAAA
+ACIAAQABAEMAbwBtAHAAYQBuAHkATgBhAG0AZQAAAAAAAAAAAHAAJAABAEYAaQBsAGUARABlAHMA
+YwByAGkAcAB0AGkAbwBuAAAAAABTAEMAXwA0AGEAYwA4AGMAYgA0AGMANwA1AGQAMwA0AGEANQA1
+ADgANQA1AGQAYwAxADAANgBmADUANQA1AGIAOQA1ADcAAAA+AA8AAQBGAGkAbABlAFYAZQByAHMA
+aQBvAG4AAAAAADEALgAwAC4ANwA2ADgAMQAuADMAMwA1ADkAMQAAAAAAcAAoAAEASQBuAHQAZQBy
+AG4AYQBsAE4AYQBtAGUAAABTAEMAXwA0AGEAYwA4AGMAYgA0AGMANwA1AGQAMwA0AGEANQA1ADgA
+NQA1AGQAYwAxADAANgBmADUANQA1AGIAOQA1ADcALgBkAGwAbAAAAEgAEgABAEwAZQBnAGEAbABD
+AG8AcAB5AHIAaQBnAGgAdAAAAEMAbwBwAHkAcgBpAGcAaAB0ACAAQAAgACAAMgAwADEAOQAAACoA
+AQABAEwAZQBnAGEAbABUAHIAYQBkAGUAbQBhAHIAawBzAAAAAAAAAAAAeAAoAAEATwByAGkAZwBp
+AG4AYQBsAEYAaQBsAGUAbgBhAG0AZQAAAFMAQwBfADQAYQBjADgAYwBiADQAYwA3ADUAZAAzADQA
+YQA1ADUAOAA1ADUAZABjADEAMAA2AGYANQA1ADUAYgA5ADUANwAuAGQAbABsAAAAaAAkAAEAUABy
+AG8AZAB1AGMAdABOAGEAbQBlAAAAAABTAEMAXwA0AGEAYwA4AGMAYgA0AGMANwA1AGQAMwA0AGEA
+NQA1ADgANQA1AGQAYwAxADAANgBmADUANQA1AGIAOQA1ADcAAABCAA8AAQBQAHIAbwBkAHUAYwB0
+AFYAZQByAHMAaQBvAG4AAAAxAC4AMAAuADcANgA4ADEALgAzADMANQA5ADEAAAAAAEYADwABAEEA
+cwBzAGUAbQBiAGwAeQAgAFYAZQByAHMAaQBvAG4AAAAxAC4AMAAuADcANgA4ADEALgAzADMANQA5
+ADEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAACAAAAMAAAAlDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAA]]></arrayElement>
+                      </arrayElements>
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the Microsoft Visual Studio Tools for Applications project. Project names must be unique within a package."
+                      name="VSTAProjectName"
+                      typeConverter="NOTBROWSABLE">SC_4ac8cb4c75d34a55855dc106f555b957</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the programming language used by the script."
+                      name="ScriptLanguage"
+                      typeConverter="Microsoft.SqlServer.VSTAHosting.ScriptingLanguages, Microsoft.SqlServer.VSTAScriptingLib, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">CSharp</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a comma-separated list of read-only variables."
+                      name="ReadOnlyVariables"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIVariablePickerDlg, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">User::CurrentFile</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a comma-separated list of read/write variables."
+                      name="ReadWriteVariables"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIWriteableVariablePickerDlg, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.String"
+                      description="List of breakpoints present on the script."
+                      isArray="true"
+                      name="BreakpointCollection"
+                      typeConverter="NOTBROWSABLE">
+                      <arrayElements
+                        arrayElementCount="0" />
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Checksum to match component metedata against compiled codes."
+                      name="MetadataChecksum"
+                      typeConverter="NOTBROWSABLE">7058b1d36f656fe36492855c3b245714</property>
+                    <property
+                      dataType="System.String"
+                      description="Checksum to match component metedata against compiled codes."
+                      name="MetadataShaChecksum"
+                      typeConverter="NOTBROWSABLE">c2039e324e423fc8c6b9f9422cc8dfa7504dae17</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">Microsoft.SqlServer.Dts.Pipeline.ScriptComponentHost, Microsoft.SqlServer.TxScript, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Process\Proess.Connections[CodeNotFoundConnection]"
+                      connectionManagerID="Package.ConnectionManagers[CodeNotFoundEx]"
+                      connectionManagerRefId="Package.ConnectionManagers[CodeNotFoundEx]"
+                      name="CodeNotFoundConnection" />
+                    <connection
+                      refId="Package\Foreach Loop Container\Process\Proess.Connections[ExceptionConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Exceptions]"
+                      connectionManagerRefId="Package.ConnectionManagers[Exceptions]"
+                      name="ExceptionConnection" />
+                    <connection
+                      refId="Package\Foreach Loop Container\Process\Proess.Connections[Artiva]"
+                      connectionManagerID="Package.ConnectionManagers[ARTIVA]"
+                      connectionManagerRefId="Package.ConnectionManagers[ARTIVA]"
+                      name="Artiva" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Process\Proess.Inputs[Input 0]"
+                      hasSideEffects="true"
+                      name="Input 0">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process\Proess.Inputs[Input 0].Columns[Account Number]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Account Number"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Account Number]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process\Proess.Inputs[Input 0].Columns[Transaction Date]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Transaction Date"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Transaction Date]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process\Proess.Inputs[Input 0].Columns[Transaction Time]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Transaction Time"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Transaction Time]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process\Proess.Inputs[Input 0].Columns[Transaction Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Transaction Code"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Transaction Code]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process\Proess.Inputs[Input 0].Columns[Field Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Field Code"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Field Code]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process\Proess.Inputs[Input 0].Columns[New Value]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="New Value"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[New Value]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process\Proess.Inputs[Input 0].Columns[Internal - External flag]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Internal - External flag"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Internal - External flag]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process\Proess.Inputs[Input 0].Columns[DPS ID   Recoverer Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="DPS ID   Recoverer Code"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[DPS ID   Recoverer Code]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process\Proess.Inputs[Input 0].Columns[Recoverer ID]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Recoverer ID"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Recoverer ID]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process\Proess.Inputs[Input 0].Columns[Loan Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Loan Code"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Loan Code]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Process\Proess.Inputs[Input 0].Columns[Not Used]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Not Used"
+                          lineageId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output].Columns[Not Used]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Process\Proess.Outputs[Exceptions]"
+                      hasSideEffects="true"
+                      name="Exceptions">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Proess.Outputs[Exceptions].Columns[Data]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5000"
+                          lineageId="Package\Foreach Loop Container\Process\Proess.Outputs[Exceptions].Columns[Data]"
+                          name="Data" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\Process\Proess.Outputs[CodeNotFound]"
+                      hasSideEffects="true"
+                      name="CodeNotFound">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Proess.Outputs[CodeNotFound].Columns[Data]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8000"
+                          lineageId="Package\Foreach Loop Container\Process\Proess.Outputs[CodeNotFound].Columns[Data]"
+                          name="Data" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\Process\Proess.Outputs[ArtivaMT]"
+                      hasSideEffects="true"
+                      name="ArtivaMT">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Process\Proess.Outputs[ArtivaMT].Columns[Data]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5000"
+                          lineageId="Package\Foreach Loop Container\Process\Proess.Outputs[ArtivaMT].Columns[Data]"
+                          name="Data" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Foreach Loop Container\Process.Paths[ArtivaMT]"
+                  endId="Package\Foreach Loop Container\Process\Artiva MT Comaker File.Inputs[Flat File Destination Input]"
+                  name="ArtivaMT"
+                  startId="Package\Foreach Loop Container\Process\Proess.Outputs[ArtivaMT]" />
+                <path
+                  refId="Package\Foreach Loop Container\Process.Paths[CodeNotFound]"
+                  endId="Package\Foreach Loop Container\Process\MTCodeNotFound.Inputs[Flat File Destination Input]"
+                  name="CodeNotFound"
+                  startId="Package\Foreach Loop Container\Process\Proess.Outputs[CodeNotFound]" />
+                <path
+                  refId="Package\Foreach Loop Container\Process.Paths[Exceptions]"
+                  endId="Package\Foreach Loop Container\Process\Exception File.Inputs[Flat File Destination Input]"
+                  name="Exceptions"
+                  startId="Package\Foreach Loop Container\Process\Proess.Outputs[Exceptions]" />
+                <path
+                  refId="Package\Foreach Loop Container\Process.Paths[Flat File Source Output]"
+                  endId="Package\Foreach Loop Container\Process\Proess.Inputs[Input 0]"
+                  name="Flat File Source Output"
+                  startId="Package\Foreach Loop Container\Process\Get_Mt_Data.Outputs[Flat File Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{8BFFD958-EF73-484D-A9F8-B6B537BBADF3}"
+          DTS:From="Package\Foreach Loop Container\Process"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Foreach Loop Container\Delete_InFile" />
+      </DTS:PrecedenceConstraints>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{eb21be36-a930-4cb8-bd19-c30d47bf82c3}"
+          DTS:ObjectName="{FF6811EF-66F4-4751-84CF-18DE40B3F2AA}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::CurrentFile" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="141,42"
+          Id="Package\Foreach Loop Container\Delete_InFile"
+          TopLeft="41,122" />
+        <NodeLayout
+          Size="115,42"
+          Id="Package\Foreach Loop Container\Process"
+          TopLeft="58,33" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+          TopLeft="113.5,75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="235,219"
+          Size="235,262"
+          Id="Package\Foreach Loop Container"
+          TopLeft="69,63" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Foreach Loop Container\Process">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="141,42"
+          Id="Package\Foreach Loop Container\Process\Get_Mt_Data"
+          TopLeft="213,36" />
+        <NodeLayout
+          Size="144,42"
+          Id="Package\Foreach Loop Container\Process\Exception File"
+          TopLeft="312,259.839285714286" />
+        <NodeLayout
+          Size="110,42"
+          Id="Package\Foreach Loop Container\Process\Proess"
+          TopLeft="209.5,131.5" />
+        <NodeLayout
+          Size="188,42"
+          Id="Package\Foreach Loop Container\Process\Artiva MT Comaker File"
+          TopLeft="93.571428571429,254.821428571429" />
+        <NodeLayout
+          Size="163,42"
+          Id="Package\Foreach Loop Container\Process\MTCodeNotFound"
+          TopLeft="548,235" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Process.Paths[Flat File Source Output]"
+          TopLeft="283.5,78">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-19,53.5"
+              Start="0,0"
+              End="-19,46">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.75"
+                    Point2="0,26.75"
+                    Point3="-4,26.75" />
+                  <mssgle:LineSegment
+                    End="-15,26.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-15,26.75"
+                    Point2="-19,26.75"
+                    Point3="-19,30.75" />
+                  <mssgle:LineSegment
+                    End="-19,46" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Process.Paths[Exceptions]"
+          TopLeft="281.5,173.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="102.5,86.339285714286"
+              Start="0,0"
+              End="102.5,78.839285714286">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.2784178187405" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.2784178187405"
+                    Point2="0,35.2784178187405"
+                    Point3="4,35.2784178187405" />
+                  <mssgle:LineSegment
+                    End="98.5,35.2784178187405" />
+                  <mssgle:CubicBezierSegment
+                    Point1="98.5,35.2784178187405"
+                    Point2="102.5,35.2784178187405"
+                    Point3="102.5,39.2784178187405" />
+                  <mssgle:LineSegment
+                    End="102.5,78.839285714286" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="27.182421875,40.2784178187405,48.13515625,11.3310546875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Process.Paths[CodeNotFound]"
+          TopLeft="290,173.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="339.5,61.5"
+              Start="0,0"
+              End="339.5,54">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.4704142011834" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.4704142011834"
+                    Point2="0,21.4704142011834"
+                    Point3="4,21.4704142011834" />
+                  <mssgle:LineSegment
+                    End="335.5,21.4704142011834" />
+                  <mssgle:CubicBezierSegment
+                    Point1="335.5,21.4704142011834"
+                    Point2="339.5,21.4704142011834"
+                    Point3="339.5,25.4704142011834" />
+                  <mssgle:LineSegment
+                    End="339.5,54" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="136.7444921875,26.4704142011834,66.011015625,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Process.Paths[ArtivaMT]"
+          TopLeft="247.5,173.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-59.928571428571,81.321428571429"
+              Start="0,0"
+              End="-59.928571428571,73.821428571429">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.2281105990785" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,29.2281105990785"
+                    Point2="0,33.2281105990785"
+                    Point3="-4,33.2281105990785" />
+                  <mssgle:LineSegment
+                    End="-55.928571428571,33.2281105990785" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-55.928571428571,33.2281105990785"
+                    Point2="-59.928571428571,33.2281105990785"
+                    Point3="-59.928571428571,37.2281105990785" />
+                  <mssgle:LineSegment
+                    End="-59.928571428571,73.821428571429" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-50.4960630580355,38.2281105990785,41.0635546875,9.470703125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

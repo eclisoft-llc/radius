@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "Inbound", "Inbound\Inbound.dtproj", "{B958AF11-F12F-44BD-B1AC-F454982E8B7C}"
+EndProject
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "Outbound", "Outbound\Outbound.dtproj", "{6AA06223-141D-4232-B83E-E7802FD95D45}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://jacs8063.ccscollect.com:8080/tfs/rgscollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Inbound\\Inbound.dtproj
+		SccProjectName1 = PhiladelphiaGasWorks
+		SccLocalPath1 = PhiladelphiaGasWorks
+		SccProjectFilePathRelativizedFromConnection1 = ..\\Inbound\\
+		SccProjectUniqueName2 = Outbound\\Outbound.dtproj
+		SccProjectName2 = Outbound
+		SccLocalPath2 = Outbound
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B958AF11-F12F-44BD-B1AC-F454982E8B7C}.Development|Default.ActiveCfg = Development
+		{B958AF11-F12F-44BD-B1AC-F454982E8B7C}.Development|Default.Build.0 = Development
+		{6AA06223-141D-4232-B83E-E7802FD95D45}.Development|Default.ActiveCfg = Development
+		{6AA06223-141D-4232-B83E-E7802FD95D45}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

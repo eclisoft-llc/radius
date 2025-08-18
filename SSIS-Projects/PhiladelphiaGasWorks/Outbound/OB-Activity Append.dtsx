@@ -1,0 +1,3151 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/9/2018 4:45:13 PM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="DFW2-APPDEV-003"
+  DTS:CreatorName="CORP\Spalopoli"
+  DTS:DTSID="{380E5FEA-1E18-40E8-B42F-2A154FC188A3}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.7462.6"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="OB-Activity Append"
+  DTS:PackageType="5"
+  DTS:VersionBuild="127"
+  DTS:VersionGUID="{208AE56B-B77E-42DE-9A5B-AEA1D22654E3}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Artiva]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{5D37B34E-5335-4779-B984-728C39398D45}"
+      DTS:ObjectName="Artiva">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">"Dsn="+ @[$Project::Namespace] +";"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Dsn=THIRDMIG2;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[OB Report]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{0D9DEA3E-9784-4160-A976-D81451BAD67B}"
+      DTS:ObjectName="OB Report">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::OBReportFilename]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="M:\PhiladelphiaGasWorks\Out\activityappend_20200129.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Column 0"
+              DTS:DTSID="{ED955B96-47C8-40F2-B338-6B60348C2E9B}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3C5D7497-46EB-40E6-BC30-A3DA5B3D897C}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::LocalPath] + &quot;Out\\&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FullOutboundDirectory">
+      <DTS:VariableValue
+        DTS:DataType="8">M:\PhiladelphiaGasWorks\Out\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{97E762D5-1F5F-4D37-97D8-C3100A3E14F4}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::FullOutboundDirectory] + &quot;activityappend_&quot; + &#xA;(DT_STR,4,1252)DATEPART( &quot;yyyy&quot; , getdate() ) +&#xA;RIGHT(&quot;0&quot; + (DT_STR,4,1252)DATEPART( &quot;mm&quot; , getdate() ), 2) +&#xA;RIGHT(&quot;0&quot; + (DT_STR,4,1252)DATEPART( &quot;dd&quot; , getdate() ), 2) + &#xA;&quot;.txt&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="OBReportFilename">
+      <DTS:VariableValue
+        DTS:DataType="8">M:\PhiladelphiaGasWorks\Out\activityappend_20200129.txt</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Create Files"
+      DTS:CreationName="SSIS.Pipeline.3"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{E10D37D7-023B-491E-B4D0-C1B2F96EAFA7}"
+      DTS:ExecutableType="SSIS.Pipeline.3"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Files"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Create Files\Generate Rows"
+              componentClassID="{874F7595-FB5F-40FF-96AF-FBFF8250E3EF}"
+              contactInfo="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;8"
+              description="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum."
+              name="Generate Rows"
+              version="8">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Stores the source code of the component"
+                  isArray="true"
+                  name="SourceCode"
+                  state="cdata">
+                  <arrayElements
+                    arrayElementCount="30">
+                    <arrayElement
+                      dataType="System.String"><![CDATA[ComponentWrapper.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services component wrapper
+*  This module defines the base class for your component
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+
+public class UserComponent: ScriptComponent
+{
+    public Connections Connections;
+    public Variables Variables;
+    public UserComponent()
+    {
+        Connections = new Connections(this);
+        Variables = new Variables(this);
+    }
+
+    public Output0Buffer Output0Buffer;
+
+    public virtual void FinishOutputs()
+    {
+    }
+
+    private void MarkOutputsFinished()
+    {
+
+        if (null != Output0Buffer)
+        {
+            Output0Buffer.SetEndOfRowset();
+            Output0Buffer = null;
+        }
+
+    }
+
+    public override void PrimeOutput(int Outputs, int[] OutputIDs, PipelineBuffer[] Buffers, OutputNameMap OutputMap)
+    {
+       for(int Idx = 0; Idx < Outputs; Idx++)
+       {
+            if(OutputIDs[Idx] == GetOutputID(OutputMap, @"Output 0"))
+            {
+                Output0Buffer = new Output0Buffer(Buffers[Idx], GetColumnIndexes(OutputIDs[Idx]), OutputMap);
+            }
+        }
+
+        CreateNewOutputRows();
+
+        FinishOutputs();
+        MarkOutputsFinished();
+
+    }
+
+    public virtual void CreateNewOutputRows()
+    {
+    }
+
+}
+
+public class Connections
+{
+    ScriptComponent ParentComponent;
+
+    public Connections(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+    public IDTSConnectionManager100 ArtivaConnection
+    {
+        get
+        {
+            return ParentComponent.ComponentMetaData.RuntimeConnectionCollection.GetRuntimeConnectionByName(@"ArtivaConnection").ConnectionManager;
+        }
+    }
+
+}
+
+public class Variables
+{
+    ScriptComponent ParentComponent;
+
+    public Variables(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+    public String ClientIDs
+    {
+        get
+        {
+            return (String)(ParentComponent.ReadOnlyVariables["ClientIDs"].GetValueWithContext(ScriptComponent.EvaluatorContext));
+        }
+    }
+
+}
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\Resources.resx]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[main.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[#region Namespaces
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+using System.Text;
+using System.Data.Odbc;
+#endregion
+
+/// <summary>
+/// This is the class to which to add your code.  Do not change the name, attributes, or parent
+/// of this class.
+/// </summary>
+[Microsoft.SqlServer.Dts.Pipeline.SSISScriptComponentEntryPointAttribute]
+public class ScriptMain : UserComponent
+{
+    private string _scanRange = "-1";
+    private HashSet<string> _phoneTypes;
+
+    public override void PreExecute()
+    {
+        base.PreExecute();
+
+        #region set up phone-required activity IDs
+        _phoneTypes = new HashSet<string>();
+        _phoneTypes.Add("100009");
+        _phoneTypes.Add("100010");
+        _phoneTypes.Add("100011");
+        _phoneTypes.Add("100012");
+        _phoneTypes.Add("100018");        
+        _phoneTypes.Add("100022");
+        _phoneTypes.Add("100026");        
+        _phoneTypes.Add("100028");
+        _phoneTypes.Add("100029");
+        _phoneTypes.Add("100030");
+        _phoneTypes.Add("100031");
+        _phoneTypes.Add("100032");    
+        _phoneTypes.Add("100038");
+        _phoneTypes.Add("100057");
+        #endregion
+    }
+
+    public override void PostExecute()
+    {
+        base.PostExecute();
+    }
+
+    public override void CreateNewOutputRows()
+    {
+        List<ActivityQueryResult> activityList;
+        activityList = GetActivity().ToList();
+        foreach (ActivityQueryResult rec in activityList)
+        {
+            // look up skip phones for Activity && DialerResponse types
+            if (rec.Source == ActivityTypes.Activity || rec.Source == ActivityTypes.DialerResponse)
+                rec.SkipPhones = GetSkipPhones(rec.EntityId).ToList();
+        }
+
+        if (!activityList.Any())
+            return;
+
+        var output = new List<ActivityAppend>();
+        foreach (ActivityQueryResult rec in activityList.OrderBy(a => a.ActivityDate).ThenBy(a => a.ClientReferenceNumber))
+        {
+            switch (rec.Source)
+            {
+                #region Activity
+                case ActivityTypes.Activity:
+                    ActivityActivityQueryResult act = (ActivityActivityQueryResult)rec;
+                    act.DetermineActivityTypeId();
+
+                    if (Convert.ToInt64(act.ActivityTypeId) > 0)
+                    {
+                        ActivityAppend activity = new ActivityAppend
+                        {
+                            ActivityTypeId = act.ActivityTypeId,
+                            ActivityDate = act.ActivityDate,
+                            ActivityItem = "ACT-" + act.RecordId + "",
+                            ActivityItemDescription = "act.ActionDescription " + " : " + act.ResultDescription,
+                            ActivityType = act.ActivityType,
+                            ActivityAmount = "100032".Contains(act.ActivityTypeId) ? act.ActivityAmount.ToString("0.00") : null,
+                            DataID = act.CreditorInternalConsumerAccountNumber,
+                            PrimaryAccountNumber = act.ClientReferenceNumber,
+                            ActivityDialType = act.ActivityDialType,
+                            ActivityTime = act.ActionTime,
+                            ActivityDue = act.PaymentArrangementDate
+                        };
+
+                        // set required fields for phone group activity codes
+                        bool addRecord = true;
+                        if (activity.ActivityDialType == "Manual")
+                        {
+                            // first check for the activity type ids that mean the number was marked as a bad number
+                            if (activity.ActivityTypeId == "100024" || activity.ActivityTypeId == "100047" || activity.ActivityTypeId == "100048")
+                            {
+                                if (!string.IsNullOrWhiteSpace(act.Phone1) && act.Phone1Flag == "B")
+                                {
+                                    activity.ActivityPhoneNumber = act.Phone1;
+                                    activity.ActivityPhoneType = "HOME";
+                                }
+                                else if (!string.IsNullOrWhiteSpace(act.Phone2) && act.Phone2Flag == "B")
+                                {
+                                    activity.ActivityPhoneNumber = act.Phone2;
+                                    activity.ActivityPhoneType = "HOME";
+                                }
+                                else if (!string.IsNullOrWhiteSpace(act.Phone3) && act.Phone3Flag == "B")
+                                {
+                                    activity.ActivityPhoneNumber = act.Phone3;
+                                    activity.ActivityPhoneType = "HOME";
+                                }
+                                else if (act.SkipPhones != null)
+                                {
+                                    addRecord = false;
+                                    foreach (ActivitySkipPhone skipPhone in act.SkipPhones)
+                                    {
+                                        if (skipPhone.PhoneFlag == "B")
+                                        {
+                                            activity.ActivityPhoneNumber = skipPhone.Phone;
+                                            if (!string.IsNullOrWhiteSpace(skipPhone.PhoneType))
+                                            {
+                                                switch (skipPhone.PhoneType[0])
+                                                {
+                                                    case 'L':
+                                                        activity.ActivityPhoneType = "HOME";
+                                                        break;
+                                                    case 'M':
+                                                        activity.ActivityPhoneType = "CELL";
+                                                        break;
+                                                    case 'U':
+                                                    case 'V':
+                                                    default:
+                                                        activity.ActivityPhoneType = "HOME";
+                                                        break;
+                                                }
+                                            }
+                                            else
+                                                activity.ActivityPhoneType = "HOME";
+
+                                            activity.ActivityPhoneNumber = skipPhone.Phone;
+                                            addRecord = true;   // if we found a skip phone with flag == 'B'
+                                            break;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    // no phones with phone flag == 'B'
+                                    addRecord = false;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrWhiteSpace(act.Phone1))
+                                {
+                                    activity.ActivityPhoneNumber = act.Phone1;
+                                    activity.ActivityPhoneType = act.Phone1Flag == "C" ? "CELL" : "HOME";
+                                }
+                                else if (!string.IsNullOrWhiteSpace(act.Phone2))
+                                {
+                                    activity.ActivityPhoneNumber = act.Phone2;
+                                    activity.ActivityPhoneType = act.Phone2Flag == "C" ? "CELL" : "HOME";
+                                }
+                                else if (!string.IsNullOrWhiteSpace(act.Phone3))
+                                {
+                                    activity.ActivityPhoneNumber = act.Phone3;
+                                    activity.ActivityPhoneType = act.Phone3Flag == "C" ? "CELL" : "HOME";
+                                }
+                                else if (act.SkipPhones != null && act.SkipPhones.Any())
+                                {
+                                    addRecord = false;
+                                    activity.ActivityPhoneType = "HOME";
+                                    foreach (ActivitySkipPhone skipPhone in act.SkipPhones)
+                                    {
+                                        if (!string.IsNullOrWhiteSpace(skipPhone.Phone) && !string.IsNullOrWhiteSpace(skipPhone.PhoneType))
+                                        {
+                                            switch (skipPhone.PhoneType[0])
+                                            {
+                                                case 'L':
+                                                    activity.ActivityPhoneType = "HOME";
+                                                    break;
+                                                case 'M':
+                                                    activity.ActivityPhoneType = "CELL";
+                                                    break;
+                                                case 'U':
+                                                case 'V':
+                                                default:
+                                                    activity.ActivityPhoneType = "HOME";
+                                                    break;
+                                            }
+                                            addRecord = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    // no phones found
+                                    addRecord = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (_phoneTypes.Contains(activity.ActivityTypeId) && string.IsNullOrEmpty(activity.ActivityPhoneNumber))
+                            continue;
+
+                        if (addRecord)
+                            output.Add(activity);
+                    }
+                    break;
+                #endregion
+                #region Calls
+                case ActivityTypes.DialerResponse:
+                    ActivityDialerQueryResult dialer = (ActivityDialerQueryResult)rec;
+                    dialer.DetermineActivityTypeId();
+                    if (Convert.ToInt64(dialer.ActivityTypeId) > 0)
+                    {
+                        ActivityAppend activity = new ActivityAppend
+                        {
+                            ActivityTypeId = dialer.ActivityTypeId,
+                            ActivityDate = dialer.ActivityDate,
+                            ActivityTime = dialer.TimeCalled,
+                            ActivityItem = dialer.ResultCode,
+                            ActivityItemDescription = dialer.Description,
+                            ActivityType = dialer.ActivityType,
+                            ActivityAmount = null,
+                            DataID = dialer.CreditorInternalConsumerAccountNumber,
+                            PrimaryAccountNumber = dialer.ClientReferenceNumber,
+                            ActivityDialType = "Dialer",
+                            ActivityPhoneNumber = dialer.PhoneNumber
+                        };
+
+                        ActivityDialerQueryResult.ThisPhoneType whichNumberDialed = dialer.DetermineWhichPhoneNumberCalled(dialer.PhoneNumber);
+                        switch (whichNumberDialed)
+                        {
+                            case ActivityDialerQueryResult.ThisPhoneType.Phone1:
+                                activity.ActivityPhoneType = dialer.Phone1Flag == "C" ? "CELL" : "HOME";
+                                break;
+                            case ActivityDialerQueryResult.ThisPhoneType.Phone2:
+                                activity.ActivityPhoneType = dialer.Phone2Flag == "C" ? "CELL" : "HOME";
+                                break;
+                            case ActivityDialerQueryResult.ThisPhoneType.Phone3:
+                                activity.ActivityPhoneType = dialer.Phone3Flag == "C" ? "CELL" : "HOME";
+                                break;
+                            case ActivityDialerQueryResult.ThisPhoneType.SkipPhone1:
+                            case ActivityDialerQueryResult.ThisPhoneType.SkipPhone2:
+                            case ActivityDialerQueryResult.ThisPhoneType.SkipPhone3:
+                            case ActivityDialerQueryResult.ThisPhoneType.SkipPhone4:
+                            case ActivityDialerQueryResult.ThisPhoneType.SkipPhone5:
+                            case ActivityDialerQueryResult.ThisPhoneType.SkipPhone6:
+                            case ActivityDialerQueryResult.ThisPhoneType.SkipPhone7:
+                            case ActivityDialerQueryResult.ThisPhoneType.SkipPhone8:
+                                if (!string.IsNullOrWhiteSpace(dialer.SkipPhones[whichNumberDialed - ActivityDialerQueryResult.ThisPhoneType.SkipPhone1].PhoneType))
+                                {
+                                    switch (dialer.SkipPhones[whichNumberDialed - ActivityDialerQueryResult.ThisPhoneType.SkipPhone1].PhoneType[0])
+                                    {
+                                        case 'L':
+                                            activity.ActivityPhoneType = "HOME";
+                                            break;
+                                        case 'M':
+                                            activity.ActivityPhoneType = "CELL";
+                                            break;
+                                        case 'U':
+                                        case 'V':
+                                        default:
+                                            activity.ActivityPhoneType = "HOME";
+                                            break;
+                                    }
+                                }
+                                else
+                                    activity.ActivityPhoneType = "HOME";
+                                break;
+                            default:
+                                activity.ActivityPhoneType = "UNKNOWN";
+                                break;
+                        }
+
+                        if(!string.IsNullOrEmpty(activity.ActivityPhoneNumber))
+                            output.Add(activity);
+                    }
+                    break;
+                #endregion
+                #region Letters
+                case ActivityTypes.LetterHistory:
+                    ActivityLetterQueryResult ltr = (ActivityLetterQueryResult)rec;
+                    ltr.DetermineActivityTypeId();
+                    if (Convert.ToInt64(ltr.ActivityTypeId) > 0)
+                    {
+                        output.Add(new ActivityAppend
+                        {
+                            ActivityTypeId = ltr.ActivityTypeId,
+                            ActivityCollectorCode = ltr.UserId,
+                            ActivityDate = ltr.ActivityDate,
+                            ActivityItem = "LTR-" + ltr.RecordId,
+                            ActivityItemDescription = ltr.LetterCode + " : " + ltr.LetterDescription,
+                            ActivityType = ltr.ActivityType,
+                            ActivityAmount = null,
+                            DataID = ltr.CreditorInternalConsumerAccountNumber,
+                            PrimaryAccountNumber = ltr.ClientReferenceNumber
+                        });
+                    }
+                    break;
+                #endregion
+                default:
+                    throw new Exception("Unknown activity source '" + rec.Source.ToString() + "' in CreateActivityAppendUpdateFile");
+            }
+        }
+        
+        var csvLine = new StringBuilder();
+
+        foreach (ActivityAppend ar in output)
+        {
+            csvLine = new StringBuilder();
+            csvLine.Append(string.Format("\"{0}\",", ar.DataID));
+            csvLine.Append(string.Format("\"{0}\",", ar.PrimaryAccountNumber));
+            csvLine.Append(string.Format("\"{0}\",", ar.ActivityTypeId));
+            csvLine.Append(string.Format("\"{0}\",", ar.ActivityType));
+            csvLine.Append(string.Format("\"{0}\",", ar.ActivityItem));
+            csvLine.Append(string.Format("\"{0}\",", ar.ActivityItemDescription));
+            csvLine.Append(string.Format("\"{0}\",", ar.ActivityDate.Replace("12:00:00 AM", "").Replace("0.00", "")));
+            csvLine.Append(string.Format("\"{0}\",", ar.ActivityAmount));
+            csvLine.Append(string.Format("\"{0}\",", ar.ActivityPhoneNumber));
+            csvLine.Append(string.Format("\"{0}\",", ar.ActivityPhoneType));
+            csvLine.Append(string.Format("\"{0}\",", ar.ActivitySource));
+            csvLine.Append(string.Format("\"{0}\",", ar.ActivityCollectorCode));
+            csvLine.Append(string.Format("\"{0}\",", ar.ActivityTime));
+            csvLine.Append(string.Format("\"{0}\",", "CST"));
+            csvLine.Append(string.Format("\"{0}\",", ar.ActivityDialType));
+            csvLine.Append(string.Format("\"{0}\",", ar.ActivityDue));
+
+            Output0Buffer.AddRow();
+            Output0Buffer.RowData = csvLine.ToString();
+        }
+    }
+
+    public IEnumerable<ActivitySkipPhone> GetSkipPhones(string entityId)
+    {
+        string sqlQuery = @"
+                SELECT  skpphn.ZZENSKIPPHPHNNUM SkipPhone,
+                        skpphn.ZZENSKIPPHTYPE SkipPhoneType,
+                        skpphn.ZZENSKIPPHFLAG SkipPhoneFlag
+                FROM ZZENSKIPPHONES skpphn
+                WHERE skpphn.ZZENSKIPPHENID = " + entityId.ToString() + "";
+        string conString = Connections.ArtivaConnection.ConnectionString;
+        using (var con = new OdbcConnection(conString))
+        {
+            con.Open();
+            using (OdbcCommand cmd = new OdbcCommand(sqlQuery, con)) // need to loop or call for 4 sql strings for 4 workbooks
+            {
+                using (OdbcDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                        yield return new ActivitySkipPhone(reader);
+                }
+            }
+        }
+    }
+
+    private IEnumerable<ActivityQueryResult> GetActivity()
+    {
+        var activity = new List<ActivityQueryResult>();
+        activity.AddRange(GetActivity_Activity());
+        activity.AddRange(GetActivity_Letters());
+        activity.AddRange(GetActivity_Calls());
+        return activity;
+    }
+
+    private IEnumerable<ActivityDialerQueryResult> GetActivity_Calls()
+    {
+        string scanRange = DateTime.Today.DayOfWeek == DayOfWeek.Monday
+               ? "dial.zzdrtransactiondate > CAST(DATEADD(day, -3, getdate()) AS Date) AND dial.zzdrtransactiondate < getdate()"
+               : "dial.zzdrtransactiondate = CAST(DATEADD(day, " + _scanRange + ", getdate()) AS Date)";
+        // sql phone
+        string SQL_Phone = @"SELECT
+                    dial.ZZDRID RecordId,
+                    dial.ZZDRFILENUM AccountId,
+                    acct.ARACCLACCT ClientRefNum,
+                    dial.ZZDRTRANSACTIONDATE DateCalled,
+                    dial.ZZDRTRANSACTIONTIME TimeCalled,
+                    dial.ZZDRDESCRIPTION Description,
+                    dial.ZZDRRESULTCODE ResultCode,
+                    dial.ZZDRPHONE  PhoneNumber,
+                    dial.ZZDRAGENTID Agent,
+                    acct.ZZACORIGCREDACNUM OrigCredAcctNum,
+                    ent.ARENPH Phone1,
+                    ent.ARENPF Phone1Flag,
+                    ent.ARENPH2 Phone2,
+                    ent.ARENPF2 Phone2Flag,
+                    ent.ARENPOEPH Phone3,
+                    ent.ARENPOEPF Phone3Flag,
+                    ent.ARENID EntityId,
+                    pay.ARPAHINIDTE FirstPaymentDate,
+                    pay.ARPAHSCHDPAY NumberOfPayments,
+                    pay.ARPAHFINALPMTDATE LastPaymentDate,
+                    pay.ARPAHTOTPROM TotalPaymentAmount,
+                    acct.ZZACCREDINTCONSACNUM CreditorInternalConsumerAccountNumber,
+                    ARACLSTDTE as ListDate
+                FROM
+                    %starttable ARCLIENT
+                    INNER JOIN ARACCOUNT acct ON ARACCLTID = ARCLID AND ARCLID IN " + Variables.ClientIDs + @"
+                    INNER JOIN ZZDIALERRESPONSE dial ON acct.ARACID = dial.ZZDRFILENUM
+                    INNER JOIN ARRELATIONSHIP rel ON dial.ZZDRRELID = rel.ARRELID
+                    INNER JOIN ARENTITY ent ON rel.ARRELENID = ent.ARENID
+                    LEFT OUTER JOIN ARPAHIST pay ON rel.ARRELPAHID = pay.ARPAHID and pay.ARPAHACTIVE = '*'
+                WHERE
+                   (acct.ARACCANCID IS NULL OR (acct.ARACCANCID <> 'RECALL' AND acct.ARACCANCID <> 'RETURN' AND acct.ARACCANCID <> 'DUPE'))
+                    AND " + scanRange;
+
+        string conString = Connections.ArtivaConnection.ConnectionString;
+        using (var con = new OdbcConnection(conString))
+        {
+            con.Open();
+            using (OdbcCommand cmd = new OdbcCommand(SQL_Phone, con)) // need to loop or call for 4 sql strings for 4 workbooks
+            {
+                cmd.CommandTimeout = 60000;
+                using (OdbcDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                        yield return new ActivityDialerQueryResult(reader);
+                }
+            }
+        }
+    }
+    private IEnumerable<ActivityLetterQueryResult> GetActivity_Letters()
+    {
+        string scanRange = DateTime.Today.DayOfWeek == DayOfWeek.Monday
+            ? "ARLHUPDDTE IS NOT NULL AND ARLHUPDDTE >= CAST(DATEADD(day, -3, getdate()) AS Date) AND ARLHUPDDTE < getdate()"
+            : "ARLHUPDDTE IS NOT NULL AND ARLHUPDDTE = CAST(DATEADD(day, " + _scanRange + ", getdate()) AS Date)";
+
+        //---------------------------------------------
+        // sql letter 
+        string SQL_Letter = @"SELECT
+                    ltr.ARLHID RecordId,
+                    ltr.ARLHACID AccountId,
+                    acct.ARACCLACCT ClientRefNum,
+                    acct.ZZACORIGCREDACNUM OrigCredAcctNum,
+                    ltr.ARLHENID EntityId,
+                    ltr.ARLHREQDTE RequestDate,
+                    ltr.ARLHUSER RequestedBy,
+                    ltr.ARLHRTNDTE ReturnDate,
+                    ltr.ARLHLTR LetterCode,
+                    ltr.ARLHUPDDTE LetterHistoryPrintDate,
+                    lc.LTDESC LetterDescription,
+                    ah.ARACTHACTID ActionCode,
+                    acct.ZZACCREDINTCONSACNUM CreditorInternalConsumerAccountNumber,
+                    ARACLSTDTE as ListDate
+                 FROM
+                    %starttable ARCLIENT
+                    INNER JOIN ARACCOUNT acct ON ARACCLTID = ARCLID AND ARCLID IN " + Variables.ClientIDs + @"
+                    INNER JOIN ARLTRHIS ltr on acct.ARACID = ltr.ARLHACID
+                    INNER JOIN STLETTER lc on ltr.ARLHLTR = lc.LTCODE
+                    LEFT JOIN ARACTIVITYHIST ah on ah.ARACTHACCTID = acct.ARACID
+                WHERE
+                    (acct.ARACCANCID IS NULL OR (acct.ARACCANCID <> 'RECALL' AND acct.ARACCANCID <> 'RETURN' AND ARACCANCID <> 'DUPE'))
+                AND " + scanRange;
+
+        string conString = Connections.ArtivaConnection.ConnectionString;
+        using (var con = new OdbcConnection(conString))
+        {
+            con.Open();
+            using (OdbcCommand cmd = new OdbcCommand(SQL_Letter, con)) // need to loop or call for 4 sql strings for 4 workbooks
+            {
+                cmd.CommandTimeout = 60000;
+                using (OdbcDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                        yield return new ActivityLetterQueryResult(reader);
+                }
+            }
+        }
+    }
+    private IEnumerable<ActivityActivityQueryResult> GetActivity_Activity()
+    {
+        string scanRange = DateTime.Today.DayOfWeek == DayOfWeek.Monday
+            ? "ah.aracthdte > CAST(DATEADD(day, -3, getdate()) AS Date) AND ah.aracthdte < getdate()"
+            : "ah.aracthdte = CAST(DATEADD(day, " + _scanRange + ", getdate()) AS Date)";
+        //---------------------------------------------
+        // sql activity
+        string SQL_Activity = @"SELECT
+                    ah.ARACTHID RecordId,
+                    ah.ARACTHACCTID AccountId,
+                    acct.ARACCLACCT ClientRefNum,
+                    acct.ZZACORIGCREDACNUM OrigCredAcctNum,
+                    ah.ARACTHDTE ActivityDate,
+                    ah.ARACTHTIME ActivityTime,
+                    ah.ARACTHUSRID UserId,
+                    ah.ARACTHACTID ActionCode,
+                    actn.ARACTDESC ActionDescription,
+                    ah.ARACTHRESID ResultCode,
+                    rest.ARRESDESC ResultDescription,
+                    acct.ZZACCREDINTCONSACNUM CreditorInternalConsumerAccountNumber,
+                    ent.ARENPH Phone1,
+                    ent.ARENPF Phone1Flag,
+                    ent.ARENPH2 Phone2,
+                    ent.ARENPF2 Phone2Flag,
+                    ent.ARENPOEPH Phone3,
+                    ent.ARENPOEPF Phone3Flag,
+                    ent.ARENID EntityId,
+                    pay.ARPAHACTIVE ActiveArrangementFlag,
+                    pay.ARPAHARRFRQ Frequency,
+                    pay.ARPAHTOTPROM PaymentAmount,
+                    pay.ARPAHARRDTE PaymentArrangementDate,
+                    AREPITYPE PaymentType,
+                    pay.ARPAHCLSDTE PaymentCloseDate,
+                    ARACLSTDTE as ListDate
+               FROM
+                    %starttable ARCLIENT
+                    INNER JOIN ARACCOUNT acct ON ARACCLTID = ARCLID AND ARCLID IN " + Variables.ClientIDs + @"
+                    INNER JOIN ARACTIVITYHIST ah ON acct.ARACID = ah.ARACTHACCTID
+                    INNER JOIN ARRELATIONSHIP rel ON rel.ARRELID = ah.ARACTHRELID
+                    INNER JOIN ARENTITY ent ON rel.ARRELENID = ent.ARENID
+                    LEFT JOIN ARACTIVITYCD actn ON ah.ARACTHACTID = actn.ARACTID
+                    LEFT JOIN ARRESULTCD rest ON ah.ARACTHRESID = rest.ARRESID
+                    LEFT JOIN ARPAHIST pay ON rel.ARRELPAHID = pay.ARPAHID
+                    LEFT JOIN AREPAYMENT repay on rel.ARRELID = repay.AREPAHRELID
+                    LEFT JOIN AREPAYINFO repayinfo ON repay.AREPINFOKEY = repayinfo.AREPIID
+                WHERE
+                    (acct.ARACCANCID IS NULL OR (acct.ARACCANCID <> 'RECALL' AND acct.ARACCANCID <> 'RETURN' AND acct.ARACCANCID <> 'DUPE'))
+                    AND " + scanRange;
+
+        string conString = Connections.ArtivaConnection.ConnectionString;
+        using (var con = new OdbcConnection(conString))
+        {
+            con.Open();
+            using (OdbcCommand cmd = new OdbcCommand(SQL_Activity, con)) // need to loop or call for 4 sql strings for 4 workbooks
+            {
+                cmd.CommandTimeout = 60000;
+                using (OdbcDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                        yield return new ActivityActivityQueryResult(reader);
+                }
+            }
+        }
+    }
+
+    public enum ActivityTypes
+    {
+        Activity,
+        DialerResponse,
+        LetterHistory,
+        Note,
+        PaymentPlan
+    }
+    public class ActivityActivityQueryResult : ActivityQueryResult
+    {
+        public ActivityActivityQueryResult(IDataReader reader)
+        {
+            AccountId = reader["AccountId"].ToString();
+            ActionCode = reader["ActionCode"].ToString();
+            ActionDate = reader["ActivityDate"].ToString(); // Convert.ToDateTime(reader["ActivityDate"].ToString());
+            ActionDescription = reader["ActionDescription"].ToString();// reader.GetString("ActionDescription");
+            TimeSpan? span = reader["ActivityTime"] == DBNull.Value ? (TimeSpan?)null : (TimeSpan?)reader["ActivityTime"];
+            DateTime dt = DateTime.Today + (span.HasValue ? span.Value : new TimeSpan(0));
+            ActionTime = dt.ToString("HH:mm:ss");
+            ClientReferenceNumber = reader["ClientRefNum"].ToString();// reader.GetString("ClientRefNum");
+            OriginalCreditorAccountNumber = reader["OrigCredAcctNum"].ToString();// reader.GetString("OrigCredAcctNum");
+            RecordId = reader["RecordId"].ToString();// reader.GetDecimal("RecordId").ConvertTo<long>();
+            ResultCode = reader["ResultCode"].ToString();// reader.GetString("ResultCode");
+            ResultDescription = reader["ResultDescription"].ToString();// reader.GetString("ResultDescription");
+            Source = ActivityTypes.Activity;
+            CreditorInternalConsumerAccountNumber = reader["CreditorInternalConsumerAccountNumber"].ToString();// reader.GetString("CreditorInternalConsumerAccountNumber");
+            ActivityDate = ActionDate.Replace("0.00", ""); // DateTime.TryParse(ActionDate, out short);
+            ListDate = (DateTime)reader["ListDate"];
+            ActivityAmount = reader["PaymentAmount"] == DBNull.Value ? 0 : (decimal)reader["PaymentAmount"];
+            PaymentArrangementDate = reader["PaymentArrangementDate"] == DBNull.Value ? "" : ((DateTime)reader["PaymentArrangementDate"]).ToShortDateString();
+            PaymentType = reader["PaymentType"] == DBNull.Value ? "NULL" : (string)reader["PaymentType"];
+            PaymentCloseDate = reader["PaymentCloseDate"] == DBNull.Value ? "" : ((DateTime)reader["PaymentCloseDate"]).ToShortDateString();
+
+            Phone1 = reader["Phone1"].ToString();//reader.GetDecimal("Phone1").ToString(CultureInfo.InvariantCulture);
+            Phone1Flag = reader["Phone1Flag"].ToString();//reader.GetString("Phone1Flag");
+            Phone2 = reader["Phone2"].ToString();// reader.GetDecimal("Phone2").ToString(CultureInfo.InvariantCulture);
+            Phone2Flag = reader["Phone2Flag"].ToString();// reader.GetString("Phone2Flag");
+            Phone3 = reader["Phone3"].ToString();// reader.GetDecimal("Phone3").ToString(CultureInfo.InvariantCulture);
+            Phone3Flag = reader["Phone3Flag"].ToString();// reader.GetString("Phone3Flag");
+            EntityId = reader["EntityId"].ToString();// reader.GetDecimal("EntityId").ConvertTo<long>();
+            ActiveArrangementFlag = reader["ActiveArrangementFlag"].ToString();//= reader.GetString("ActiveArrangementFlag");
+            Frequency = reader["Frequency"].ToString();//reader.GetString("Frequency");
+
+            SkipPhones = new List<ActivitySkipPhone>();
+        }
+
+        public string ActionCode { get; private set; }
+        public string ActionDate { get; private set; }
+        public string ActionDescription { get; private set; }
+        public string ActionTime { get; private set; }
+        public string ResultCode { get; private set; }
+        public string ResultDescription { get; private set; }
+        public string ActiveArrangementFlag { get; set; }
+        public decimal ActivityAmount { set; get; }
+        public string PaymentArrangementDate { get; private set; }
+        public string PaymentType { get; private set; }
+        public string PaymentCloseDate { get; private set; }
+
+        public string Phone1 { get; set; }
+        public string Phone1Flag { get; set; }
+        public string Phone2 { get; set; }
+        public string Phone2Flag { get; set; }
+        public string Phone3 { get; set; }
+        public string Phone3Flag { get; set; }
+        public string Frequency { get; set; }
+        public string ActivityDialType { get; set; }
+
+        public override void DetermineActivityTypeId()
+        {
+            TimeSpan ts;
+            DateTime dt, dt5pm = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 17, 0, 0);   // today at 5 pm
+
+            switch (ActionCode)
+            {
+                case "BADADDR":
+                    ActivityTypeId = "100003";
+                    ActivityType = "Mail Return";
+                    break;
+
+                case "ICA":
+                case "ICATTY":
+                case "INCALLOTH":
+                    ActivityTypeId = "100008";
+                    ActivityType = "Debtor Inbound Call";
+                    ActivityDialType = "Manual";
+                    break;
+
+                case "CAPOE":
+                    ActivityDialType = "Manual";
+                    switch (ResultCode)
+                    {
+                        case "LM":
+                            TimeSpan.TryParse(ActionTime, out ts);
+                            dt = DateTime.Today + ts;
+                            if (dt < dt5pm)
+                            {
+                                ActivityTypeId = "100018";
+                                ActivityType = "Left Message (Work)";
+                            }
+                            else
+                            {
+                                ActivityTypeId = "100020";
+                                ActivityType = "Left Message - PM (Work)";
+                            }
+                            break;
+                        case "NA":
+                            TimeSpan.TryParse(ActionTime, out ts);
+                            dt = DateTime.Today + ts;
+                            if (dt < dt5pm)
+                            {
+                                ActivityTypeId = "100058";
+                                ActivityType = "No Answer (Work)";
+                            }
+                            else
+                            {
+                                ActivityTypeId = "100060";
+                                ActivityType = "No Answer - PM (Work)";
+                            }
+                            break;
+                    }
+                    break;
+
+                case "CA":
+                case "CAOTH":
+                case "CACELL":
+                    ActivityDialType = "Manual";
+                    switch (ResultCode)
+                    {
+                        case "LM":
+                            TimeSpan.TryParse(ActionTime, out ts);
+                            dt = DateTime.Today + ts;
+                            if (dt < dt5pm)
+                            {
+                                ActivityTypeId = "100025";
+                                ActivityType = "Answer - Left message to call";
+                            }
+                            else
+                            {
+                                ActivityTypeId = "100019";
+                                ActivityType = "Left Message - PM";
+                            }
+                            break;
+                        case "RP":
+                            ActivityTypeId = "100022";
+                            ActivityType = "Answer - Identified right party";
+                            break;
+                        case "NRP":
+                            ActivityTypeId = "100023";
+                            ActivityType = "Answer - Will call back";
+                            break;
+                        case "WN":
+                        case "THIRDPARTY":
+                        case "THRDPTY":
+                            ActivityTypeId = "100024";
+                            ActivityType = "Answer - Called party said wrong number";
+                            break;
+                        case "2NDTO":
+                            ActivityTypeId = "100041";
+                            ActivityType = "Answer - Manager Call";
+                            break;
+                        case "LB":
+                            TimeSpan.TryParse(ActionTime, out ts);
+                            dt = DateTime.Today + ts;
+                            if (dt < dt5pm)
+                            {
+                                ActivityTypeId = "100045";
+                                ActivityType = "Phone - Busy";
+                            }
+                            else
+                            {
+                                ActivityTypeId = "100046";
+                                ActivityType = "Phone - Busy PM";
+                            }
+                            break;
+                        case "LD":
+                            ActivityTypeId = "100047";
+                            ActivityType = "Phone - Disconnected";
+                            break;
+                        case "NA":
+                            TimeSpan.TryParse(ActionTime, out ts);
+                            dt = DateTime.Today + ts;
+                            if (dt < dt5pm)
+                            {
+                                ActivityTypeId = "100057";
+                                ActivityType = "No Answer";
+                            }
+                            else
+                            {
+                                ActivityTypeId = "100059";
+                                ActivityType = "No Answer - PM";
+                            }
+                            break;
+                    }
+                    break;
+
+                case "DISPUTE":
+                    ActivityTypeId = "100013";
+                    ActivityType = "No Written Dispute / Complaint - Received";
+                    break;
+
+                case "PA":
+                    ActivityDialType = "Manual";
+                    if (ActiveArrangementFlag == "*")
+                    {
+                        if (Frequency == "BIF" && string.IsNullOrEmpty(PaymentCloseDate) && !"VI|MC|EPP|CW|DC".Contains(PaymentType))
+                        {
+                            ActivityTypeId = "100027";
+                            ActivityType = "Answer - Promised to pay in full";
+                        }
+                        else if (Frequency == "WEK" && string.IsNullOrEmpty(PaymentCloseDate) && !"VI|MC|EPP|CW|DC".Contains(PaymentType))
+                        {
+                            ActivityTypeId = "100028";
+                            ActivityType = "Answer - Promised to pay weekly";
+                        }
+                        else if (Frequency == "BWK" && string.IsNullOrEmpty(PaymentCloseDate) && !"VI|MC|EPP|CW|DC".Contains(PaymentType))
+                        {
+                            ActivityTypeId = "100029";
+                            ActivityType = "Answer - Promised to pay biweekly";
+                        }
+
+                        else if (Frequency == "SMO" && string.IsNullOrEmpty(PaymentCloseDate) && !"VI|MC|EPP|CW|DC".Contains(PaymentType))
+                        {
+                            ActivityTypeId = "100030";
+                            ActivityType = "Answer - Promised to pay semimonthly";
+                        }
+
+                        else if (Frequency == "MON" && string.IsNullOrEmpty(PaymentCloseDate) && !"VI|MC|EPP|CW|DC".Contains(PaymentType))
+                        {
+                            ActivityTypeId = "100031";
+                            ActivityType = "Answer - Promised to pay monthly";
+                        }
+
+                        else if (string.IsNullOrEmpty(PaymentCloseDate) && "VI|MC|EPP|CW|DC".Contains(PaymentType))
+                        {
+                            ActivityTypeId = "100032";
+                            ActivityType = "Answer - Electronic payment made";
+                        }
+
+                        else if (Frequency == "SET" && string.IsNullOrEmpty(PaymentCloseDate) && !"VI|MC|EPP|CW|DC".Contains(PaymentType))
+                        {
+                            ActivityTypeId = "100033";
+                            ActivityType = "Answer - Settlement in Full";
+                        }
+                        else
+                        {
+                            ActivityTypeId = "100032";
+                            ActivityType = "Answer - Electronic payment made";
+                        }
+                    }
+                    else
+                    {
+                        ActivityTypeId = "-1";
+                        ActivityType = "ActionCode = PA but ActiveArrangementFlag <> '*'";
+                    }
+                    break;
+
+                case "PAC":
+                    ActivityDialType = "Manual";
+                    ActivityTypeId = "100034";
+                    ActivityType = "Answer - Broken Promises";
+                    break;
+
+                case "ATTY":
+                    ActivityDialType = "Manual";
+                    ActivityTypeId = "100035";
+                    ActivityType = "Answer - Attorney Representative";
+                    break;
+
+                case "BANKRUPT":
+                    ActivityDialType = "Manual";
+                    ActivityTypeId = "100036";
+                    ActivityType = "Answer - Bankrupt";
+                    break;
+
+                case "RTP":
+                    ActivityDialType = "Manual";
+                    ActivityTypeId = "100037";
+                    ActivityType = "Answer - Refusal to Pay";
+                    break;
+
+                case "DECEASED":
+                    ActivityDialType = "Manual";
+                    ActivityTypeId = "100039";
+                    ActivityType = "Answer - Deceased";
+                    break;
+
+                case "CEASE":
+                    ActivityDialType = "Manual";
+                    ActivityTypeId = "100040";
+                    ActivityType = "Answer - Cease Contact";
+                    break;
+
+                case "DISC":
+                    ActivityDialType = "Manual";
+                    ActivityTypeId = "100048";
+                    ActivityType = "Phone - Invalid Phone Number";
+                    break;
+
+                default:
+                    ActivityTypeId = "-1";
+                    ActivityType = "Don't know how to handle Action code '" + ActionCode + "'";
+                    break;
+            }
+        }
+    }
+    public class ActivityDialerQueryResult : ActivityQueryResult
+    {
+        /// <summary>
+        /// Different phone types that might have been called
+        /// </summary>
+        public enum ThisPhoneType
+        {
+            Phone1,
+            Phone2,
+            Phone3,
+            SkipPhone1,
+            SkipPhone2,
+            SkipPhone3,
+            SkipPhone4,
+            SkipPhone5,
+            SkipPhone6,
+            SkipPhone7,
+            SkipPhone8,
+            NoMatch
+        }
+        public string TotalPaymentAmount { get; private set; }
+        public string ArrangementType { get; private set; }
+        public string FirstPaymentDate { get; private set; }
+        public string LastPaymentDate { get; private set; }
+        public string NumberOfPayments { get; private set; }
+        public string DateCalled { get; private set; }
+        public string Description { get; private set; }
+        public string ResultCode { get; private set; }
+        public string DialerType { get; private set; }
+
+        public string Phone1 { get; private set; }
+        public string Phone1Flag { get; private set; }
+        public string Phone2 { get; private set; }
+        public string Phone2Flag { get; private set; }
+        public string Phone3 { get; private set; }
+        public string Phone3Flag { get; private set; }
+        public string PhoneNumber { get; private set; }
+        public string TimeCalled { get; private set; }
+
+        public ActivityDialerQueryResult(IDataReader reader)
+        {
+            Source = ActivityTypes.DialerResponse;
+            AccountId = reader["AccountId"].ToString();// reader.GetString("AccountId").ConvertTo<long>();
+            ClientReferenceNumber = reader["ClientRefNum"].ToString();//reader.GetString("ClientRefNum");
+            DateCalled = reader["DateCalled"].ToString();// reader.GetDateTime("DateCalled").ToShortDateString();
+            TimeSpan? span = reader["TimeCalled"] == DBNull.Value ? (TimeSpan?)null : (TimeSpan?)reader["TimeCalled"];
+            DateTime dt = DateTime.Today + (span.HasValue ? span.Value : new TimeSpan(0));
+            TimeCalled = dt.ToString("HH:mm:ss");
+            Description = reader["Description"].ToString();//reader.GetString("Description");
+            DialerType = "Dialer";
+            FirstPaymentDate = reader["FirstPaymentDate"].ToString();//reader["FirstPaymentDate"] == DBNull.Value ? (DateTime?)null : reader.GetDateTime("FirstPaymentDate");
+
+            Phone1 = reader["Phone1"].ToString();//reader.GetDecimal("Phone1").ToString(CultureInfo.InvariantCulture);
+            Phone1Flag = reader["Phone1Flag"].ToString();//reader.GetString("Phone1Flag");
+            Phone2 = reader["Phone2"].ToString();// reader.GetDecimal("Phone2").ToString(CultureInfo.InvariantCulture);
+            Phone2Flag = reader["Phone2Flag"].ToString();// reader.GetString("Phone2Flag");
+            Phone3 = reader["Phone3"].ToString();// reader.GetDecimal("Phone3").ToString(CultureInfo.InvariantCulture);
+            Phone3Flag = reader["Phone3Flag"].ToString();// reader.GetString("Phone3Flag");
+            EntityId = reader["EntityId"].ToString();// reader.GetDecimal("EntityId").ConvertTo<long>();
+            LastPaymentDate = reader["LastPaymentDate"].ToString();// == DBNull.Value ? (DateTime?)null : reader.GetDateTime("LastPaymentDate");
+            NumberOfPayments = reader["NumberOfPayments"].ToString();// == DBNull.Value ? (int?)null : reader.GetDecimal("NumberOfPayments").ConvertTo<int>();
+            OriginalCreditorAccountNumber = reader["OrigCredAcctNum"].ToString();//reader.GetString("OrigCredAcctNum");
+            PhoneNumber = reader["PhoneNumber"].ToString();//reader.GetString("PhoneNumber");
+            RecordId = reader["RecordId"].ToString();//reader.GetDecimal("RecordId").ConvertTo<long>();
+            TotalPaymentAmount = reader["TotalPaymentAmount"].ToString();// == DBNull.Value ? (decimal?)null : reader.GetDecimal("TotalPaymentAmount");
+            UserId = reader["Agent"].ToString();//reader.GetString("Agent");
+            ResultCode = reader["ResultCode"].ToString();//reader.GetString("ResultCode");
+            CreditorInternalConsumerAccountNumber = reader["CreditorInternalConsumerAccountNumber"].ToString();//reader.GetString("CreditorInternalConsumerAccountNumber");
+            ListDate = (DateTime)reader["ListDate"];
+
+            ActivityDate = reader["DateCalled"].ToString();// reader.GetDateTime("DateCalled");
+
+            if (string.IsNullOrEmpty(UserId))
+                UserId = "SYSTEM";
+
+            SkipPhones = new List<ActivitySkipPhone>();
+        }
+
+        /// <summary>
+        /// Clear the payment details for records that do not send them
+        /// </summary>
+        private void ClearPaymentDetails()
+        {
+            FirstPaymentDate = null;
+            LastPaymentDate = null;
+            NumberOfPayments = null;
+            TotalPaymentAmount = null;
+        }
+
+        public ThisPhoneType DetermineWhichPhoneNumberCalled(string phoneNumberCalled)
+        {
+            if (!string.IsNullOrWhiteSpace(Phone1) && phoneNumberCalled == Phone1)
+                return ThisPhoneType.Phone1;
+
+            if (!string.IsNullOrWhiteSpace(Phone2) && phoneNumberCalled == Phone2)
+                return ThisPhoneType.Phone2;
+
+            if (!string.IsNullOrWhiteSpace(Phone3) && phoneNumberCalled == Phone3)
+                return ThisPhoneType.Phone3;
+
+            if (SkipPhones != null)
+            {
+                for (int i = 0; i < SkipPhones.Count; i++)
+                {
+                    if (phoneNumberCalled == SkipPhones[i].Phone)
+                        return (ThisPhoneType)(i + ThisPhoneType.Phone3 + 1);
+                }
+            }
+
+            return ThisPhoneType.NoMatch;
+        }
+
+        /// <summary>
+        /// Determine the activity type id
+        /// </summary>
+        /// <returns></returns>
+        public override void DetermineActivityTypeId()
+        {
+            switch (ResultCode)
+            {
+                case "OT":
+                case "OTAA":
+                    ActivityTypeId = "100008";
+                    ActivityType = "Debtor Inbound Call";
+                    break;
+
+                case "ADSP":
+                    ActivityTypeId = "100013";
+                    ActivityType = "No Written Dispute / Complaint - Received";
+                    break;
+
+                case "AGRP":
+                    ActivityTypeId = "100022";
+                    ActivityType = "Answer - Identified right party";
+                    break;
+
+                case "AGWN":
+                case "CRWN":
+                case "OTWN":
+                case "THRDPTY":
+                    ActivityTypeId = "100024";
+                    ActivityType = "Answer - Called party said wrong number";
+                    break;
+
+                case "AGPP":
+                    ActivityTypeId = "100026";
+                    ActivityType = "Answer - Promise to pay by mail";
+                    break;
+
+                case "AG3P":
+                    ActivityTypeId = "100035";
+                    ActivityType = "Answer - Attorney Representative";
+                    break;
+
+                case "AGBKT":
+                    ActivityTypeId = "100036";
+                    ActivityType = "Answer - Bankrupt";
+                    break;
+
+                case "AGRPAY":
+                    ActivityTypeId = "100037";
+                    ActivityType = "Answer - Refusal to Pay";
+                    break;
+
+                case "AGDC":
+                    ActivityTypeId = "100039";
+                    ActivityType = "Answer - Deceased";
+                    break;
+
+                case "AGDNC":
+                    ActivityTypeId = "100040";
+                    ActivityType = "Answer - Cease Contact";
+                    break;
+
+                case "AGTR":
+                    ActivityTypeId = "100043";
+                    ActivityType = "Answer - Transferred to Agent";
+                    break;
+
+                case "OTXF":
+                case "LF":
+                    ActivityTypeId = "100044";
+                    ActivityType = "Answer - Call Progress Analysis Fails";
+                    break;
+
+                case "AGLB":
+                case "LB":
+                    ActivityTypeId = "100045";
+                    ActivityType = "Phone - Busy";
+                    break;
+
+                case "AND":
+                    ActivityTypeId = "100047";
+                    ActivityType = "Phone - Disconnected";
+                    break;
+
+                case "BN":
+                case "AGWM":
+                    ActivityTypeId = "100048";
+                    ActivityType = "Phone - Invalid Phone Number";
+                    break;
+
+                case "AGNA":
+                case "NA":
+                    ActivityTypeId = "100057";
+                    ActivityType = "No Answer";
+                    break;
+
+                case "MLM":
+                case "AGLMM":
+                    ActivityTypeId = "100025";
+                    ActivityType = "Answer - Left Message";
+                    break;
+
+                default:
+                    ActivityTypeId = "-1";
+                    ActivityType = "Don't know how to handle Result code '" + ResultCode + "'";
+                    break;
+            }
+        }
+    }
+    public class ActivityLetterQueryResult : ActivityQueryResult
+    {
+        public ActivityLetterQueryResult(IDataReader reader)
+        {
+            AccountId = reader["AccountId"].ToString();//.GetDecimal("AccountId").ConvertTo<long>();
+            ActivityDate = reader["RequestDate"].ToString();//.GetDateTime("RequestDate");
+            ClientReferenceNumber = reader["ClientRefNum"].ToString();//.GetString("ClientRefNum");
+            DateRequested = reader["RequestDate"].ToString();//.GetDateTime("RequestDate");
+            EntityId = reader["EntityId"].ToString();//.GetDecimal("EntityId").ConvertTo<long>();
+            LetterCode = reader["LetterCode"].ToString();//.GetString("LetterCode");
+            LetterHistoryPrintDate = reader["LetterHistoryPrintDate"].ToString();//.GetNullableDateTime("LetterHistoryPrintDate");
+            LetterDescription = reader["LetterDescription"].ToString();//.GetString("LetterDescription");
+            LetterReturned = reader["ReturnDate"].ToString();//["ReturnDate"] != DBNull.Value && reader["|||"].ToString();//.GetNullableDateTime("ReturnDate").HasValue);
+            OriginalCreditorAccountNumber = reader["OrigCredAcctNum"].ToString();//.GetString("OrigCredAcctNum");
+            RecordId = reader["RecordId"].ToString();//.GetDecimal("RecordId").ConvertTo<long>();
+            Source = ActivityTypes.LetterHistory;
+            UserId = reader["RequestedBy"].ToString();//.GetString("RequestedBy");
+            ActionCode = reader["ActionCode"].ToString();//.GetString("ActionCode");
+            CreditorInternalConsumerAccountNumber = reader["CreditorInternalConsumerAccountNumber"].ToString();//.GetString("CreditorInternalConsumerAccountNumber");
+            ListDate = (DateTime)reader["ListDate"];
+
+        }
+
+        public string DateRequested { get; private set; }
+
+        public string LetterCode { get; private set; }
+        public string LetterHistoryPrintDate { get; set; }
+        public string LetterDescription { get; private set; }
+        public string LetterReturned { get; private set; }
+        public string ActionCode { get; private set; }
+
+        public override void DetermineActivityTypeId()
+        {            
+            if (!string.IsNullOrEmpty(LetterCode))
+            {
+                if (LetterCode.Substring(0, 3) == "IDN")
+                {
+                    ActivityTypeId = "100001";
+                    ActivityType = "Demand Letter & GLB Sent";
+                }
+                else if ("EFTA0001|PDR00001".Contains(LetterCode))
+                {
+                    ActivityTypeId = "100004";
+                    ActivityType = "Post Dated Check / Electronic Fund Transfer Notice";
+                }
+                else if ("PFP00001|SCN00001".Contains(LetterCode))
+                {
+                    ActivityTypeId = "100005";
+                    ActivityType = "SIF/PIF Confirmation Letter Sent";
+                }
+                else
+                {
+                    ActivityTypeId = "-1";
+                    ActivityType = "Don't know how to handle letter code '" + LetterCode + "'";
+                }
+            }
+            else
+            {
+                ActivityTypeId = "-1";
+                ActivityType = "Don't know how to handle letter code '" + LetterCode + "'";
+            }
+        }
+    }
+
+    public class ActivitySkipPhone
+    {
+        public string Phone { get; set; }
+        public string PhoneType { get; set; }
+        public string PhoneFlag { get; set; }
+
+        public ActivitySkipPhone(IDataReader reader)
+        {
+            Phone = reader["SkipPhone"].ToString();// reader.GetDecimal("SkipPhone").ToString(CultureInfo.InvariantCulture);
+            PhoneType = reader["SkipPhoneType"].ToString();// reader.GetString("SkipPhoneType");
+            PhoneFlag = reader["SkipPhoneFlag"].ToString();// reader.GetString("SkipPhoneFlag");
+        }
+    }
+
+    public abstract class ActivityQueryResult
+    {
+        public static TimeZoneInfo CentralTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+
+        private string _activityDate;
+        public string AccountId { get; protected set; }
+        public string ActivityDate
+        {
+            get { return _activityDate; }
+            set { _activityDate = value; }
+        }
+        public string ActivityType { get; protected set; }
+        public string ActivityTypeId { get; protected set; }
+        public string ClientReferenceNumber { get; protected set; }
+        public string CreditorInternalConsumerAccountNumber { get; protected set; }
+        public string EntityId { get; protected set; }
+        public string OriginalCreditorAccountNumber { get; protected set; }
+        public string RecordId { get; protected set; }
+        public ActivityTypes Source { get; protected set; }
+        public string TimeZone { get { return "CST"; } }
+        public string UserId { get; protected set; }
+        public List<ActivitySkipPhone> SkipPhones { get; set; }
+        public DateTime ListDate { set; get; }
+
+        public abstract void DetermineActivityTypeId();
+    }
+
+    public sealed class ActivityAppend
+    {
+        public string DataID { set; get; }
+        public string PrimaryAccountNumber { set; get; }
+        public string ActivityTypeId { set; get; }
+        public string ActivityType { set; get; }
+        public string ActivityItem { set; get; }
+        public string ActivityItemDescription { set; get; }
+        public string ActivityDate { set; get; }
+        public string ActivityAmount { set; get; }
+        public string ActivityPhoneType { get; set; }
+        public string ActivityPhoneNumber { set; get; }
+        public string ActivitySource { set; get; }
+        public string ActivityCollectorCode { set; get; }
+        public string ActivityTime { set; get; }
+        public string ActivityTimeZone { set; get; }
+        public string ActivityDialType { set; get; }
+        public string ActivityDue { get; set; }
+
+        private static readonly string[] _heading_line =
+        {
+            "data_id",
+            "pri_acctno",
+            "activitytype_id",
+            "activity_type",
+            "activity_item",
+            "activity_item_desc",
+            "activity_date",
+            "activity_amount",
+            "activity_phone",
+            "activity_phone_type",
+            "activity_source",
+            "activity_collector_code",
+            "activity_time",
+            "activity_time_zone",
+            "activity_dial_type",
+            "activity_due"
+        };
+
+        public string HeaderLine { get { return string.Join(",", _heading_line); } }
+    }
+}]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[BufferWrapper.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services buffer wrappers
+*  This module defines classes for accessing data flow buffers
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+
+public class Output0Buffer: ScriptBuffer
+
+{
+    public Output0Buffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String RowData
+    {
+        set
+        {
+            this[0] = value;
+        }
+    }
+    public bool RowData_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(0);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    new public void AddRow()
+    {
+        base.AddRow();
+    }
+
+    new public void SetEndOfRowset()
+    {
+        base.SetEndOfRowset();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[SC_e2e102e8a9624f1ea0c460bfefd47408.csproj]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A8EEE08C-99D2-43C4-92D7-24E21B407C9E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SC_e2e102e8a9624f1ea0c460bfefd47408</RootNamespace>
+    <AssemblyName>SC_e2e102e8a9624f1ea0c460bfefd47408</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.SqlServer.TxScript, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSRuntimeWrap, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSPipelineWrap, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.PipelineHost, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Compile Include="main.cs" />
+    <Compile Include="BufferWrapper.cs" />
+    <Compile Include="ComponentWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <!-- Include the build rules for a C# project.-->
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- This section defines VSTA properties that describe the host-changable project properties. -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
+        <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" DebugInfoExeName="devenv.exe" DebugInfoCommandLine="/vstaHostDebugUri:&quot;vstadebugf2ecb7a6-a982-423a-b7e2-e57504ede02b/25d71a58-9884-4433-b396-54a79b5a1d59&quot;" />
+        <Host Name="ScriptComponent" IconIndex="0" />
+        <ProjectClient>
+          <HostIdentifier>SSIS_SC110</HostIdentifier>
+        </ProjectClient>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\Settings.Designer.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_e2e102e8a9624f1ea0c460bfefd47408.Properties.Settings.get_Default():SC_e2e102e8a9624f1ea0c460bfefd47408.Properties.Sett" +
+    "ings")]
+
+namespace SC_e2e102e8a9624f1ea0c460bfefd47408.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Project]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF16LE]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+	<msb:PropertyGroup>
+		<msb:CodeName>SC_e2e102e8a9624f1ea0c460bfefd47408</msb:CodeName>
+		<msb:DisplayName>SC_e2e102e8a9624f1ea0c460bfefd47408</msb:DisplayName>
+		<msb:Language>msBuild</msb:Language>
+		<msb:ProjectId>{AD988D28-F325-4052-A420-A8487B9A5BD7}</msb:ProjectId>
+	</msb:PropertyGroup>
+	<msb:ItemGroup>
+		<msb:Project Include="SC_e2e102e8a9624f1ea0c460bfefd47408.csproj"/>
+		<msb:File Include="Properties\AssemblyInfo.cs"/>
+		<msb:File Include="main.cs"/>
+		<msb:File Include="Properties\Resources.resx"/>
+		<msb:File Include="ComponentWrapper.cs"/>
+		<msb:File Include="Properties\Resources.Designer.cs"/>
+		<msb:File Include="Properties\Settings.Designer.cs"/>
+		<msb:File Include="BufferWrapper.cs"/>
+		<msb:File Include="Properties\Settings.settings"/>
+		<msb:Breakpoint Include="2d5aa6dced22401eb2c8d2d79df28976">
+			<msb:FileName>main.cs</msb:FileName>
+			<msb:HitCountType>1</msb:HitCountType>
+			<msb:LineNumber>609</msb:LineNumber>
+			<msb:HitCountTarget>1</msb:HitCountTarget>
+			<msb:ColumnNumber>13</msb:ColumnNumber>
+			<msb:Enabled>True</msb:Enabled>
+			<msb:ConditionType>1</msb:ConditionType>
+			<msb:Condition></msb:Condition>
+			<msb:Language>C#</msb:Language>
+		</msb:Breakpoint>
+	</msb:ItemGroup>
+</c:Project>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\AssemblyInfo.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("SC_e2e102e8a9624f1ea0c460bfefd47408")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("SC_e2e102e8a9624f1ea0c460bfefd47408")]
+[assembly: AssemblyCopyright("Copyright @  2018")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\Settings.settings]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\Resources.Designer.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_e2e102e8a9624f1ea0c460bfefd47408.Properties.Resources.get_ResourceManager():System.Resources.Resou" +
+    "rceManager")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_e2e102e8a9624f1ea0c460bfefd47408.Properties.Resources.get_Culture():System.Globalization.CultureIn" +
+    "fo")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_e2e102e8a9624f1ea0c460bfefd47408.Properties.Resources.set_Culture(System.Globalization.CultureInfo" +
+    "):Void")]
+
+namespace SC_e2e102e8a9624f1ea0c460bfefd47408.Properties {
+    
+    
+    /// <summary>
+    ///   A strongly-typed resource class, for looking up localized strings, etc.
+    /// </summary>
+    // This class was auto-generated by the StronglyTypedResourceBuilder
+    // class via a tool like ResGen or Visual Studio.
+    // To add or remove a member, edit your .ResX file then rerun ResGen
+    // with the /str option, or rebuild your VS project.
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    internal class Resources {
+        
+        private static global::System.Resources.ResourceManager resourceMan;
+        
+        private static global::System.Globalization.CultureInfo resourceCulture;
+        
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources() {
+        }
+        
+        /// <summary>
+        ///   Returns the cached ResourceManager instance used by this class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if ((resourceMan == null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SC_e2e102e8a9624f1ea0c460bfefd47408.Properties.Resources", typeof(Resources).Assembly);
+                    resourceMan = temp;
+                }
+                return resourceMan;
+            }
+        }
+        
+        /// <summary>
+        ///   Overrides the current thread's CurrentUICulture property for all
+        ///   resource lookups using this strongly typed resource class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
+                return resourceCulture;
+            }
+            set {
+                resourceCulture = value;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                  </arrayElements>
+                </property>
+                <property
+                  dataType="System.String"
+                  description="Stores the binary representation of the component"
+                  isArray="true"
+                  name="BinaryCode"
+                  state="cdata">
+                  <arrayElements
+                    arrayElementCount="2">
+                    <arrayElement
+                      dataType="System.String"><![CDATA[SC_e2e102e8a9624f1ea0c460bfefd47408.dll]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAOX+MV4AAAAAAAAAAOAAAiELAQsAANwAAAAIAAAAAAAALvoA
+AAAgAAAAAAEAAAAAEAAgAAAAAgAABAAAAAAAAAAEAAAAAAAAAABAAQAAAgAAAAAAAAMAQIUAABAA
+ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAANj5AABTAAAAAAABAAgEAAAAAAAAAAAAAAAAAAAA
+AAAAACABAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAANNoAAAAgAAAA3AAAAAIA
+AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAAgEAAAAAAEAAAYAAADeAAAAAAAAAAAAAAAAAABAAABA
+LnJlbG9jAAAMAAAAACABAAACAAAA5AAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAAAQ
++gAAAAAAAEgAAAACAAUAYFcAAHiiAAABAAAAAAAAAKhWAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAH4CKA0AAAoCAnO7AAAGfQEAAAQCAnO9AAAGfQIAAAQqBipu
+AnsDAAAELBICewMAAARvuQAABgIUfQMAAAQqAAATMAUASQAAAAEAABEWCisuBAaUDgRyAQAAcCgO
+AAAKMxkCBQaaAgQGlCgPAAAKDgRztQAABn0DAAAEBhdYCgYDMs4CbwUAAAYCbwIAAAYCKAMAAAYq
+BioAAzACAAABAAAAAAAAAigRAAAKAnMSAAAKfQUAAAQCewUAAARyEwAAcG8TAAAKJgJ7BQAABHIh
+AABwbxMAAAomAnsFAAAEci8AAHBvEwAACiYCewUAAARyPQAAcG8TAAAKJgJ7BQAABHJLAABwbxMA
+AAomAnsFAAAEclkAAHBvEwAACiYCewUAAARyZwAAcG8TAAAKJgJ7BQAABHJ1AABwbxMAAAomAnsF
+AAAEcoMAAHBvEwAACiYCewUAAARykQAAcG8TAAAKJgJ7BQAABHKfAABwbxMAAAomAnsFAAAEcq0A
+AHBvEwAACiYCewUAAARyuwAAcG8TAAAKJgJ7BQAABHLJAABwbxMAAAomKh4CKBQAAAoqHgJvEwAA
+BioeAm8ZAAAGKhswBQBRCwAAAgAAEQIoCgAABigBAAArCgZvFwAAChMSKzASEigYAAAKCwdvIwAA
+BiwJB28jAAAGFzMXBwIHbx0AAAYoCQAABigCAAArbykAAAYSEigZAAAKLcfeDhIS/hYDAAAbbxoA
+AArcBigDAAArLQEqcxwAAAoMBn4GAAAELREU/gYPAAAGcx0AAAqABgAABH4GAAAEKAQAACt+BwAA
+BC0RFP4GEAAABnMdAAAKgAcAAAR+BwAABCgFAAArbyAAAAoTEzhuCAAAERNvIQAACg0JbyMAAAYT
+FBEURQMAAAAFAAAAEwUAAGAHAAA4IQgAAAl0BgAAAhMEEQRvLAAABhEEbxcAAAYoIgAAChZqPiQI
+AABzswAABhMJEQkRBG8XAAAGb5YAAAYRCREEbxMAAAZvngAABhEJctcAAHARBG8hAAAGKCMAAApv
+mgAABhEJcuEAAHARBG86AAAGKCMAAApvnAAABhEJEQRvFQAABm+YAAAGEQlyrQAAcBEEbxcAAAZv
+JAAACi0DFCsVEQRvPwAABhMVEhVyFQEAcCglAAAKb6AAAAYRCREEbxsAAAZvkgAABhEJEQRvGQAA
+Bm+UAAAGEQkRBG9UAAAGb64AAAYRCREEbzYAAAZvqgAABhEJEQRvQAAABm+xAAAGEQkTBRcTBhEF
+b68AAAZyHwEAcCgmAAAKOb0DAAARBW+XAAAGci0BAHAoJgAACi0pEQVvlwAABnI7AQBwKCYAAAot
+FhEFb5cAAAZySQEAcCgmAAAKOcIBAAARBG9GAAAGKCcAAAotMhEEb0gAAAZyVwEAcCgmAAAKLB8R
+BREEb0YAAAZvpAAABhEFclsBAHBvowAABjhBAwAAEQRvSgAABignAAAKLTIRBG9MAAAGclcBAHAo
+JgAACiwfEQURBG9KAAAGb6QAAAYRBXJbAQBwb6MAAAY4AQMAABEEb04AAAYoJwAACi0yEQRvUAAA
+BnJXAQBwKCYAAAosHxEFEQRvTgAABm+kAAAGEQVyWwEAcG+jAAAGOMECAAARBG8oAAAGOe4AAAAW
+EwYRBG8oAAAGbygAAAoTFji5AAAAEhYoKQAAChMHEQdvjwAABnJXAQBwKCYAAAo5mgAAABEFEQdv
+iwAABm+kAAAGEQdvjQAABignAAAKLV8RB2+NAAAGFm8qAAAKExcRFx9MWUUCAAAAFAAAACIAAAAR
+Fx9VWUUCAAAAHgAAAB4AAAArHBEFclsBAHBvowAABisoEQVyZQEAcG+jAAAGKxoRBXJbAQBwb6MA
+AAYrDBEFclsBAHBvowAABhEFEQdviwAABm+kAAAGFxMGKwwSFigrAAAKOjv////d1QEAABIW/hYJ
+AAAbbxoAAArcFhMGODAFAAARBG9GAAAGKCcAAAotOREFEQRvRgAABm+kAAAGEQURBG9IAAAGcm8B
+AHAoJgAACi0HclsBAHArBXJlAQBwb6MAAAY4eAEAABEEb0oAAAYoJwAACi05EQURBG9KAAAGb6QA
+AAYRBREEb0wAAAZybwEAcCgmAAAKLQdyWwEAcCsFcmUBAHBvowAABjgxAQAAEQRvTgAABignAAAK
+LTkRBREEb04AAAZvpAAABhEFEQRvUAAABnJvAQBwKCYAAAotB3JbAQBwKwVyZQEAcG+jAAAGOOoA
+AAARBG8oAAAGOdYAAAARBG8oAAAGKAYAACs5xQAAABYTBhEFclsBAHBvowAABhEEbygAAAZvKAAA
+ChMYOIcAAAASGCgpAAAKEwgRCG+LAAAGKCcAAAotcBEIb40AAAYoJwAACi1iEQhvjQAABhZvKgAA
+ChMZERkfTFlFAgAAABQAAAAiAAAAERkfVVlFAgAAAB4AAAAeAAAAKxwRBXJbAQBwb6MAAAYrGhEF
+cmUBAHBvowAABisMEQVyWwEAcG+jAAAGFxMGKwwSGCgrAAAKOm3////eFhIY/hYJAAAbbxoAAArc
+FhMGOHEDAAACewUAAAQRBW+XAAAGbywAAAosEREFb6UAAAYoLQAACjpMAwAAEQY5RQMAAAgRBW8u
+AAAKODgDAAAJdAcAAAITChEKbywAAAYRCm8XAAAGKCIAAAoWaj4WAwAAc7MAAAYTDRENEQpvFwAA
+Bm+WAAAGEQ0RCm8TAAAGb54AAAYRDREKb3cAAAZvqgAABhENEQpvZQAABm+aAAAGEQ0RCm9jAAAG
+b5wAAAYRDREKbxUAAAZvmAAABhENFG+gAAAGEQ0RCm8bAAAGb5IAAAYRDREKbxkAAAZvlAAABhEN
+cnMBAHBvrgAABhENEQpvdQAABm+kAAAGEQ0TCxEKEQpvdQAABm97AAAGEwwRDBMaERpFCwAAAAUA
+AAAwAAAAWwAAAIYAAACGAAAAhgAAAIYAAACGAAAAhgAAAIYAAACGAAAAOBgBAAARCxEKb2sAAAZy
+bwEAcCgmAAAKLQdyWwEAcCsFcmUBAHBvowAABjj5AAAAEQsRCm9vAAAGcm8BAHAoJgAACi0HclsB
+AHArBXJlAQBwb6MAAAY4zgAAABELEQpvcwAABnJvAQBwKCYAAAotB3JbAQBwKwVyZQEAcG+jAAAG
+OKMAAAARCm8oAAAGEQwZWW8vAAAKb40AAAYoJwAACi1tEQpvKAAABhEMGVlvLwAACm+NAAAGFm8q
+AAAKExsRGx9MWUUCAAAAFAAAACIAAAARGx9VWUUCAAAAHgAAAB4AAAArHBELclsBAHBvowAABis2
+EQtyZQEAcG+jAAAGKygRC3JbAQBwb6MAAAYrGhELclsBAHBvowAABisMEQtygQEAcG+jAAAGEQtv
+pQAABigtAAAKOvgAAAAIEQtvLgAACjjrAAAACXQJAAACEw4RDm8sAAAGEQ5vFwAABigiAAAKFmo+
+yQAAAAhzswAABhMPEQ8RDm8XAAAGb5YAAAYRDxEObyYAAAZvqAAABhEPEQ5vEwAABm+eAAAGEQ9y
+kQEAcBEObyEAAAYoIwAACm+aAAAGEQ8RDm+AAAAGcpsBAHARDm+EAAAGKDAAAApvnAAABhEPEQ5v
+FQAABm+YAAAGEQ8Ub6AAAAYRDxEObxsAAAZvkgAABhEPEQ5vGQAABm+UAAAGEQ9vLgAACislcqMB
+AHAJbyMAAAaMBAAAAm8xAAAKctcBAHAoMAAACnMyAAAKehETbzMAAAo6hvf//94MERMsBxETbxoA
+AArcczQAAAoTEAhvNQAAChMcONkBAAASHCg2AAAKExFzNAAAChMQERByHwIAcBERb5MAAAYoNwAA
+Cm84AAAKJhEQch8CAHAREW+VAAAGKDcAAApvOAAACiYREHIfAgBwERFvlwAABig3AAAKbzgAAAom
+ERByHwIAcBERb5kAAAYoNwAACm84AAAKJhEQch8CAHAREW+bAAAGKDcAAApvOAAACiYREHIfAgBw
+ERFvnQAABig3AAAKbzgAAAomERByHwIAcBERb58AAAZyLQIAcHJFAgBwbzkAAApyFQEAcHJFAgBw
+bzkAAAooNwAACm84AAAKJhEQch8CAHAREW+hAAAGKDcAAApvOAAACiYREHIfAgBwERFvpQAABig3
+AAAKbzgAAAomERByHwIAcBERb6IAAAYoNwAACm84AAAKJhEQch8CAHAREW+nAAAGKDcAAApvOAAA
+CiYREHIfAgBwERFvqQAABig3AAAKbzgAAAomERByHwIAcBERb6sAAAYoNwAACm84AAAKJhEQch8C
+AHByRwIAcCg3AAAKbzgAAAomERByHwIAcBERb68AAAYoNwAACm84AAAKJhEQch8CAHAREW+wAAAG
+KDcAAApvOAAACiYCewMAAARvuAAABgJ7AwAABBEQbzEAAApvtgAABhIcKDoAAAo6G/7//94OEhz+
+FgoAABtvGgAACtwqAAAAQXwAAAIAAAAUAAAAPQAAAFEAAAAOAAAAAAAAAAIAAAAYAwAAzwAAAOcD
+AAAOAAAAAAAAAAIAAAAMBQAAmgAAAKYFAAAOAAAAAAAAAAIAAAC6AAAAgQgAADsJAAAMAAAAAAAA
+AAIAAABWCQAA7AEAAEILAAAOAAAAAAAAABMwAgBIAAAAAwAAEShBAAAKb0IAAAoCe24AAAQzFQJ7
+bQAABB/+MwsCFn1tAAAEAgorExZzzQAABgoGAntvAAAEfW8AAAQGAntxAAAEfXAAAAQGKh4CKMYA
+AAYqGzADAP4AAAAEAAARAnttAAAECwcWLgwHGju5AAAAONoAAAACFX1tAAAEAnJPAgBwAntwAAAE
+bzEAAAooIwAACn1yAAAEAgJ7bwAABHsBAAAEb7wAAAZvQwAACn1zAAAEAgJ7cwAABHNEAAAKfXQA
+AAQCF31tAAAEAnt0AAAEb0UAAAoCAntyAAAEAnt0AAAEc0YAAAp9dQAABAIYfW0AAAQCAnt1AAAE
+b0cAAAp9dgAABAIZfW0AAAQrIwICe3YAAARzkQAABn1sAAAEAhp9bQAABBcK3jECGX1tAAAEAnt2
+AAAEb0gAAAot0AIo0AAABgIozwAABgIozgAABhYK3gcCKMsAAAbcBioAAAEQAAAEAAAA9fUABwAA
+AAAeAntsAAAEKhpzSQAACnoAGzACAHIAAAAFAAARAnttAAAECgYXWUUEAAAAAQAAAAEAAAABAAAA
+AQAAACoCe20AAAQLBxhZRQMAAAACAAAAAgAAAAIAAAArKwJ7bQAABAwIGVlFAgAAAAIAAAACAAAA
+KwneBwIo0AAABtzeBwIozwAABtzeBwIozgAABtwqAAABKAAAAgBWAAJYAAcAAAAAAgA9ACRhAAcA
+AAAAAgAgAEpqAAcAAAAAHgJ7bAAABCp6AihKAAAKAgN9bQAABAIoQQAACm9CAAAKfW4AAAQqbgIV
+fW0AAAQCe3QAAAQsCwJ7dAAABG8aAAAKKm4CF31tAAAEAnt1AAAELAsCe3UAAARvGgAACipuAhh9
+bQAABAJ7dgAABCwLAnt2AAAEbxoAAAoqABMwAgAYAAAAAwAAER/+c80AAAYKBgJ9bwAABAYDfXEA
+AAQGKhMwAgAsAAAABgAAEXNLAAAKCgYCKA0AAAZvTAAACgYCKAwAAAZvTAAACgYCKAsAAAZvTAAA
+CgYqEzACADwAAAAHAAARKEEAAApvQgAACgJ7eQAABDMVAnt4AAAEH/4zCwIWfXgAAAQCCisTFnPY
+AAAGCgYCe3oAAAR9egAABAYqHgIo0QAABiobMAUAVQEAAAgAABECe3gAAAQLBxYuDAcaOxABAAA4
+MQEAAAIVfXgAAAQCKE8AAAoMEgIoUAAAChcuHHJuBABwAnt6AAAEewQAAARyygQAcCgwAAAKKwVy
+9gQAcH17AAAEAnLTBQBwAnt6AAAEewIAAARvvgAABnIWEABwAnt7AAAEKFEAAAp9fAAABAICe3oA
+AAR7AQAABG+8AAAGb0MAAAp9fQAABAICe30AAARzRAAACn1+AAAEAhd9eAAABAJ7fgAABG9FAAAK
+AgJ7fAAABAJ7fgAABHNGAAAKfX8AAAQCGH14AAAEAnt/AAAEIGDqAABvUgAACgICe38AAARvRwAA
+Cn2AAAAEAhl9eAAABCsjAgJ7gAAABHN5AAAGfXcAAAQCGn14AAAEFwreMQIZfXgAAAQCe4AAAARv
+SAAACi3QAijbAAAGAijaAAAGAijZAAAGFgreBwIo1gAABtwGKgAAAEEcAAAEAAAAAAAAAEwBAABM
+AQAABwAAAAAAAAAeAnt3AAAEKhpzSQAACnoAGzACAHIAAAAFAAARAnt4AAAECgYXWUUEAAAAAQAA
+AAEAAAABAAAAAQAAACoCe3gAAAQLBxhZRQMAAAACAAAAAgAAAAIAAAArKwJ7eAAABAwIGVlFAgAA
+AAIAAAACAAAAKwneBwIo2wAABtzeBwIo2gAABtzeBwIo2QAABtwqAAABKAAAAgBWAAJYAAcAAAAA
+AgA9ACRhAAcAAAAAAgAgAEpqAAcAAAAAHgJ7dwAABCp6AihKAAAKAgN9eAAABAIoQQAACm9CAAAK
+fXkAAAQqbgIVfXgAAAQCe34AAAQsCwJ7fgAABG8aAAAKKm4CF314AAAEAnt/AAAELAsCe38AAARv
+GgAACipuAhh9eAAABAJ7gAAABCwLAnuAAAAEbxoAAAoqABMwAgARAAAABwAAER/+c9gAAAYKBgJ9
+egAABAYqAAAAEzACADwAAAAJAAARKEEAAApvQgAACgJ7gwAABDMVAnuCAAAEH/4zCwIWfYIAAAQC
+CisTFnPjAAAGCgYCe4QAAAR9hAAABAYqHgIo3AAABiobMAUAVQEAAAgAABECe4IAAAQLBxYuDAca
+OxABAAA4MQEAAAIVfYIAAAQCKE8AAAoMEgIoUAAAChcuHHJLFABwAnuEAAAEewQAAARyygQAcCgw
+AAAKKwVywRQAcH2FAAAEAnKeFQBwAnuEAAAEewIAAARvvgAABnJVHABwAnuFAAAEKFEAAAp9hgAA
+BAICe4QAAAR7AQAABG+8AAAGb0MAAAp9hwAABAICe4cAAARzRAAACn2IAAAEAhd9ggAABAJ7iAAA
+BG9FAAAKAgJ7hgAABAJ7iAAABHNGAAAKfYkAAAQCGH2CAAAEAnuJAAAEIGDqAABvUgAACgICe4kA
+AARvRwAACn2KAAAEAhl9ggAABCsjAgJ7igAABHN9AAAGfYEAAAQCGn2CAAAEFwreMQIZfYIAAAQC
+e4oAAARvSAAACi3QAijmAAAGAijlAAAGAijkAAAGFgreBwIo4QAABtwGKgAAAEEcAAAEAAAAAAAA
+AEwBAABMAQAABwAAAAAAAAAeAnuBAAAEKhpzSQAACnoAGzACAHIAAAAFAAARAnuCAAAECgYXWUUE
+AAAAAQAAAAEAAAABAAAAAQAAACoCe4IAAAQLBxhZRQMAAAACAAAAAgAAAAIAAAArKwJ7ggAABAwI
+GVlFAgAAAAIAAAACAAAAKwneBwIo5gAABtzeBwIo5QAABtzeBwIo5AAABtwqAAABKAAAAgBWAAJY
+AAcAAAAAAgA9ACRhAAcAAAAAAgAgAEpqAAcAAAAAHgJ7gQAABCp6AihKAAAKAgN9ggAABAIoQQAA
+Cm9CAAAKfYMAAAQqbgIVfYIAAAQCe4gAAAQsCwJ7iAAABG8aAAAKKm4CF32CAAAEAnuJAAAELAsC
+e4kAAARvGgAACipuAhh9ggAABAJ7igAABCwLAnuKAAAEbxoAAAoqABMwAgARAAAACQAAER/+c+MA
+AAYKBgJ9hAAABAYqAAAAEzACADwAAAAKAAARKEEAAApvQgAACgJ7jQAABDMVAnuMAAAEH/4zCwIW
+fYwAAAQCCisTFnPuAAAGCgYCe44AAAR9jgAABAYqHgIo5wAABiobMAUAVQEAAAgAABECe4wAAAQL
+BxYuDAcaOxABAAA4MQEAAAIVfYwAAAQCKE8AAAoMEgIoUAAAChcuHHKAHwBwAnuOAAAEewQAAARy
+ygQAcCgwAAAKKwVyxB8AcH2PAAAEAnJxIABwAnuOAAAEewIAAARvvgAABnKaKwBwAnuPAAAEKFEA
+AAp9kAAABAICe44AAAR7AQAABG+8AAAGb0MAAAp9kQAABAICe5EAAARzRAAACn2SAAAEAhd9jAAA
+BAJ7kgAABG9FAAAKAgJ7kAAABAJ7kgAABHNGAAAKfZMAAAQCGH2MAAAEAnuTAAAEIGDqAABvUgAA
+CgICe5MAAARvRwAACn2UAAAEAhl9jAAABCsjAgJ7lAAABHMvAAAGfYsAAAQCGn2MAAAEFwreMQIZ
+fYwAAAQCe5QAAARvSAAACi3QAijxAAAGAijwAAAGAijvAAAGFgreBwIo7AAABtwGKgAAAEEcAAAE
+AAAAAAAAAEwBAABMAQAABwAAAAAAAAAeAnuLAAAEKhpzSQAACnoAGzACAHIAAAAFAAARAnuMAAAE
+CgYXWUUEAAAAAQAAAAEAAAABAAAAAQAAACoCe4wAAAQLBxhZRQMAAAACAAAAAgAAAAIAAAArKwJ7
+jAAABAwIGVlFAgAAAAIAAAACAAAAKwneBwIo8QAABtzeBwIo8AAABtzeBwIo7wAABtwqAAABKAAA
+AgBWAAJYAAcAAAAAAgA9ACRhAAcAAAAAAgAgAEpqAAcAAAAAHgJ7iwAABCp6AihKAAAKAgN9jAAA
+BAIoQQAACm9CAAAKfY0AAAQqbgIVfYwAAAQCe5IAAAQsCwJ7kgAABG8aAAAKKm4CF32MAAAEAnuT
+AAAELAsCe5MAAARvGgAACipuAhh9jAAABAJ7lAAABCwLAnuUAAAEbxoAAAoqABMwAgARAAAACgAA
+ER/+c+4AAAYKBgJ9jgAABAYqSgJyIzIAcH0EAAAEAigBAAAGKh4CexAAAAQqIgIDfRAAAAQqHgJ7
+DwAABCoiAgN9DwAABCoeAnsRAAAEKiICA30RAAAEKh4CexIAAAQqIgIDfRIAAAQqHgJ7EwAABCoi
+AgN9EwAABCoeAnsUAAAEKiICA30UAAAEKh4CexUAAAQqIgIDfRUAAAQqHgJ7FgAABCoiAgN9FgAA
+BCoeAnsXAAAEKiICA30XAAAEKh4CexgAAAQqIgIDfRgAAAQqGnJHAgBwKh4CexkAAAQqIgIDfRkA
+AAQqHgJ7GgAABCoiAgN9GgAABCoiAgN9GwAABCoeAnsbAAAEKkJyKTIAcChXAAAKgA4AAAQqHgIo
+SgAACioAAAATMAQAHgMAAAsAABECKC0AAAYCA3JVMgBwb1gAAApvMQAACigSAAAGAgNyaTIAcG9Y
+AAAKbzEAAAooMQAABgIDcn8yAHBvWAAACm8xAAAKKDMAAAYCA3KZMgBwb1gAAApvMQAACig1AAAG
+A3K9MgBwb1gAAAp+WQAACi4SA3K9MgBwb1gAAAqlEwAAGysJEgL+FRMAABsICihPAAAKEgAoWgAA
+Ci0JFmpzWwAACisHEgAoXAAACihdAAAKCwISAXLXMgBwKF4AAAooNwAABgIDcukyAHBvWAAACm8x
+AAAKKBoAAAYCA3IDMwBwb1gAAApvMQAACiggAAAGAgNyIzMAcG9YAAAKbzEAAAooIgAABgIDcjUz
+AHBvWAAACm8xAAAKKDkAAAYCA3JLMwBwb1gAAApvMQAACig7AAAGAhYoJAAABgIDcm8zAHBvWAAA
+Cm8xAAAKKBwAAAYCAigyAAAGchUBAHByRQIAcG85AAAKKBQAAAYCA3K7MwBwb1gAAAqlDAAAASgq
+AAAGAgNyzTMAcG9YAAAKflkAAAouEgNyzTMAcG9YAAAKpQ4AAAErBhZzXwAACig+AAAGAgNy6TMA
+cG9YAAAKflkAAAouGgNy6TMAcG9YAAAKpQwAAAENEgMoYAAACisFckUCAHAoQQAABgIDchc0AHBv
+WAAACn5ZAAAKLhIDchc0AHBvWAAACnQnAAABKwVyLzQAcChDAAAGAgNyOTQAcG9YAAAKflkAAAou
+GwNyOTQAcG9YAAAKpQwAAAETBBIEKGAAAAorBXJFAgBwKEUAAAYCA3JbNABwb1gAAApvMQAACihH
+AAAGAgNyaTQAcG9YAAAKbzEAAAooSQAABgIDcn80AHBvWAAACm8xAAAKKEsAAAYCA3KNNABwb1gA
+AApvMQAACihNAAAGAgNyozQAcG9YAAAKbzEAAAooTwAABgIDcrE0AHBvWAAACm8xAAAKKFEAAAYC
+A3LHNABwb1gAAApvMQAACigeAAAGAgNy2TQAcG9YAAAKbzEAAAooPQAABgIDcgU1AHBvWAAACm8x
+AAAKKFMAAAYCc2EAAAooKQAABioeAnscAAAEKiICA30cAAAEKh4Cex0AAAQqIgIDfR0AAAQqHgJ7
+HgAABCoiAgN9HgAABCoeAnsfAAAEKiICA30fAAAEKh4CeyAAAAQqIgIDfSAAAAQqHgJ7IQAABCoi
+AgN9IQAABCoeAnsiAAAEKiICA30iAAAEKiICA30jAAAEKh4CeyMAAAQqHgJ7JAAABCoiAgN9JAAA
+BCoeAnslAAAEKiICA30lAAAEKh4CeyYAAAQqIgIDfSYAAAQqHgJ7JwAABCoiAgN9JwAABCoeAnso
+AAAEKiICA30oAAAEKh4CeykAAAQqIgIDfSkAAAQqHgJ7KgAABCoiAgN9KgAABCoeAnsrAAAEKiIC
+A30rAAAEKh4CeywAAAQqIgIDfSwAAAQqHgJ7LQAABCoiAgN9LQAABCoeAnsuAAAEKiICA30uAAAE
+KgAAABMwBwBdCAAADAAAERICKE8AAAoNEgMoYgAACihPAAAKEwQSBChjAAAKKE8AAAoTBRIFKGQA
+AAofERYWKGUAAAoCKDAAAAYlEwY59AcAAP4TfpUAAAQ64gAAAB8Rc2YAAAolchk1AHAWKGcAAAol
+cik1AHAXKGcAAAolcjE1AHAYKGcAAAolcj81AHAZKGcAAAolclM1AHAaKGcAAAolcl81AHAbKGcA
+AAolcmU1AHAcKGcAAAolcnE1AHAdKGcAAAolcn81AHAeKGcAAAolco81AHAfCShnAAAKJXKVNQBw
+HwooZwAACiVynTUAcB8LKGcAAAolcqc1AHAfDChnAAAKJXK5NQBwHw0oZwAACiVywTUAcB8OKGcA
+AAolctM1AHAfDyhnAAAKJXLfNQBwHxAoZwAACv4TgJUAAAT+E36VAAAEEQYSByhoAAAKOfEGAAAR
+B0URAAAABQAAABwAAAAcAAAAHAAAAD4AAAAWAQAAFgEAABYBAABtAwAAhAMAALgFAADaBQAA/AUA
+AB4GAABABgAAYgYAAIQGAAA4oQYAAAJy6TUAcCgYAAAGAnL3NQBwKBYAAAYqAnIPNgBwKBgAAAYC
+ch02AHAoFgAABgJyHwEAcChVAAAGKgJyHwEAcChVAAAGAig4AAAGJRMIOXUGAAARCHJFNgBwKCYA
+AAotDxEIcks2AHAoJgAACi1SKgIoNgAABhIAKGkAAAomKE8AAAoGKF0AAAoLBwgoagAACiwXAnJL
+AABwKBgAAAYCclE2AHAoFgAABioCcnk2AHAoGAAABgJyhzYAcCgWAAAGKgIoNgAABhIAKGkAAAom
+KE8AAAoGKF0AAAoLBwgoagAACiwXAnK5NgBwKBgAAAYCcsc2AHAoFgAABioCcuk2AHAoGAAABgJy
+9zYAcCgWAAAGKgJyHwEAcChVAAAGAig4AAAGJRMJOZ0FAAD+E36WAAAEOocAAAAfCnNmAAAKJXJF
+NgBwFihnAAAKJXIjNwBwFyhnAAAKJXIpNwBwGChnAAAKJXIxNwBwGShnAAAKJXI3NwBwGihnAAAK
+JXJNNwBwGyhnAAAKJXJdNwBwHChnAAAKJXJpNwBwHShnAAAKJXJvNwBwHihnAAAKJXJLNgBwHwko
+ZwAACv4TgJYAAAT+E36WAAAEEQkSCihoAAAKOfUEAAARCkUKAAAAAQAAAFIAAABpAAAAgAAAAIAA
+AACAAAAAlwAAAK4AAAD/AAAAFgEAACoCKDYAAAYSAChpAAAKJihPAAAKBihdAAAKCwcIKGoAAAos
+FwJydTcAcCgYAAAGAnKDNwBwKBYAAAYqAnK/NwBwKBgAAAYCcs03AHAoFgAABioCclkAAHAoGAAA
+BgJy8TcAcCgWAAAGKgJyMTgAcCgYAAAGAnI/OABwKBYAAAYqAnItAQBwKBgAAAYCcm84AHAoFgAA
+BioCcr84AHAoGAAABgJyzTgAcCgWAAAGKgIoNgAABhIAKGkAAAomKE8AAAoGKF0AAAoLBwgoagAA
+CiwXAnL5OABwKBgAAAYCcgc5AHAoFgAABioCciE5AHAoGAAABgJyLzkAcCgWAAAGKgJyOwEAcCgY
+AAAGAnJPOQBwKBYAAAYqAig2AAAGEgAoaQAACiYoTwAACgYoXQAACgsHCChqAAAKLBcCcskAAHAo
+GAAABgJyeTkAcCgWAAAGKgJyjTkAcCgYAAAGAnKbOQBwKBYAAAYqAnK5OQBwKBgAAAYCcsc5AHAo
+FgAABioCch8BAHAoVQAABgIoPAAABnIbOgBwKCYAAAo5/QEAAAIoUgAABnIfOgBwKCYAAAosNgIo
+RAAABigtAAAKLClyJzoAcAIoQgAABm8kAAAKLRcCckc6AHAoGAAABgJyVToAcCgWAAAGKgIoUgAA
+BnKXOgBwKCYAAAosNgIoRAAABigtAAAKLClyJzoAcAIoQgAABm8kAAAKLRcCcnUAAHAoGAAABgJy
+nzoAcCgWAAAGKgIoUgAABnLfOgBwKCYAAAosNgIoRAAABigtAAAKLClyJzoAcAIoQgAABm8kAAAK
+LRcCcoMAAHAoGAAABgJy5zoAcCgWAAAGKgIoUgAABnIrOwBwKCYAAAosNgIoRAAABigtAAAKLCly
+JzoAcAIoQgAABm8kAAAKLRcCcpEAAHAoGAAABgJyMzsAcCgWAAAGKgIoUgAABnJ9OwBwKCYAAAos
+NgIoRAAABigtAAAKLClyJzoAcAIoQgAABm8kAAAKLRcCcp8AAHAoGAAABgJyhTsAcCgWAAAGKgIo
+RAAABigtAAAKLClyJzoAcAIoQgAABm8kAAAKLBcCcq0AAHAoGAAABgJyxzsAcCgWAAAGKgIoUgAA
+BnIJPABwKCYAAAosNgIoRAAABigtAAAKLClyJzoAcAIoQgAABm8kAAAKLRcCchE8AHAoGAAABgJy
+HzwAcCgWAAAGKgJyrQAAcCgYAAAGAnLHOwBwKBYAAAYqAnIjMgBwKBgAAAYCclc8AHAoFgAABioC
+ch8BAHAoVQAABgJyuTwAcCgYAAAGAnLHPABwKBYAAAYqAnIfAQBwKFUAAAYCcvk8AHAoGAAABgJy
+Bz0AcCgWAAAGKgJyHwEAcChVAAAGAnJJPQBwKBgAAAYCclc9AHAoFgAABioCch8BAHAoVQAABgJy
+ez0AcCgYAAAGAnKJPQBwKBYAAAYqAnIfAQBwKFUAAAYCcrk9AHAoGAAABgJyxz0AcCgWAAAGKgJy
+HwEAcChVAAAGAnLrPQBwKBgAAAYCcvk9AHAoFgAABioCch8BAHAoVQAABgJySQEAcCgYAAAGAnIn
+PgBwKBYAAAYqAnIjMgBwKBgAAAYCcmE+AHACKDAAAAZyrz4AcCgwAAAKKBYAAAYqHgJ7LwAABCoi
+AgN9LwAABCoeAnswAAAEKiICA30wAAAEKh4CezEAAAQqIgIDfTEAAAQqHgJ7MgAABCoiAgN9MgAA
+BCoeAnszAAAEKiICA30zAAAEKh4CezQAAAQqIgIDfTQAAAQqHgJ7NQAABCoiAgN9NQAABCoeAns2
+AAAEKiICA302AAAEKh4CezcAAAQqIgIDfTcAAAQqHgJ7OAAABCoiAgN9OAAABCoeAns5AAAEKiIC
+A305AAAEKh4CezoAAAQqIgIDfToAAAQqHgJ7OwAABCoiAgN9OwAABCoeAns8AAAEKiICA308AAAE
+Kh4Cez0AAAQqIgIDfT0AAAQqHgJ7PgAABCoiAgN9PgAABCoeAns/AAAEKiICA30/AAAEKgAAEzAD
+AJoCAAANAAARAigtAAAGAhcoJAAABgIDclUyAHBvWAAACm8xAAAKKBIAAAYCA3LpMgBwb1gAAApv
+MQAACigaAAAGAgNysz4AcG9YAAAKbzEAAAooYgAABgNyyT4AcG9YAAAKflkAAAouEgNyyT4AcG9Y
+AAAKpRMAABsrCRIC/hUTAAAbCAooTwAAChIAKFoAAAotCRZqc1sAAAorBxIAKFwAAAooXQAACgsC
+EgFy1zIAcCheAAAKKHgAAAYCA3LfPgBwb1gAAApvMQAACihkAAAGAnJzAQBwKGgAAAYCA3L3PgBw
+b1gAAApvMQAACihcAAAGAgNyWzQAcG9YAAAKbzEAAAooagAABgIDcmk0AHBvWAAACm8xAAAKKGwA
+AAYCA3J/NABwb1gAAApvMQAACihuAAAGAgNyjTQAcG9YAAAKbzEAAAoocAAABgIDcqM0AHBvWAAA
+Cm8xAAAKKHIAAAYCA3KxNABwb1gAAApvMQAACih0AAAGAgNyxzQAcG9YAAAKbzEAAAooHgAABgID
+chk/AHBvWAAACm8xAAAKKF4AAAYCA3I5PwBwb1gAAApvMQAACihgAAAGAgNyAzMAcG9YAAAKbzEA
+AAooIAAABgIDcls/AHBvWAAACm8xAAAKKHYAAAYCA3IjMwBwb1gAAApvMQAACigiAAAGAgNycz8A
+cG9YAAAKbzEAAAooWAAABgIDcpk/AHBvWAAACm8xAAAKKCcAAAYCA3I1MwBwb1gAAApvMQAACihm
+AAAGAgNybzMAcG9YAAAKbzEAAAooHAAABgIDcrszAHBvWAAACqUMAAABKCoAAAYCA3KzPgBwb1gA
+AApvMQAACigUAAAGAigmAAAGKC0AAAosCwJypT8AcCgnAAAGAnNhAAAKKCkAAAYqdgIUKFwAAAYC
+FCheAAAGAhQoYAAABgIUKFgAAAYqEzADAJcAAAABAAARAihpAAAGKCcAAAotEAMCKGkAAAYoJgAA
+CiwCFioCKG0AAAYoJwAACi0QAwIobQAABigmAAAKLAIXKgIocQAABignAAAKLRADAihxAAAGKCYA
+AAosAhgqAigoAAAGLDUWCisjAwIoKAAABgZvLwAACm+LAAAGKCYAAAosBgYYWBdYKgYXWAoGAigo
+AAAGb2sAAAoyzx8LKgATMAQApQMAAA4AABECKGUAAAYlCjlxAwAA/hN+lwAABDpXAQAAHxpzZgAA
+CiVysz8AcBYoZwAACiVyuT8AcBcoZwAACiVywz8AcBgoZwAACiVyzT8AcBkoZwAACiVy1z8AcBoo
+ZwAACiVy4T8AcBsoZwAACiVy6z8AcBwoZwAACiVyTTcAcB0oZwAACiVy9T8AcB4oZwAACiVy/z8A
+cB8JKGcAAAolcglAAHAfCihnAAAKJXIVQABwHwsoZwAACiVyI0AAcB8MKGcAAAolci1AAHAfDShn
+AAAKJXI5QABwHw4oZwAACiVyQ0AAcB8PKGcAAAolck1AAHAfEChnAAAKJXJTQABwHxEoZwAACiVy
+aTcAcB8SKGcAAAolcl1AAHAfEyhnAAAKJXJlQABwHxQoZwAACiVya0AAcB8VKGcAAAolcnVAAHAf
+FihnAAAKJXJLNgBwHxcoZwAACiVyf0AAcB8YKGcAAAolcodAAHAfGShnAAAK/hOAlwAABP4TfpcA
+AAQGEgEoaAAACjn6AQAAB0UaAAAABQAAAAUAAAAcAAAAMwAAAEoAAABKAAAASgAAAEoAAABhAAAA
+eAAAAI8AAACmAAAAvQAAANQAAADrAAAAAgEAAAIBAAAZAQAAGQEAADABAABHAQAARwEAAF4BAABe
+AQAAdQEAAHUBAAA4hwEAAAJyDzYAcCgYAAAGAnIdNgBwKBYAAAYqAnK5OQBwKBgAAAYCcsc5AHAo
+FgAABioCclkAAHAoGAAABgJy8TcAcCgWAAAGKgJyLQEAcCgYAAAGAnJvOABwKBYAAAYqAnJnAABw
+KBgAAAYCcpNAAHAoFgAABioCcvk8AHAoGAAABgJyBz0AcCgWAAAGKgJyST0AcCgYAAAGAnJXPQBw
+KBYAAAYqAnJ7PQBwKBgAAAYCcok9AHAoFgAABioCcrk9AHAoGAAABgJyxz0AcCgWAAAGKgJy6z0A
+cCgYAAAGAnL5PQBwKBYAAAYqAnLTQABwKBgAAAYCcuFAAHAoFgAABioCch1BAHAoGAAABgJyK0EA
+cCgWAAAGKgJy+TgAcCgYAAAGAnIHOQBwKBYAAAYqAnI7AQBwKBgAAAYCck85AHAoFgAABioCckkB
+AHAoGAAABgJyJz4AcCgWAAAGKgJyyQAAcCgYAAAGAnJ5OQBwKBYAAAYqAnJ1NwBwKBgAAAYCcndB
+AHAoFgAABioCciMyAHAoGAAABgJyo0EAcAIoZQAABnKvPgBwKDAAAAooFgAABioAAAADMAMAWAEA
+AAAAAAACKC0AAAYCA3JVMgBwb1gAAApvMQAACigSAAAGAgNy8UEAcG9YAAAKbzEAAAooFAAABgID
+cukyAHBvWAAACm8xAAAKKBoAAAYCA3LxQQBwb1gAAApvMQAACih/AAAGAgNyxzQAcG9YAAAKbzEA
+AAooHgAABgIDcglCAHBvWAAACm8xAAAKKIEAAAYCA3IfQgBwb1gAAApvMQAACiiDAAAGAgNyTUIA
+cG9YAAAKbzEAAAoohQAABgIDcnFCAHBvWAAACm8xAAAKKIcAAAYCA3IDMwBwb1gAAApvMQAACigg
+AAAGAgNyIzMAcG9YAAAKbzEAAAooIgAABgIYKCQAAAYCA3KHQgBwb1gAAApvMQAACignAAAGAgNy
+aTIAcG9YAAAKbzEAAAooiQAABgIDcm8zAHBvWAAACm8xAAAKKBwAAAYCA3K7MwBwb1gAAAqlDAAA
+ASgqAAAGKh4Ce00AAAQqIgIDfU0AAAQqHgJ7TgAABCoiAgN9TgAABCoeAntPAAAEKiICA31PAAAE
+Kh4Ce1AAAAQqIgIDfVAAAAQqHgJ7UQAABCoiAgN9UQAABCoeAntSAAAEKiICA31SAAAEKgAAAzAE
+AOAAAAAAAAAAAiiAAAAGKC0AAAo6qQAAAAIogAAABhYZb2wAAApyn0IAcCgmAAAKLBcCcqdCAHAo
+GAAABgJytUIAcCgWAAAGKnLnQgBwAiiAAAAGbyQAAAosFwJyC0MAcCgYAAAGAnIZQwBwKBYAAAYq
+cn9DAHACKIAAAAZvJAAACiwXAnKjQwBwKBgAAAYCcrFDAHAoFgAABioCciMyAHAoGAAABgJy80MA
+cAIogAAABnKvPgBwKDAAAAooFgAABioCciMyAHAoGAAABgJy80MAcAIogAAABnKvPgBwKDAAAAoo
+FgAABioeAntTAAAEKiICA31TAAAEKh4Ce1QAAAQqIgIDfVQAAAQqHgJ7VQAABCoiAgN9VQAABCoA
+AzADAEkAAAAAAAAAAihKAAAKAgNyQUQAcG9YAAAKbzEAAAoojAAABgIDclVEAHBvWAAACm8xAAAK
+KI4AAAYCA3JxRABwb1gAAApvMQAACiiQAAAGKiICA31XAAAEKh4Ce1cAAAQqIgIDfVgAAAQqHgJ7
+WAAABCoiAgN9WQAABCoeAntZAAAEKiICA31aAAAEKh4Ce1oAAAQqIgIDfVsAAAQqHgJ7WwAABCoi
+AgN9XAAABCoeAntcAAAEKiICA31dAAAEKh4Ce10AAAQqIgIDfV4AAAQqHgJ7XgAABCoeAntfAAAE
+KiICA31fAAAEKiICA31gAAAEKh4Ce2AAAAQqIgIDfWEAAAQqHgJ7YQAABCoiAgN9YgAABCoeAnti
+AAAEKiICA31jAAAEKh4Ce2MAAAQqIgIDfWQAAAQqHgJ7ZAAABCoiAgN9ZQAABCoeAntlAAAEKh4C
+e2YAAAQqIgIDfWYAAAQqQnKNRABwflYAAAQobQAACioAABMwAwCWAAAADwAAER8QjScAAAEKBhZy
+kUQAcKIGF3KhRABwogYYcrdEAHCiBhly10QAcKIGGnLzRABwogYbcg9FAHCiBhxyNUUAcKIGHXJR
+RQBwogYecnFFAHCiBh8Jco9FAHCiBh8KcrdFAHCiBh8LctdFAHCiBh8McgdGAHCiBh8NciNGAHCi
+Bh8OcklGAHCiBh8Pcm9GAHCiBoBWAAAEKh4CKEoAAAoqKgIDBAUobgAACiomAhYDKG8AAAoqWgMs
+CAIWKHAAAAoqcolGAHBzcQAACnoeAihyAAAKKh4CKHMAAAoqHgIodAAACio6AihKAAAKAgN9ZwAA
+BCqCAntnAAAEb3UAAApvdgAACnImRwBwb3cAAApveAAACio6AihKAAAKAgN9aAAABCqWAntoAAAE
+b3kAAApySEcAcG96AAAKKHsAAApvfAAACnQnAAABKh4CKEoAAAoqABMwAgAtAAAAEAAAEX5pAAAE
+LSByXEcAcNAPAAACKH4AAApvfwAACnOAAAAKCgaAaQAABH5pAAAEKhp+agAABCoeAoBqAAAEKhp+
+awAABCouc8QAAAaAawAABCoeAiiCAAAKKgC0AAAAzsrvvgEAAACRAAAAbFN5c3RlbS5SZXNvdXJj
+ZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1
+dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSNTeXN0ZW0uUmVzb3VyY2VzLlJ1
+bnRpbWVSZXNvdXJjZVNldAIAAAAAAAAAAAAAAFBBRFBBRFC0AAAAQlNKQgEAAQAAAAAADAAAAHY0
+LjAuMzAzMTkAAAAABQBsAAAAlCgAACN+AAAAKQAAgCsAACNTdHJpbmdzAAAAAIBUAADQRwAAI1VT
+AFCcAAAQAAAAI0dVSUQAAABgnAAAGAYAACNCbG9iAAAAAAAAAAIAAAFXH6ILCQsAAAD6JTMAFgAA
+AQAAAEgAAAAVAAAAlwAAAPEAAABiAAAAFAAAAIIAAAARAAAACwEAABAAAAAPAAAAWwAAAKYAAAAc
+AAAAFAAAAAEAAAAIAAAAAQAAAAwAAAAGAAAAAAAKAAEAAAAAAAYAkAFvAQoAsAGpAQoAtQGpAQYA
+vAFvAQ4A3gHJARIAPwJvAQYATgJvARYArgKTAgoA2wKTAgoAfQOpAQoAZwWTAgoAjAWpARoAHQgR
+CAoALQmpAR4AEhnqGAoAehlpGQoAqxmWGQoAqhqQGgoA1RrDGgoA7BrDGgoACRvDGgoAKBvDGgoA
+QRvDGgoAWhvDGgoAdRvDGgoAkBvDGgoAqRvDGgoA4hvCGwoAAhzCGwYAYRxvAQoAqBypAQoA1hzC
+GxYAPh0yHS8AUB0AAAoAfh2pARYAlh0yHQoAuh2TAgoAyB2pAQoA2B2pAQoAOB6pAQoAVR5CHgoA
+bR5hHgoApR5CHhoAaCBXIBoAgSBXIBoAlyBXIAoAZCFRIQoAjSF8IRoA4iHPIRoAAiLPIQoAFCKp
+AQoA4yOpARoA+yPPIRoAkScRCAoAnSepAQoAqiepAQoAtSepAQoAUyiTAgoA5yipASIATiklKSIA
+fSklKSIAwCklKR4ACirqGB4AMSrqGAcAQSoAAB4AcSrqGAoAnSpRIQoAuiqpAQoAvyqpAQoA4yrD
+Gg4ADyv5Kg4AKCv5KgAAAAABAAAAAAABAAEAAQAQADIAAAAFAAEAAQABABAAQAAAAAgABAAGAAIB
+AABLAAAACQAIABEAggAQAFkAAAANAA4AEQACABAAbQAAABQAHAAvAAIAEACJAAAAFAAvAFcAAgEA
+AKMAAAAJAEAAfQACABAAsQAAABQATQB9AAIAEADLAAAADQBTAIsAAgEQAN0AAAANAFYAkgABABAA
+7AAAABEAZwC1AAEAEAD6AAAADQBnALsAAQAQAAYBAAANAGgAvQAAABAAEAEaAQ0AaQC/AAABEABJ
+ARoBFQBrAMMAAwEQAJEeAAANAGwAxgADARAAMyIAAA0AdwDRAAMBEAAYJAAADQCBANwAAwEQAMEl
+AAANAIsA5wAAAAAADigAAA0AlQDyAAYA+gATAAYABgEXAAYA7AAfAAEAfAIvAAEAuAIyABEArxyu
+AREACx2uAQYGPgNnAFaARgNqAFaATwNqAFaAXgNqAFaAbANqAFaAcQNqABYAigOHAAEAmgMvAAEA
+xwUvAAEA4gUvAAEAAAYvAAEAIAYvAAEARwYvAAEAfgYvAAEAmAYvAAEAxwYvAAEA4QZqAAEA+QYv
+AAEAEQe9AAEALQfFAAEAvQovAAEA2QovAAEA9QovAAEAGAsvAAEANAsvAAEAUAsvAAEAcwsvAAEA
+mgvxAAEAugsvAAEA4gsvAAEA/wsvAAEAIQwvAAEAOQwvAAEAVQwvAAEAbQwvAAEAiQwvAAEAoQwv
+AAEAvQwvAAEA2AwvAAEAlA8vAAEAuA8vAAEA2Q8vAAEA+w8vAAEAHBAvAAEAPhAvAAEAWhAvAAEA
+NAsvAAEAdxAvAAEAIQwvAAEAOQwvAAEAVQwvAAEAbQwvAAEAiQwvAAEAoQwvAAEAkxAvAAEAsBAv
+AAYGPgNnAFaAow0AAVaAtQ0AAVaAxw0AAVaAWhEAAVaAZREAAVaAcBEAAVaAexEAAVaAhhEAAVaA
+kREAAVaAnBEAAVaApxEAAVaAshEAAQEAhBIvAAEAoxIvAAEAvxIvAAEA5xIvAAEAChMvAAEAvQov
+AAEAxxMvAAEA3hMvAAEA+RMvADEA8hUnAQEADxYvAAEAJxYvAAEAAAYvAAEA4gUvAAEATRYvAAEA
+axYvAAEAlBYvAAEAmgsvAAEAshYvAAEA1RYvAAEA+hYvAAEAGhcvAAEAQRcvAAEAXxcvAAEA2Awv
+AAEAgRcvAAEAtxhCAQEAtxhCAREAihlWAREAtxlaAREA+xl4AQEAMR89AwEA1R9nAAEA4B9nAAYA
+ICBKAwYAQxovAAYAKiAvAAYAOCAvAAYARyAvAAYAdyBOAwYAjSBTAwYApiBYAwEAMR+6AwEA1R9n
+AAEA4B9nAAYAICBKAwYAACMvAAYAESMvAAYAIiMvAAYAMyNOAwYAPiNTAwYASSNYAwEAMR8ABAEA
+1R9nAAEA4B9nAAYAICBKAwYA5yQvAAYA+CQvAAYACiUvAAYAGyVOAwYAJiVTAwYAMSVYAwEAMR8s
+BAEA1R9nAAEA4B9nAAYAICBKAwYAlSYvAAYApiYvAAYAuiYvAAYAyyZOAwYA1iZTAwYA4SZYAxMA
+YCiOBBMAlSiOBBMAsyiOBFAgAAAAAIYY9gEbAAEAcCAAAAAAxgH8ARsAAQByIAAAAACBAAoCGwAB
+AJAgAAAAAMYAXAIjAAEA5SAAAAAAxgFoAhsABQDoIAAAAADGAMQCGwAFAPQhAAAAAMYAzwIbAAUA
+DCIAAAAAxgBoAhsABQCUMAAAAACGAOkCOQAFALgwAAAAAIEA9wJDAAYA9DMAAAAAgQADA0wABgAY
+NwAAAACBABUDVQAGADw6AAAAAIEAKQNeAAYAWToAAAAAhhj2ARsABgD8IQAAAACRAIwcqAEGAAQi
+AAAAAJEA8RyoAQcAbDoAAAAAhgioA4sACAB0OgAAAACECLYDjwAIAH06AAAAAIYIxAOLAAkAhToA
+AAAAhgjVA48ACQCOOgAAAACGCOYDiwAKAJY6AAAAAIQI9wOPAAoAnzoAAAAAhggIBIsACwCnOgAA
+AACECBsEjwALALA6AAAAAIYILgSLAAwAuDoAAAAAhAhIBI8ADADBOgAAAACGCGIEiwANAMk6AAAA
+AIQIjASPAA0A0joAAAAAhgi2BIsADgDaOgAAAACECMMEjwAOAOM6AAAAAIYI0ASLAA8A6zoAAAAA
+hAjyBI8ADwD0OgAAAACGCBQFiwAQAPw6AAAAAIQIIQWPABAABTsAAAAAhgguBZQAEQANOwAAAACE
+CDkFmQARABY7AAAAAIYIRAWLABIAHTsAAAAAhghRBYsAEgAlOwAAAACECFwFjwASAC47AAAAAIYI
+bgWfABMANjsAAAAAhgh9BagAEwA/OwAAAACGCJUFsgAUAEg7AAAAAIYIogW4ABUAAAAAAAAAxgWv
+BRsAFQBhOwAAAACEGPYBGwAVAFA7AAAAAJEYcyc/BBUAbDsAAAAAhhj2AeAAFQCWPgAAAACGCCkI
+iwAWAJ4+AAAAAIEIOAiPABYApz4AAAAAhghHCIsAFwCvPgAAAACBCFYIjwAXALg+AAAAAIYIZQiL
+ABgAwD4AAAAAgQh7CI8AGADJPgAAAACGCJEIiwAZANE+AAAAAIEIoAiPABkA2j4AAAAAhgivCIsA
+GgDiPgAAAACBCL4IjwAaAOs+AAAAAIYIzQiLABsA8z4AAAAAgQjjCI8AGwD8PgAAAACGCPkIiwAc
+AAQ/AAAAAIYIEwmPABwADT8AAAAAhgg1CeYAHQAWPwAAAACGCEgJ7AAeAB4/AAAAAIYIWwmLAB4A
+Jj8AAAAAgQh2CY8AHgAvPwAAAACGCJEJiwAfADc/AAAAAIEIoQmPAB8AQD8AAAAAhgixCYsAIABI
+PwAAAACBCMYJjwAgAFE/AAAAAIYI2wmLACEAWT8AAAAAhgjmCY8AIQBiPwAAAACGCPEJiwAiAGo/
+AAAAAIYIAAqPACIAcz8AAAAAhggPCosAIwB7PwAAAACGCBoKjwAjAIQ/AAAAAIYIJQqLACQAjD8A
+AAAAhgg0Co8AJACVPwAAAACGCEMKiwAlAJ0/AAAAAIYITgqPACUApj8AAAAAhghZCosAJgCuPwAA
+AACGCGgKjwAmALc/AAAAAIYIdwqLACcAvz8AAAAAhgiFCo8AJwDIPwAAAACGCJMKiwAoANA/AAAA
+AIYIqAqPACgA3D8AAAAAxgCvBRsAKQBFSAAAAACGCPQNiwApAE1IAAAAAIEICw6PACkAVkgAAAAA
+hggiDosAKgBeSAAAAACBCDYOjwAqAGdIAAAAAIYISg6LACsAb0gAAAAAgQhfDo8AKwB4SAAAAACG
+CHQOiwAsAIBIAAAAAIEIiA6PACwAiUgAAAAAhgicDosALQCRSAAAAACBCLEOjwAtAJpIAAAAAIYI
+xg6LAC4AokgAAAAAgQjVDo8ALgCrSAAAAACGCOQOiwAvALNIAAAAAIEI9A6PAC8AvEgAAAAAhgiv
+CIsAMADESAAAAACBCL4IjwAwAM1IAAAAAIYIBA+LADEA1UgAAAAAgQgTD48AMQDeSAAAAACGCNsJ
+iwAyAOZIAAAAAIEI5gmPADIA70gAAAAAhgjxCYsAMwD3SAAAAACBCAAKjwAzAABJAAAAAIYIDwqL
+ADQACEkAAAAAgQgaCo8ANAARSQAAAACGCCUKiwA1ABlJAAAAAIEINAqPADUAIkkAAAAAhghDCosA
+NgAqSQAAAACBCE4KjwA2ADNJAAAAAIYIWQqLADcAO0kAAAAAgQhoCo8ANwBESQAAAACGCCIPiwA4
+AExJAAAAAIEIMg+PADgAVUkAAAAAhghCD4sAOQBdSQAAAACBCFEPjwA5AGhJAAAAAIYY9gHgADoA
+DkwAAAAAgQBgDxsAOwAsTAAAAACGAHQP+gA7ANBMAAAAAMYArwUbADwAhFAAAAAAhhj2AeAAPADo
+UQAAAACGCLoRiwA9APBRAAAAAIEIzBGPAD0A+VEAAAAAhgjeEYsAPgABUgAAAACBCO0RjwA+AApS
+AAAAAIYI/BGLAD8AElIAAAAAhggXEo8APwAbUgAAAACGCDISiwBAACNSAAAAAIEISBKPAEAALFIA
+AAAAhgheEosAQQA0UgAAAACBCHESjwBBAD1SAAAAAIYIKQiLAEIARVIAAAAAgQg4CI8AQgBQUgAA
+AADGAK8FGwBDADxTAAAAAIYIexOLAEMARFMAAAAAhgiFE48AQwBNUwAAAACGCI8TiwBEAFVTAAAA
+AIYInROPAEQAXlMAAAAAhgirE4sARQBmUwAAAACGCLkTjwBFAHBTAAAAAIYY9gHgAEYAxVMAAAAA
+hgguFI8ARwDOUwAAAACGCDkUiwBIANZTAAAAAIYIRBSPAEgA31MAAAAAhghdFIsASQDnUwAAAACG
+CBsEjwBJAPBTAAAAAIYICASLAEoA+FMAAAAAhgj3A48ASgABVAAAAACGCOYDiwBLAAlUAAAAAIYI
+dhSPAEsAElQAAAAAhgiHFIsATAAaVAAAAACGCJgUjwBMACNUAAAAAIYItBSLAE0AK1QAAAAAhgjV
+A48ATQA0VAAAAACGCMQDiwBOADxUAAAAAIYINQmPAE4ARVQAAAAAhghICYsATwBNVAAAAACGCNAU
+iwBPAFVUAAAAAIYI5hSPAE8AXlQAAAAAhgj8FI8AUABnVAAAAACGCBQViwBRAG9UAAAAAIYILBWP
+AFEAeFQAAAAAhgg/FYsAUgCAVAAAAACGCFIVjwBSAIlUAAAAAIYIbBWLAFMAkVQAAAAAhgiGFY8A
+UwCaVAAAAACGCJcViwBUAKJUAAAAAIYIqBWPAFQAq1QAAAAAhgi9FYsAVQCzVAAAAACGCKgKjwBV
+ALxUAAAAAIYIkwqLAFYAxFQAAAAAhgjSFYsAVgDMVAAAAACGCOIVjwBWANVUAAAAAIYIABaLAFcA
+ilUAAAAAhhj2ARsAVwDoVAAAAACRGHMnPwRXAJJVAAAAAIYY9gErAVcAnVUAAAAAhghfGI8AWgCn
+VQAAAACGCGsYNQFbAL5VAAAAAIYAfhgbAFwAxlUAAAAAhgCFGBsAXADOVQAAAACGAJQYOgFcANZV
+AAAAAIYY9gFGAVwA5VUAAAAAhggrGUwBXQAGVgAAAACGGPYBRgFdABVWAAAAAIYIURmLAF4AO1YA
+AAAAgxj2ARsAXgBEVgAAAACTCMcZXgFeAH1WAAAAAJMI2xljAV4AhFYAAAAAkwjnGWgBXgCMVgAA
+AACWCAsafAFfAJ9WAAAAAIYY9gEbAF8Ak1YAAAAAkRhzJz8EXwDoLQAAAADhAbEeLQNfADwuAAAA
+AOEBBB83A18ARC4AAAAA4QF1HToBXwBgLwAAAADhCT4fQQNfAGgvAAAAAOEBjx8bAF8AcC8AAAAA
+4QG6HxsAXwAYMAAAAADhCfUfRgNfACAwAAAAAIYY9gGGAV8APzAAAAAAgQCzIBsAYABbMAAAAACB
+AMEgGwBgAHcwAAAAAIEAzyAbAGAA8DAAAAAA4QFMIrADYAA4MQAAAADhAQQfNwNgAEAxAAAAAOEB
+dR06AWAAwDIAAAAA4QmnIr4DYADIMgAAAADhAY8fGwBgANAyAAAAAOEBuh8bAGAAeDMAAAAA4Qn1
+H0YDYACAMwAAAACGGPYBhgFgAJ8zAAAAAIEAVyMbAGEAuzMAAAAAgQBmIxsAYQDXMwAAAACBAHUj
+GwBhABQ0AAAAAOEBMyT2A2EAXDQAAAAA4QEEHzcDYQBkNAAAAADhAXUdOgFhAOQ1AAAAAOEJjiQE
+BGEA7DUAAAAA4QGPHxsAYQD0NQAAAADhAbofGwBhAJw2AAAAAOEJ9R9GA2EApDYAAAAAhhj2AYYB
+YQDDNgAAAACBAD8lGwBiAN82AAAAAIEATiUbAGIA+zYAAAAAgQBdJRsAYgA4NwAAAADhAd0lIgRi
+AIA3AAAAAOEBBB83A2IAiDcAAAAA4QF1HToBYgAIOQAAAADhCTomMARiABA5AAAAAOEBjx8bAGIA
+GDkAAAAA4QG6HxsAYgDAOQAAAADhCfUfRgNiAMg5AAAAAIYY9gGGAWIA5zkAAAAAgQDvJhsAYwAD
+OgAAAACBAP4mGwBjAB86AAAAAIEADScbAGMAAAABAB8aAAACACcaAAADADEaAAAEADkaAAABAEMa
+AAABAKYcAAABAKYcAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAAB
+AEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAFIaAAABAEwaAAABAEwaAAABAEwa
+AAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAAB
+AEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwa
+AAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAAB
+AEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAFIaAAABAFkaAAABAFIaAAABAEwaAAABAEwa
+AAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAFIaAAABAEwaAAAB
+AEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwa
+AAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAEwaAAABAGsaAAACAHIaAAADADkaAAABAEwaAAAB
+AEwaAAABAIYaAAABAIYaAAABAEwaAAABANUfAAABANUfAAABANUfAAABANUfEQAuABEArQARADIA
+EQClABEAjQASADYAEgCtABIAOgASAKUAEgCNABMAPgATAK0AEwBCABMApQATAI0AFABGABQArQAU
+AEoAFAClABQAjQCRAPYBjwCZAPYBjwChAPYBjwCpAPYBjwCxAPYBjwC5APYBjwDBAPYBjwDJAPYB
+jwDRAPYBjwDZAPYBjwDhAPYBhgHpAPYBGwAJAPYBGwAJAEQciwEJAFAckgHxAPYBGwAJAMQCGwAM
+APYBGwAMAIgcogEJAM8CGwABAfYBGwAJAUkdtwEUAFsd0wEcAGkd5QEcAHUdOgEZAYodGwAJAZId
+7wEkAPYBGwAsAPYBCQIJAasdDwIJAbMdLgI0AFsdTwI8AGkd5QExAdAdYQI5Ad8dZgI5AeYdbAJx
+AO8dcQI5AfgddgI5AQQefAJEAFsd0wFMAGkd5QE5ARcekAJMAHUdOgEMAOYdogE5ASEefAIkAIgc
+lQJEAC8emwI5Ad8doQIZAO8diwBBAfYBjwBJAXUdOgFRAfYBGwAkAFsd0wFUAGkd5QE5AXsesAJR
+AYIetgI5AYkevQJUAHUdOgFcAFsdTwJZAVsdNwNkAGkd5QFJAbQfGwBJAWkdRgN5AfYBGwCBAZQh
+ZgOBAaYhbAN5ALohiwBhAfYBjwCJAe8hGwBpAfYBdQNpAfQhfQORAQ8iOgGZAfYBGwAZAPYBGwAU
+APYBGwAUACoijgNsAFsdTwJ0AGkd5QFhANkjzQNhAO0j0gM5Ad8d2AOpAQUkhgF8AFsdTwKEAGkd
+5QGMAFsdTwKUAGkd5QFRAHonQwSxAS8eSQS5AaQnTgScAL4nOgHJAfYBXAScAMsn5QFhANUnYQRh
+AO8dcQJxAPYBhgFhAOEniwBEAPYBGwBhAPMnbANhAPwnbANhAAYobANhAPYBhASkAPYBhgGkAIgc
+nwSkAHQopwTJAYAosARhAIkouQREAKkobAM5Acco8AQ5AdEo9gQhAPYBKwEhANYoAgUhAN8ohgHZ
+AfYBjwAhAH4YGwAhAIUYGwAhAJQYOgEJAGcpCAXhAaApDgXpAdkpFAXxAfQpTAEJABsqGwX5AS8e
+IQUJAFwqKAUBAokqLgUZAvYBGwAhAtEqNQUhAuwqPgWBAPYBRAU5AvYBUQUpAPYBGwAIACQAbgAI
+ACgAcwAIACwAeAAIADAAfQAIADQAggAIAAQBbgAIAAgBcwAIAAwBeAAIABABfQAIABQBggAIABgB
+BAEIABwBCQEIACABDgEIACQBEwEIACgBGAEIACwBHQEIADABIgEuAEMA0gUuAFsA7wUuACsA0gUu
+ADsA2AUuAGMA+AUuADMAqQUuAAsAYQUuABMAqQUuABsA0gUuACMA0gVjAIMAcwDBAKsAcwDhAKsA
+cwDgAasAcwDjAesDcwAAAqsAcwABAqsAcwAgAqsAcwAhAqsAcwAjAqsAcwBAAqsAcwBBAqsAcwBD
+AqsAcwBhAqsAcwBjAqsAcwCBAqsAcwCDAqsAcwCgAqsAcwChAqsAcwCjAqsAcwDAAqsAcwDBAqsA
+cwDgAqsAcwDhAqsAcwAAA6sAcwABA6sAcwAgA6sAcwAhA6sAcwBAA6sAcwBBA6sAcwBgA6sAcwBh
+A6sAcwCAA6sAcwCBA6sAcwCgA6sAcwChA6sAcwDAA6sAcwDBA6sAcwDgA6sAcwDhA6sAcwAABKsA
+cwABBKsAcwAgBKsAcwAhBKsAcwBABKsAcwBBBKsAcwBgBKsAcwBhBKsAcwCABKsAcwCBBKsAcwCh
+BKsAcwDABKsAcwDBBKsAcwDgBKsAcwDhBKsAcwAABasAcwABBasAcwAgBasAcwAhBasAcwBABasA
+cwBBBasAcwBgBasAcwBhBasAcwCBBasAcwChBasAcwDBBasAcwDhBasAcwAABqsAcwABBqsAcwAg
+BqsAcwAhBqsAcwBABqsAcwBBBqsAcwBgBqsAcwBhBqsAcwCABqsAcwCBBqsAcwCgBqsAcwChBqsA
+cwDABqsAcwDBBqsAcwDgBqsAcwDhBqsAcwAAB6sAcwABB6sAcwAgB6sAcwAhB6sAcwBAB6sAcwBB
+B6sAcwBgB6sAcwBhB6sAcwCAB6sAcwCBB6sAcwCgB6sAcwChB6sAcwDAB6sAcwDBB6sAcwDgB6sA
+cwDhB6sAcwAACKsAcwAgCKsAcwBACKsAcwBgCKsAcwCACKsAcwCgCKsAcwDACKsAcwDgCKsAcwAA
+CasAcwAgCasAcwBACasAcwBgCasAcwCACasAcwCgCasAcwChCasAcwDACasAcwDBCasAcwDgCasA
+cwDhCasAcwAACqsAcwABCqsAcwAgCqsAcwAhCqsAcwApCgsEWAVACqsAcwBBCqsAcwBJCgsEWAVg
+CqsAcwBhCqsAcwCACqsAcwCBCqsAcwCgCqsAcwChCqsAcwDgCqsAcwDhCqsAcwAAC6sAcwABC6sA
+cwAgC6sAcwAhC6sAcwBAC6sAcwBBC6sAcwBgC6sAcwBhC6sAcwCAC6sAcwCBC6sAcwCgC6sAcwCh
+C6sAcwDAC6sAcwDBC6sAcwDgC6sAcwDhC6sAcwAADKsAcwABDKsAcwAgDKsAcwAhDKsAcwBADKsA
+cwBBDKsAcwBgDKsAcwBhDKsAcwCADKsAcwCBDKsAcwCgDKsAcwChDKsAcwDADKsAcwDBDKsAcwDg
+DKsAcwAADasAcwAgDasAcwBADasAcwBgDasAcwBhDasAcwCADasAcwCgDasAcwDADasAcwDgDasA
+cwAADqsAcwAgDqsAcwBADqsAcwBgDqsAcwCADqsAcwCgDqsAcwDADqsAcwDgDqsAcwAAD6sAcwDA
+D6sAcwDgD6sAcwAAEKsAcwAgEKsAcwBAEKsAcwBgEKsAcwCAEKsAcwCgEKsAcwDAEKsAcwDgEKsA
+cwAAEasAcwAgEasAcwBgEasAcwCAEasAcwCgEasAcwDAEasAcwDgEasAcwAAEqsAcwBAEqsAcwBg
+EqsAcwCAEqsAcwCgEqsAcwDAEqsAcwDgEqsAcwAAE6sAcwAgE6sAcwBAE6sAcwBgE6sAcwCAE6sA
+cwCgE6sAcwDAE6sAcwDgE6sAcwAAFKsAcwAgFKsAcwBAFKsAcwBgFKsAcwCAFKsAcwCgFKsAcwDA
+FKsAcwDgFKsAcwAAFasAcwAgFasAcwBAFasAcwBgFasAcwCAFasAcwCgFasAcwDAFasAcwDgFasA
+cwAAFqsAcwAgFqsAcwDAGAMCcwDgGAMCcwAgGQMCcwBAGQMCcwCAGQMCcwCgGQMCcwAgGgMCcwBA
+GgMCcwCAGgMCcwCgGgMCcwDgGgMCcwAAGwMCcwCAGwMCcwCgGwMCcwDgGwMCcwAAHAMCcwBAHAMC
+cwBgHAMCcwDgHAMCcwAAHQMCcwBAHQMCcwBgHQMCcwCgHQMCcwDAHQMCcwCYAcMCcAODA4gDmAPI
+A+ADDgQ6BGsEwQTWBOsE/QRMBQUAAQAGAA8ABwAiAAkAMwAKADkACwA8AAwATQANAE8ADgBQAA8A
+UQAQAFMAEQBUABIAVgATAFgAFABaAAAARwfJAAAAUQfJAAAAXgfJAAAAawfJAAAAegfJAAAAkAfJ
+AAAAtgfJAAAAvwfJAAAA3QfJAAAA5gfNAAAA7QfJAAAA9gfJAAAA/QfSAAAACAjbAAAA+gzJAAAA
+BQ3JAAAAEA3JAAAAIg3JAAAALQ3JAAAAOA3JAAAASg3JAAAAYA31AAAAbw3JAAAAhg3JAAAAkg3J
+AAAAow3JAAAAqg3JAAAAtQ3JAAAAvA3JAAAAxw3JAAAAzg3JAAAA2Q3JAAAA4w3JAAAAzBDJAAAA
+3xDJAAAA7xDJAAAAABHJAAAAEBHJAAAAIRHJAAAALBHJAAAALQ3JAAAAOBHJAAAAow3JAAAAqg3J
+AAAAtQ3JAAAAvA3JAAAAxw3JAAAAzg3JAAAAQxHJAAAATxHJAAAAKhPJAAAAOBPJAAAAQxPJAAAA
+WhPJAAAAbBPJAAAA+gzJAAAAFBTJAAAAGhTJAAAAJBTJAAAAnhfJAAAApRfJAAAAawfJAAAAXgfJ
+AAAAuhfJAAAAxxfJAAAAUQfJAAAAYA3JAAAA3xfJAAAA8RfJAAAABRjJAAAAFBjJAAAAKhjJAAAA
+NxjJAAAA4w3JAAAASBjJAAAAVBjJAAAAoBjJAAAAqBg+AQAAQBlRAQAAXxnJAAAAehluAQAA8xlz
+AQAAFxqBAQAA3SBdAwAAKiFiAwAAhCPDAwAAKiFiAwAAbCUJBAAAKiFiAwAAHCc1BAAAKiFiAwIA
+EQADAAEAEgADAAEAFAAFAAIAEwAFAAEAFgAHAAIAFQAHAAIAFwAJAAEAGAAJAAIAGQALAAEAGgAL
+AAIAGwANAAEAHAANAAEAHgAPAAIAHQAPAAEAIAARAAIAHwARAAIAIQATAAEAIgATAAEAJAAVAAIA
+IwAVAAIAJQAXAAEAJwAZAAIAJgAZAAEAKQAbAAIAKAAbAAIAKwAdAAEAKgAdAAEAMQAfAAIAMAAf
+AAEAMwAhAAIAMgAhAAIANAAjAAEANQAjAAIANgAlAAEANwAlAAEAOQAnAAIAOAAnAAIAOgApAAEA
+OwApAAEAPQArAAIAPAArAAIAPwAtAAEAPgAtAAEAQQAvAAIAQAAvAAEAQwAxAAIAQgAxAAIARAAz
+AAEARQAzAAIARgA1AAEARwA1AAIASAA3AAEASQA3AAEASwA5AAIASgA5AAEATQA7AAIATAA7AAIA
+TgA9AAEATwA9AAEAUQA/AAIAUAA/AAIAUgBBAAEAUwBBAAEAVQBDAAIAVABDAAEAWABFAAIAVwBF
+AAIAWQBHAAEAWgBHAAEAXABJAAIAWwBJAAEAXgBLAAIAXQBLAAIAXwBNAAEAYABNAAIAYQBPAAEA
+YgBPAAEAZABRAAIAYwBRAAIAZQBTAAEAZgBTAAEAaABVAAIAZwBVAAIAaQBXAAEAagBXAAEAbABZ
+AAIAawBZAAEAbgBbAAIAbQBbAAIAbwBdAAEAcABdAAIAcQBfAAEAcgBfAAIAcwBhAAEAdABhAAEA
+dgBjAAIAdQBjAAEAeABlAAIAdwBlAAIAfgBnAAEAfwBnAAEAgQBpAAIAgABpAAIAggBrAAEAgwBr
+AAEAhQBtAAIAhABtAAEAhwBvAAIAhgBvAAIAiABxAAEAiQBxAAEAjABzAAIAiwBzAAEAjgB1AAIA
+jQB1AAIAjwB3AAEAkAB3AAIAkwB5AAEAkgB5AAEAlAB7AAIAlQB7AAIAlwB9AAEAlgB9AAIAmQB/
+AAEAmAB/AAIAmwCBAAEAmgCBAAEAnACDAAIAnQCDAAEAngCFAAIAnwCFAAIAoQCHAAEAoACHAAIA
+ogCJAAEAowCJAAIApQCLAAEApACLAAEApgCNAAIApwCNAAEAqACPAAIAqQCPAAIAqwCRAAEAqgCR
+AAEArACTAAIArQCTAAIArwCVAAEArgCVAAEAsQCXAAIAsACXAAIAsgCZAAEAtgCbAAEAtwCdAAIA
+vACfAAIAvgChAAIAwACjAAIAwQClAAEAwgClAAIAwwCnAAIAyQCpAAIAzACrAAIA1ACtAAIA1wCv
+AAIA3wCxAAIA4gCzAAIA6gC1AAIA7QC3ABEAjAF3ABEAjgF5ABEAkAFnABEAkgF7ABEAlAF9ABEA
+lgE1ABEAmAF/ABIArgF/ABIApAF5ABIApgFnABIAqAGdABIAqgF9ABIArAE1ABIAogGbABMAvgGp
+ABMAugF5ABMAvAFnABMAuAGnABMAwAF9ABMAwgE1ABMAxAF/ABQAzgGrABQA0AF5ABQA0gFnABQA
+1AGtABQA1gF9ABQA2AE1ABQA2gF/AJwBzAHdAfoBAQJIAlkCgQKIAqgCHgMlA6EDqAPnA+4DEwQa
+BFMElwQEgAAAAQAAAKUcwm8AAAAAAAAgHAAACwAAAAAAAAAAAAAAAQBSAQAAAAAEAAAAAAAAAAAA
+AAAKAKABAAAAAAQAAAAAAAAAAAAAAAoAqQEAAAAACwAAAAAAAAAAAAAAAQAeAgAAAAAEAAAAAAAA
+AAAAAAAKAIcCAAAAAAQAAAAAAAAAAAAAAAoAEQgAAAAACwAAAAAAAAAAAAAAAQDHGAAAAAALAAAA
+AAAAAAAAAAABAAEpAAAAAAAAAAABAAAAPSsAAAQAAwAFAAMABgADAAcAAwAIAAcACQADAAoAAwAL
+AAMAEQADABIAAwATAAMAFAADAC0AxwEtAOoBNwDHAT0AKAI/ACgCNwDqAQAAAAAAPE1vZHVsZT4A
+U0NfZTJlMTAyZThhOTYyNGYxZWEwYzQ2MGJmZWZkNDc0MDguZGxsAFVzZXJDb21wb25lbnQAU2Ny
+aXB0TWFpbgBBY3Rpdml0eVR5cGVzAEFjdGl2aXR5UXVlcnlSZXN1bHQAQWN0aXZpdHlBY3Rpdml0
+eVF1ZXJ5UmVzdWx0AEFjdGl2aXR5RGlhbGVyUXVlcnlSZXN1bHQAVGhpc1Bob25lVHlwZQBBY3Rp
+dml0eUxldHRlclF1ZXJ5UmVzdWx0AEFjdGl2aXR5U2tpcFBob25lAEFjdGl2aXR5QXBwZW5kAE91
+dHB1dDBCdWZmZXIAQ29ubmVjdGlvbnMAVmFyaWFibGVzAFJlc291cmNlcwBTQ19lMmUxMDJlOGE5
+NjI0ZjFlYTBjNDYwYmZlZmQ0NzQwOC5Qcm9wZXJ0aWVzAFNldHRpbmdzAE1pY3Jvc29mdC5TcWxT
+ZXJ2ZXIuVHhTY3JpcHQATWljcm9zb2Z0LlNxbFNlcnZlci5EdHMuUGlwZWxpbmUAU2NyaXB0Q29t
+cG9uZW50AG1zY29ybGliAFN5c3RlbQBFbnVtAE9iamVjdABTY3JpcHRCdWZmZXIAU3lzdGVtLkNv
+bmZpZ3VyYXRpb24AQXBwbGljYXRpb25TZXR0aW5nc0Jhc2UALmN0b3IARmluaXNoT3V0cHV0cwBN
+YXJrT3V0cHV0c0ZpbmlzaGVkAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuUGlwZWxpbmVIb3N0AFBpcGVs
+aW5lQnVmZmVyAE91dHB1dE5hbWVNYXAAUHJpbWVPdXRwdXQAQ3JlYXRlTmV3T3V0cHV0Um93cwBf
+c2NhblJhbmdlAFN5c3RlbS5Db3JlAFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljAEhhc2hTZXRg
+MQBfcGhvbmVUeXBlcwBQcmVFeGVjdXRlAFBvc3RFeGVjdXRlAElFbnVtZXJhYmxlYDEAR2V0U2tp
+cFBob25lcwBHZXRBY3Rpdml0eQBHZXRBY3Rpdml0eV9DYWxscwBHZXRBY3Rpdml0eV9MZXR0ZXJz
+AEdldEFjdGl2aXR5X0FjdGl2aXR5AHZhbHVlX18AQWN0aXZpdHkARGlhbGVyUmVzcG9uc2UATGV0
+dGVySGlzdG9yeQBOb3RlAFBheW1lbnRQbGFuAFRpbWVab25lSW5mbwBDZW50cmFsVGltZVpvbmUA
+X2FjdGl2aXR5RGF0ZQBnZXRfQWNjb3VudElkAHNldF9BY2NvdW50SWQAZ2V0X0FjdGl2aXR5RGF0
+ZQBzZXRfQWN0aXZpdHlEYXRlAGdldF9BY3Rpdml0eVR5cGUAc2V0X0FjdGl2aXR5VHlwZQBnZXRf
+QWN0aXZpdHlUeXBlSWQAc2V0X0FjdGl2aXR5VHlwZUlkAGdldF9DbGllbnRSZWZlcmVuY2VOdW1i
+ZXIAc2V0X0NsaWVudFJlZmVyZW5jZU51bWJlcgBnZXRfQ3JlZGl0b3JJbnRlcm5hbENvbnN1bWVy
+QWNjb3VudE51bWJlcgBzZXRfQ3JlZGl0b3JJbnRlcm5hbENvbnN1bWVyQWNjb3VudE51bWJlcgBn
+ZXRfRW50aXR5SWQAc2V0X0VudGl0eUlkAGdldF9PcmlnaW5hbENyZWRpdG9yQWNjb3VudE51bWJl
+cgBzZXRfT3JpZ2luYWxDcmVkaXRvckFjY291bnROdW1iZXIAZ2V0X1JlY29yZElkAHNldF9SZWNv
+cmRJZABnZXRfU291cmNlAHNldF9Tb3VyY2UAZ2V0X1RpbWVab25lAGdldF9Vc2VySWQAc2V0X1Vz
+ZXJJZABMaXN0YDEAZ2V0X1NraXBQaG9uZXMAc2V0X1NraXBQaG9uZXMARGF0ZVRpbWUAc2V0X0xp
+c3REYXRlAGdldF9MaXN0RGF0ZQBEZXRlcm1pbmVBY3Rpdml0eVR5cGVJZAA8QWNjb3VudElkPmtf
+X0JhY2tpbmdGaWVsZAA8QWN0aXZpdHlUeXBlPmtfX0JhY2tpbmdGaWVsZAA8QWN0aXZpdHlUeXBl
+SWQ+a19fQmFja2luZ0ZpZWxkADxDbGllbnRSZWZlcmVuY2VOdW1iZXI+a19fQmFja2luZ0ZpZWxk
+ADxDcmVkaXRvckludGVybmFsQ29uc3VtZXJBY2NvdW50TnVtYmVyPmtfX0JhY2tpbmdGaWVsZAA8
+RW50aXR5SWQ+a19fQmFja2luZ0ZpZWxkADxPcmlnaW5hbENyZWRpdG9yQWNjb3VudE51bWJlcj5r
+X19CYWNraW5nRmllbGQAPFJlY29yZElkPmtfX0JhY2tpbmdGaWVsZAA8U291cmNlPmtfX0JhY2tp
+bmdGaWVsZAA8VXNlcklkPmtfX0JhY2tpbmdGaWVsZAA8U2tpcFBob25lcz5rX19CYWNraW5nRmll
+bGQAPExpc3REYXRlPmtfX0JhY2tpbmdGaWVsZABBY2NvdW50SWQAQWN0aXZpdHlEYXRlAEFjdGl2
+aXR5VHlwZQBBY3Rpdml0eVR5cGVJZABDbGllbnRSZWZlcmVuY2VOdW1iZXIAQ3JlZGl0b3JJbnRl
+cm5hbENvbnN1bWVyQWNjb3VudE51bWJlcgBFbnRpdHlJZABPcmlnaW5hbENyZWRpdG9yQWNjb3Vu
+dE51bWJlcgBSZWNvcmRJZABTb3VyY2UAVGltZVpvbmUAVXNlcklkAFNraXBQaG9uZXMATGlzdERh
+dGUAU3lzdGVtLkRhdGEASURhdGFSZWFkZXIAZ2V0X0FjdGlvbkNvZGUAc2V0X0FjdGlvbkNvZGUA
+Z2V0X0FjdGlvbkRhdGUAc2V0X0FjdGlvbkRhdGUAZ2V0X0FjdGlvbkRlc2NyaXB0aW9uAHNldF9B
+Y3Rpb25EZXNjcmlwdGlvbgBnZXRfQWN0aW9uVGltZQBzZXRfQWN0aW9uVGltZQBnZXRfUmVzdWx0
+Q29kZQBzZXRfUmVzdWx0Q29kZQBnZXRfUmVzdWx0RGVzY3JpcHRpb24Ac2V0X1Jlc3VsdERlc2Ny
+aXB0aW9uAGdldF9BY3RpdmVBcnJhbmdlbWVudEZsYWcAc2V0X0FjdGl2ZUFycmFuZ2VtZW50Rmxh
+ZwBEZWNpbWFsAHNldF9BY3Rpdml0eUFtb3VudABnZXRfQWN0aXZpdHlBbW91bnQAZ2V0X1BheW1l
+bnRBcnJhbmdlbWVudERhdGUAc2V0X1BheW1lbnRBcnJhbmdlbWVudERhdGUAZ2V0X1BheW1lbnRU
+eXBlAHNldF9QYXltZW50VHlwZQBnZXRfUGF5bWVudENsb3NlRGF0ZQBzZXRfUGF5bWVudENsb3Nl
+RGF0ZQBnZXRfUGhvbmUxAHNldF9QaG9uZTEAZ2V0X1Bob25lMUZsYWcAc2V0X1Bob25lMUZsYWcA
+Z2V0X1Bob25lMgBzZXRfUGhvbmUyAGdldF9QaG9uZTJGbGFnAHNldF9QaG9uZTJGbGFnAGdldF9Q
+aG9uZTMAc2V0X1Bob25lMwBnZXRfUGhvbmUzRmxhZwBzZXRfUGhvbmUzRmxhZwBnZXRfRnJlcXVl
+bmN5AHNldF9GcmVxdWVuY3kAZ2V0X0FjdGl2aXR5RGlhbFR5cGUAc2V0X0FjdGl2aXR5RGlhbFR5
+cGUAPEFjdGlvbkNvZGU+a19fQmFja2luZ0ZpZWxkADxBY3Rpb25EYXRlPmtfX0JhY2tpbmdGaWVs
+ZAA8QWN0aW9uRGVzY3JpcHRpb24+a19fQmFja2luZ0ZpZWxkADxBY3Rpb25UaW1lPmtfX0JhY2tp
+bmdGaWVsZAA8UmVzdWx0Q29kZT5rX19CYWNraW5nRmllbGQAPFJlc3VsdERlc2NyaXB0aW9uPmtf
+X0JhY2tpbmdGaWVsZAA8QWN0aXZlQXJyYW5nZW1lbnRGbGFnPmtfX0JhY2tpbmdGaWVsZAA8QWN0
+aXZpdHlBbW91bnQ+a19fQmFja2luZ0ZpZWxkADxQYXltZW50QXJyYW5nZW1lbnREYXRlPmtfX0Jh
+Y2tpbmdGaWVsZAA8UGF5bWVudFR5cGU+a19fQmFja2luZ0ZpZWxkADxQYXltZW50Q2xvc2VEYXRl
+PmtfX0JhY2tpbmdGaWVsZAA8UGhvbmUxPmtfX0JhY2tpbmdGaWVsZAA8UGhvbmUxRmxhZz5rX19C
+YWNraW5nRmllbGQAPFBob25lMj5rX19CYWNraW5nRmllbGQAPFBob25lMkZsYWc+a19fQmFja2lu
+Z0ZpZWxkADxQaG9uZTM+a19fQmFja2luZ0ZpZWxkADxQaG9uZTNGbGFnPmtfX0JhY2tpbmdGaWVs
+ZAA8RnJlcXVlbmN5PmtfX0JhY2tpbmdGaWVsZAA8QWN0aXZpdHlEaWFsVHlwZT5rX19CYWNraW5n
+RmllbGQAQWN0aW9uQ29kZQBBY3Rpb25EYXRlAEFjdGlvbkRlc2NyaXB0aW9uAEFjdGlvblRpbWUA
+UmVzdWx0Q29kZQBSZXN1bHREZXNjcmlwdGlvbgBBY3RpdmVBcnJhbmdlbWVudEZsYWcAQWN0aXZp
+dHlBbW91bnQAUGF5bWVudEFycmFuZ2VtZW50RGF0ZQBQYXltZW50VHlwZQBQYXltZW50Q2xvc2VE
+YXRlAFBob25lMQBQaG9uZTFGbGFnAFBob25lMgBQaG9uZTJGbGFnAFBob25lMwBQaG9uZTNGbGFn
+AEZyZXF1ZW5jeQBBY3Rpdml0eURpYWxUeXBlAGdldF9Ub3RhbFBheW1lbnRBbW91bnQAc2V0X1Rv
+dGFsUGF5bWVudEFtb3VudABnZXRfQXJyYW5nZW1lbnRUeXBlAHNldF9BcnJhbmdlbWVudFR5cGUA
+Z2V0X0ZpcnN0UGF5bWVudERhdGUAc2V0X0ZpcnN0UGF5bWVudERhdGUAZ2V0X0xhc3RQYXltZW50
+RGF0ZQBzZXRfTGFzdFBheW1lbnREYXRlAGdldF9OdW1iZXJPZlBheW1lbnRzAHNldF9OdW1iZXJP
+ZlBheW1lbnRzAGdldF9EYXRlQ2FsbGVkAHNldF9EYXRlQ2FsbGVkAGdldF9EZXNjcmlwdGlvbgBz
+ZXRfRGVzY3JpcHRpb24AZ2V0X0RpYWxlclR5cGUAc2V0X0RpYWxlclR5cGUAZ2V0X1Bob25lTnVt
+YmVyAHNldF9QaG9uZU51bWJlcgBnZXRfVGltZUNhbGxlZABzZXRfVGltZUNhbGxlZABDbGVhclBh
+eW1lbnREZXRhaWxzAERldGVybWluZVdoaWNoUGhvbmVOdW1iZXJDYWxsZWQAPFRvdGFsUGF5bWVu
+dEFtb3VudD5rX19CYWNraW5nRmllbGQAPEFycmFuZ2VtZW50VHlwZT5rX19CYWNraW5nRmllbGQA
+PEZpcnN0UGF5bWVudERhdGU+a19fQmFja2luZ0ZpZWxkADxMYXN0UGF5bWVudERhdGU+a19fQmFj
+a2luZ0ZpZWxkADxOdW1iZXJPZlBheW1lbnRzPmtfX0JhY2tpbmdGaWVsZAA8RGF0ZUNhbGxlZD5r
+X19CYWNraW5nRmllbGQAPERlc2NyaXB0aW9uPmtfX0JhY2tpbmdGaWVsZAA8RGlhbGVyVHlwZT5r
+X19CYWNraW5nRmllbGQAPFBob25lTnVtYmVyPmtfX0JhY2tpbmdGaWVsZAA8VGltZUNhbGxlZD5r
+X19CYWNraW5nRmllbGQAVG90YWxQYXltZW50QW1vdW50AEFycmFuZ2VtZW50VHlwZQBGaXJzdFBh
+eW1lbnREYXRlAExhc3RQYXltZW50RGF0ZQBOdW1iZXJPZlBheW1lbnRzAERhdGVDYWxsZWQARGVz
+Y3JpcHRpb24ARGlhbGVyVHlwZQBQaG9uZU51bWJlcgBUaW1lQ2FsbGVkAFNraXBQaG9uZTEAU2tp
+cFBob25lMgBTa2lwUGhvbmUzAFNraXBQaG9uZTQAU2tpcFBob25lNQBTa2lwUGhvbmU2AFNraXBQ
+aG9uZTcAU2tpcFBob25lOABOb01hdGNoAGdldF9EYXRlUmVxdWVzdGVkAHNldF9EYXRlUmVxdWVz
+dGVkAGdldF9MZXR0ZXJDb2RlAHNldF9MZXR0ZXJDb2RlAGdldF9MZXR0ZXJIaXN0b3J5UHJpbnRE
+YXRlAHNldF9MZXR0ZXJIaXN0b3J5UHJpbnREYXRlAGdldF9MZXR0ZXJEZXNjcmlwdGlvbgBzZXRf
+TGV0dGVyRGVzY3JpcHRpb24AZ2V0X0xldHRlclJldHVybmVkAHNldF9MZXR0ZXJSZXR1cm5lZAA8
+RGF0ZVJlcXVlc3RlZD5rX19CYWNraW5nRmllbGQAPExldHRlckNvZGU+a19fQmFja2luZ0ZpZWxk
+ADxMZXR0ZXJIaXN0b3J5UHJpbnREYXRlPmtfX0JhY2tpbmdGaWVsZAA8TGV0dGVyRGVzY3JpcHRp
+b24+a19fQmFja2luZ0ZpZWxkADxMZXR0ZXJSZXR1cm5lZD5rX19CYWNraW5nRmllbGQARGF0ZVJl
+cXVlc3RlZABMZXR0ZXJDb2RlAExldHRlckhpc3RvcnlQcmludERhdGUATGV0dGVyRGVzY3JpcHRp
+b24ATGV0dGVyUmV0dXJuZWQAZ2V0X1Bob25lAHNldF9QaG9uZQBnZXRfUGhvbmVUeXBlAHNldF9Q
+aG9uZVR5cGUAZ2V0X1Bob25lRmxhZwBzZXRfUGhvbmVGbGFnADxQaG9uZT5rX19CYWNraW5nRmll
+bGQAPFBob25lVHlwZT5rX19CYWNraW5nRmllbGQAPFBob25lRmxhZz5rX19CYWNraW5nRmllbGQA
+UGhvbmUAUGhvbmVUeXBlAFBob25lRmxhZwBzZXRfRGF0YUlEAGdldF9EYXRhSUQAc2V0X1ByaW1h
+cnlBY2NvdW50TnVtYmVyAGdldF9QcmltYXJ5QWNjb3VudE51bWJlcgBzZXRfQWN0aXZpdHlJdGVt
+AGdldF9BY3Rpdml0eUl0ZW0Ac2V0X0FjdGl2aXR5SXRlbURlc2NyaXB0aW9uAGdldF9BY3Rpdml0
+eUl0ZW1EZXNjcmlwdGlvbgBnZXRfQWN0aXZpdHlQaG9uZVR5cGUAc2V0X0FjdGl2aXR5UGhvbmVU
+eXBlAHNldF9BY3Rpdml0eVBob25lTnVtYmVyAGdldF9BY3Rpdml0eVBob25lTnVtYmVyAHNldF9B
+Y3Rpdml0eVNvdXJjZQBnZXRfQWN0aXZpdHlTb3VyY2UAc2V0X0FjdGl2aXR5Q29sbGVjdG9yQ29k
+ZQBnZXRfQWN0aXZpdHlDb2xsZWN0b3JDb2RlAHNldF9BY3Rpdml0eVRpbWUAZ2V0X0FjdGl2aXR5
+VGltZQBzZXRfQWN0aXZpdHlUaW1lWm9uZQBnZXRfQWN0aXZpdHlUaW1lWm9uZQBnZXRfQWN0aXZp
+dHlEdWUAc2V0X0FjdGl2aXR5RHVlAF9oZWFkaW5nX2xpbmUAZ2V0X0hlYWRlckxpbmUAPERhdGFJ
+RD5rX19CYWNraW5nRmllbGQAPFByaW1hcnlBY2NvdW50TnVtYmVyPmtfX0JhY2tpbmdGaWVsZAA8
+QWN0aXZpdHlJdGVtPmtfX0JhY2tpbmdGaWVsZAA8QWN0aXZpdHlJdGVtRGVzY3JpcHRpb24+a19f
+QmFja2luZ0ZpZWxkADxBY3Rpdml0eURhdGU+a19fQmFja2luZ0ZpZWxkADxBY3Rpdml0eVBob25l
+VHlwZT5rX19CYWNraW5nRmllbGQAPEFjdGl2aXR5UGhvbmVOdW1iZXI+a19fQmFja2luZ0ZpZWxk
+ADxBY3Rpdml0eVNvdXJjZT5rX19CYWNraW5nRmllbGQAPEFjdGl2aXR5Q29sbGVjdG9yQ29kZT5r
+X19CYWNraW5nRmllbGQAPEFjdGl2aXR5VGltZT5rX19CYWNraW5nRmllbGQAPEFjdGl2aXR5VGlt
+ZVpvbmU+a19fQmFja2luZ0ZpZWxkADxBY3Rpdml0eUR1ZT5rX19CYWNraW5nRmllbGQARGF0YUlE
+AFByaW1hcnlBY2NvdW50TnVtYmVyAEFjdGl2aXR5SXRlbQBBY3Rpdml0eUl0ZW1EZXNjcmlwdGlv
+bgBBY3Rpdml0eVBob25lVHlwZQBBY3Rpdml0eVBob25lTnVtYmVyAEFjdGl2aXR5U291cmNlAEFj
+dGl2aXR5Q29sbGVjdG9yQ29kZQBBY3Rpdml0eVRpbWUAQWN0aXZpdHlUaW1lWm9uZQBBY3Rpdml0
+eUR1ZQBIZWFkZXJMaW5lAHNldF9Sb3dEYXRhAHNldF9Sb3dEYXRhX0lzTnVsbABBZGRSb3cAU2V0
+RW5kT2ZSb3dzZXQARW5kT2ZSb3dzZXQAUm93RGF0YQBSb3dEYXRhX0lzTnVsbABQYXJlbnRDb21w
+b25lbnQATWljcm9zb2Z0LlNxbFNlcnZlci5EVFNSdW50aW1lV3JhcABNaWNyb3NvZnQuU3FsU2Vy
+dmVyLkR0cy5SdW50aW1lLldyYXBwZXIASURUU0Nvbm5lY3Rpb25NYW5hZ2VyMTAwAGdldF9BcnRp
+dmFDb25uZWN0aW9uAEFydGl2YUNvbm5lY3Rpb24AZ2V0X0NsaWVudElEcwBDbGllbnRJRHMAU3lz
+dGVtLlJlc291cmNlcwBSZXNvdXJjZU1hbmFnZXIAcmVzb3VyY2VNYW4AU3lzdGVtLkdsb2JhbGl6
+YXRpb24AQ3VsdHVyZUluZm8AcmVzb3VyY2VDdWx0dXJlAGdldF9SZXNvdXJjZU1hbmFnZXIAZ2V0
+X0N1bHR1cmUAc2V0X0N1bHR1cmUAQ3VsdHVyZQBkZWZhdWx0SW5zdGFuY2UAZ2V0X0RlZmF1bHQA
+RGVmYXVsdABPdXRwdXRzAE91dHB1dElEcwBCdWZmZXJzAE91dHB1dE1hcABlbnRpdHlJZAB2YWx1
+ZQByZWFkZXIAcGhvbmVOdW1iZXJDYWxsZWQAQnVmZmVyAEJ1ZmZlckNvbHVtbkluZGV4ZXMAQ29t
+cG9uZW50AFN5c3RlbS5SdW50aW1lLlZlcnNpb25pbmcAVGFyZ2V0RnJhbWV3b3JrQXR0cmlidXRl
+AFN5c3RlbS5SZWZsZWN0aW9uAEFzc2VtYmx5VGl0bGVBdHRyaWJ1dGUAQXNzZW1ibHlEZXNjcmlw
+dGlvbkF0dHJpYnV0ZQBBc3NlbWJseUNvbmZpZ3VyYXRpb25BdHRyaWJ1dGUAQXNzZW1ibHlDb21w
+YW55QXR0cmlidXRlAEFzc2VtYmx5UHJvZHVjdEF0dHJpYnV0ZQBBc3NlbWJseUNvcHlyaWdodEF0
+dHJpYnV0ZQBBc3NlbWJseVRyYWRlbWFya0F0dHJpYnV0ZQBBc3NlbWJseUN1bHR1cmVBdHRyaWJ1
+dGUAQXNzZW1ibHlWZXJzaW9uQXR0cmlidXRlAFN5c3RlbS5SdW50aW1lLkNvbXBpbGVyU2Vydmlj
+ZXMAQ29tcGlsYXRpb25SZWxheGF0aW9uc0F0dHJpYnV0ZQBSdW50aW1lQ29tcGF0aWJpbGl0eUF0
+dHJpYnV0ZQBTQ19lMmUxMDJlOGE5NjI0ZjFlYTBjNDYwYmZlZmQ0NzQwOABHZXRPdXRwdXRJRABH
+ZXRDb2x1bW5JbmRleGVzAFNTSVNTY3JpcHRDb21wb25lbnRFbnRyeVBvaW50QXR0cmlidXRlAEFk
+ZAA8Q3JlYXRlTmV3T3V0cHV0Um93cz5iX18zAGEARnVuY2AyAENTJDw+OV9fQ2FjaGVkQW5vbnlt
+b3VzTWV0aG9kRGVsZWdhdGU1AENvbXBpbGVyR2VuZXJhdGVkQXR0cmlidXRlADxDcmVhdGVOZXdP
+dXRwdXRSb3dzPmJfXzQAQ1MkPD45X19DYWNoZWRBbm9ueW1vdXNNZXRob2REZWxlZ2F0ZTYAU3lz
+dGVtLkxpbnEARW51bWVyYWJsZQBUb0xpc3QARW51bWVyYXRvcgBHZXRFbnVtZXJhdG9yAGdldF9D
+dXJyZW50AE1vdmVOZXh0AElEaXNwb3NhYmxlAERpc3Bvc2UAQW55AElPcmRlcmVkRW51bWVyYWJs
+ZWAxAE9yZGVyQnkAVGhlbkJ5AElFbnVtZXJhdG9yYDEAQ29udmVydABUb0ludDY0AFN0cmluZwBD
+b25jYXQAQ29udGFpbnMAVG9TdHJpbmcAb3BfRXF1YWxpdHkASXNOdWxsT3JXaGl0ZVNwYWNlAGdl
+dF9DaGFycwBJc051bGxPckVtcHR5AGdldF9JdGVtAEV4Y2VwdGlvbgBTeXN0ZW0uQ29sbGVjdGlv
+bnMASUVudW1lcmF0b3IAU3lzdGVtLlRleHQAU3RyaW5nQnVpbGRlcgBGb3JtYXQAQXBwZW5kAFJl
+cGxhY2UAPEdldFNraXBQaG9uZXM+ZF9fNwBJRW51bWVyYWJsZQBTeXN0ZW0uQ29sbGVjdGlvbnMu
+R2VuZXJpYy5JRW51bWVyYWJsZTxTY3JpcHRNYWluLkFjdGl2aXR5U2tpcFBob25lPi5HZXRFbnVt
+ZXJhdG9yAFN5c3RlbS5Db2xsZWN0aW9ucy5JRW51bWVyYWJsZS5HZXRFbnVtZXJhdG9yADw+Ml9f
+Y3VycmVudABTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5JRW51bWVyYXRvcjxTY3JpcHRNYWlu
+LkFjdGl2aXR5U2tpcFBob25lPi5nZXRfQ3VycmVudABTeXN0ZW0uQ29sbGVjdGlvbnMuSUVudW1l
+cmF0b3IuUmVzZXQAUmVzZXQAU3lzdGVtLklEaXNwb3NhYmxlLkRpc3Bvc2UAPD4xX19zdGF0ZQA8
+PmxfX2luaXRpYWxUaHJlYWRJZABTeXN0ZW0uQ29sbGVjdGlvbnMuSUVudW1lcmF0b3IuZ2V0X0N1
+cnJlbnQAPD40X190aGlzADw+M19fZW50aXR5SWQAPHNxbFF1ZXJ5PjVfXzgAPGNvblN0cmluZz41
+X185AFN5c3RlbS5EYXRhLk9kYmMAT2RiY0Nvbm5lY3Rpb24APGNvbj41X19hAE9kYmNDb21tYW5k
+ADxjbWQ+NV9fYgBPZGJjRGF0YVJlYWRlcgA8cmVhZGVyPjVfX2MAPD5tX19GaW5hbGx5ZAA8Pm1f
+X0ZpbmFsbHllADw+bV9fRmluYWxseWYAU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuSUVudW1l
+cmF0b3I8U2NyaXB0TWFpbi5BY3Rpdml0eVNraXBQaG9uZT4uQ3VycmVudABTeXN0ZW0uQ29sbGVj
+dGlvbnMuSUVudW1lcmF0b3IuQ3VycmVudABTeXN0ZW0uRGlhZ25vc3RpY3MARGVidWdnZXJIaWRk
+ZW5BdHRyaWJ1dGUAU3lzdGVtLlRocmVhZGluZwBUaHJlYWQAZ2V0X0N1cnJlbnRUaHJlYWQAZ2V0
+X01hbmFnZWRUaHJlYWRJZABnZXRfQ29ubmVjdGlvblN0cmluZwBTeXN0ZW0uRGF0YS5Db21tb24A
+RGJDb25uZWN0aW9uAE9wZW4ARXhlY3V0ZVJlYWRlcgBEYkRhdGFSZWFkZXIAUmVhZABOb3RTdXBw
+b3J0ZWRFeGNlcHRpb24AQWRkUmFuZ2UAPEdldEFjdGl2aXR5X0NhbGxzPmRfXzEyAFN5c3RlbS5D
+b2xsZWN0aW9ucy5HZW5lcmljLklFbnVtZXJhYmxlPFNjcmlwdE1haW4uQWN0aXZpdHlEaWFsZXJR
+dWVyeVJlc3VsdD4uR2V0RW51bWVyYXRvcgBTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5JRW51
+bWVyYXRvcjxTY3JpcHRNYWluLkFjdGl2aXR5RGlhbGVyUXVlcnlSZXN1bHQ+LmdldF9DdXJyZW50
+ADxzY2FuUmFuZ2U+NV9fMTMAPFNRTF9QaG9uZT41X18xNAA8Y29uU3RyaW5nPjVfXzE1ADxjb24+
+NV9fMTYAPGNtZD41X18xNwA8cmVhZGVyPjVfXzE4ADw+bV9fRmluYWxseTE5ADw+bV9fRmluYWxs
+eTFhADw+bV9fRmluYWxseTFiAFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLklFbnVtZXJhdG9y
+PFNjcmlwdE1haW4uQWN0aXZpdHlEaWFsZXJRdWVyeVJlc3VsdD4uQ3VycmVudABnZXRfVG9kYXkA
+RGF5T2ZXZWVrAGdldF9EYXlPZldlZWsARGJDb21tYW5kAHNldF9Db21tYW5kVGltZW91dAA8R2V0
+QWN0aXZpdHlfTGV0dGVycz5kX18xZQBTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5JRW51bWVy
+YWJsZTxTY3JpcHRNYWluLkFjdGl2aXR5TGV0dGVyUXVlcnlSZXN1bHQ+LkdldEVudW1lcmF0b3IA
+U3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuSUVudW1lcmF0b3I8U2NyaXB0TWFpbi5BY3Rpdml0
+eUxldHRlclF1ZXJ5UmVzdWx0Pi5nZXRfQ3VycmVudAA8c2NhblJhbmdlPjVfXzFmADxTUUxfTGV0
+dGVyPjVfXzIwADxjb25TdHJpbmc+NV9fMjEAPGNvbj41X18yMgA8Y21kPjVfXzIzADxyZWFkZXI+
+NV9fMjQAPD5tX19GaW5hbGx5MjUAPD5tX19GaW5hbGx5MjYAPD5tX19GaW5hbGx5MjcAU3lzdGVt
+LkNvbGxlY3Rpb25zLkdlbmVyaWMuSUVudW1lcmF0b3I8U2NyaXB0TWFpbi5BY3Rpdml0eUxldHRl
+clF1ZXJ5UmVzdWx0Pi5DdXJyZW50ADxHZXRBY3Rpdml0eV9BY3Rpdml0eT5kX18yYQBTeXN0ZW0u
+Q29sbGVjdGlvbnMuR2VuZXJpYy5JRW51bWVyYWJsZTxTY3JpcHRNYWluLkFjdGl2aXR5QWN0aXZp
+dHlRdWVyeVJlc3VsdD4uR2V0RW51bWVyYXRvcgBTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5J
+RW51bWVyYXRvcjxTY3JpcHRNYWluLkFjdGl2aXR5QWN0aXZpdHlRdWVyeVJlc3VsdD4uZ2V0X0N1
+cnJlbnQAPHNjYW5SYW5nZT41X18yYgA8U1FMX0FjdGl2aXR5PjVfXzJjADxjb25TdHJpbmc+NV9f
+MmQAPGNvbj41X18yZQA8Y21kPjVfXzJmADxyZWFkZXI+NV9fMzAAPD5tX19GaW5hbGx5MzEAPD5t
+X19GaW5hbGx5MzIAPD5tX19GaW5hbGx5MzMAU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuSUVu
+dW1lcmF0b3I8U2NyaXB0TWFpbi5BY3Rpdml0eUFjdGl2aXR5UXVlcnlSZXN1bHQ+LkN1cnJlbnQA
+LmNjdG9yAEZpbmRTeXN0ZW1UaW1lWm9uZUJ5SWQASURhdGFSZWNvcmQAREJOdWxsAFZhbHVlAE51
+bGxhYmxlYDEAVGltZVNwYW4AZ2V0X0hhc1ZhbHVlAGdldF9WYWx1ZQBvcF9BZGRpdGlvbgBUb1No
+b3J0RGF0ZVN0cmluZwBnZXRfWWVhcgBnZXRfTW9udGgAZ2V0X0RheQA8UHJpdmF0ZUltcGxlbWVu
+dGF0aW9uRGV0YWlscz57MjM1RjZCRjgtM0I4My00M0NFLTlGMTctQ0U2RDg4MEJENjlGfQBEaWN0
+aW9uYXJ5YDIAJCRtZXRob2QweDYwMDAwNTMtMQBUcnlHZXRWYWx1ZQBUcnlQYXJzZQBvcF9MZXNz
+VGhhbgAkJG1ldGhvZDB4NjAwMDA1My0yAGdldF9Db3VudAAkJG1ldGhvZDB4NjAwMDA3OS0xAFN1
+YnN0cmluZwBKb2luAHNldF9JdGVtAFNldE51bGwASW52YWxpZE9wZXJhdGlvbkV4Y2VwdGlvbgBN
+aWNyb3NvZnQuU3FsU2VydmVyLkRUU1BpcGVsaW5lV3JhcABNaWNyb3NvZnQuU3FsU2VydmVyLkR0
+cy5QaXBlbGluZS5XcmFwcGVyAElEVFNDb21wb25lbnRNZXRhRGF0YTEwMABnZXRfQ29tcG9uZW50
+TWV0YURhdGEASURUU1J1bnRpbWVDb25uZWN0aW9uQ29sbGVjdGlvbjEwMABnZXRfUnVudGltZUNv
+bm5lY3Rpb25Db2xsZWN0aW9uAElEVFNSdW50aW1lQ29ubmVjdGlvbjEwMABHZXRSdW50aW1lQ29u
+bmVjdGlvbkJ5TmFtZQBnZXRfQ29ubmVjdGlvbk1hbmFnZXIASURUU1ZhcmlhYmxlczEwMABnZXRf
+UmVhZE9ubHlWYXJpYWJsZXMASURUU1ZhcmlhYmxlMTAwAFNjcmlwdENvbXBvbmVudEV2YWxDb250
+ZXh0AGdldF9FdmFsdWF0b3JDb250ZXh0AElEVFNFdmFsdWF0b3JDb250ZXh0MTAwAEdldFZhbHVl
+V2l0aENvbnRleHQARGVidWdnZXJOb25Vc2VyQ29kZUF0dHJpYnV0ZQBUeXBlAFJ1bnRpbWVUeXBl
+SGFuZGxlAEdldFR5cGVGcm9tSGFuZGxlAEFzc2VtYmx5AGdldF9Bc3NlbWJseQBTeXN0ZW0uQ29t
+cG9uZW50TW9kZWwARWRpdG9yQnJvd3NhYmxlQXR0cmlidXRlAEVkaXRvckJyb3dzYWJsZVN0YXRl
+AFNDX2UyZTEwMmU4YTk2MjRmMWVhMGM0NjBiZmVmZDQ3NDA4LlByb3BlcnRpZXMuUmVzb3VyY2Vz
+LnJlc291cmNlcwAAEU8AdQB0AHAAdQB0ACAAMAAADTEAMAAwADAAMAA5AAANMQAwADAAMAAxADAA
+AA0xADAAMAAwADEAMQAADTEAMAAwADAAMQAyAAANMQAwADAAMAAxADgAAA0xADAAMAAwADIAMgAA
+DTEAMAAwADAAMgA2AAANMQAwADAAMAAyADgAAA0xADAAMAAwADIAOQAADTEAMAAwADAAMwAwAAAN
+MQAwADAAMAAzADEAAA0xADAAMAAwADMAMgAADTEAMAAwADAAMwA4AAANMQAwADAAMAA1ADcAAAlB
+AEMAVAAtAAEzYQBjAHQALgBBAGMAdABpAG8AbgBEAGUAcwBjAHIAaQBwAHQAaQBvAG4AIAAgADoA
+IAAACTAALgAwADAAAA1NAGEAbgB1AGEAbAAADTEAMAAwADAAMgA0AAANMQAwADAAMAA0ADcAAA0x
+ADAAMAAwADQAOAAAA0IAAAlIAE8ATQBFAAAJQwBFAEwATAAAA0MAAA1EAGkAYQBsAGUAcgAAD1UA
+TgBLAE4ATwBXAE4AAAlMAFQAUgAtAAEHIAA6ACAAADNVAG4AawBuAG8AdwBuACAAYQBjAHQAaQB2
+AGkAdAB5ACAAcwBvAHUAcgBjAGUAIAAnAAFHJwAgAGkAbgAgAEMAcgBlAGEAdABlAEEAYwB0AGkA
+dgBpAHQAeQBBAHAAcABlAG4AZABVAHAAZABhAHQAZQBGAGkAbABlAAENIgB7ADAAfQAiACwAABcx
+ADIAOgAwADAAOgAwADAAIABBAE0AAAEAB0MAUwBUAACCHQoAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIABTAEUATABFAEMAVAAgACAAcwBrAHAAcABoAG4ALgBaAFoARQBOAFMASwBJAFAA
+UABIAFAASABOAE4AVQBNACAAUwBrAGkAcABQAGgAbwBuAGUALAAKACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAHMAawBwAHAAaABuAC4AWgBaAEUATgBTAEsA
+SQBQAFAASABUAFkAUABFACAAUwBrAGkAcABQAGgAbwBuAGUAVAB5AHAAZQAsAAoAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAcwBrAHAAcABoAG4ALgBaAFoA
+RQBOAFMASwBJAFAAUABIAEYATABBAEcAIABTAGsAaQBwAFAAaABvAG4AZQBGAGwAYQBnAAoAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABGAFIATwBNACAAWgBaAEUATgBTAEsASQBQAFAA
+SABPAE4ARQBTACAAcwBrAHAAcABoAG4ACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+AFcASABFAFIARQAgAHMAawBwAHAAaABuAC4AWgBaAEUATgBTAEsASQBQAFAASABFAE4ASQBEACAA
+PQAgAABbZABpAGEAbAAuAHoAegBkAHIAdAByAGEAbgBzAGEAYwB0AGkAbwBuAGQAYQB0AGUAIAA9
+ACAAQwBBAFMAVAAoAEQAQQBUAEUAQQBEAEQAKABkAGEAeQAsACAAACssACAAZwBlAHQAZABhAHQA
+ZQAoACkAKQAgAEEAUwAgAEQAYQB0AGUAKQAAgNtkAGkAYQBsAC4AegB6AGQAcgB0AHIAYQBuAHMA
+YQBjAHQAaQBvAG4AZABhAHQAZQAgAD4AIABDAEEAUwBUACgARABBAFQARQBBAEQARAAoAGQAYQB5
+ACwAIAAtADMALAAgAGcAZQB0AGQAYQB0AGUAKAApACkAIABBAFMAIABEAGEAdABlACkAIABBAE4A
+RAAgAGQAaQBhAGwALgB6AHoAZAByAHQAcgBhAG4AcwBhAGMAdABpAG8AbgBkAGEAdABlACAAPAAg
+AGcAZQB0AGQAYQB0AGUAKAApAAGKQVMARQBMAEUAQwBUAAoAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgAGQAaQBhAGwALgBaAFoARABSAEkARAAgAFIAZQBjAG8AcgBkAEkA
+ZAAsAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAGQAaQBhAGwALgBa
+AFoARABSAEYASQBMAEUATgBVAE0AIABBAGMAYwBvAHUAbgB0AEkAZAAsAAoAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAGEAYwBjAHQALgBBAFIAQQBDAEMATABBAEMAQwBU
+ACAAQwBsAGkAZQBuAHQAUgBlAGYATgB1AG0ALAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIABkAGkAYQBsAC4AWgBaAEQAUgBUAFIAQQBOAFMAQQBDAFQASQBPAE4ARABB
+AFQARQAgAEQAYQB0AGUAQwBhAGwAbABlAGQALAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIABkAGkAYQBsAC4AWgBaAEQAUgBUAFIAQQBOAFMAQQBDAFQASQBPAE4AVABJ
+AE0ARQAgAFQAaQBtAGUAQwBhAGwAbABlAGQALAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIABkAGkAYQBsAC4AWgBaAEQAUgBEAEUAUwBDAFIASQBQAFQASQBPAE4AIABE
+AGUAcwBjAHIAaQBwAHQAaQBvAG4ALAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIABkAGkAYQBsAC4AWgBaAEQAUgBSAEUAUwBVAEwAVABDAE8ARABFACAAUgBlAHMAdQBs
+AHQAQwBvAGQAZQAsAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAGQA
+aQBhAGwALgBaAFoARABSAFAASABPAE4ARQAgACAAUABoAG8AbgBlAE4AdQBtAGIAZQByACwACgAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAZABpAGEAbAAuAFoAWgBEAFIA
+QQBHAEUATgBUAEkARAAgAEEAZwBlAG4AdAAsAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgAGEAYwBjAHQALgBaAFoAQQBDAE8AUgBJAEcAQwBSAEUARABBAEMATgBVAE0A
+IABPAHIAaQBnAEMAcgBlAGQAQQBjAGMAdABOAHUAbQAsAAoAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgAGUAbgB0AC4AQQBSAEUATgBQAEgAIABQAGgAbwBuAGUAMQAsAAoA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAGUAbgB0AC4AQQBSAEUATgBQ
+AEYAIABQAGgAbwBuAGUAMQBGAGwAYQBnACwACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAZQBuAHQALgBBAFIARQBOAFAASAAyACAAUABoAG8AbgBlADIALAAKACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABlAG4AdAAuAEEAUgBFAE4AUABGADIA
+IABQAGgAbwBuAGUAMgBGAGwAYQBnACwACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAZQBuAHQALgBBAFIARQBOAFAATwBFAFAASAAgAFAAaABvAG4AZQAzACwACgAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAZQBuAHQALgBBAFIARQBOAFAATwBF
+AFAARgAgAFAAaABvAG4AZQAzAEYAbABhAGcALAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIABlAG4AdAAuAEEAUgBFAE4ASQBEACAARQBuAHQAaQB0AHkASQBkACwACgAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAcABhAHkALgBBAFIAUABBAEgA
+SQBOAEkARABUAEUAIABGAGkAcgBzAHQAUABhAHkAbQBlAG4AdABEAGEAdABlACwACgAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAcABhAHkALgBBAFIAUABBAEgAUwBDAEgA
+RABQAEEAWQAgAE4AdQBtAGIAZQByAE8AZgBQAGEAeQBtAGUAbgB0AHMALAAKACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABwAGEAeQAuAEEAUgBQAEEASABGAEkATgBBAEwA
+UABNAFQARABBAFQARQAgAEwAYQBzAHQAUABhAHkAbQBlAG4AdABEAGEAdABlACwACgAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAcABhAHkALgBBAFIAUABBAEgAVABPAFQA
+UABSAE8ATQAgAFQAbwB0AGEAbABQAGEAeQBtAGUAbgB0AEEAbQBvAHUAbgB0ACwACgAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAYQBjAGMAdAAuAFoAWgBBAEMAQwBSAEUA
+RABJAE4AVABDAE8ATgBTAEEAQwBOAFUATQAgAEMAcgBlAGQAaQB0AG8AcgBJAG4AdABlAHIAbgBh
+AGwAQwBvAG4AcwB1AG0AZQByAEEAYwBjAG8AdQBuAHQATgB1AG0AYgBlAHIALAAKACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABBAFIAQQBDAEwAUwBUAEQAVABFACAAYQBz
+ACAATABpAHMAdABEAGEAdABlAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABGAFIA
+TwBNAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACUAcwB0AGEAcgB0
+AHQAYQBiAGwAZQAgAEEAUgBDAEwASQBFAE4AVAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIABJAE4ATgBFAFIAIABKAE8ASQBOACAAQQBSAEEAQwBDAE8AVQBOAFQAIABh
+AGMAYwB0ACAATwBOACAAQQBSAEEAQwBDAEwAVABJAEQAIAA9ACAAQQBSAEMATABJAEQAIABBAE4A
+RAAgAEEAUgBDAEwASQBEACAASQBOACAAAIQzCgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAASQBOAE4ARQBSACAASgBPAEkATgAgAFoAWgBEAEkAQQBMAEUAUgBSAEUAUwBQ
+AE8ATgBTAEUAIABkAGkAYQBsACAATwBOACAAYQBjAGMAdAAuAEEAUgBBAEMASQBEACAAPQAgAGQA
+aQBhAGwALgBaAFoARABSAEYASQBMAEUATgBVAE0ACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAASQBOAE4ARQBSACAASgBPAEkATgAgAEEAUgBSAEUATABBAFQASQBPAE4A
+UwBIAEkAUAAgAHIAZQBsACAATwBOACAAZABpAGEAbAAuAFoAWgBEAFIAUgBFAEwASQBEACAAPQAg
+AHIAZQBsAC4AQQBSAFIARQBMAEkARAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIABJAE4ATgBFAFIAIABKAE8ASQBOACAAQQBSAEUATgBUAEkAVABZACAAZQBuAHQAIABP
+AE4AIAByAGUAbAAuAEEAUgBSAEUATABFAE4ASQBEACAAPQAgAGUAbgB0AC4AQQBSAEUATgBJAEQA
+CgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAATABFAEYAVAAgAE8AVQBU
+AEUAUgAgAEoATwBJAE4AIABBAFIAUABBAEgASQBTAFQAIABwAGEAeQAgAE8ATgAgAHIAZQBsAC4A
+QQBSAFIARQBMAFAAQQBIAEkARAAgAD0AIABwAGEAeQAuAEEAUgBQAEEASABJAEQAIABhAG4AZAAg
+AHAAYQB5AC4AQQBSAFAAQQBIAEEAQwBUAEkAVgBFACAAPQAgACcAKgAnAAoAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIABXAEgARQBSAEUACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACgAYQBjAGMAdAAuAEEAUgBBAEMAQwBBAE4AQwBJAEQAIABJAFMAIABOAFUA
+TABMACAATwBSACAAKABhAGMAYwB0AC4AQQBSAEEAQwBDAEEATgBDAEkARAAgADwAPgAgACcAUgBF
+AEMAQQBMAEwAJwAgAEEATgBEACAAYQBjAGMAdAAuAEEAUgBBAEMAQwBBAE4AQwBJAEQAIAA8AD4A
+IAAnAFIARQBUAFUAUgBOACcAIABBAE4ARAAgAGEAYwBjAHQALgBBAFIAQQBDAEMAQQBOAEMASQBE
+ACAAPAA+ACAAJwBEAFUAUABFACcAKQApAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgAEEATgBEACAAAXVBAFIATABIAFUAUABEAEQAVABFACAASQBTACAATgBPAFQAIABO
+AFUATABMACAAQQBOAEQAIABBAFIATABIAFUAUABEAEQAVABFACAAPQAgAEMAQQBTAFQAKABEAEEA
+VABFAEEARABEACgAZABhAHkALAAgAACA20EAUgBMAEgAVQBQAEQARABUAEUAIABJAFMAIABOAE8A
+VAAgAE4AVQBMAEwAIABBAE4ARAAgAEEAUgBMAEgAVQBQAEQARABUAEUAIAA+AD0AIABDAEEAUwBU
+ACgARABBAFQARQBBAEQARAAoAGQAYQB5ACwAIAAtADMALAAgAGcAZQB0AGQAYQB0AGUAKAApACkA
+IABBAFMAIABEAGEAdABlACkAIABBAE4ARAAgAEEAUgBMAEgAVQBQAEQARABUAEUAIAA8ACAAZwBl
+AHQAZABhAHQAZQAoACkAAYa1UwBFAEwARQBDAFQACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAbAB0AHIALgBBAFIATABIAEkARAAgAFIAZQBjAG8AcgBkAEkAZAAsAAoA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAGwAdAByAC4AQQBSAEwASABB
+AEMASQBEACAAQQBjAGMAbwB1AG4AdABJAGQALAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIABhAGMAYwB0AC4AQQBSAEEAQwBDAEwAQQBDAEMAVAAgAEMAbABpAGUAbgB0
+AFIAZQBmAE4AdQBtACwACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+YQBjAGMAdAAuAFoAWgBBAEMATwBSAEkARwBDAFIARQBEAEEAQwBOAFUATQAgAE8AcgBpAGcAQwBy
+AGUAZABBAGMAYwB0AE4AdQBtACwACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAbAB0AHIALgBBAFIATABIAEUATgBJAEQAIABFAG4AdABpAHQAeQBJAGQALAAKACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABsAHQAcgAuAEEAUgBMAEgAUgBFAFEA
+RABUAEUAIABSAGUAcQB1AGUAcwB0AEQAYQB0AGUALAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIABsAHQAcgAuAEEAUgBMAEgAVQBTAEUAUgAgAFIAZQBxAHUAZQBzAHQA
+ZQBkAEIAeQAsAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAGwAdABy
+AC4AQQBSAEwASABSAFQATgBEAFQARQAgAFIAZQB0AHUAcgBuAEQAYQB0AGUALAAKACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABsAHQAcgAuAEEAUgBMAEgATABUAFIAIABM
+AGUAdAB0AGUAcgBDAG8AZABlACwACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAbAB0AHIALgBBAFIATABIAFUAUABEAEQAVABFACAATABlAHQAdABlAHIASABpAHMAdABv
+AHIAeQBQAHIAaQBuAHQARABhAHQAZQAsAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgAGwAYwAuAEwAVABEAEUAUwBDACAATABlAHQAdABlAHIARABlAHMAYwByAGkAcAB0
+AGkAbwBuACwACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAYQBoAC4A
+QQBSAEEAQwBUAEgAQQBDAFQASQBEACAAQQBjAHQAaQBvAG4AQwBvAGQAZQAsAAoAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAGEAYwBjAHQALgBaAFoAQQBDAEMAUgBFAEQA
+SQBOAFQAQwBPAE4AUwBBAEMATgBVAE0AIABDAHIAZQBkAGkAdABvAHIASQBuAHQAZQByAG4AYQBs
+AEMAbwBuAHMAdQBtAGUAcgBBAGMAYwBvAHUAbgB0AE4AdQBtAGIAZQByACwACgAgACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAQQBSAEEAQwBMAFMAVABEAFQARQAgAGEAcwAg
+AEwAaQBzAHQARABhAHQAZQAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABGAFIA
+TwBNAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACUAcwB0AGEAcgB0
+AHQAYQBiAGwAZQAgAEEAUgBDAEwASQBFAE4AVAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIABJAE4ATgBFAFIAIABKAE8ASQBOACAAQQBSAEEAQwBDAE8AVQBOAFQAIABh
+AGMAYwB0ACAATwBOACAAQQBSAEEAQwBDAEwAVABJAEQAIAA9ACAAQQBSAEMATABJAEQAIABBAE4A
+RAAgAEEAUgBDAEwASQBEACAASQBOACAAAIMpCgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAASQBOAE4ARQBSACAASgBPAEkATgAgAEEAUgBMAFQAUgBIAEkAUwAgAGwAdABy
+ACAAbwBuACAAYQBjAGMAdAAuAEEAUgBBAEMASQBEACAAPQAgAGwAdAByAC4AQQBSAEwASABBAEMA
+SQBEAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAEkATgBOAEUAUgAg
+AEoATwBJAE4AIABTAFQATABFAFQAVABFAFIAIABsAGMAIABvAG4AIABsAHQAcgAuAEEAUgBMAEgA
+TABUAFIAIAA9ACAAbABjAC4ATABUAEMATwBEAEUACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAATABFAEYAVAAgAEoATwBJAE4AIABBAFIAQQBDAFQASQBWAEkAVABZAEgA
+SQBTAFQAIABhAGgAIABvAG4AIABhAGgALgBBAFIAQQBDAFQASABBAEMAQwBUAEkARAAgAD0AIABh
+AGMAYwB0AC4AQQBSAEEAQwBJAEQACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAFcA
+SABFAFIARQAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAoAGEAYwBj
+AHQALgBBAFIAQQBDAEMAQQBOAEMASQBEACAASQBTACAATgBVAEwATAAgAE8AUgAgACgAYQBjAGMA
+dAAuAEEAUgBBAEMAQwBBAE4AQwBJAEQAIAA8AD4AIAAnAFIARQBDAEEATABMACcAIABBAE4ARAAg
+AGEAYwBjAHQALgBBAFIAQQBDAEMAQQBOAEMASQBEACAAPAA+ACAAJwBSAEUAVABVAFIATgAnACAA
+QQBOAEQAIABBAFIAQQBDAEMAQQBOAEMASQBEACAAPAA+ACAAJwBEAFUAUABFACcAKQApAAoAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABBAE4ARAAgAAFDYQBoAC4AYQByAGEAYwB0AGgA
+ZAB0AGUAIAA9ACAAQwBBAFMAVAAoAEQAQQBUAEUAQQBEAEQAKABkAGEAeQAsACAAAICrYQBoAC4A
+YQByAGEAYwB0AGgAZAB0AGUAIAA+ACAAQwBBAFMAVAAoAEQAQQBUAEUAQQBEAEQAKABkAGEAeQAs
+ACAALQAzACwAIABnAGUAdABkAGEAdABlACgAKQApACAAQQBTACAARABhAHQAZQApACAAQQBOAEQA
+IABhAGgALgBhAHIAYQBjAHQAaABkAHQAZQAgADwAIABnAGUAdABkAGEAdABlACgAKQABiydTAEUA
+TABFAEMAVAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABhAGgALgBB
+AFIAQQBDAFQASABJAEQAIABSAGUAYwBvAHIAZABJAGQALAAKACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIABhAGgALgBBAFIAQQBDAFQASABBAEMAQwBUAEkARAAgAEEAYwBj
+AG8AdQBuAHQASQBkACwACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+YQBjAGMAdAAuAEEAUgBBAEMAQwBMAEEAQwBDAFQAIABDAGwAaQBlAG4AdABSAGUAZgBOAHUAbQAs
+AAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAGEAYwBjAHQALgBaAFoA
+QQBDAE8AUgBJAEcAQwBSAEUARABBAEMATgBVAE0AIABPAHIAaQBnAEMAcgBlAGQAQQBjAGMAdABO
+AHUAbQAsAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAGEAaAAuAEEA
+UgBBAEMAVABIAEQAVABFACAAQQBjAHQAaQB2AGkAdAB5AEQAYQB0AGUALAAKACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABhAGgALgBBAFIAQQBDAFQASABUAEkATQBFACAA
+QQBjAHQAaQB2AGkAdAB5AFQAaQBtAGUALAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIABhAGgALgBBAFIAQQBDAFQASABVAFMAUgBJAEQAIABVAHMAZQByAEkAZAAsAAoA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAGEAaAAuAEEAUgBBAEMAVABI
+AEEAQwBUAEkARAAgAEEAYwB0AGkAbwBuAEMAbwBkAGUALAAKACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIABhAGMAdABuAC4AQQBSAEEAQwBUAEQARQBTAEMAIABBAGMAdABp
+AG8AbgBEAGUAcwBjAHIAaQBwAHQAaQBvAG4ALAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIABhAGgALgBBAFIAQQBDAFQASABSAEUAUwBJAEQAIABSAGUAcwB1AGwAdABD
+AG8AZABlACwACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAcgBlAHMA
+dAAuAEEAUgBSAEUAUwBEAEUAUwBDACAAUgBlAHMAdQBsAHQARABlAHMAYwByAGkAcAB0AGkAbwBu
+ACwACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAYQBjAGMAdAAuAFoA
+WgBBAEMAQwBSAEUARABJAE4AVABDAE8ATgBTAEEAQwBOAFUATQAgAEMAcgBlAGQAaQB0AG8AcgBJ
+AG4AdABlAHIAbgBhAGwAQwBvAG4AcwB1AG0AZQByAEEAYwBjAG8AdQBuAHQATgB1AG0AYgBlAHIA
+LAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABlAG4AdAAuAEEAUgBF
+AE4AUABIACAAUABoAG8AbgBlADEALAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIABlAG4AdAAuAEEAUgBFAE4AUABGACAAUABoAG8AbgBlADEARgBsAGEAZwAsAAoAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAGUAbgB0AC4AQQBSAEUATgBQAEgA
+MgAgAFAAaABvAG4AZQAyACwACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAZQBuAHQALgBBAFIARQBOAFAARgAyACAAUABoAG8AbgBlADIARgBsAGEAZwAsAAoAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAGUAbgB0AC4AQQBSAEUATgBQAE8ARQBQ
+AEgAIABQAGgAbwBuAGUAMwAsAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgAGUAbgB0AC4AQQBSAEUATgBQAE8ARQBQAEYAIABQAGgAbwBuAGUAMwBGAGwAYQBnACwACgAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAZQBuAHQALgBBAFIARQBOAEkA
+RAAgAEUAbgB0AGkAdAB5AEkAZAAsAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgAHAAYQB5AC4AQQBSAFAAQQBIAEEAQwBUAEkAVgBFACAAQQBjAHQAaQB2AGUAQQByAHIA
+YQBuAGcAZQBtAGUAbgB0AEYAbABhAGcALAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIABwAGEAeQAuAEEAUgBQAEEASABBAFIAUgBGAFIAUQAgAEYAcgBlAHEAdQBlAG4A
+YwB5ACwACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAcABhAHkALgBB
+AFIAUABBAEgAVABPAFQAUABSAE8ATQAgAFAAYQB5AG0AZQBuAHQAQQBtAG8AdQBuAHQALAAKACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABwAGEAeQAuAEEAUgBQAEEASABB
+AFIAUgBEAFQARQAgAFAAYQB5AG0AZQBuAHQAQQByAHIAYQBuAGcAZQBtAGUAbgB0AEQAYQB0AGUA
+LAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABBAFIARQBQAEkAVABZ
+AFAARQAgAFAAYQB5AG0AZQBuAHQAVAB5AHAAZQAsAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgAHAAYQB5AC4AQQBSAFAAQQBIAEMATABTAEQAVABFACAAUABhAHkAbQBl
+AG4AdABDAGwAbwBzAGUARABhAHQAZQAsAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgAEEAUgBBAEMATABTAFQARABUAEUAIABhAHMAIABMAGkAcwB0AEQAYQB0AGUACgAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABGAFIATwBNAAoAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACUAcwB0AGEAcgB0AHQAYQBiAGwAZQAgAEEAUgBDAEwASQBF
+AE4AVAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABJAE4ATgBFAFIA
+IABKAE8ASQBOACAAQQBSAEEAQwBDAE8AVQBOAFQAIABhAGMAYwB0ACAATwBOACAAQQBSAEEAQwBD
+AEwAVABJAEQAIAA9ACAAQQBSAEMATABJAEQAIABBAE4ARAAgAEEAUgBDAEwASQBEACAASQBOACAA
+AIaHCgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAASQBOAE4ARQBSACAA
+SgBPAEkATgAgAEEAUgBBAEMAVABJAFYASQBUAFkASABJAFMAVAAgAGEAaAAgAE8ATgAgAGEAYwBj
+AHQALgBBAFIAQQBDAEkARAAgAD0AIABhAGgALgBBAFIAQQBDAFQASABBAEMAQwBUAEkARAAKACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABJAE4ATgBFAFIAIABKAE8ASQBO
+ACAAQQBSAFIARQBMAEEAVABJAE8ATgBTAEgASQBQACAAcgBlAGwAIABPAE4AIAByAGUAbAAuAEEA
+UgBSAEUATABJAEQAIAA9ACAAYQBoAC4AQQBSAEEAQwBUAEgAUgBFAEwASQBEAAoAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAEkATgBOAEUAUgAgAEoATwBJAE4AIABBAFIA
+RQBOAFQASQBUAFkAIABlAG4AdAAgAE8ATgAgAHIAZQBsAC4AQQBSAFIARQBMAEUATgBJAEQAIAA9
+ACAAZQBuAHQALgBBAFIARQBOAEkARAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIABMAEUARgBUACAASgBPAEkATgAgAEEAUgBBAEMAVABJAFYASQBUAFkAQwBEACAAYQBj
+AHQAbgAgAE8ATgAgAGEAaAAuAEEAUgBBAEMAVABIAEEAQwBUAEkARAAgAD0AIABhAGMAdABuAC4A
+QQBSAEEAQwBUAEkARAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABM
+AEUARgBUACAASgBPAEkATgAgAEEAUgBSAEUAUwBVAEwAVABDAEQAIAByAGUAcwB0ACAATwBOACAA
+YQBoAC4AQQBSAEEAQwBUAEgAUgBFAFMASQBEACAAPQAgAHIAZQBzAHQALgBBAFIAUgBFAFMASQBE
+AAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAEwARQBGAFQAIABKAE8A
+SQBOACAAQQBSAFAAQQBIAEkAUwBUACAAcABhAHkAIABPAE4AIAByAGUAbAAuAEEAUgBSAEUATABQ
+AEEASABJAEQAIAA9ACAAcABhAHkALgBBAFIAUABBAEgASQBEAAoAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgAEwARQBGAFQAIABKAE8ASQBOACAAQQBSAEUAUABBAFkATQBF
+AE4AVAAgAHIAZQBwAGEAeQAgAG8AbgAgAHIAZQBsAC4AQQBSAFIARQBMAEkARAAgAD0AIAByAGUA
+cABhAHkALgBBAFIARQBQAEEASABSAEUATABJAEQACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAATABFAEYAVAAgAEoATwBJAE4AIABBAFIARQBQAEEAWQBJAE4ARgBPACAA
+cgBlAHAAYQB5AGkAbgBmAG8AIABPAE4AIAByAGUAcABhAHkALgBBAFIARQBQAEkATgBGAE8ASwBF
+AFkAIAA9ACAAcgBlAHAAYQB5AGkAbgBmAG8ALgBBAFIARQBQAEkASQBEAAoAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIABXAEgARQBSAEUACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAKABhAGMAYwB0AC4AQQBSAEEAQwBDAEEATgBDAEkARAAgAEkAUwAgAE4A
+VQBMAEwAIABPAFIAIAAoAGEAYwBjAHQALgBBAFIAQQBDAEMAQQBOAEMASQBEACAAPAA+ACAAJwBS
+AEUAQwBBAEwATAAnACAAQQBOAEQAIABhAGMAYwB0AC4AQQBSAEEAQwBDAEEATgBDAEkARAAgADwA
+PgAgACcAUgBFAFQAVQBSAE4AJwAgAEEATgBEACAAYQBjAGMAdAAuAEEAUgBBAEMAQwBBAE4AQwBJ
+AEQAIAA8AD4AIAAnAEQAVQBQAEUAJwApACkACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAQQBOAEQAIAABBS0AMQABK0MAZQBuAHQAcgBhAGwAIABTAHQAYQBuAGQAYQBy
+AGQAIABUAGkAbQBlAAATQQBjAGMAbwB1AG4AdABJAGQAABVBAGMAdABpAG8AbgBDAG8AZABlAAAZ
+QQBjAHQAaQB2AGkAdAB5AEQAYQB0AGUAACNBAGMAdABpAG8AbgBEAGUAcwBjAHIAaQBwAHQAaQBv
+AG4AABlBAGMAdABpAHYAaQB0AHkAVABpAG0AZQAAEUgASAA6AG0AbQA6AHMAcwAAGUMAbABpAGUA
+bgB0AFIAZQBmAE4AdQBtAAAfTwByAGkAZwBDAHIAZQBkAEEAYwBjAHQATgB1AG0AABFSAGUAYwBv
+AHIAZABJAGQAABVSAGUAcwB1AGwAdABDAG8AZABlAAAjUgBlAHMAdQBsAHQARABlAHMAYwByAGkA
+cAB0AGkAbwBuAABLQwByAGUAZABpAHQAbwByAEkAbgB0AGUAcgBuAGEAbABDAG8AbgBzAHUAbQBl
+AHIAQQBjAGMAbwB1AG4AdABOAHUAbQBiAGUAcgAAEUwAaQBzAHQARABhAHQAZQAAG1AAYQB5AG0A
+ZQBuAHQAQQBtAG8AdQBuAHQAAC1QAGEAeQBtAGUAbgB0AEEAcgByAGEAbgBnAGUAbQBlAG4AdABE
+AGEAdABlAAAXUABhAHkAbQBlAG4AdABUAHkAcABlAAAJTgBVAEwATAAAIVAAYQB5AG0AZQBuAHQA
+QwBsAG8AcwBlAEQAYQB0AGUAAA1QAGgAbwBuAGUAMQAAFVAAaABvAG4AZQAxAEYAbABhAGcAAA1Q
+AGgAbwBuAGUAMgAAFVAAaABvAG4AZQAyAEYAbABhAGcAAA1QAGgAbwBuAGUAMwAAFVAAaABvAG4A
+ZQAzAEYAbABhAGcAABFFAG4AdABpAHQAeQBJAGQAACtBAGMAdABpAHYAZQBBAHIAcgBhAG4AZwBl
+AG0AZQBuAHQARgBsAGEAZwAAE0YAcgBlAHEAdQBlAG4AYwB5AAAPQgBBAEQAQQBEAEQAUgAAB0kA
+QwBBAAANSQBDAEEAVABUAFkAABNJAE4AQwBBAEwATABPAFQASAAAC0MAQQBQAE8ARQAABUMAQQAA
+C0MAQQBPAFQASAAADUMAQQBDAEUATABMAAAPRABJAFMAUABVAFQARQAABVAAQQAAB1AAQQBDAAAJ
+QQBUAFQAWQAAEUIAQQBOAEsAUgBVAFAAVAAAB1IAVABQAAARRABFAEMARQBBAFMARQBEAAALQwBF
+AEEAUwBFAAAJRABJAFMAQwAADTEAMAAwADAAMAAzAAAXTQBhAGkAbAAgAFIAZQB0AHUAcgBuAAAN
+MQAwADAAMAAwADgAACdEAGUAYgB0AG8AcgAgAEkAbgBiAG8AdQBuAGQAIABDAGEAbABsAAAFTABN
+AAAFTgBBAAAnTABlAGYAdAAgAE0AZQBzAHMAYQBnAGUAIAAoAFcAbwByAGsAKQAADTEAMAAwADAA
+MgAwAAAxTABlAGYAdAAgAE0AZQBzAHMAYQBnAGUAIAAtACAAUABNACAAKABXAG8AcgBrACkAAQ0x
+ADAAMAAwADUAOAAAIU4AbwAgAEEAbgBzAHcAZQByACAAKABXAG8AcgBrACkAAA0xADAAMAAwADYA
+MAAAK04AbwAgAEEAbgBzAHcAZQByACAALQAgAFAATQAgACgAVwBvAHIAawApAAEFUgBQAAAHTgBS
+AFAAAAVXAE4AABVUAEgASQBSAEQAUABBAFIAVABZAAAPVABIAFIARABQAFQAWQAACzIATgBEAFQA
+TwAABUwAQgAABUwARAAADTEAMAAwADAAMgA1AAA7QQBuAHMAdwBlAHIAIAAtACAATABlAGYAdAAg
+AG0AZQBzAHMAYQBnAGUAIAB0AG8AIABjAGEAbABsAAENMQAwADAAMAAxADkAACNMAGUAZgB0ACAA
+TQBlAHMAcwBhAGcAZQAgAC0AIABQAE0AAT9BAG4AcwB3AGUAcgAgAC0AIABJAGQAZQBuAHQAaQBm
+AGkAZQBkACAAcgBpAGcAaAB0ACAAcABhAHIAdAB5AAENMQAwADAAMAAyADMAAC9BAG4AcwB3AGUA
+cgAgAC0AIABXAGkAbABsACAAYwBhAGwAbAAgAGIAYQBjAGsAAU9BAG4AcwB3AGUAcgAgAC0AIABD
+AGEAbABsAGUAZAAgAHAAYQByAHQAeQAgAHMAYQBpAGQAIAB3AHIAbwBuAGcAIABuAHUAbQBiAGUA
+cgABDTEAMAAwADAANAAxAAArQQBuAHMAdwBlAHIAIAAtACAATQBhAG4AYQBnAGUAcgAgAEMAYQBs
+AGwAAQ0xADAAMAAwADQANQAAGVAAaABvAG4AZQAgAC0AIABCAHUAcwB5AAENMQAwADAAMAA0ADYA
+AB9QAGgAbwBuAGUAIAAtACAAQgB1AHMAeQAgAFAATQABKVAAaABvAG4AZQAgAC0AIABEAGkAcwBj
+AG8AbgBuAGUAYwB0AGUAZAABE04AbwAgAEEAbgBzAHcAZQByAAANMQAwADAAMAA1ADkAAB1OAG8A
+IABBAG4AcwB3AGUAcgAgAC0AIABQAE0AAQ0xADAAMAAwADEAMwAAU04AbwAgAFcAcgBpAHQAdABl
+AG4AIABEAGkAcwBwAHUAdABlACAALwAgAEMAbwBtAHAAbABhAGkAbgB0ACAALQAgAFIAZQBjAGUA
+aQB2AGUAZAABAyoAAAdCAEkARgAAH1YASQB8AE0AQwB8AEUAUABQAHwAQwBXAHwARABDAAANMQAw
+ADAAMAAyADcAAEFBAG4AcwB3AGUAcgAgAC0AIABQAHIAbwBtAGkAcwBlAGQAIAB0AG8AIABwAGEA
+eQAgAGkAbgAgAGYAdQBsAGwAAQdXAEUASwAAP0EAbgBzAHcAZQByACAALQAgAFAAcgBvAG0AaQBz
+AGUAZAAgAHQAbwAgAHAAYQB5ACAAdwBlAGUAawBsAHkAAQdCAFcASwAAQ0EAbgBzAHcAZQByACAA
+LQAgAFAAcgBvAG0AaQBzAGUAZAAgAHQAbwAgAHAAYQB5ACAAYgBpAHcAZQBlAGsAbAB5AAEHUwBN
+AE8AAElBAG4AcwB3AGUAcgAgAC0AIABQAHIAbwBtAGkAcwBlAGQAIAB0AG8AIABwAGEAeQAgAHMA
+ZQBtAGkAbQBvAG4AdABoAGwAeQABB00ATwBOAABBQQBuAHMAdwBlAHIAIAAtACAAUAByAG8AbQBp
+AHMAZQBkACAAdABvACAAcABhAHkAIABtAG8AbgB0AGgAbAB5AAFBQQBuAHMAdwBlAHIAIAAtACAA
+RQBsAGUAYwB0AHIAbwBuAGkAYwAgAHAAYQB5AG0AZQBuAHQAIABtAGEAZABlAAEHUwBFAFQAAA0x
+ADAAMAAwADMAMwAAN0EAbgBzAHcAZQByACAALQAgAFMAZQB0AHQAbABlAG0AZQBuAHQAIABpAG4A
+IABGAHUAbABsAAFhQQBjAHQAaQBvAG4AQwBvAGQAZQAgAD0AIABQAEEAIABiAHUAdAAgAEEAYwB0
+AGkAdgBlAEEAcgByAGEAbgBnAGUAbQBlAG4AdABGAGwAYQBnACAAPAA+ACAAJwAqACcAAQ0xADAA
+MAAwADMANAAAMUEAbgBzAHcAZQByACAALQAgAEIAcgBvAGsAZQBuACAAUAByAG8AbQBpAHMAZQBz
+AAENMQAwADAAMAAzADUAAEFBAG4AcwB3AGUAcgAgAC0AIABBAHQAdABvAHIAbgBlAHkAIABSAGUA
+cAByAGUAcwBlAG4AdABhAHQAaQB2AGUAAQ0xADAAMAAwADMANgAAI0EAbgBzAHcAZQByACAALQAg
+AEIAYQBuAGsAcgB1AHAAdAABDTEAMAAwADAAMwA3AAAvQQBuAHMAdwBlAHIAIAAtACAAUgBlAGYA
+dQBzAGEAbAAgAHQAbwAgAFAAYQB5AAENMQAwADAAMAAzADkAACNBAG4AcwB3AGUAcgAgAC0AIABE
+AGUAYwBlAGEAcwBlAGQAAQ0xADAAMAAwADQAMAAALUEAbgBzAHcAZQByACAALQAgAEMAZQBhAHMA
+ZQAgAEMAbwBuAHQAYQBjAHQAATlQAGgAbwBuAGUAIAAtACAASQBuAHYAYQBsAGkAZAAgAFAAaABv
+AG4AZQAgAE4AdQBtAGIAZQByAAFNRABvAG4AJwB0ACAAawBuAG8AdwAgAGgAbwB3ACAAdABvACAA
+aABhAG4AZABsAGUAIABBAGMAdABpAG8AbgAgAGMAbwBkAGUAIAAnAAEDJwABFUQAYQB0AGUAQwBh
+AGwAbABlAGQAABVUAGkAbQBlAEMAYQBsAGwAZQBkAAAXRABlAHMAYwByAGkAcAB0AGkAbwBuAAAh
+RgBpAHIAcwB0AFAAYQB5AG0AZQBuAHQARABhAHQAZQAAH0wAYQBzAHQAUABhAHkAbQBlAG4AdABE
+AGEAdABlAAAhTgB1AG0AYgBlAHIATwBmAFAAYQB5AG0AZQBuAHQAcwAAF1AAaABvAG4AZQBOAHUA
+bQBiAGUAcgAAJVQAbwB0AGEAbABQAGEAeQBtAGUAbgB0AEEAbQBvAHUAbgB0AAALQQBnAGUAbgB0
+AAANUwBZAFMAVABFAE0AAAVPAFQAAAlPAFQAQQBBAAAJQQBEAFMAUAAACUEARwBSAFAAAAlBAEcA
+VwBOAAAJQwBSAFcATgAACU8AVABXAE4AAAlBAEcAUABQAAAJQQBHADMAUAAAC0EARwBCAEsAVAAA
+DUEARwBSAFAAQQBZAAAJQQBHAEQAQwAAC0EARwBEAE4AQwAACUEARwBUAFIAAAlPAFQAWABGAAAF
+TABGAAAJQQBHAEwAQgAAB0EATgBEAAAFQgBOAAAJQQBHAFcATQAACUEARwBOAEEAAAdNAEwATQAA
+C0EARwBMAE0ATQAAP0EAbgBzAHcAZQByACAALQAgAFAAcgBvAG0AaQBzAGUAIAB0AG8AIABwAGEA
+eQAgAGIAeQAgAG0AYQBpAGwAAQ0xADAAMAAwADQAMwAAO0EAbgBzAHcAZQByACAALQAgAFQAcgBh
+AG4AcwBmAGUAcgByAGUAZAAgAHQAbwAgAEEAZwBlAG4AdAABDTEAMAAwADAANAA0AABLQQBuAHMA
+dwBlAHIAIAAtACAAQwBhAGwAbAAgAFAAcgBvAGcAcgBlAHMAcwAgAEEAbgBhAGwAeQBzAGkAcwAg
+AEYAYQBpAGwAcwABK0EAbgBzAHcAZQByACAALQAgAEwAZQBmAHQAIABNAGUAcwBzAGEAZwBlAAFN
+RABvAG4AJwB0ACAAawBuAG8AdwAgAGgAbwB3ACAAdABvACAAaABhAG4AZABsAGUAIABSAGUAcwB1
+AGwAdAAgAGMAbwBkAGUAIAAnAAEXUgBlAHEAdQBlAHMAdABEAGEAdABlAAAVTABlAHQAdABlAHIA
+QwBvAGQAZQAALUwAZQB0AHQAZQByAEgAaQBzAHQAbwByAHkAUAByAGkAbgB0AEQAYQB0AGUAACNM
+AGUAdAB0AGUAcgBEAGUAcwBjAHIAaQBwAHQAaQBvAG4AABVSAGUAdAB1AHIAbgBEAGEAdABlAAAX
+UgBlAHEAdQBlAHMAdABlAGQAQgB5AAAHSQBEAE4AAA0xADAAMAAwADAAMQAAMUQAZQBtAGEAbgBk
+ACAATABlAHQAdABlAHIAIAAmACAARwBMAEIAIABTAGUAbgB0AAAjRQBGAFQAQQAwADAAMAAxAHwA
+UABEAFIAMAAwADAAMAAxAAANMQAwADAAMAAwADQAAGVQAG8AcwB0ACAARABhAHQAZQBkACAAQwBo
+AGUAYwBrACAALwAgAEUAbABlAGMAdAByAG8AbgBpAGMAIABGAHUAbgBkACAAVAByAGEAbgBzAGYA
+ZQByACAATgBvAHQAaQBjAGUAACNQAEYAUAAwADAAMAAwADEAfABTAEMATgAwADAAMAAwADEAAA0x
+ADAAMAAwADAANQAAQVMASQBGAC8AUABJAEYAIABDAG8AbgBmAGkAcgBtAGEAdABpAG8AbgAgAEwA
+ZQB0AHQAZQByACAAUwBlAG4AdAAATUQAbwBuACcAdAAgAGsAbgBvAHcAIABoAG8AdwAgAHQAbwAg
+AGgAYQBuAGQAbABlACAAbABlAHQAdABlAHIAIABjAG8AZABlACAAJwABE1MAawBpAHAAUABoAG8A
+bgBlAAAbUwBrAGkAcABQAGgAbwBuAGUAVAB5AHAAZQAAG1MAawBpAHAAUABoAG8AbgBlAEYAbABh
+AGcAAAMsAAAPZABhAHQAYQBfAGkAZAAAFXAAcgBpAF8AYQBjAGMAdABuAG8AAB9hAGMAdABpAHYA
+aQB0AHkAdAB5AHAAZQBfAGkAZAAAG2EAYwB0AGkAdgBpAHQAeQBfAHQAeQBwAGUAABthAGMAdABp
+AHYAaQB0AHkAXwBpAHQAZQBtAAAlYQBjAHQAaQB2AGkAdAB5AF8AaQB0AGUAbQBfAGQAZQBzAGMA
+ABthAGMAdABpAHYAaQB0AHkAXwBkAGEAdABlAAAfYQBjAHQAaQB2AGkAdAB5AF8AYQBtAG8AdQBu
+AHQAAB1hAGMAdABpAHYAaQB0AHkAXwBwAGgAbwBuAGUAACdhAGMAdABpAHYAaQB0AHkAXwBwAGgA
+bwBuAGUAXwB0AHkAcABlAAAfYQBjAHQAaQB2AGkAdAB5AF8AcwBvAHUAcgBjAGUAAC9hAGMAdABp
+AHYAaQB0AHkAXwBjAG8AbABsAGUAYwB0AG8AcgBfAGMAbwBkAGUAABthAGMAdABpAHYAaQB0AHkA
+XwB0AGkAbQBlAAAlYQBjAHQAaQB2AGkAdAB5AF8AdABpAG0AZQBfAHoAbwBuAGUAACVhAGMAdABp
+AHYAaQB0AHkAXwBkAGkAYQBsAF8AdAB5AHAAZQAAGWEAYwB0AGkAdgBpAHQAeQBfAGQAdQBlAACA
+m0kAcwBOAHUAbABsACAAcAByAG8AcABlAHIAdAB5ACAAYwBhAG4AbgBvAHQAIABiAGUAIABzAGUA
+dAAgAHQAbwAgAEYAYQBsAHMAZQAuACAAQQBzAHMAaQBnAG4AIABhACAAdgBhAGwAdQBlACAAdABv
+ACAAdABoAGUAIABjAG8AbAB1AG0AbgAgAGkAbgBzAHQAZQBhAGQALgAAIUEAcgB0AGkAdgBhAEMA
+bwBuAG4AZQBjAHQAaQBvAG4AABNDAGwAaQBlAG4AdABJAEQAcwAAcVMAQwBfAGUAMgBlADEAMAAy
+AGUAOABhADkANgAyADQAZgAxAGUAYQAwAGMANAA2ADAAYgBmAGUAZgBkADQANwA0ADAAOAAuAFAA
+cgBvAHAAZQByAHQAaQBlAHMALgBSAGUAcwBvAHUAcgBjAGUAcwAAAAD4a18jgzvOQ58Xzm2IC9af
+AAiJhF3NgIDMkQi3elxWGTTgiQMGEjQDBhI4AyAAAQMGEjALIAQBCB0IHRIZEh0CBg4GBhUSIQEO
+CSABFRIlARIoDgggABUSJQESFAggABUSJQESHAggABUSJQESJAggABUSJQESGAIGCAMGERAEAAAA
+AAQBAAAABAIAAAAEAwAAAAQEAAAAAwYSKQMgAA4EIAEBDgQgABEQBSABAREQCCAAFRItARIoCSAB
+ARUSLQESKAUgAQERMQQgABExBwYVEi0BEigDBhExAygADgQoABEQCCgAFRItARIoBCgAETEFIAEB
+EjUFIAEBETkEIAAROQMGETkEKAAROQUgAREgDgMGESAEBQAAAAQGAAAABAcAAAAECAAAAAQJAAAA
+BAoAAAAECwAAAAMGHQ4JIAMBEhkdCBIdBCABAQIDIAACAygAAgMGEgUFIAEBEgUEIAASPQQoABI9
+AwYSQQMGEkUEAAASQQQAABJFBQABARJFBAgAEkEECAASRQMGEkAEAAASQAQIABJABCABAQgGAAII
+Eh0OBSABHQgIAwcBCAUVEiEBDgUgAQITAAUAAQ4SFAgGFRJ9AhIUDg8QAQEVEi0BHgAVEiUBHgAE
+CgESFAYVEi0BEhQJIAAVEYCJARMABxURgIkBEhQEIAATAAQKARIoChABAQIVEiUBHgAGFRItARIs
+BxUSfQISFA4FIAIBHBgYEAICFRKAkQEeABUSJQEeABUSfQIeAB4BBQoCEhQOGRACAhUSgJEBHgAV
+EoCRAR4AFRJ9Ah4AHgEGFRIlARIUCSAAFRKAlQETAAcVEoCVARIUBAABCg4FAAIODg4EIAECDgQg
+AQ4OBQACAg4OBAABAg4GFRItARIoBxURgIkBEigEIAEDCAUgAQETAAUgARMACAYAAw4ODg4HFRGA
+iQESLAUAAg4OHAYgARKAqQ4FIAIODg5aBx0VEi0BEhQSFBUSLQESLBIUEhgSLAISKBIoEiwSHBIs
+ESASLBIkEiwSgKkSLBURgIkBEhQVEoCVARIUERARORURgIkBEigDFRGAiQESKAMRIAMVEYCJARIs
+BhUSJQESKAcVEoCVARIoCSAAFRKAlQESKAUgABKApQMGEigEIAASKAMgABwDBhIMBAYSgLEEBhKA
+tQQGEoC5BCgAEigDKAAcBQAAEoDBAyAACAQHARJEByACAQ4SgLEFIAASgLkEBwICCAUHAwgICAkg
+AQEVEiUBEwAIBwEVEi0BEhQGFRIlARIcBxUSgJUBEhwJIAAVEoCVARIcAwYSHAQgABIcBCgAEhwE
+BwESSAQAABExBSAAEYDRBwAEDg4ODg4GBwMCCBExBhUSJQESJAcVEoCVARIkCSAAFRKAlQESJAMG
+EiQEIAASJAQoABIkBAcBEkwGFRIlARIYBxUSgJUBEhgJIAAVEoCVARIYAwYSGAQgABIYBCgAEhgE
+BwESUAMAAAEFAAESKQ4EIAEcDgQGEoDdCBURgOEBEYDlBCABAQoJAAIRMRExEYDlGAcFFRGA4QER
+gOURMRURgOEBEYDlETERMQkgBgEICAgICAgIBhUSgOkCDggHFRKA6QIOCAcgAgETABMBCCACAhMA
+EBMBCAACAg4QEYDlBwACAhExETEUBwsRgOURMRExETERMRExDggODggUBwMVEYDhARGA5RExFRGA
+4QERgOUEBwIOCAUgAg4ICAYAAg4OHQ4EBwEdDgUgAgEIHAUgABKA8QUgABKA9QYgARKA+Q4FIAAS
+gP0GIAESgQEcBQAAEoEFBiABHBKBCQgAARKBERGBFQUgABKBGQcgAgEOEoEZBAcBEkEGIAEBEYEh
+CAEAAgAAAAAARwEAGi5ORVRGcmFtZXdvcmssVmVyc2lvbj12NC4wAQBUDhRGcmFtZXdvcmtEaXNw
+bGF5TmFtZRAuTkVUIEZyYW1ld29yayA0KAEAI1NDX2UyZTEwMmU4YTk2MjRmMWVhMGM0NjBiZmVm
+ZDQ3NDA4AAAFAQAAAAAWAQARQ29weXJpZ2h0IEAgIDIwMTgAAAgBAAgAAAAAAB4BAAEAVAIWV3Jh
+cE5vbkV4Y2VwdGlvblRocm93cwEAAPoAAAAAAAAAAAAAHvoAAAAgAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAABD6AAAAAAAAAAAAAAAAAAAAAF9Db3JEbGxNYWluAG1zY29yZWUuZGxsAAAAAAD/JQAgABAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAABABAAAAAYAACAAAAAAAAAAAAAAAAAAAABAAEAAAAwAACAAAAAAAAA
+AAAAAAAAAAABAAAAAABIAAAAWAABALADAAAAAAAAAAAAALADNAAAAFYAUwBfAFYARQBSAFMASQBP
+AE4AXwBJAE4ARgBPAAAAAAC9BO/+AAABAAAAAQDCb6UcAAABAMJvpRw/AAAAAAAAAAQAAAACAAAA
+AAAAAAAAAAAAAAAARAAAAAEAVgBhAHIARgBpAGwAZQBJAG4AZgBvAAAAAAAkAAQAAABUAHIAYQBu
+AHMAbABhAHQAaQBvAG4AAAAAAAAAsAQQAwAAAQBTAHQAcgBpAG4AZwBGAGkAbABlAEkAbgBmAG8A
+AADsAgAAAQAwADAAMAAwADAANABiADAAAABwACQAAQBGAGkAbABlAEQAZQBzAGMAcgBpAHAAdABp
+AG8AbgAAAAAAUwBDAF8AZQAyAGUAMQAwADIAZQA4AGEAOQA2ADIANABmADEAZQBhADAAYwA0ADYA
+MABiAGYAZQBmAGQANAA3ADQAMAA4AAAAQAAPAAEARgBpAGwAZQBWAGUAcgBzAGkAbwBuAAAAAAAx
+AC4AMAAuADcAMwAzADMALgAyADgANgAxADAAAAAAAHAAKAABAEkAbgB0AGUAcgBuAGEAbABOAGEA
+bQBlAAAAUwBDAF8AZQAyAGUAMQAwADIAZQA4AGEAOQA2ADIANABmADEAZQBhADAAYwA0ADYAMABi
+AGYAZQBmAGQANAA3ADQAMAA4AC4AZABsAGwAAABIABIAAQBMAGUAZwBhAGwAQwBvAHAAeQByAGkA
+ZwBoAHQAAABDAG8AcAB5AHIAaQBnAGgAdAAgAEAAIAAgADIAMAAxADgAAAB4ACgAAQBPAHIAaQBn
+AGkAbgBhAGwARgBpAGwAZQBuAGEAbQBlAAAAUwBDAF8AZQAyAGUAMQAwADIAZQA4AGEAOQA2ADIA
+NABmADEAZQBhADAAYwA0ADYAMABiAGYAZQBmAGQANAA3ADQAMAA4AC4AZABsAGwAAABoACQAAQBQ
+AHIAbwBkAHUAYwB0AE4AYQBtAGUAAAAAAFMAQwBfAGUAMgBlADEAMAAyAGUAOABhADkANgAyADQA
+ZgAxAGUAYQAwAGMANAA2ADAAYgBmAGUAZgBkADQANwA0ADAAOAAAAEQADwABAFAAcgBvAGQAdQBj
+AHQAVgBlAHIAcwBpAG8AbgAAADEALgAwAC4ANwAzADMAMwAuADIAOAA2ADEAMAAAAAAASAAPAAEA
+QQBzAHMAZQBtAGIAbAB5ACAAVgBlAHIAcwBpAG8AbgAAADEALgAwAC4ANwAzADMAMwAuADIAOAA2
+ADEAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+APAAAAwAAAAwOgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=]]></arrayElement>
+                  </arrayElements>
+                </property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the Microsoft Visual Studio Tools for Applications project. Project names must be unique within a package."
+                  name="VSTAProjectName"
+                  typeConverter="NOTBROWSABLE">SC_e2e102e8a9624f1ea0c460bfefd47408</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the programming language used by the script."
+                  name="ScriptLanguage"
+                  typeConverter="Microsoft.SqlServer.VSTAHosting.ScriptingLanguages, Microsoft.SqlServer.VSTAScriptingLib, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">CSharp</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a comma-separated list of read-only variables."
+                  name="ReadOnlyVariables"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIVariablePickerDlg, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">$Project::ClientIDs</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a comma-separated list of read/write variables."
+                  name="ReadWriteVariables"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIWriteableVariablePickerDlg, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="List of breakpoints present on the script."
+                  isArray="true"
+                  name="BreakpointCollection"
+                  typeConverter="NOTBROWSABLE">
+                  <arrayElements
+                    arrayElementCount="1">
+                    <arrayElement
+                      dataType="System.String">&lt;SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"&gt;
+&lt;SOAP-ENV:Body&gt;
+&lt;a1:ScriptBreakpointInfo id="ref-1" xmlns:a1="http://schemas.microsoft.com/clr/nsassem/Microsoft.SqlServer.VSTAHosting/Microsoft.SqlServer.VSTAScriptingLib%2C%20Version%3D11.0.0.0%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3D89845dcd8080cc91"&gt;
+&lt;Enabled&gt;true&lt;/Enabled&gt;
+&lt;File id="ref-3"&gt;main.cs&lt;/File&gt;
+&lt;FileLine&gt;609&lt;/FileLine&gt;
+&lt;FileColumn&gt;13&lt;/FileColumn&gt;
+&lt;/a1:ScriptBreakpointInfo&gt;
+&lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;
+</arrayElement>
+                  </arrayElements>
+                </property>
+                <property
+                  dataType="System.String"
+                  description="Checksum to match component metedata against compiled codes."
+                  name="MetadataChecksum"
+                  typeConverter="NOTBROWSABLE">4cd5d830bad37808f45ab08f2b1f3c40</property>
+                <property
+                  dataType="System.String"
+                  description="Checksum to match component metedata against compiled codes."
+                  name="MetadataShaChecksum"
+                  typeConverter="NOTBROWSABLE">3f3efcb672dd3250e42ba120c4395755a3fe4b55</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.SqlServer.Dts.Pipeline.ScriptComponentHost, Microsoft.SqlServer.TxScript, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Create Files\Generate Rows.Connections[ArtivaConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Artiva]"
+                  connectionManagerRefId="Package.ConnectionManagers[Artiva]"
+                  name="ArtivaConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Create Files\Generate Rows.Outputs[Output 0]"
+                  hasSideEffects="true"
+                  name="Output 0">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Create Files\Generate Rows.Outputs[Output 0].Columns[RowData]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2000"
+                      lineageId="Package\Create Files\Generate Rows.Outputs[Output 0].Columns[RowData]"
+                      name="RowData" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Create Files\OB Contact Append"
+              componentClassID="{8DA75FED-1B7C-407D-B2AD-2B24209CCCA4}"
+              contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Flat File Destination"
+              localeId="1033"
+              name="OB Contact Append">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether the data will overwrite or append to the destination file."
+                  name="Overwrite">true</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the text to write to the destination file before any data is written."
+                  expressionType="Notify"
+                  name="Header">data_id,pri_acctno,activitytype_id,activity_type,activity_item,activity_item_desc,activity_date,activity_amount,activity_phone,activity_phone_type,activity_phone_source,activity_phone_collector,activity_time,activity_time_zone,activity_dial_type</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Create Files\OB Contact Append.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[OB Report]"
+                  connectionManagerRefId="Package.ConnectionManagers[OB Report]"
+                  name="FlatFileConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Create Files\OB Contact Append.Inputs[Flat File Destination Input]"
+                  hasSideEffects="true"
+                  name="Flat File Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Create Files\OB Contact Append.Inputs[Flat File Destination Input].Columns[RowData]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2000"
+                      cachedName="RowData"
+                      externalMetadataColumnId="Package\Create Files\OB Contact Append.Inputs[Flat File Destination Input].ExternalColumns[Column 0]"
+                      lineageId="Package\Create Files\Generate Rows.Outputs[Output 0].Columns[RowData]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Create Files\OB Contact Append.Inputs[Flat File Destination Input].ExternalColumns[Column 0]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Column 0" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Create Files.Paths[Output 0]"
+              endId="Package\Create Files\OB Contact Append.Inputs[Flat File Destination Input]"
+              name="Output 0"
+              startId="Package\Create Files\Generate Rows.Outputs[Output 0]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="136,42"
+          Id="Package\Create Files"
+          TopLeft="5.5,5.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Create Files">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="173,42"
+          Id="Package\Create Files\OB Contact Append"
+          TopLeft="5.50000000000001,107.5" />
+        <NodeLayout
+          Size="152,42"
+          Id="Package\Create Files\Generate Rows"
+          TopLeft="16,5.5" />
+        <EdgeLayout
+          Id="Package\Create Files.Paths[Output 0]"
+          TopLeft="92,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

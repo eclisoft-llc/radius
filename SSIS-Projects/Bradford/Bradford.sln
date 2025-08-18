@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "Bradford", "Bradford\Bradford.dtproj", "{3BA224E1-509E-47CB-A22F-ECA47654EEAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OB-PayDetails", "OB-PayDetails\OB-PayDetails.csproj", "{806B46F9-A244-46BA-A4D0-81266D3108CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Development|Any CPU = Development|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BA224E1-509E-47CB-A22F-ECA47654EEAB}.Debug|Any CPU.ActiveCfg = Development
+		{3BA224E1-509E-47CB-A22F-ECA47654EEAB}.Debug|Any CPU.Build.0 = Development
+		{3BA224E1-509E-47CB-A22F-ECA47654EEAB}.Development|Any CPU.ActiveCfg = Development
+		{3BA224E1-509E-47CB-A22F-ECA47654EEAB}.Development|Any CPU.Build.0 = Development
+		{3BA224E1-509E-47CB-A22F-ECA47654EEAB}.Release|Any CPU.ActiveCfg = Development
+		{3BA224E1-509E-47CB-A22F-ECA47654EEAB}.Release|Any CPU.Build.0 = Development
+		{806B46F9-A244-46BA-A4D0-81266D3108CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{806B46F9-A244-46BA-A4D0-81266D3108CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{806B46F9-A244-46BA-A4D0-81266D3108CD}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{806B46F9-A244-46BA-A4D0-81266D3108CD}.Development|Any CPU.Build.0 = Debug|Any CPU
+		{806B46F9-A244-46BA-A4D0-81266D3108CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{806B46F9-A244-46BA-A4D0-81266D3108CD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://jacs8063.ccscollect.com:8080/tfs/rgscollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Bradford\\Bradford.dtproj
+		SccProjectName1 = Bradford
+		SccLocalPath1 = Bradford
+		SccProjectUniqueName2 = OB-PayDetails\\OB-PayDetails.csproj
+		SccProjectName2 = OB-PayDetails
+		SccLocalPath2 = OB-PayDetails
+	EndGlobalSection
+EndGlobal

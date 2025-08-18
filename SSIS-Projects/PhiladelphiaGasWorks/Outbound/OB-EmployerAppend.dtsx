@@ -1,0 +1,1888 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/9/2018 4:45:13 PM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="DFW2-APPDEV-003"
+  DTS:CreatorName="CORP\Spalopoli"
+  DTS:DTSID="{E6DC9BCA-F9D7-4DE0-AFF8-57E92A66B5B2}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.7507.2"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="OB-EmployerAppend"
+  DTS:PackageType="5"
+  DTS:VersionBuild="107"
+  DTS:VersionGUID="{414F93A1-F013-4E6A-9F56-B8B79F5D99F5}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Artiva]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{0EA2AB79-E9E3-423C-8F30-77F6F747C3E3}"
+      DTS:ObjectName="Artiva">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">"Dsn="+ @[$Project::Namespace] +";"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Dsn=THIRDPROD;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[OB Report]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{45086E16-1C0A-4C77-9A24-5099832CC3FB}"
+      DTS:ObjectName="OB Report">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::OBReportFilename]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="M:\PhiladelphiaGasWorks\Out\employerappend_20210125.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Column 0"
+              DTS:DTSID="{A6168EF6-91F4-4A98-AC1D-77956DB1848A}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{198AD674-779B-4EDA-95C2-54440254C875}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::LocalPath] + &quot;Out\\&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FullOutboundDirectory">
+      <DTS:VariableValue
+        DTS:DataType="8">M:\PhiladelphiaGasWorks\Out\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{24CEF74B-7301-4FF5-B491-AD80EADCE0E4}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::FullOutboundDirectory] + &quot;employerappend_&quot; + &#xA;(DT_STR,4,1252)DATEPART( &quot;yyyy&quot; , getdate() ) +&#xA;RIGHT(&quot;0&quot; + (DT_STR,4,1252)DATEPART( &quot;mm&quot; , getdate() ), 2) +&#xA;RIGHT(&quot;0&quot; + (DT_STR,4,1252)DATEPART( &quot;dd&quot; , getdate() ), 2) + &#xA;&quot;.txt&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="OBReportFilename">
+      <DTS:VariableValue
+        DTS:DataType="8">M:\PhiladelphiaGasWorks\Out\employerappend_20210125.txt</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Create Files"
+      DTS:CreationName="SSIS.Pipeline.3"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{8F88929F-D407-45F2-A335-1AF4AA141879}"
+      DTS:ExecutableType="SSIS.Pipeline.3"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Files"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="[ODBC Source].[SqlCommand]">"SELECT ARACID,
+        STAUDOLDVAL,
+        STAUDNEWVAL,
+        STAUDFLDNAME,
+        ZZACCREDINTCONSACNUM,
+        ARACCLACCT,
+        ARENPOE
+FROM STFIELDAUD
+INNER JOIN ARENTITY on ARENID = STAUDKEY
+INNER JOIN ARRELATIONSHIP ON ARRELENID = ARENID
+INNER JOIN araccount ON ARRELACID = ARACID
+INNER JOIN arclient ON ARACCLTID = ARCLID AND ARCLID IN " + @[$Project::ClientIDs] + "
+where STAUDFLDNAME IN ('ARENPOE','ARENPOEADR','ARENPOEUNT','ARENPOECTY','ARENPOEST','ARENPOEZIP','ARENPOEPH')
+AND STAUDDATE = CAST(DATEADD(day, -1, getdate()) AS Date)
+AND ISNULL(ARACCANCID,'ACTIVE') NOT IN ('RETURN','DUPE')
+AND ISNULL(ARENPOE, '') &lt;&gt; ''"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Create Files\OB Employer Append"
+              componentClassID="{8DA75FED-1B7C-407D-B2AD-2B24209CCCA4}"
+              contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Flat File Destination"
+              localeId="1033"
+              name="OB Employer Append">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether the data will overwrite or append to the destination file."
+                  name="Overwrite">true</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the text to write to the destination file before any data is written."
+                  expressionType="Notify"
+                  name="Header">data_id,pri_acctno,employer_id,employer_add1,employer_add2,employer_city,employer_state,employer_zip,employer_country,employer_phone,employer_fax,employer_employee_ssn,employer_employee_first,employer_employee_middle,employer_employee_last,employer_position,employer_title,employer_code,employer_manager,employer_employee_id,employer_disclaimer,employer_payroll_disclaimer,employer_wage_basis,employer_wage,employer_division_code,employer_status,employer_effective_date,employer_most_recent,employer_length,employer_termination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Create Files\OB Employer Append.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[OB Report]"
+                  connectionManagerRefId="Package.ConnectionManagers[OB Report]"
+                  name="FlatFileConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Create Files\OB Employer Append.Inputs[Flat File Destination Input]"
+                  hasSideEffects="true"
+                  name="Flat File Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Create Files\OB Employer Append.Inputs[Flat File Destination Input].Columns[Data]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1000"
+                      cachedName="Data"
+                      externalMetadataColumnId="Package\Create Files\OB Employer Append.Inputs[Flat File Destination Input].ExternalColumns[Column 0]"
+                      lineageId="Package\Create Files\Script Component.Outputs[OB_ADEM].Columns[Data]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Create Files\OB Employer Append.Inputs[Flat File Destination Input].ExternalColumns[Column 0]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Column 0" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+            </component>
+            <component
+              refId="Package\Create Files\ODBC Source"
+              componentClassID="{A77F5655-A006-443A-9B7E-90B6BD55CB84}"
+              contactInfo="ODBC Source;Connector for Open Database Connectivity (ODBC) by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;1"
+              description="ODBC Source"
+              name="ODBC Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The name of the table to be fetched."
+                  expressionType="Notify"
+                  name="TableName"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand">SELECT ARACID,
+        STAUDOLDVAL,
+        STAUDNEWVAL,
+        STAUDFLDNAME,
+        ZZACCREDINTCONSACNUM,
+        ARACCLACCT,
+        ARENPOE
+FROM STFIELDAUD
+INNER JOIN ARENTITY on ARENID = STAUDKEY
+INNER JOIN ARRELATIONSHIP ON ARRELENID = ARENID
+INNER JOIN araccount ON ARRELACID = ARACID
+INNER JOIN arclient ON ARACCLTID = ARCLID AND ARCLID IN ('PGWCOM','PGWRES','PGWUND')
+where STAUDFLDNAME IN ('ARENPOE','ARENPOEADR','ARENPOEUNT','ARENPOECTY','ARENPOEST','ARENPOEZIP','ARENPOEPH')
+AND STAUDDATE = CAST(DATEADD(day, -1, getdate()) AS Date)
+AND ISNULL(ARACCANCID,'ACTIVE') NOT IN ('RETURN','DUPE')
+AND ISNULL(ARENPOE, '') &lt;&gt; ''</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows fetched per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines how the component exposes CHAR columns. If False, CHAR columns are exposed as (multi-)byte strings (DT_STR), if True, CHAR columns are exposed as wide strings (DT_WSTR)"
+                  expressionType="Notify"
+                  name="ExposeCharColumnsAsUnicode">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Int32"
+                  description="The mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for fetching data."
+                  expressionType="Notify"
+                  name="FetchMethod"
+                  typeConverter="FetchMethod">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs"
+                  typeConverter="BindNumericAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs"
+                  typeConverter="BindCharColumnsAs">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Create Files\ODBC Source.Connections[ODBCConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Artiva]"
+                  connectionManagerRefId="Package.ConnectionManagers[Artiva]"
+                  description="The ODBC runtime connection"
+                  name="ODBCConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output]"
+                  errorRowDisposition="FailComponent"
+                  name="ODBC Source Output"
+                  truncationRowDisposition="FailComponent">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[ARACID]"
+                      dataType="numeric"
+                      externalMetadataColumnId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[ARACID]"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[ARACID]"
+                      name="ARACID"
+                      precision="13" />
+                    <outputColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[STAUDOLDVAL]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[STAUDOLDVAL]"
+                      length="300"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[STAUDOLDVAL]"
+                      name="STAUDOLDVAL" />
+                    <outputColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[STAUDNEWVAL]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[STAUDNEWVAL]"
+                      length="300"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[STAUDNEWVAL]"
+                      name="STAUDNEWVAL" />
+                    <outputColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[STAUDFLDNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[STAUDFLDNAME]"
+                      length="20"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[STAUDFLDNAME]"
+                      name="STAUDFLDNAME" />
+                    <outputColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[ZZACCREDINTCONSACNUM]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[ZZACCREDINTCONSACNUM]"
+                      length="50"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[ZZACCREDINTCONSACNUM]"
+                      name="ZZACCREDINTCONSACNUM" />
+                    <outputColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[ARACCLACCT]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[ARACCLACCT]"
+                      length="30"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[ARACCLACCT]"
+                      name="ARACCLACCT" />
+                    <outputColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[ARENPOE]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[ARENPOE]"
+                      length="50"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[ARENPOE]"
+                      name="ARENPOE" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[ARACID]"
+                      dataType="numeric"
+                      name="ARACID"
+                      precision="13" />
+                    <externalMetadataColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[STAUDOLDVAL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="300"
+                      name="STAUDOLDVAL" />
+                    <externalMetadataColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[STAUDNEWVAL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="300"
+                      name="STAUDNEWVAL" />
+                    <externalMetadataColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[STAUDFLDNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="STAUDFLDNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[ZZACCREDINTCONSACNUM]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ZZACCREDINTCONSACNUM" />
+                    <externalMetadataColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[ARACCLACCT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="ARACCLACCT" />
+                    <externalMetadataColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[ARENPOE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ARENPOE" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[ARACID]"
+                      dataType="numeric"
+                      externalMetadataColumnId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[ARACID]"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[ARACID]"
+                      name="ARACID"
+                      precision="13" />
+                    <outputColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[STAUDOLDVAL]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[STAUDOLDVAL]"
+                      length="300"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[STAUDOLDVAL]"
+                      name="STAUDOLDVAL" />
+                    <outputColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[STAUDNEWVAL]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[STAUDNEWVAL]"
+                      length="300"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[STAUDNEWVAL]"
+                      name="STAUDNEWVAL" />
+                    <outputColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[STAUDFLDNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[STAUDFLDNAME]"
+                      length="20"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[STAUDFLDNAME]"
+                      name="STAUDFLDNAME" />
+                    <outputColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[ZZACCREDINTCONSACNUM]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[ZZACCREDINTCONSACNUM]"
+                      length="50"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[ZZACCREDINTCONSACNUM]"
+                      name="ZZACCREDINTCONSACNUM" />
+                    <outputColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[ARACCLACCT]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[ARACCLACCT]"
+                      length="30"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[ARACCLACCT]"
+                      name="ARACCLACCT" />
+                    <outputColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[ARENPOE]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].ExternalColumns[ARENPOE]"
+                      length="50"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[ARENPOE]"
+                      name="ARENPOE" />
+                    <outputColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Create Files\Script Component"
+              componentClassID="{874F7595-FB5F-40FF-96AF-FBFF8250E3EF}"
+              contactInfo="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;8"
+              description="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum."
+              name="Script Component"
+              version="8">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Stores the source code of the component"
+                  isArray="true"
+                  name="SourceCode"
+                  state="cdata">
+                  <arrayElements
+                    arrayElementCount="30">
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\Resources.resx]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[main.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[#region Namespaces
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+using System.Collections.Generic;
+using RGS.ArtivaGeneralPurpose.Data.Records;
+using FileHelpers;
+using System.Data.Odbc;
+using System.IO;
+#endregion
+
+[Microsoft.SqlServer.Dts.Pipeline.SSISScriptComponentEntryPointAttribute]
+public class ScriptMain : UserComponent
+{
+    Dictionary<string, EmployerAppend> _contactRecs;
+
+    public override void PreExecute()
+    {
+        base.PreExecute();
+        _contactRecs = new Dictionary<string, EmployerAppend>();
+    }
+
+    public override void PostExecute()
+    {
+        base.PostExecute();
+        int count = 0;
+
+        foreach (var kvp in _contactRecs)
+        {
+            var addRec = kvp.Value;
+            if (string.IsNullOrEmpty(addRec.employer_name))
+                continue;
+
+            count++;
+            string ademRec = addRec.InternalConsumerNumber + "," +
+                addRec.ClientReferenceNumber + "," +
+                addRec.employer_name + "," +
+                addRec.employer_add1 + "," +
+                addRec.employer_add2 + "," +
+                addRec.employer_city + "," +
+                addRec.employer_state + "," +
+                addRec.employer_zip + "," +
+                addRec.employer_country + "," +
+                addRec.employer_phone + "," +
+                addRec.employer_fax + "," +
+                addRec.employer_employee_ssn + "," +
+                addRec.employer_employee_first + "," +
+                addRec.employer_employee_middle + "," +
+                addRec.employer_employee_last + "," +
+                addRec.employer_position + "," +
+                addRec.employer_title + "," +
+                addRec.employer_code + "," +
+                addRec.employer_manager + "," +
+                addRec.employer_employee_id + "," +
+                addRec.employer_disclaimer + "," +
+                addRec.employer_payroll_disclaimer + "," +
+                addRec.employer_wage_basis + "," +
+                addRec.employer_wage + "," +
+                addRec.employer_status + "," +
+                addRec.employer_division_code + "," +
+                addRec.employer_effective_date + "," +
+                addRec.employer_most_recent + "," +
+                addRec.employer_length + "," +
+                addRec.employer_termination + "\r\n";
+
+            File.AppendAllText(Connections.OBADEMConnection.ConnectionString, ademRec);
+        }
+
+        if (count == 0)
+        {
+            File.Delete(Connections.OBADEMConnection.ConnectionString);
+            return;
+        }
+    }
+
+    public override void Input0_ProcessInputRow(Input0Buffer Row)
+    {
+        if (!_contactRecs.ContainsKey(Row.ZZACCREDINTCONSACNUM))
+        {
+            var rec = new EmployerAppend
+            {
+                employer_name = Row.ARENPOE,
+                ClientReferenceNumber = Row.ARACCLACCT,
+                InternalConsumerNumber = Row.ZZACCREDINTCONSACNUM
+            };
+            addContactData(rec, Row);
+            _contactRecs.Add(Row.ZZACCREDINTCONSACNUM, rec);
+        }
+        else
+            addContactData(_contactRecs[Row.ZZACCREDINTCONSACNUM], Row);
+    }
+
+    private void addContactData(EmployerAppend rec, Input0Buffer Row)
+    {
+        if (Row.STAUDFLDNAME == "ARENPOE")
+            rec.employer_name = Row.STAUDNEWVAL;
+        else if (Row.STAUDFLDNAME == "ARENPOEADR")
+            rec.employer_add1 = Row.STAUDNEWVAL;
+        else if (Row.STAUDFLDNAME == "ARENPOEUNT")
+            rec.employer_add2 = Row.STAUDNEWVAL;
+        else if (Row.STAUDFLDNAME == "ARENPOECTY")
+            rec.employer_city = Row.STAUDNEWVAL;
+        else if (Row.STAUDFLDNAME == "ARENPOEST")
+            rec.employer_state = Row.STAUDNEWVAL;
+        else if (Row.STAUDFLDNAME == "ARENPOEZIP")
+            rec.employer_zip = Row.STAUDNEWVAL;
+        else if (Row.STAUDFLDNAME == "ARENPOEPH")
+            rec.employer_phone = Row.STAUDNEWVAL;
+    }
+
+    public class EmployerAppend
+    {
+        public string InternalConsumerNumber { set; get; }
+        public string ClientReferenceNumber { set; get; }
+        public string employer_name { get; set; }
+        public string employer_add1 { get; set; }
+        public string employer_add2 { get; set; }
+        public string employer_city { get; set; }
+        public string employer_state { get; set; }
+        public string employer_zip { get; set; }
+        public string employer_country { get; set; }
+        public string employer_phone { get; set; }
+        public string employer_fax { get; set; }
+        public string employer_employee_ssn { get; set; }
+        public string employer_employee_first { get; set; }
+        public string employer_employee_middle { get; set; }
+        public string employer_employee_last { get; set; }
+        public string employer_position { get; set; }
+        public string employer_title { get; set; }
+        public string employer_code { get; set; }
+        public string employer_manager { get; set; }
+        public string employer_employee_id { get; set; }
+        public string employer_disclaimer { get; set; }
+        public string employer_payroll_disclaimer { get; set; }
+        public string employer_wage_basis { get; set; }
+        public string employer_wage { get; set; }
+        public string employer_status { get; set; }
+        public string employer_division_code { get; set; }
+        public string employer_effective_date { get; set; }
+        public string employer_most_recent { get; set; }
+        public string employer_length { get; set; }
+        public string employer_termination { get; set; }
+    }
+}]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[BufferWrapper.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services buffer wrappers
+*  This module defines classes for accessing data flow buffers
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+
+public class Input0Buffer: ScriptBuffer
+
+{
+    public Input0Buffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public Decimal ARACID
+    {
+        get
+        {
+            return Buffer.GetDecimal(BufferColumnIndexes[0]);
+        }
+    }
+    public bool ARACID_IsNull
+    {
+        get
+        {
+            return IsNull(0);
+        }
+    }
+
+    public String ZZACCREDINTCONSACNUM
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[1]);
+        }
+    }
+    public bool ZZACCREDINTCONSACNUM_IsNull
+    {
+        get
+        {
+            return IsNull(1);
+        }
+    }
+
+    public String STAUDOLDVAL
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[2]);
+        }
+    }
+    public bool STAUDOLDVAL_IsNull
+    {
+        get
+        {
+            return IsNull(2);
+        }
+    }
+
+    public String STAUDNEWVAL
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[3]);
+        }
+    }
+    public bool STAUDNEWVAL_IsNull
+    {
+        get
+        {
+            return IsNull(3);
+        }
+    }
+
+    public String STAUDFLDNAME
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[4]);
+        }
+    }
+    public bool STAUDFLDNAME_IsNull
+    {
+        get
+        {
+            return IsNull(4);
+        }
+    }
+
+    public String ARACCLACCT
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[5]);
+        }
+    }
+    public bool ARACCLACCT_IsNull
+    {
+        get
+        {
+            return IsNull(5);
+        }
+    }
+
+    public String ARENPOE
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[6]);
+        }
+    }
+    public bool ARENPOE_IsNull
+    {
+        get
+        {
+            return IsNull(6);
+        }
+    }
+
+    new public bool NextRow()
+    {
+        return base.NextRow();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+
+public class OBADEMBuffer: ScriptBuffer
+
+{
+    public OBADEMBuffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String Data
+    {
+        set
+        {
+            this[0] = value;
+        }
+    }
+    public bool Data_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(0);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    new public void AddRow()
+    {
+        base.AddRow();
+    }
+
+    new public void SetEndOfRowset()
+    {
+        base.SetEndOfRowset();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[ComponentWrapper.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services component wrapper
+*  This module defines the base class for your component
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+
+public class UserComponent: ScriptComponent
+{
+    public Connections Connections;
+    public Variables Variables;
+    public UserComponent()
+    {
+        Connections = new Connections(this);
+        Variables = new Variables(this);
+    }
+
+    public OBADEMBuffer OBADEMBuffer;
+
+    int InputsFinished = 0;
+
+    public override void ProcessInput(int InputID, string InputName, PipelineBuffer Buffer, OutputNameMap OutputMap)
+    {
+
+        if (InputName.Equals(@"Input 0", StringComparison.Ordinal))
+        {
+            Input0_ProcessInput(new Input0Buffer(Buffer, GetColumnIndexes(InputID), OutputMap));
+        }
+
+        if (Buffer.EndOfRowset)
+        {
+            InputsFinished = InputsFinished + 1;
+            if (InputsFinished == 1)
+            {
+                FinishOutputs();
+                MarkOutputsFinished();
+            }
+        }
+
+    }
+
+    public virtual void FinishOutputs()
+    {
+    }
+
+    private void MarkOutputsFinished()
+    {
+
+        if (null != OBADEMBuffer)
+        {
+            OBADEMBuffer.SetEndOfRowset();
+            OBADEMBuffer = null;
+        }
+
+    }
+
+    public override void PrimeOutput(int Outputs, int[] OutputIDs, PipelineBuffer[] Buffers, OutputNameMap OutputMap)
+    {
+       for(int Idx = 0; Idx < Outputs; Idx++)
+       {
+            if(OutputIDs[Idx] == GetOutputID(OutputMap, @"OB_ADEM"))
+            {
+                OBADEMBuffer = new OBADEMBuffer(Buffers[Idx], GetColumnIndexes(OutputIDs[Idx]), OutputMap);
+            }
+        }
+
+        CreateNewOutputRows();
+
+    }
+
+    public virtual void CreateNewOutputRows()
+    {
+    }
+
+    public virtual void Input0_ProcessInput(Input0Buffer Buffer)
+    {
+        while (Buffer.NextRow())
+        {
+            Input0_ProcessInputRow(Buffer);
+        }
+    }
+
+    public virtual void Input0_ProcessInputRow(Input0Buffer Row)
+    {
+    }
+
+}
+
+public class Connections
+{
+    ScriptComponent ParentComponent;
+
+    public Connections(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+    public IDTSConnectionManager100 OBADEMConnection
+    {
+        get
+        {
+            return ParentComponent.ComponentMetaData.RuntimeConnectionCollection.GetRuntimeConnectionByName(@"OBADEMConnection").ConnectionManager;
+        }
+    }
+
+    public IDTSConnectionManager100 ArtivaConnection
+    {
+        get
+        {
+            return ParentComponent.ComponentMetaData.RuntimeConnectionCollection.GetRuntimeConnectionByName(@"ArtivaConnection").ConnectionManager;
+        }
+    }
+
+}
+
+public class Variables
+{
+    ScriptComponent ParentComponent;
+
+    public Variables(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+}
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[SC_bc348bdf97b24b838db1fde0d27eeacc.csproj]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1E1BB231-0F5C-4B88-AC85-23CFF8D6CA4E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SC_bc348bdf97b24b838db1fde0d27eeacc</RootNamespace>
+    <AssemblyName>SC_bc348bdf97b24b838db1fde0d27eeacc</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonClasses, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1f7181b3d59d8c40, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>R:\Software\CommonClasses.dll</HintPath>
+    </Reference>
+    <Reference Include="FileHelpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=19889bc9b438f4df, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>R:\Software\RGS.ArtivaGeneralPurpose\FileHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="RGS.ArtivaGeneralPurpose, Version=1.20.0.0, Culture=neutral, PublicKeyToken=972530eacd4bf30a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>R:\Software\RGS.ArtivaGeneralPurpose\RGS.ArtivaGeneralPurpose.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.SqlServer.TxScript, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSRuntimeWrap, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSPipelineWrap, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.PipelineHost, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Compile Include="main.cs" />
+    <Compile Include="BufferWrapper.cs" />
+    <Compile Include="ComponentWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <!-- Include the build rules for a C# project.-->
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- This section defines VSTA properties that describe the host-changable project properties. -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
+        <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" DebugInfoExeName="devenv.exe" DebugInfoCommandLine="/vstaHostDebugUri:&quot;vstadebug44f190f6-794b-45ec-9209-99efe14223d7/080570ad-a604-49b4-aa1f-cb92e9334fdf&quot;" />
+        <Host Name="ScriptComponent" IconIndex="0" />
+        <ProjectClient>
+          <HostIdentifier>SSIS_SC110</HostIdentifier>
+        </ProjectClient>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\Settings.Designer.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_bc348bdf97b24b838db1fde0d27eeacc.Properties.Settings.get_Default():SC_bc348bdf97b24b838db1fde0d27eeacc.Properties.Sett" +
+    "ings")]
+
+namespace SC_bc348bdf97b24b838db1fde0d27eeacc.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Project]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF16LE]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+	<msb:PropertyGroup>
+		<msb:CodeName>SC_bc348bdf97b24b838db1fde0d27eeacc</msb:CodeName>
+		<msb:DisplayName>SC_bc348bdf97b24b838db1fde0d27eeacc</msb:DisplayName>
+		<msb:Language>msBuild</msb:Language>
+		<msb:ProjectId>{43C3A275-A769-46E8-AC3F-179A9FF6ADCC}</msb:ProjectId>
+	</msb:PropertyGroup>
+	<msb:ItemGroup>
+		<msb:Project Include="SC_bc348bdf97b24b838db1fde0d27eeacc.csproj"/>
+		<msb:File Include="Properties\AssemblyInfo.cs"/>
+		<msb:File Include="main.cs"/>
+		<msb:File Include="Properties\Resources.resx"/>
+		<msb:File Include="ComponentWrapper.cs"/>
+		<msb:File Include="Properties\Resources.Designer.cs"/>
+		<msb:File Include="Properties\Settings.Designer.cs"/>
+		<msb:File Include="BufferWrapper.cs"/>
+		<msb:File Include="Properties\Settings.settings"/>
+	</msb:ItemGroup>
+</c:Project>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\AssemblyInfo.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("SC_bc348bdf97b24b838db1fde0d27eeacc")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("SC_bc348bdf97b24b838db1fde0d27eeacc")]
+[assembly: AssemblyCopyright("Copyright @  2017")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\Settings.settings]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\Resources.Designer.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_bc348bdf97b24b838db1fde0d27eeacc.Properties.Resources.get_ResourceManager():System.Resources.Resou" +
+    "rceManager")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_bc348bdf97b24b838db1fde0d27eeacc.Properties.Resources.get_Culture():System.Globalization.CultureIn" +
+    "fo")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_bc348bdf97b24b838db1fde0d27eeacc.Properties.Resources.set_Culture(System.Globalization.CultureInfo" +
+    "):Void")]
+
+namespace SC_bc348bdf97b24b838db1fde0d27eeacc.Properties {
+    
+    
+    /// <summary>
+    ///   A strongly-typed resource class, for looking up localized strings, etc.
+    /// </summary>
+    // This class was auto-generated by the StronglyTypedResourceBuilder
+    // class via a tool like ResGen or Visual Studio.
+    // To add or remove a member, edit your .ResX file then rerun ResGen
+    // with the /str option, or rebuild your VS project.
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    internal class Resources {
+        
+        private static global::System.Resources.ResourceManager resourceMan;
+        
+        private static global::System.Globalization.CultureInfo resourceCulture;
+        
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources() {
+        }
+        
+        /// <summary>
+        ///   Returns the cached ResourceManager instance used by this class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if ((resourceMan == null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SC_bc348bdf97b24b838db1fde0d27eeacc.Properties.Resources", typeof(Resources).Assembly);
+                    resourceMan = temp;
+                }
+                return resourceMan;
+            }
+        }
+        
+        /// <summary>
+        ///   Overrides the current thread's CurrentUICulture property for all
+        ///   resource lookups using this strongly typed resource class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
+                return resourceCulture;
+            }
+            set {
+                resourceCulture = value;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                  </arrayElements>
+                </property>
+                <property
+                  dataType="System.String"
+                  description="Stores the binary representation of the component"
+                  isArray="true"
+                  name="BinaryCode"
+                  state="cdata">
+                  <arrayElements
+                    arrayElementCount="2">
+                    <arrayElement
+                      dataType="System.String"><![CDATA[SC_bc348bdf97b24b838db1fde0d27eeacc.dll]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[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
+ChuUbysAAAoqIgIbKCoAAAoqUgJ7JwAACgJ7KAAAChyUbysAAAoqIgIcKCoAAAoqHgIoLAAACioe
+AigtAAAKKioCAwQFKCYAAAoqJgIWAyguAAAKKloDLAgCFigvAAAKKnK7AABwczAAAAp6HgIoMQAA
+CioeAigyAAAKKh4CKC0AAAoqOgIoJQAACgIDfSQAAAQqggJ7JAAABG8zAAAKbzQAAApyWAEAcG81
+AAAKbzYAAAoqggJ7JAAABG8zAAAKbzQAAApyegEAcG81AAAKbzYAAAoqOgIoJQAACgIDfSUAAAQq
+HgIoJQAACioTMAIALQAAAAQAABF+JgAABC0gcpwBAHDQCQAAAig4AAAKbzkAAApzOgAACgoGgCYA
+AAR+JgAABCoaficAAAQqHgKAJwAABCoafigAAAQqLnNrAAAGgCgAAAQqHgIoPAAACioAtAAAAM7K
+774BAAAAkQAAAGxTeXN0ZW0uUmVzb3VyY2VzLlJlc291cmNlUmVhZGVyLCBtc2NvcmxpYiwgVmVy
+c2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkz
+NGUwODkjU3lzdGVtLlJlc291cmNlcy5SdW50aW1lUmVzb3VyY2VTZXQCAAAAAAAAAAAAAABQQURQ
+QURQtAAAAEJTSkIBAAEAAAAAAAwAAAB2NC4wLjMwMzE5AAAAAAUAbAAAAMgRAAAjfgAANBIAALQX
+AAAjU3RyaW5ncwAAAADoKQAAEAIAACNVUwD4KwAAEAAAACNHVUlEAAAACCwAAIQCAAAjQmxvYgAA
+AAAAAAACAAABVxWiCQkDAAAA+iUzABYAAAEAAAApAAAACgAAACgAAABsAAAANgAAADwAAABpAAAA
+BAAAAAYAAAAzAAAAUgAAAAMAAAABAAAABgAAAAEAAAABAAAAAAAKAAEAAAAAAAYACgHpAAoAKgEj
+AQYAMQHpAA4AUwE+ARIAoQHpAAYAsAHpAAoAUwI4AgoAMQ4jARYA0hCqEAoASBE3EQoAeRFkEQoA
+cBJWEgoAmxKJEgoAshKJEgoAzxKJEgoA7hKJEgoABxOJEgoAIBOJEgoAOxOJEgoAVhOJEgoAbxOJ
+EgoAqBOIEwoAyBOIEwoAChQjAQoAERQjAQYAVhTpAB8AfRQAAAoAlhQ4AgoA7xTlFAoACxUjAQoA
+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
+6xCOADUAZCkAAAAAhggAEY4ANQCFKQAAAACGGGsBiAA1AJQpAAAAAIMYawEbADYAnCkAAAAAkwiV
+EaAANgDVKQAAAACTCKkRpQA2ANwpAAAAAJMItRGqADYA5CkAAAAAlgjZEb4ANwD3KQAAAACGGGsB
+GwA3AOspAAAAAJEYaRfJATcAAAABAO0RAAACAPURAAADAP8RAAAEAAYSAAABABASAAACABgSAAAD
+ACISAAAEAAYSAAABAP8RAAABACoSAAABACoSAAABAC4SAAACACoSAAABADISAAABADISAAABADIS
+AAABADISAAABADISAAABADISAAABADISAAABADISAAABADISAAABADISAAABADISAAABADISAAAB
+ADISAAABADISAAABADISAAABADISAAABADISAAABADISAAABADISAAABADISAAABADISAAABADIS
+AAABADISAAABADISAAABADISAAABADISAAABADISAAABADISAAABADISAAABADISAAABAP8RAAAC
+ADgSAAADAAYSAAABAP8RAAACADgSAAADAAYSAAABADISAAABADISAAABAEwSAAABAEwSAAABADIS
+YQBrAVMAaQBrAVMAcQBrAVMAeQBrAVMAgQBrAVMAiQBrAVMAkQBrAVMAmQBrAVMAoQBrAVMAqQBr
+AVMAsQBrAcgAuQBrARsACQBrARsAwQAiFM0ACQApFNQAKQA6FHIACQBKFNoA0QBrARsACQBtAhsA
+DABrARsACQB4AhsADACIFPIAFAClFAUBHACxFBgBwQC7FB0BwQDJFCIBSQDQFFgA6QD0FCgBFAAC
+FXIA8QAXFRsA6QAfFS4BDAAmFUoBDAAyFVABDAA2FVgBwQA/FWYB+QBrARsAEQBrARsAGQBrAWMA
+GQD/EWwBGQA4EnABKQBmFXQBGQBxFXoBKQB4FX8BGQBKD3IAGQBSD3IAGQCCFYQBGQCLFcgAAQFr
+AVMAGQBQEBsAGQBXEBsACQATFooBCQFMFpABEQGFFpYBGQGgFo4AIQFrARsAKQH9Fp0BKQEYF6YB
+UQBrAawBQQFrAbkBIQBrARsALgAzABUCLgA7AEQCLgBDAD4CLgALAM0BLgBbAFsCLgBjAGQCLgAT
+ABUCLgAbAD4CLgAjAD4CLgArAD4CYwCTAOUAwQAjAeUA4QAjAeUAAQEjAeUAIQEjAeUAIwG7AeUA
+QQEjAeUAYQEjAeUAgQEjAeUAoQEjAeUAwAEjAeUAwQEjAeUA4AEjAeUA4QEjAeUAAAIjAeUAAQIj
+AeUAIAIjAeUAIQIjAeUAQAIjAeUAQQIjAeUAYAIjAeUAYQIjAeUAgAIjAeUAgQIjAeUAoAIjAeUA
+oQIjAeUAwAIjAeUAwQIjAeUA4AIjAeUA4QIjAeUAAAMjAeUAAQMjAeUAIAMjAeUAIQMjAeUAQAMj
+AeUAQQMjAeUAYAMjAeUAYQMjAeUAgAMjAeUAgQMjAeUAoAMjAeUAoQMjAeUAwAMjAeUAwQMjAeUA
+4AMjAeUA4QMjAeUAAAQjAeUAAQQjAeUAIAQjAeUAIQQjAeUAQAQjAeUAQQQjAeUAYAQjAeUAYQQj
+AeUAgAQjAeUAoAQjAeUAwAQjAeUA4AQjAeUAAAUjAeUAAQUjAeUAIAUjAeUAQAUjAeUAYAUjAeUA
+gAUjAeUAoAUjAeUAwAUjAeUA4AUjAeUAAAYjAeUAIAYjAeUAKQbbAcABQAYjAeUASQbbAcABYAYj
+AeUAgAYjAeUAoAYjAeUAwAYjAeUA4AYjAeUAAAcjAeUAIAcjAeUAQAcjAeUAYAcjAeUAgAcjAeUA
+oAcjAeUAwAcjAeUA4AcjAeUAAAgjAeUAIAgjAeUAQAgjAeUAYAgjAeUAgAgjAeUAoAgjAeUAwAgj
+AeUA4AgjAeUAAAkjAeUAIAkjAeUA4QAzAV8BtAEEAAEABQAfAAYALQAHAC8ACQAxAAoAMwAAAAUM
+XwAAABwMXwAAADIMXwAAAEAMXwAAAE4MXwAAAFwMXwAAAGoMXwAAAHkMXwAAAIYMXwAAAJcMXwAA
+AKYMXwAAALMMXwAAAMkMXwAAAOEMXwAAAPoMXwAAABENXwAAACMNXwAAADINXwAAAEANXwAAAFEN
+XwAAAGYNXwAAAHoNXwAAAJYNXwAAAKoNXwAAALgNXwAAAMgNXwAAAN8NXwAAAPcNXwAAAAwOXwAA
+ABwOXwAAAF4PdgAAAGUPewAAAHMPXwAAAIgPewAAAKQPXwAAALAPewAAAMMPXwAAAM8PewAAAOIP
+XwAAAO8PewAAAAMQXwAAAA4QewAAACAQXwAAACgQewAAAGYQXwAAAGsQewAAABURkwAAACYRkwAA
+AEgRsAAAAMERtQAAAOURwwACAA8AAwABAA4AAwABABAABQACABEABQABABMABwACABIABwACABQA
+CQABABUACQACABYACwABABcACwACABgADQABABkADQABABsADwACABoADwABAB0AEQACABwAEQAC
+AB4AEwABAB8AEwABACEAFQACACAAFQACACIAFwABACMAFwABACUAGQACACQAGQABACcAGwACACYA
+GwACACgAHQABACkAHQABACsAHwACACoAHwABAC0AIQACACwAIQACAC4AIwABAC8AIwACADAAJQAB
+ADEAJQABADMAJwACADIAJwACADQAKQABADUAKQACADYAKwABADcAKwACADgALQABADkALQABADsA
+LwACADoALwABAD0AMQACADwAMQACAD4AMwABAD8AMwACAEAANQABAEEANQACAEIANwABAEMANwAB
+AEUAOQACAEQAOQABAEcAOwACAEYAOwACAEgAPQABAEkAPQACAEwAPwACAE0AQQACAE4AQwACAE8A
+RQACAFAARwACAFEASQACAFIASwACAFMATQACAFQATwACAFUAUQACAFYAUwACAFcAVQACAFgAVwAC
+AFkAWQABAF0AWwABAF4AXQACAGMAXwACAGQAYQACAGcAYwACAGgAZQABAGkAZQACAGoAZwDqAP0A
+EAEEgAAAAQAAAKYcuFsAAAAAAADmEwAACwAAAAAAAAAAAAAAAQDMAAAAAAAEAAAAAAAAAAAAAAAK
+ABoBAAAAAAQAAAAAAAAAAAAAAAoAIwEAAAAACwAAAAAAAAAAAAAAAQCAAQAAAAALAAAAAAAAAAAA
+AAABAIcQAAAAAAsAAAAAAAAAAAAAAAEArRUAAAAAAAAAAAEAAABwFwAABAADAAAAAAAAPE1vZHVs
+ZT4AU0NfYmMzNDhiZGY5N2IyNGI4MzhkYjFmZGUwZDI3ZWVhY2MuZGxsAFVzZXJDb21wb25lbnQA
+U2NyaXB0TWFpbgBFbXBsb3llckFwcGVuZABJbnB1dDBCdWZmZXIAT0JBREVNQnVmZmVyAENvbm5l
+Y3Rpb25zAFZhcmlhYmxlcwBSZXNvdXJjZXMAU0NfYmMzNDhiZGY5N2IyNGI4MzhkYjFmZGUwZDI3
+ZWVhY2MuUHJvcGVydGllcwBTZXR0aW5ncwBNaWNyb3NvZnQuU3FsU2VydmVyLlR4U2NyaXB0AE1p
+Y3Jvc29mdC5TcWxTZXJ2ZXIuRHRzLlBpcGVsaW5lAFNjcmlwdENvbXBvbmVudABtc2NvcmxpYgBT
+eXN0ZW0AT2JqZWN0AFNjcmlwdEJ1ZmZlcgBTeXN0ZW0uQ29uZmlndXJhdGlvbgBBcHBsaWNhdGlv
+blNldHRpbmdzQmFzZQAuY3RvcgBJbnB1dHNGaW5pc2hlZABNaWNyb3NvZnQuU3FsU2VydmVyLlBp
+cGVsaW5lSG9zdABQaXBlbGluZUJ1ZmZlcgBPdXRwdXROYW1lTWFwAFByb2Nlc3NJbnB1dABGaW5p
+c2hPdXRwdXRzAE1hcmtPdXRwdXRzRmluaXNoZWQAUHJpbWVPdXRwdXQAQ3JlYXRlTmV3T3V0cHV0
+Um93cwBJbnB1dDBfUHJvY2Vzc0lucHV0AElucHV0MF9Qcm9jZXNzSW5wdXRSb3cAU3lzdGVtLkNv
+bGxlY3Rpb25zLkdlbmVyaWMARGljdGlvbmFyeWAyAF9jb250YWN0UmVjcwBQcmVFeGVjdXRlAFBv
+c3RFeGVjdXRlAGFkZENvbnRhY3REYXRhAHNldF9JbnRlcm5hbENvbnN1bWVyTnVtYmVyAGdldF9J
+bnRlcm5hbENvbnN1bWVyTnVtYmVyAHNldF9DbGllbnRSZWZlcmVuY2VOdW1iZXIAZ2V0X0NsaWVu
+dFJlZmVyZW5jZU51bWJlcgBnZXRfZW1wbG95ZXJfbmFtZQBzZXRfZW1wbG95ZXJfbmFtZQBnZXRf
+ZW1wbG95ZXJfYWRkMQBzZXRfZW1wbG95ZXJfYWRkMQBnZXRfZW1wbG95ZXJfYWRkMgBzZXRfZW1w
+bG95ZXJfYWRkMgBnZXRfZW1wbG95ZXJfY2l0eQBzZXRfZW1wbG95ZXJfY2l0eQBnZXRfZW1wbG95
+ZXJfc3RhdGUAc2V0X2VtcGxveWVyX3N0YXRlAGdldF9lbXBsb3llcl96aXAAc2V0X2VtcGxveWVy
+X3ppcABnZXRfZW1wbG95ZXJfY291bnRyeQBzZXRfZW1wbG95ZXJfY291bnRyeQBnZXRfZW1wbG95
+ZXJfcGhvbmUAc2V0X2VtcGxveWVyX3Bob25lAGdldF9lbXBsb3llcl9mYXgAc2V0X2VtcGxveWVy
+X2ZheABnZXRfZW1wbG95ZXJfZW1wbG95ZWVfc3NuAHNldF9lbXBsb3llcl9lbXBsb3llZV9zc24A
+Z2V0X2VtcGxveWVyX2VtcGxveWVlX2ZpcnN0AHNldF9lbXBsb3llcl9lbXBsb3llZV9maXJzdABn
+ZXRfZW1wbG95ZXJfZW1wbG95ZWVfbWlkZGxlAHNldF9lbXBsb3llcl9lbXBsb3llZV9taWRkbGUA
+Z2V0X2VtcGxveWVyX2VtcGxveWVlX2xhc3QAc2V0X2VtcGxveWVyX2VtcGxveWVlX2xhc3QAZ2V0
+X2VtcGxveWVyX3Bvc2l0aW9uAHNldF9lbXBsb3llcl9wb3NpdGlvbgBnZXRfZW1wbG95ZXJfdGl0
+bGUAc2V0X2VtcGxveWVyX3RpdGxlAGdldF9lbXBsb3llcl9jb2RlAHNldF9lbXBsb3llcl9jb2Rl
+AGdldF9lbXBsb3llcl9tYW5hZ2VyAHNldF9lbXBsb3llcl9tYW5hZ2VyAGdldF9lbXBsb3llcl9l
+bXBsb3llZV9pZABzZXRfZW1wbG95ZXJfZW1wbG95ZWVfaWQAZ2V0X2VtcGxveWVyX2Rpc2NsYWlt
+ZXIAc2V0X2VtcGxveWVyX2Rpc2NsYWltZXIAZ2V0X2VtcGxveWVyX3BheXJvbGxfZGlzY2xhaW1l
+cgBzZXRfZW1wbG95ZXJfcGF5cm9sbF9kaXNjbGFpbWVyAGdldF9lbXBsb3llcl93YWdlX2Jhc2lz
+AHNldF9lbXBsb3llcl93YWdlX2Jhc2lzAGdldF9lbXBsb3llcl93YWdlAHNldF9lbXBsb3llcl93
+YWdlAGdldF9lbXBsb3llcl9zdGF0dXMAc2V0X2VtcGxveWVyX3N0YXR1cwBnZXRfZW1wbG95ZXJf
+ZGl2aXNpb25fY29kZQBzZXRfZW1wbG95ZXJfZGl2aXNpb25fY29kZQBnZXRfZW1wbG95ZXJfZWZm
+ZWN0aXZlX2RhdGUAc2V0X2VtcGxveWVyX2VmZmVjdGl2ZV9kYXRlAGdldF9lbXBsb3llcl9tb3N0
+X3JlY2VudABzZXRfZW1wbG95ZXJfbW9zdF9yZWNlbnQAZ2V0X2VtcGxveWVyX2xlbmd0aABzZXRf
+ZW1wbG95ZXJfbGVuZ3RoAGdldF9lbXBsb3llcl90ZXJtaW5hdGlvbgBzZXRfZW1wbG95ZXJfdGVy
+bWluYXRpb24APEludGVybmFsQ29uc3VtZXJOdW1iZXI+a19fQmFja2luZ0ZpZWxkADxDbGllbnRS
+ZWZlcmVuY2VOdW1iZXI+a19fQmFja2luZ0ZpZWxkADxlbXBsb3llcl9uYW1lPmtfX0JhY2tpbmdG
+aWVsZAA8ZW1wbG95ZXJfYWRkMT5rX19CYWNraW5nRmllbGQAPGVtcGxveWVyX2FkZDI+a19fQmFj
+a2luZ0ZpZWxkADxlbXBsb3llcl9jaXR5PmtfX0JhY2tpbmdGaWVsZAA8ZW1wbG95ZXJfc3RhdGU+
+a19fQmFja2luZ0ZpZWxkADxlbXBsb3llcl96aXA+a19fQmFja2luZ0ZpZWxkADxlbXBsb3llcl9j
+b3VudHJ5PmtfX0JhY2tpbmdGaWVsZAA8ZW1wbG95ZXJfcGhvbmU+a19fQmFja2luZ0ZpZWxkADxl
+bXBsb3llcl9mYXg+a19fQmFja2luZ0ZpZWxkADxlbXBsb3llcl9lbXBsb3llZV9zc24+a19fQmFj
+a2luZ0ZpZWxkADxlbXBsb3llcl9lbXBsb3llZV9maXJzdD5rX19CYWNraW5nRmllbGQAPGVtcGxv
+eWVyX2VtcGxveWVlX21pZGRsZT5rX19CYWNraW5nRmllbGQAPGVtcGxveWVyX2VtcGxveWVlX2xh
+c3Q+a19fQmFja2luZ0ZpZWxkADxlbXBsb3llcl9wb3NpdGlvbj5rX19CYWNraW5nRmllbGQAPGVt
+cGxveWVyX3RpdGxlPmtfX0JhY2tpbmdGaWVsZAA8ZW1wbG95ZXJfY29kZT5rX19CYWNraW5nRmll
+bGQAPGVtcGxveWVyX21hbmFnZXI+a19fQmFja2luZ0ZpZWxkADxlbXBsb3llcl9lbXBsb3llZV9p
+ZD5rX19CYWNraW5nRmllbGQAPGVtcGxveWVyX2Rpc2NsYWltZXI+a19fQmFja2luZ0ZpZWxkADxl
+bXBsb3llcl9wYXlyb2xsX2Rpc2NsYWltZXI+a19fQmFja2luZ0ZpZWxkADxlbXBsb3llcl93YWdl
+X2Jhc2lzPmtfX0JhY2tpbmdGaWVsZAA8ZW1wbG95ZXJfd2FnZT5rX19CYWNraW5nRmllbGQAPGVt
+cGxveWVyX3N0YXR1cz5rX19CYWNraW5nRmllbGQAPGVtcGxveWVyX2RpdmlzaW9uX2NvZGU+a19f
+QmFja2luZ0ZpZWxkADxlbXBsb3llcl9lZmZlY3RpdmVfZGF0ZT5rX19CYWNraW5nRmllbGQAPGVt
+cGxveWVyX21vc3RfcmVjZW50PmtfX0JhY2tpbmdGaWVsZAA8ZW1wbG95ZXJfbGVuZ3RoPmtfX0Jh
+Y2tpbmdGaWVsZAA8ZW1wbG95ZXJfdGVybWluYXRpb24+a19fQmFja2luZ0ZpZWxkAEludGVybmFs
+Q29uc3VtZXJOdW1iZXIAQ2xpZW50UmVmZXJlbmNlTnVtYmVyAGVtcGxveWVyX25hbWUAZW1wbG95
+ZXJfYWRkMQBlbXBsb3llcl9hZGQyAGVtcGxveWVyX2NpdHkAZW1wbG95ZXJfc3RhdGUAZW1wbG95
+ZXJfemlwAGVtcGxveWVyX2NvdW50cnkAZW1wbG95ZXJfcGhvbmUAZW1wbG95ZXJfZmF4AGVtcGxv
+eWVyX2VtcGxveWVlX3NzbgBlbXBsb3llcl9lbXBsb3llZV9maXJzdABlbXBsb3llcl9lbXBsb3ll
+ZV9taWRkbGUAZW1wbG95ZXJfZW1wbG95ZWVfbGFzdABlbXBsb3llcl9wb3NpdGlvbgBlbXBsb3ll
+cl90aXRsZQBlbXBsb3llcl9jb2RlAGVtcGxveWVyX21hbmFnZXIAZW1wbG95ZXJfZW1wbG95ZWVf
+aWQAZW1wbG95ZXJfZGlzY2xhaW1lcgBlbXBsb3llcl9wYXlyb2xsX2Rpc2NsYWltZXIAZW1wbG95
+ZXJfd2FnZV9iYXNpcwBlbXBsb3llcl93YWdlAGVtcGxveWVyX3N0YXR1cwBlbXBsb3llcl9kaXZp
+c2lvbl9jb2RlAGVtcGxveWVyX2VmZmVjdGl2ZV9kYXRlAGVtcGxveWVyX21vc3RfcmVjZW50AGVt
+cGxveWVyX2xlbmd0aABlbXBsb3llcl90ZXJtaW5hdGlvbgBEZWNpbWFsAGdldF9BUkFDSUQAZ2V0
+X0FSQUNJRF9Jc051bGwAZ2V0X1paQUNDUkVESU5UQ09OU0FDTlVNAGdldF9aWkFDQ1JFRElOVENP
+TlNBQ05VTV9Jc051bGwAZ2V0X1NUQVVET0xEVkFMAGdldF9TVEFVRE9MRFZBTF9Jc051bGwAZ2V0
+X1NUQVVETkVXVkFMAGdldF9TVEFVRE5FV1ZBTF9Jc051bGwAZ2V0X1NUQVVERkxETkFNRQBnZXRf
+U1RBVURGTEROQU1FX0lzTnVsbABnZXRfQVJBQ0NMQUNDVABnZXRfQVJBQ0NMQUNDVF9Jc051bGwA
+Z2V0X0FSRU5QT0UAZ2V0X0FSRU5QT0VfSXNOdWxsAE5leHRSb3cARW5kT2ZSb3dzZXQAQVJBQ0lE
+AEFSQUNJRF9Jc051bGwAWlpBQ0NSRURJTlRDT05TQUNOVU0AWlpBQ0NSRURJTlRDT05TQUNOVU1f
+SXNOdWxsAFNUQVVET0xEVkFMAFNUQVVET0xEVkFMX0lzTnVsbABTVEFVRE5FV1ZBTABTVEFVRE5F
+V1ZBTF9Jc051bGwAU1RBVURGTEROQU1FAFNUQVVERkxETkFNRV9Jc051bGwAQVJBQ0NMQUNDVABB
+UkFDQ0xBQ0NUX0lzTnVsbABBUkVOUE9FAEFSRU5QT0VfSXNOdWxsAHNldF9EYXRhAHNldF9EYXRh
+X0lzTnVsbABBZGRSb3cAU2V0RW5kT2ZSb3dzZXQARGF0YQBEYXRhX0lzTnVsbABQYXJlbnRDb21w
+b25lbnQATWljcm9zb2Z0LlNxbFNlcnZlci5EVFNSdW50aW1lV3JhcABNaWNyb3NvZnQuU3FsU2Vy
+dmVyLkR0cy5SdW50aW1lLldyYXBwZXIASURUU0Nvbm5lY3Rpb25NYW5hZ2VyMTAwAGdldF9PQkFE
+RU1Db25uZWN0aW9uAGdldF9BcnRpdmFDb25uZWN0aW9uAE9CQURFTUNvbm5lY3Rpb24AQXJ0aXZh
+Q29ubmVjdGlvbgBTeXN0ZW0uUmVzb3VyY2VzAFJlc291cmNlTWFuYWdlcgByZXNvdXJjZU1hbgBT
+eXN0ZW0uR2xvYmFsaXphdGlvbgBDdWx0dXJlSW5mbwByZXNvdXJjZUN1bHR1cmUAZ2V0X1Jlc291
+cmNlTWFuYWdlcgBnZXRfQ3VsdHVyZQBzZXRfQ3VsdHVyZQBDdWx0dXJlAGRlZmF1bHRJbnN0YW5j
+ZQBnZXRfRGVmYXVsdABEZWZhdWx0AElucHV0SUQASW5wdXROYW1lAEJ1ZmZlcgBPdXRwdXRNYXAA
+T3V0cHV0cwBPdXRwdXRJRHMAQnVmZmVycwBSb3cAcmVjAHZhbHVlAEJ1ZmZlckNvbHVtbkluZGV4
+ZXMAQ29tcG9uZW50AFN5c3RlbS5SdW50aW1lLlZlcnNpb25pbmcAVGFyZ2V0RnJhbWV3b3JrQXR0
+cmlidXRlAFN5c3RlbS5SZWZsZWN0aW9uAEFzc2VtYmx5VGl0bGVBdHRyaWJ1dGUAQXNzZW1ibHlE
+ZXNjcmlwdGlvbkF0dHJpYnV0ZQBBc3NlbWJseUNvbmZpZ3VyYXRpb25BdHRyaWJ1dGUAQXNzZW1i
+bHlDb21wYW55QXR0cmlidXRlAEFzc2VtYmx5UHJvZHVjdEF0dHJpYnV0ZQBBc3NlbWJseUNvcHly
+aWdodEF0dHJpYnV0ZQBBc3NlbWJseVRyYWRlbWFya0F0dHJpYnV0ZQBBc3NlbWJseUN1bHR1cmVB
+dHRyaWJ1dGUAQXNzZW1ibHlWZXJzaW9uQXR0cmlidXRlAFN5c3RlbS5SdW50aW1lLkNvbXBpbGVy
+U2VydmljZXMAQ29tcGlsYXRpb25SZWxheGF0aW9uc0F0dHJpYnV0ZQBSdW50aW1lQ29tcGF0aWJp
+bGl0eUF0dHJpYnV0ZQBTQ19iYzM0OGJkZjk3YjI0YjgzOGRiMWZkZTBkMjdlZWFjYwBTdHJpbmcA
+U3RyaW5nQ29tcGFyaXNvbgBFcXVhbHMAR2V0Q29sdW1uSW5kZXhlcwBnZXRfRW5kT2ZSb3dzZXQA
+R2V0T3V0cHV0SUQAU1NJU1NjcmlwdENvbXBvbmVudEVudHJ5UG9pbnRBdHRyaWJ1dGUARW51bWVy
+YXRvcgBHZXRFbnVtZXJhdG9yAEtleVZhbHVlUGFpcmAyAGdldF9DdXJyZW50AGdldF9WYWx1ZQBJ
+c051bGxPckVtcHR5AENvbmNhdABnZXRfQ29ubmVjdGlvblN0cmluZwBTeXN0ZW0uSU8ARmlsZQBB
+cHBlbmRBbGxUZXh0AE1vdmVOZXh0AElEaXNwb3NhYmxlAERpc3Bvc2UARGVsZXRlAENvbnRhaW5z
+S2V5AEFkZABnZXRfSXRlbQBvcF9FcXVhbGl0eQBDb21waWxlckdlbmVyYXRlZEF0dHJpYnV0ZQBH
+ZXREZWNpbWFsAElzTnVsbABHZXRTdHJpbmcAc2V0X0l0ZW0AU2V0TnVsbABJbnZhbGlkT3BlcmF0
+aW9uRXhjZXB0aW9uAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRFRTUGlwZWxpbmVXcmFwAE1pY3Jvc29m
+dC5TcWxTZXJ2ZXIuRHRzLlBpcGVsaW5lLldyYXBwZXIASURUU0NvbXBvbmVudE1ldGFEYXRhMTAw
+AGdldF9Db21wb25lbnRNZXRhRGF0YQBJRFRTUnVudGltZUNvbm5lY3Rpb25Db2xsZWN0aW9uMTAw
+AGdldF9SdW50aW1lQ29ubmVjdGlvbkNvbGxlY3Rpb24ASURUU1J1bnRpbWVDb25uZWN0aW9uMTAw
+AEdldFJ1bnRpbWVDb25uZWN0aW9uQnlOYW1lAGdldF9Db25uZWN0aW9uTWFuYWdlcgBTeXN0ZW0u
+RGlhZ25vc3RpY3MARGVidWdnZXJOb25Vc2VyQ29kZUF0dHJpYnV0ZQBUeXBlAFJ1bnRpbWVUeXBl
+SGFuZGxlAEdldFR5cGVGcm9tSGFuZGxlAEFzc2VtYmx5AGdldF9Bc3NlbWJseQBTeXN0ZW0uQ29t
+cG9uZW50TW9kZWwARWRpdG9yQnJvd3NhYmxlQXR0cmlidXRlAEVkaXRvckJyb3dzYWJsZVN0YXRl
+AC5jY3RvcgBTQ19iYzM0OGJkZjk3YjI0YjgzOGRiMWZkZTBkMjdlZWFjYy5Qcm9wZXJ0aWVzLlJl
+c291cmNlcy5yZXNvdXJjZXMAAAAPSQBuAHAAdQB0ACAAMAAAD08AQgBfAEEARABFAE0AAAMsAAAF
+DQAKAAAPQQBSAEUATgBQAE8ARQAAFUEAUgBFAE4AUABPAEUAQQBEAFIAABVBAFIARQBOAFAATwBF
+AFUATgBUAAAVQQBSAEUATgBQAE8ARQBDAFQAWQAAE0EAUgBFAE4AUABPAEUAUwBUAAAVQQBSAEUA
+TgBQAE8ARQBaAEkAUAAAE0EAUgBFAE4AUABPAEUAUABIAACAm0kAcwBOAHUAbABsACAAcAByAG8A
+cABlAHIAdAB5ACAAYwBhAG4AbgBvAHQAIABiAGUAIABzAGUAdAAgAHQAbwAgAEYAYQBsAHMAZQAu
+ACAAQQBzAHMAaQBnAG4AIABhACAAdgBhAGwAdQBlACAAdABvACAAdABoAGUAIABjAG8AbAB1AG0A
+bgAgAGkAbgBzAHQAZQBhAGQALgAAIU8AQgBBAEQARQBNAEMAbwBuAG4AZQBjAHQAaQBvAG4AACFB
+AHIAdABpAHYAYQBDAG8AbgBuAGUAYwB0AGkAbwBuAABxUwBDAF8AYgBjADMANAA4AGIAZABmADkA
+NwBiADIANABiADgAMwA4AGQAYgAxAGYAZABlADAAZAAyADcAZQBlAGEAYwBjAC4AUAByAG8AcABl
+AHIAdABpAGUAcwAuAFIAZQBzAG8AdQByAGMAZQBzAAAAACgs/0RXGfdHl6ZvssD6EswACImEXc2A
+gMyRCLd6XFYZNOCJAwYSHAMGEiADIAABAwYSGAIGCAkgBAEIDhIVEhkLIAQBCB0IHRIVEhkFIAEB
+EhQIBhUSHQIOEhAHIAIBEhASFAQgAQEOAyAADgIGDgMoAA4JIAMBEhUdCBIZBCAAESEDIAACBCgA
+ESEDKAACBCABAQIDBhIFBSABARIFBCAAEiUEKAASJQMGEikDBhItBAAAEikEAAASLQUAAQESLQQI
+ABIpBAgAEi0DBhIoBAAAEigECAASKAQgAQEIBiACAg4RZQUgAR0ICAYAAggSGQ4DBwEIBAEAAAAH
+FRIdAg4SEAogABURbQITABMBBxURbQIOEhAKIAAVEXECEwATAQcVEXECDhIQBCAAEwEEAAECDgUA
+AQ4dDgUAAgEODgQAAQEOFgcGCBURcQIOEhASEA4VEW0CDhIQHQ4FIAECEwAHIAIBEwATAQYgARMB
+EwAGBwISEBIQBQACAg4OAwYSFQMGHQgFIAERIQgEIAECCAQgAQ4IBSACAQgcBSAAEoCFBSAAEoCJ
+BiABEoCNDggAARKAlRGAmQUgABKAnQcgAgEOEoCdBAcBEikGIAEBEYClCAEAAgAAAAAAAwAAAUcB
+ABouTkVURnJhbWV3b3JrLFZlcnNpb249djQuMAEAVA4URnJhbWV3b3JrRGlzcGxheU5hbWUQLk5F
+VCBGcmFtZXdvcmsgNCgBACNTQ19iYzM0OGJkZjk3YjI0YjgzOGRiMWZkZTBkMjdlZWFjYwAABQEA
+AAAAFgEAEUNvcHlyaWdodCBAICAyMDE3AAAIAQAIAAAAAAAeAQABAFQCFldyYXBOb25FeGNlcHRp
+b25UaHJvd3MBAGxZAAAAAAAAAAAAAI5ZAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAWQAAAAAA
+AAAAAAAAAAAAAAAAAAAAX0NvckRsbE1haW4AbXNjb3JlZS5kbGwAAAAAAP8lACAAEAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABABAAAAAYAACAAAAAAAAA
+AAAAAAAAAAABAAEAAAAwAACAAAAAAAAAAAAAAAAAAAABAAAAAABIAAAAWGAAALADAAAAAAAAAAAA
+ALADNAAAAFYAUwBfAFYARQBSAFMASQBPAE4AXwBJAE4ARgBPAAAAAAC9BO/+AAABAAAAAQC4W6Yc
+AAABALhbphw/AAAAAAAAAAQAAAACAAAAAAAAAAAAAAAAAAAARAAAAAEAVgBhAHIARgBpAGwAZQBJ
+AG4AZgBvAAAAAAAkAAQAAABUAHIAYQBuAHMAbABhAHQAaQBvAG4AAAAAAAAAsAQQAwAAAQBTAHQA
+cgBpAG4AZwBGAGkAbABlAEkAbgBmAG8AAADsAgAAAQAwADAAMAAwADAANABiADAAAABwACQAAQBG
+AGkAbABlAEQAZQBzAGMAcgBpAHAAdABpAG8AbgAAAAAAUwBDAF8AYgBjADMANAA4AGIAZABmADkA
+NwBiADIANABiADgAMwA4AGQAYgAxAGYAZABlADAAZAAyADcAZQBlAGEAYwBjAAAAQAAPAAEARgBp
+AGwAZQBWAGUAcgBzAGkAbwBuAAAAAAAxAC4AMAAuADcAMwAzADQALgAyADMANAA4ADAAAAAAAHAA
+KAABAEkAbgB0AGUAcgBuAGEAbABOAGEAbQBlAAAAUwBDAF8AYgBjADMANAA4AGIAZABmADkANwBi
+ADIANABiADgAMwA4AGQAYgAxAGYAZABlADAAZAAyADcAZQBlAGEAYwBjAC4AZABsAGwAAABIABIA
+AQBMAGUAZwBhAGwAQwBvAHAAeQByAGkAZwBoAHQAAABDAG8AcAB5AHIAaQBnAGgAdAAgAEAAIAAg
+ADIAMAAxADcAAAB4ACgAAQBPAHIAaQBnAGkAbgBhAGwARgBpAGwAZQBuAGEAbQBlAAAAUwBDAF8A
+YgBjADMANAA4AGIAZABmADkANwBiADIANABiADgAMwA4AGQAYgAxAGYAZABlADAAZAAyADcAZQBl
+AGEAYwBjAC4AZABsAGwAAABoACQAAQBQAHIAbwBkAHUAYwB0AE4AYQBtAGUAAAAAAFMAQwBfAGIA
+YwAzADQAOABiAGQAZgA5ADcAYgAyADQAYgA4ADMAOABkAGIAMQBmAGQAZQAwAGQAMgA3AGUAZQBh
+AGMAYwAAAEQADwABAFAAcgBvAGQAdQBjAHQAVgBlAHIAcwBpAG8AbgAAADEALgAwAC4ANwAzADMA
+NAAuADIAMwA0ADgAMAAAAAAASAAPAAEAQQBzAHMAZQBtAGIAbAB5ACAAVgBlAHIAcwBpAG8AbgAA
+ADEALgAwAC4ANwAzADMANAAuADIAMwA0ADgAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFAAAAwAAACgOQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=]]></arrayElement>
+                  </arrayElements>
+                </property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the Microsoft Visual Studio Tools for Applications project. Project names must be unique within a package."
+                  name="VSTAProjectName"
+                  typeConverter="NOTBROWSABLE">SC_bc348bdf97b24b838db1fde0d27eeacc</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the programming language used by the script."
+                  name="ScriptLanguage"
+                  typeConverter="Microsoft.SqlServer.VSTAHosting.ScriptingLanguages, Microsoft.SqlServer.VSTAScriptingLib, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">CSharp</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a comma-separated list of read-only variables."
+                  name="ReadOnlyVariables"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIVariablePickerDlg, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a comma-separated list of read/write variables."
+                  name="ReadWriteVariables"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIWriteableVariablePickerDlg, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="List of breakpoints present on the script."
+                  isArray="true"
+                  name="BreakpointCollection"
+                  typeConverter="NOTBROWSABLE">
+                  <arrayElements
+                    arrayElementCount="0" />
+                </property>
+                <property
+                  dataType="System.String"
+                  description="Checksum to match component metedata against compiled codes."
+                  name="MetadataChecksum"
+                  typeConverter="NOTBROWSABLE">9fa3f8734c0420689da8e67849141270</property>
+                <property
+                  dataType="System.String"
+                  description="Checksum to match component metedata against compiled codes."
+                  name="MetadataShaChecksum"
+                  typeConverter="NOTBROWSABLE">6358d26ce3e285992d1098844ff1b68de613007a</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.SqlServer.Dts.Pipeline.ScriptComponentHost, Microsoft.SqlServer.TxScript, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Create Files\Script Component.Connections[OBADEMConnection]"
+                  connectionManagerID="Package.ConnectionManagers[OB Report]"
+                  connectionManagerRefId="Package.ConnectionManagers[OB Report]"
+                  name="OBADEMConnection" />
+                <connection
+                  refId="Package\Create Files\Script Component.Connections[ArtivaConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Artiva]"
+                  connectionManagerRefId="Package.ConnectionManagers[Artiva]"
+                  name="ArtivaConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Create Files\Script Component.Inputs[Input 0]"
+                  hasSideEffects="true"
+                  name="Input 0">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Create Files\Script Component.Inputs[Input 0].Columns[ARACID]"
+                      cachedDataType="numeric"
+                      cachedName="ARACID"
+                      cachedPrecision="13"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[ARACID]" />
+                    <inputColumn
+                      refId="Package\Create Files\Script Component.Inputs[Input 0].Columns[ZZACCREDINTCONSACNUM]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ZZACCREDINTCONSACNUM"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[ZZACCREDINTCONSACNUM]" />
+                    <inputColumn
+                      refId="Package\Create Files\Script Component.Inputs[Input 0].Columns[STAUDOLDVAL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="300"
+                      cachedName="STAUDOLDVAL"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[STAUDOLDVAL]" />
+                    <inputColumn
+                      refId="Package\Create Files\Script Component.Inputs[Input 0].Columns[STAUDNEWVAL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="300"
+                      cachedName="STAUDNEWVAL"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[STAUDNEWVAL]" />
+                    <inputColumn
+                      refId="Package\Create Files\Script Component.Inputs[Input 0].Columns[STAUDFLDNAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="STAUDFLDNAME"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[STAUDFLDNAME]" />
+                    <inputColumn
+                      refId="Package\Create Files\Script Component.Inputs[Input 0].Columns[ARACCLACCT]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="ARACCLACCT"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[ARACCLACCT]" />
+                    <inputColumn
+                      refId="Package\Create Files\Script Component.Inputs[Input 0].Columns[ARENPOE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ARENPOE"
+                      lineageId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output].Columns[ARENPOE]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Create Files\Script Component.Outputs[OB_ADEM]"
+                  hasSideEffects="true"
+                  name="OB_ADEM">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Create Files\Script Component.Outputs[OB_ADEM].Columns[Data]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1000"
+                      lineageId="Package\Create Files\Script Component.Outputs[OB_ADEM].Columns[Data]"
+                      name="Data" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Create Files.Paths[OB_ASTS]"
+              endId="Package\Create Files\OB Employer Append.Inputs[Flat File Destination Input]"
+              name="OB_ASTS"
+              startId="Package\Create Files\Script Component.Outputs[OB_ADEM]" />
+            <path
+              refId="Package\Create Files.Paths[ODBC Source Output]"
+              endId="Package\Create Files\Script Component.Inputs[Input 0]"
+              name="ODBC Source Output"
+              startId="Package\Create Files\ODBC Source.Outputs[ODBC Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="136,42"
+          Id="Package\Create Files"
+          TopLeft="5.5,5.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Create Files">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Create Files\Script Component"
+          TopLeft="12.5,107.5" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Create Files\OB Employer Append"
+          TopLeft="5.50000000000003,209.5" />
+        <EdgeLayout
+          Id="Package\Create Files.Paths[OB_ASTS]"
+          TopLeft="95,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="142,42"
+          Id="Package\Create Files\ODBC Source"
+          TopLeft="24,5.5" />
+        <EdgeLayout
+          Id="Package\Create Files.Paths[ODBC Source Output]"
+          TopLeft="95,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

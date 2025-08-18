@@ -1,0 +1,2334 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/4/2019 1:44:46 PM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="DFW2-APPDEV-002"
+  DTS:CreatorName="CORP\nmallela"
+  DTS:DTSID="{01AA0984-E4E1-4443-AFD6-612B4487E7FF}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.7507.2"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Lendly_IB_Payment"
+  DTS:PackageType="5"
+  DTS:VersionBuild="260"
+  DTS:VersionGUID="{14732F77-6759-4610-B3D9-52BF39C48D7E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Artiva Adj File]"
+      DTS:CreationName="FLATFILE"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{2D81F080-11FB-4CC2-AFBB-4865F76BBA3D}"
+      DTS:ObjectName="Artiva Adj File">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::outboundFolder] +"\\"+   @[User::ArtivaAdjFile]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="M:\Lendly\Out\ArtivaMT-THIRDPROD-LENDLEY_UPDATE_Adj-20210324.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Column 0"
+              DTS:DTSID="{60950411-4682-4538-AA98-CF8FF0BA825C}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Artiva Close File]"
+      DTS:CreationName="FLATFILE"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{BA03CCC7-1AE7-48F2-959F-819206440D8A}"
+      DTS:ObjectName="Artiva Close File">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::outboundFolder] +"\\"+  @[User::ArtivaClosureFile]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="M:\Lendly\Out\ArtivaMT-THIRDPROD-LENDLEY_UPDATE_Closure-20210324.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Column 0"
+              DTS:DTSID="{60950411-4682-4538-AA98-CF8FF0BA825C}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ArtivaConnection]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{CEE2366C-0548-40D6-91EA-1722C7B0C92E}"
+      DTS:ObjectName="ArtivaConnection">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">"Dsn=" +  @[$Package::namespace]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Dsn=THIRDPROD;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Flat File Connection Manager]"
+      DTS:CreationName="FLATFILE"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{E0922A4F-AF6F-4299-9ED0-DB6301DB62AB}"
+      DTS:ObjectName="Flat File Connection Manager">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::currentFile]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="IB_Payments.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Client Reference Number"
+              DTS:DTSID="{124F0F17-6F57-4EA2-ABD8-3337C1E7C514}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Trans Type Code"
+              DTS:DTSID="{20588822-4D0A-46CE-A7EE-389B6DDD80A3}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Payment Amount"
+              DTS:DTSID="{DBA61585-0982-42C3-93FB-1AAF5213B573}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Tender Date"
+              DTS:DTSID="{4C71D9EB-7043-40EA-AFEE-FABAC94C4805}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Transaction Reference"
+              DTS:DTSID="{350C3BE6-5A2A-40C0-8D9B-AB1A822E7FFA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Principal Pmt Amt"
+              DTS:DTSID="{FD73CE25-045C-4BAB-AAF5-CDCD3EF2C145}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Interest Pmt Amt"
+              DTS:DTSID="{DFA15148-C0E3-4D16-8565-4FFA0035AB47}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[OB Conf File]"
+      DTS:CreationName="FLATFILE"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{79CCE26F-F1D7-4766-B3D9-9202EDBD9ED8}"
+      DTS:ObjectName="OB Conf File">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::outboundFolder] +"\\"+ @[User::OBConfirmationFile]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="M:\Lendly\Out\R_RADIUS_UPDATE_20210324.DAT.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Column 0"
+              DTS:DTSID="{60950411-4682-4538-AA98-CF8FF0BA825C}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SMTP Connection Manager]"
+      DTS:CreationName="SMTP"
+      DTS:DelayValidation="True"
+      DTS:Description="SMTP Connection Manager"
+      DTS:DTSID="{57628D79-74F5-4029-B603-06E113E43B11}"
+      DTS:ObjectName="SMTP Connection Manager">
+      <DTS:ObjectData>
+        <SmtpConnectionManager
+          ConnectionString="SmtpServer=10.99.12.39;UseWindowsAuthentication=False;EnableSsl=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{77CF1663-FB64-4691-9808-1B1FFCF5EC18}"
+      DTS:ObjectName="EmailFrom">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">reports@radiusgs.com</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{5BB7D5FF-966E-41C7-898F-180A34B88B30}"
+      DTS:ObjectName="ExceptionToList">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">ClientServices-All@radiusgs.com;Lois.Mongeluzi@radiusgs.com</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{A43AFED7-645A-462B-B221-FBCCE2FD45C9}"
+      DTS:ObjectName="fileSpec">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">*Payment_*.csv</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{FBDCE43E-8EAD-426E-AABB-3755F60466C9}"
+      DTS:ObjectName="localFolder">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">M:\Lendly</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{9B067DA1-C637-4E38-A244-9DC1433E5450}"
+      DTS:ObjectName="namespace">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">THIRDPROD</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FC6C5717-EA88-4F46-971C-959A85405FF7}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;ArtivaMT-&quot; + @[$Package::namespace] + &quot;-LENDLEY_UPDATE_Adj-&quot;+(DT_STR,4,1252)YEAR(GETDATE())+RIGHT(&quot;0&quot; + (DT_STR,2,1252)MONTH(GETDATE()), 2)+RIGHT(&quot;0&quot; + (DT_STR,2,1252)DAY( GETDATE()), 2)+&quot;.txt&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ArtivaAdjFile">
+      <DTS:VariableValue
+        DTS:DataType="8">ArtivaMT-THIRDPROD-LENDLEY_UPDATE_Adj-20210324.txt</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{83C59ADB-8506-462F-919D-3E1B04A18932}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;ArtivaMT-&quot; + @[$Package::namespace] + &quot;-LENDLEY_UPDATE_Closure-&quot;+(DT_STR,4,1252)YEAR(GETDATE())+RIGHT(&quot;0&quot; + (DT_STR,2,1252)MONTH(GETDATE()), 2)+RIGHT(&quot;0&quot; + (DT_STR,2,1252)DAY( GETDATE()), 2)+&quot;.txt&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ArtivaClosureFile">
+      <DTS:VariableValue
+        DTS:DataType="8">ArtivaMT-THIRDPROD-LENDLEY_UPDATE_Closure-20210324.txt</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{92EE8F82-2A9F-477E-A738-CE32D9336FEF}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="bProceedProcess">
+      <DTS:VariableValue
+        DTS:DataType="11">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{708F8DDE-3509-49FE-8F91-B760266B170A}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="currentFile">
+      <DTS:VariableValue
+        DTS:DataType="8">IB_Payments.csv</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AD44644C-961B-4735-966D-DFEC608C2C0C}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Package::fileSpec]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="fileSpec">
+      <DTS:VariableValue
+        DTS:DataType="8">*Payment_*.csv</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{277E8BA1-C8A9-4412-A36A-FD1DDB77352F}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Package::localFolder] + &quot;\\In&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FullInboundDirectory">
+      <DTS:VariableValue
+        DTS:DataType="8">M:\Lendly\In</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{63C346C8-8438-4239-B84F-18D5FA09CF35}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;R_RADIUS_UPDATE_&quot;+(DT_STR,4,1252)YEAR(GETDATE())+RIGHT(&quot;0&quot; + (DT_STR,2,1252)MONTH(GETDATE()), 2)+RIGHT(&quot;0&quot; + (DT_STR,2,1252)DAY( GETDATE()), 2)+&quot;.DAT.txt&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="OBConfirmationFile">
+      <DTS:VariableValue
+        DTS:DataType="8">R_RADIUS_UPDATE_20210324.DAT.txt</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7BC69252-5B4C-4A2E-BC7A-87327A93AC1E}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Package::localFolder]+&quot;\\Out&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="outboundFolder">
+      <DTS:VariableValue
+        DTS:DataType="8">M:\Lendly\Out</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B7FB7B35-CC5E-4740-AC59-7E6F1596CDA6}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="PlacementCountInFile">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Foreach Source File"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{82B34AD4-5693-42BF-84E4-E7B308D3B2C6}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach Source File">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="DTS.ForEachFileEnumerator.3"
+        DTS:DTSID="{0E97C586-3946-4447-ACC2-13A4461D1181}"
+        DTS:ObjectName="{0E97C586-3946-4447-ACC2-13A4461D1181}">
+        <DTS:PropertyExpression
+          DTS:Name="Directory">@[User::FullInboundDirectory]</DTS:PropertyExpression>
+        <DTS:PropertyExpression
+          DTS:Name="FileSpec">@[User::fileSpec]</DTS:PropertyExpression>
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="M:\Lendly\In" />
+            <FEFEProperty
+              FileSpec="*Payment_*.csv" />
+            <FEFEProperty
+              FileNameRetrievalType="0" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Source File\Process IB File"
+          DTS:CreationName="SSIS.Pipeline.3"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{E6D3D2DF-0293-481A-BDC2-CCA5B97B5B37}"
+          DTS:ExecutableType="SSIS.Pipeline.3"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Process IB File"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              BLOBTempStoragePath="M:\"
+              bufferTempStoragePath="M:\"
+              defaultBufferMaxRows="100000000"
+              version="1">
+              <components>
+                <component
+                  refId="Package\Foreach Source File\Process IB File\Artiva Adjustment File"
+                  componentClassID="{8DA75FED-1B7C-407D-B2AD-2B24209CCCA4}"
+                  contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Flat File Destination"
+                  localeId="1033"
+                  name="Artiva Adjustment File">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether the data will overwrite or append to the destination file."
+                      name="Overwrite">true</property>
+                    <property
+                      dataType="System.Null"
+                      description="Specifies the text to write to the destination file before any data is written."
+                      expressionType="Notify"
+                      name="Header" />
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Source File\Process IB File\Artiva Adjustment File.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Artiva Adj File]"
+                      connectionManagerRefId="Package.ConnectionManagers[Artiva Adj File]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Source File\Process IB File\Artiva Adjustment File.Inputs[Flat File Destination Input]"
+                      hasSideEffects="true"
+                      name="Flat File Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Source File\Process IB File\Artiva Adjustment File.Inputs[Flat File Destination Input].Columns[RowData]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1000"
+                          cachedName="RowData"
+                          externalMetadataColumnId="Package\Foreach Source File\Process IB File\Artiva Adjustment File.Inputs[Flat File Destination Input].ExternalColumns[Column 0]"
+                          lineageId="Package\Foreach Source File\Process IB File\Script Component.Outputs[Adjustment].Columns[RowData]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Source File\Process IB File\Artiva Adjustment File.Inputs[Flat File Destination Input].ExternalColumns[Column 0]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Column 0" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                </component>
+                <component
+                  refId="Package\Foreach Source File\Process IB File\Flat File Source"
+                  componentClassID="{D23FD76B-F51D-420F-BBCB-19CBF6AC1AB4}"
+                  contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Flat File Source"
+                  localeId="1033"
+                  name="Flat File Source"
+                  usesDispositions="true"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether zero-length columns are treated as null."
+                      name="RetainNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                      name="FileNameColumnName"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Source File\Process IB File\Flat File Source.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Flat File Connection Manager]"
+                      connectionManagerRefId="Package.ConnectionManagers[Flat File Connection Manager]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output]"
+                      name="Flat File Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Client Reference Number]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="IgnoreFailure"
+                          externalMetadataColumnId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Client Reference Number]"
+                          length="50"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Client Reference Number]"
+                          name="Client Reference Number"
+                          truncationRowDisposition="IgnoreFailure">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Trans Type Code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="IgnoreFailure"
+                          externalMetadataColumnId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Trans Type Code]"
+                          length="50"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Trans Type Code]"
+                          name="Trans Type Code"
+                          truncationRowDisposition="IgnoreFailure">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Payment Amount]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="IgnoreFailure"
+                          externalMetadataColumnId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Payment Amount]"
+                          length="50"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Payment Amount]"
+                          name="Payment Amount"
+                          truncationRowDisposition="IgnoreFailure">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Transaction Reference]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="IgnoreFailure"
+                          externalMetadataColumnId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Transaction Reference]"
+                          length="50"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Transaction Reference]"
+                          name="Transaction Reference"
+                          truncationRowDisposition="IgnoreFailure">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Principal Pmt Amt]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="IgnoreFailure"
+                          externalMetadataColumnId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Principal Pmt Amt]"
+                          length="50"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Principal Pmt Amt]"
+                          name="Principal Pmt Amt"
+                          truncationRowDisposition="IgnoreFailure">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Interest Pmt Amt]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="IgnoreFailure"
+                          externalMetadataColumnId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Interest Pmt Amt]"
+                          length="50"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Interest Pmt Amt]"
+                          name="Interest Pmt Amt"
+                          truncationRowDisposition="IgnoreFailure">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Tender Date]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Tender Date]"
+                          length="50"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Tender Date]"
+                          name="Tender Date"
+                          truncationRowDisposition="IgnoreFailure">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Client Reference Number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Client Reference Number" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Trans Type Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Trans Type Code" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Payment Amount]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Payment Amount" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Transaction Reference]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Transaction Reference" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Principal Pmt Amt]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Principal Pmt Amt" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Interest Pmt Amt]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Interest Pmt Amt" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Tender Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Tender Date" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Error Output]"
+                      isErrorOut="true"
+                      name="Flat File Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          codePage="1252"
+                          dataType="text"
+                          description="Flat File Source Error Output Column"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          name="Flat File Source Error Output Column" />
+                        <outputColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Source File\Process IB File\Script Component"
+                  componentClassID="{874F7595-FB5F-40FF-96AF-FBFF8250E3EF}"
+                  contactInfo="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;8"
+                  description="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum."
+                  name="Script Component"
+                  version="8">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Stores the source code of the component"
+                      isArray="true"
+                      name="SourceCode"
+                      state="cdata">
+                      <arrayElements
+                        arrayElementCount="30">
+                        <arrayElement
+                          dataType="System.String"><![CDATA[ComponentWrapper.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services component wrapper
+*  This module defines the base class for your component
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+
+public class UserComponent: ScriptComponent
+{
+    public Connections Connections;
+    public Variables Variables;
+    public UserComponent()
+    {
+        Connections = new Connections(this);
+        Variables = new Variables(this);
+    }
+
+    public MaintenanceBuffer MaintenanceBuffer;
+
+    public AdjustmentBuffer AdjustmentBuffer;
+
+    int InputsFinished = 0;
+
+    public override void ProcessInput(int InputID, string InputName, PipelineBuffer Buffer, OutputNameMap OutputMap)
+    {
+
+        if (InputName.Equals(@"Input 0", StringComparison.Ordinal))
+        {
+            Input0_ProcessInput(new Input0Buffer(Buffer, GetColumnIndexes(InputID), OutputMap));
+        }
+
+        if (Buffer.EndOfRowset)
+        {
+            InputsFinished = InputsFinished + 1;
+            if (InputsFinished == 1)
+            {
+                FinishOutputs();
+                MarkOutputsFinished();
+            }
+        }
+
+    }
+
+    public virtual void FinishOutputs()
+    {
+    }
+
+    private void MarkOutputsFinished()
+    {
+
+        if (null != MaintenanceBuffer)
+        {
+            MaintenanceBuffer.SetEndOfRowset();
+            MaintenanceBuffer = null;
+        }
+
+        if (null != AdjustmentBuffer)
+        {
+            AdjustmentBuffer.SetEndOfRowset();
+            AdjustmentBuffer = null;
+        }
+
+    }
+
+    public override void PrimeOutput(int Outputs, int[] OutputIDs, PipelineBuffer[] Buffers, OutputNameMap OutputMap)
+    {
+       for(int Idx = 0; Idx < Outputs; Idx++)
+       {
+            if(OutputIDs[Idx] == GetOutputID(OutputMap, @"Maintenance"))
+            {
+                MaintenanceBuffer = new MaintenanceBuffer(Buffers[Idx], GetColumnIndexes(OutputIDs[Idx]), OutputMap);
+            }
+            if(OutputIDs[Idx] == GetOutputID(OutputMap, @"Adjustment"))
+            {
+                AdjustmentBuffer = new AdjustmentBuffer(Buffers[Idx], GetColumnIndexes(OutputIDs[Idx]), OutputMap);
+            }
+        }
+
+        CreateNewOutputRows();
+
+    }
+
+    public virtual void CreateNewOutputRows()
+    {
+    }
+
+    public virtual void Input0_ProcessInput(Input0Buffer Buffer)
+    {
+        while (Buffer.NextRow())
+        {
+            Input0_ProcessInputRow(Buffer);
+        }
+    }
+
+    public virtual void Input0_ProcessInputRow(Input0Buffer Row)
+    {
+    }
+
+}
+
+public class Connections
+{
+    ScriptComponent ParentComponent;
+
+    public Connections(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+    public IDTSConnectionManager100 ArtivaConnection
+    {
+        get
+        {
+            return ParentComponent.ComponentMetaData.RuntimeConnectionCollection.GetRuntimeConnectionByName(@"ArtivaConnection").ConnectionManager;
+        }
+    }
+
+}
+
+public class Variables
+{
+    ScriptComponent ParentComponent;
+
+    public Variables(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Resources.resx]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[main.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[#region Help:  Introduction to the Script Component
+/* The Script Component allows you to perform virtually any operation that can be accomplished in
+ * a .Net application within the context of an Integration Services data flow.
+ *
+ * Expand the other regions which have "Help" prefixes for examples of specific ways to use
+ * Integration Services features within this script component. */
+#endregion
+
+#region Namespaces
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+using System.Text.RegularExpressions;
+using FileHelpers;
+using System.Collections.Generic;
+using RGS.ArtivaGeneralPurpose.Data.Records;
+using System.Data.Odbc;
+using System.Globalization;
+using System.Windows.Forms;
+using System.Text;
+using System.IO;
+#endregion
+
+/// <summary>
+/// This is the class to which to add your code.  Do not change the name, attributes, or parent
+/// of this class.
+/// </summary>
+[Microsoft.SqlServer.Dts.Pipeline.SSISScriptComponentEntryPointAttribute]
+public class ScriptMain : UserComponent
+{
+    #region Help:  Using Integration Services variables and parameters
+    /* To use a variable in this script, first ensure that the variable has been added to
+     * either the list contained in the ReadOnlyVariables property or the list contained in
+     * the ReadWriteVariables property of this script component, according to whether or not your
+     * code needs to write into the variable.  To do so, save this script, close this instance of
+     * Visual Studio, and update the ReadOnlyVariables and ReadWriteVariables properties in the
+     * Script Transformation Editor window.
+     * To use a parameter in this script, follow the same steps. Parameters are always read-only.
+     *
+     * Example of reading from a variable or parameter:
+     *  DateTime startTime = Variables.MyStartTime;
+     *
+     * Example of writing to a variable:
+     *  Variables.myStringVariable = "new value";
+     */
+    #endregion
+
+    #region Help:  Using Integration Services Connnection Managers
+    /* Some types of connection managers can be used in this script component.  See the help topic
+     * "Working with Connection Managers Programatically" for details.
+     *
+     * To use a connection manager in this script, first ensure that the connection manager has
+     * been added to either the list of connection managers on the Connection Managers page of the
+     * script component editor.  To add the connection manager, save this script, close this instance of
+     * Visual Studio, and add the Connection Manager to the list.
+     *
+     * If the component needs to hold a connection open while processing rows, override the
+     * AcquireConnections and ReleaseConnections methods.
+     * 
+     * Example of using an ADO.Net connection manager to acquire a SqlConnection:
+     *  object rawConnection = Connections.SalesDB.AcquireConnection(transaction);
+     *  SqlConnection salesDBConn = (SqlConnection)rawConnection;
+     *
+     * Example of using a File connection manager to acquire a file path:
+     *  object rawConnection = Connections.Prices_zip.AcquireConnection(transaction);
+     *  string filePath = (string)rawConnection;
+     *
+     * Example of releasing a connection manager:
+     *  Connections.SalesDB.ReleaseConnection(rawConnection);
+     */
+    #endregion
+
+    #region Help:  Firing Integration Services Events
+    /* This script component can fire events.
+     *
+     * Example of firing an error event:
+     *  ComponentMetaData.FireError(10, "Process Values", "Bad value", "", 0, out cancel);
+     *
+     * Example of firing an information event:
+     *  ComponentMetaData.FireInformation(10, "Process Values", "Processing has started", "", 0, fireAgain);
+     *
+     * Example of firing a warning event:
+     *  ComponentMetaData.FireWarning(10, "Process Values", "No rows were received", "", 0);
+     */
+    #endregion
+
+    /// <summary>
+    /// This method is called once, before rows begin to be processed in the data flow.
+    ///
+    /// You can remove this method if you don't need to do anything here.
+    /// </summary>
+     
+    int iTransactionReference = 0;
+
+    //odbc connection
+    OdbcConnection conn;
+    public override void PreExecute()
+    {
+        base.PreExecute();
+        conn = new OdbcConnection(Connections.ArtivaConnection.ConnectionString);
+    }
+
+    /// <summary>
+    /// This method is called after all the rows have passed through this component.
+    ///
+    /// You can delete this method if you don't need to do anything here.
+    /// </summary>
+    public override void PostExecute()
+    {
+        base.PostExecute();
+        /*
+         * Add your code here
+         */
+    }
+
+    /// <summary>
+    /// This method is called once for every row that passes through the component from Input0.
+    ///
+    /// Example of reading a value from a column in the the row:
+    ///  string zipCode = Row.ZipCode
+    ///
+    /// Example of writing a value to a column in the row:
+    ///  Row.ZipCode = zipCode
+    /// </summary>
+    /// <param name="Row">The row that is currently passing through the component</param>
+    public override void Input0_ProcessInputRow(Input0Buffer Row)
+    {
+        #region SQL Query
+        if (conn.State != ConnectionState.Open)
+            conn.Open();
+        string db_ARACID = string.Empty;
+
+        string query = @"SELECT TOP 1                                
+                             LTRIM(RTRIM(ARACID)) AS ARACID
+                            ,ARCLIENT.ARCLID 
+                        FROM 
+                            %inorder   
+                            ARACCOUNT
+                            JOIN ARCLIENT ON ARACCOUNT.ARACCLTID = ARCLIENT.ARCLID AND ARCLIENT.ARCLID IN ('DCLACH','DCLYDD') 
+                        WHERE 
+                            ARACCOUNT.ARACCLACCT = '" + Row.ClientReferenceNumber.Trim().ToString() + @"'";
+
+        using (var command = new OdbcCommand(query, conn))
+        {
+            using (var reader = command.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    //bAccountFound = true;
+                    db_ARACID = reader.IsDBNull(0) ? "" : reader.GetString(0);
+                }
+                else
+                {
+                    //bAccountFound = false;
+                }
+            }
+        }
+        #endregion
+
+        if (!string.IsNullOrEmpty(db_ARACID))
+        {
+            decimal dcPaymentAmount = 0;
+            decimal dcPrincipalPmtAmt = 0;
+            decimal dcInterestPmtAmt = 0;
+            if (!string.IsNullOrEmpty(Row.PaymentAmount))
+            {
+                dcPaymentAmount = Convert.ToDecimal(Row.PaymentAmount);
+            }
+            if (!string.IsNullOrEmpty(Row.PrincipalPmtAmt))
+            {
+                dcPrincipalPmtAmt = Convert.ToDecimal(Row.PrincipalPmtAmt);
+            }
+            if (!string.IsNullOrEmpty(Row.InterestPmtAmt))
+            {
+                dcInterestPmtAmt = Convert.ToDecimal(Row.InterestPmtAmt);
+            }
+
+            string strTransTypeCode = Row.TransTypeCode.Trim().ToString();
+
+            if (strTransTypeCode == "DP")
+            {
+               // if (dcPaymentAmount > 0)
+              //  {
+                    CreatePayRecord(dcPaymentAmount, db_ARACID, Row.TenderDate, dcPrincipalPmtAmt, dcInterestPmtAmt);
+                //}
+            }
+            else if (strTransTypeCode =="DPNSF" || strTransTypeCode == "DPCOR")
+            {
+                CreateREVRecord(dcPaymentAmount, db_ARACID, Row.TenderDate, strTransTypeCode);
+            }
+            else if (strTransTypeCode == "DBJ" || strTransTypeCode == "CRJ")
+            {
+                CreateADJRecord(dcPaymentAmount, db_ARACID, Row.TenderDate, strTransTypeCode, dcPrincipalPmtAmt, dcInterestPmtAmt);
+            }
+        }
+    }
+
+    public override void CreateNewOutputRows()
+    {
+        /*
+          Add rows by calling the AddRow method on the member variable named "<Output Name>Buffer".
+          For example, call MyOutputBuffer.AddRow() if your output was named "MyOutput".
+        */
+    }
+
+    private void CreateRecallRecord(string RecallCode, string RecallReason, string ARACID)
+    {
+        var record201 = new ClientRecallInfo_201()
+        {
+            AccountId = ARACID,
+            DateOfRecall = DateTime.Today,
+            RecallCode = RecallCode,
+            RecallReason = RecallReason
+            //ClientRecallFileName = Variables.currentFile.ToString()
+        };
+        AddMaintenanceRow(record201);
+    }
+
+    private void CreateCloseRecord(string ARACID)
+    {
+        var recClose = new CloseAccount_C()
+        {
+            AccountId = ARACID,
+            CloseCode = "RETURN"
+        };
+        AddMaintenanceRow(recClose);
+    }
+
+    private void CreatePayRecord(decimal CollecttAmtPaid, string ARACID, string TenderDate, decimal PrincipalPmtAmt, decimal InterestPmtAmt)
+    {
+        if (CollecttAmtPaid > 0)
+        {
+            iTransactionReference += iTransactionReference;
+            var recordPAY = new Payment_PAY()
+            {
+                AccountId = ARACID,
+                TransactionType = "DP",
+                PaymentAmount = CollecttAmtPaid,
+                TenderDate = Convert.ToDateTime(TenderDate),
+                TransactionReference = iTransactionReference.ToString(),
+                PrincipalPaymentAmount = PrincipalPmtAmt,
+                InterestPaymentAmount = InterestPmtAmt
+            };
+            AddAdjustmentRow(recordPAY);
+        }
+    }
+
+    private void CreateREVRecord(decimal CollecttAmtPaid, string ARACID, string TenderDate, string TransCode)
+    {
+        iTransactionReference += iTransactionReference;
+        var recordREV = new PaymentReversal_REV()
+        {
+            AccountId = ARACID,
+            ReversalType = TransCode,
+            PaymentAmount = CollecttAmtPaid,
+            TenderDate = Convert.ToDateTime(TenderDate)
+        };
+        AddAdjustmentRow(recordREV);
+    }
+
+    private void CreateADJRecord(decimal CollecttAmtPaid, string ARACID, string TenderDate, string TransCode, decimal PrincipalPmtAmt, decimal InterestPmtAmt)
+    { 
+        iTransactionReference += iTransactionReference;
+       
+        var recordPAY = new Adjustment_ADJ()
+        {
+            AccountId = ARACID,
+            PrincipalAdjustmentAmount = PrincipalPmtAmt,
+            InterestAdjustmentAmount = InterestPmtAmt,
+            TransactionType = TransCode,
+            TenderDate = Convert.ToDateTime(TenderDate),
+            TransactionReference = iTransactionReference.ToString()
+        };
+        AddAdjustmentRow(recordPAY);
+    }
+
+    private void AddMaintenanceRow<T>(T record) where T : GeneralPurposeRecordBase
+    {
+        var recordList = new List<T>();
+        recordList.Add(record);
+        var recordString = CommonEngine.WriteString<T>(recordList);
+        MaintenanceBuffer.AddRow();
+        MaintenanceBuffer.RowData = recordString.ToUpper();
+    }
+
+    //adding adjustment buffer
+    private void AddAdjustmentRow<T>(T record) where T : GeneralPurposeRecordBase
+    {
+        var recordList = new List<T>();
+        recordList.Add(record);
+        var recordString = CommonEngine.WriteString<T>(recordList);
+        AdjustmentBuffer.AddRow();
+        AdjustmentBuffer.RowData = recordString.ToUpper();
+    }
+
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[BufferWrapper.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services buffer wrappers
+*  This module defines classes for accessing data flow buffers
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+
+public class Input0Buffer: ScriptBuffer
+
+{
+    public Input0Buffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String ClientReferenceNumber
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[0]);
+        }
+    }
+    public bool ClientReferenceNumber_IsNull
+    {
+        get
+        {
+            return IsNull(0);
+        }
+    }
+
+    public String TransTypeCode
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[1]);
+        }
+    }
+    public bool TransTypeCode_IsNull
+    {
+        get
+        {
+            return IsNull(1);
+        }
+    }
+
+    public String PaymentAmount
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[2]);
+        }
+    }
+    public bool PaymentAmount_IsNull
+    {
+        get
+        {
+            return IsNull(2);
+        }
+    }
+
+    public String TenderDate
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[3]);
+        }
+    }
+    public bool TenderDate_IsNull
+    {
+        get
+        {
+            return IsNull(3);
+        }
+    }
+
+    public String TransactionReference
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[4]);
+        }
+    }
+    public bool TransactionReference_IsNull
+    {
+        get
+        {
+            return IsNull(4);
+        }
+    }
+
+    public String PrincipalPmtAmt
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[5]);
+        }
+    }
+    public bool PrincipalPmtAmt_IsNull
+    {
+        get
+        {
+            return IsNull(5);
+        }
+    }
+
+    public String InterestPmtAmt
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[6]);
+        }
+    }
+    public bool InterestPmtAmt_IsNull
+    {
+        get
+        {
+            return IsNull(6);
+        }
+    }
+
+    new public bool NextRow()
+    {
+        return base.NextRow();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+
+public class MaintenanceBuffer: ScriptBuffer
+
+{
+    public MaintenanceBuffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String RowData
+    {
+        set
+        {
+            this[0] = value;
+        }
+    }
+    public bool RowData_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(0);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    new public void AddRow()
+    {
+        base.AddRow();
+    }
+
+    new public void SetEndOfRowset()
+    {
+        base.SetEndOfRowset();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+
+public class AdjustmentBuffer: ScriptBuffer
+
+{
+    public AdjustmentBuffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String RowData
+    {
+        set
+        {
+            this[0] = value;
+        }
+    }
+    public bool RowData_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(0);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    new public void AddRow()
+    {
+        base.AddRow();
+    }
+
+    new public void SetEndOfRowset()
+    {
+        base.SetEndOfRowset();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Settings.Designer.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_72ea7a3d3c324956a949af9cf89d1fc9.Properties.Settings.get_Default():SC_72ea7a3d3c324956a949af9cf89d1fc9.Properties.Sett" +
+    "ings")]
+
+namespace SC_72ea7a3d3c324956a949af9cf89d1fc9.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[SC_72ea7a3d3c324956a949af9cf89d1fc9.csproj]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{487D0C27-7E87-4C7F-A1D3-E0AAF2E9F592}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SC_72ea7a3d3c324956a949af9cf89d1fc9</RootNamespace>
+    <AssemblyName>SC_72ea7a3d3c324956a949af9cf89d1fc9</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FileHelpers, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>R:\Software\FileHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="RGS.ArtivaGeneralPurpose, Version=1.20.0.0, Culture=neutral, PublicKeyToken=972530eacd4bf30a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>R:\Software\RGS.ArtivaGeneralPurpose.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.SqlServer.TxScript, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSRuntimeWrap, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSPipelineWrap, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.PipelineHost, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Compile Include="main.cs" />
+    <Compile Include="BufferWrapper.cs" />
+    <Compile Include="ComponentWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <!-- Include the build rules for a C# project.-->
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- This section defines VSTA properties that describe the host-changable project properties. -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
+        <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" />
+        <Host Name="ScriptComponent" IconIndex="0" />
+        <ProjectClient>
+          <HostIdentifier>SSIS_SC110</HostIdentifier>
+        </ProjectClient>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Project]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF16LE]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+	<msb:PropertyGroup>
+		<msb:Language>msBuild</msb:Language>
+		<msb:CodeName>SC_72ea7a3d3c324956a949af9cf89d1fc9</msb:CodeName>
+		<msb:DisplayName>SC_72ea7a3d3c324956a949af9cf89d1fc9</msb:DisplayName>
+		<msb:ProjectId>{286B5B40-3840-484C-8486-38AD3D2F2C29}</msb:ProjectId>
+	</msb:PropertyGroup>
+	<msb:ItemGroup>
+		<msb:Project Include="SC_72ea7a3d3c324956a949af9cf89d1fc9.csproj"/>
+		<msb:File Include="Properties\Settings.settings"/>
+		<msb:File Include="Properties\AssemblyInfo.cs"/>
+		<msb:File Include="Properties\Resources.resx"/>
+		<msb:File Include="Properties\Resources.Designer.cs"/>
+		<msb:File Include="BufferWrapper.cs"/>
+		<msb:File Include="main.cs"/>
+		<msb:File Include="Properties\Settings.Designer.cs"/>
+		<msb:File Include="ComponentWrapper.cs"/>
+	</msb:ItemGroup>
+</c:Project>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\AssemblyInfo.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("SC_72ea7a3d3c324956a949af9cf89d1fc9")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("SC_72ea7a3d3c324956a949af9cf89d1fc9")]
+[assembly: AssemblyCopyright("Copyright @  2020")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Settings.settings]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Resources.Designer.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_72ea7a3d3c324956a949af9cf89d1fc9.Properties.Resources.get_ResourceManager():System.Resources.Resou" +
+    "rceManager")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_72ea7a3d3c324956a949af9cf89d1fc9.Properties.Resources.get_Culture():System.Globalization.CultureIn" +
+    "fo")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_72ea7a3d3c324956a949af9cf89d1fc9.Properties.Resources.set_Culture(System.Globalization.CultureInfo" +
+    "):Void")]
+
+namespace SC_72ea7a3d3c324956a949af9cf89d1fc9.Properties {
+    
+    
+    /// <summary>
+    ///   A strongly-typed resource class, for looking up localized strings, etc.
+    /// </summary>
+    // This class was auto-generated by the StronglyTypedResourceBuilder
+    // class via a tool like ResGen or Visual Studio.
+    // To add or remove a member, edit your .ResX file then rerun ResGen
+    // with the /str option, or rebuild your VS project.
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    internal class Resources {
+        
+        private static global::System.Resources.ResourceManager resourceMan;
+        
+        private static global::System.Globalization.CultureInfo resourceCulture;
+        
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources() {
+        }
+        
+        /// <summary>
+        ///   Returns the cached ResourceManager instance used by this class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if ((resourceMan == null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SC_72ea7a3d3c324956a949af9cf89d1fc9.Properties.Resources", typeof(Resources).Assembly);
+                    resourceMan = temp;
+                }
+                return resourceMan;
+            }
+        }
+        
+        /// <summary>
+        ///   Overrides the current thread's CurrentUICulture property for all
+        ///   resource lookups using this strongly typed resource class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
+                return resourceCulture;
+            }
+            set {
+                resourceCulture = value;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                      </arrayElements>
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Stores the binary representation of the component"
+                      isArray="true"
+                      name="BinaryCode"
+                      state="cdata">
+                      <arrayElements
+                        arrayElementCount="2">
+                        <arrayElement
+                          dataType="System.String"><![CDATA[SC_72ea7a3d3c324956a949af9cf89d1fc9.dll]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDABGP918AAAAAAAAAAOAAIiALATAAACwAAAAIAAAAAAAAakoA
+AAAgAAAAYAAAAAAAEAAgAAAAAgAABAAAAAAAAAAEAAAAAAAAAACgAAAAAgAAAAAAAAMAQIUAABAA
+ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAABhKAABPAAAAAGAAAHgEAAAAAAAAAAAAAAAAAAAA
+AAAAAIAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAAcCoAAAAgAAAALAAAAAIA
+AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAHgEAAAAYAAAAAYAAAAuAAAAAAAAAAAAAAAAAABAAABA
+LnJlbG9jAAAMAAAAAIAAAAACAAAANAAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAABM
+SgAAAAAAAEgAAAACAAUAYCcAAAAiAAABAAAAAAAAAGBJAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIoCKBAAAAoCAnsDAAAEbzMAAAZvEQAACnMSAAAKfQIAAAQq
+HgIoEwAACioAGzAHAIgBAAABAAARAnsCAAAEbxQAAAoXLgsCewIAAARvFQAACn4WAAAKCnIBAABw
+A28OAAAGbxcAAApvGAAACnKuAwBwKBkAAAoCewIAAARzGgAACgsHbxsAAAoMCG8cAAAKLBgIFm8d
+AAAKLQkIFm8eAAAKKwVysgMAcAreFAgsBghvHwAACtwHLAYHbx8AAArcBiggAAAKOvUAAAASA/4V
+EQAAARIE/hURAAABEgX+FREAAAEDbxIAAAYoIAAACi0MA28SAAAGKCEAAAoNA28YAAAGKCAAAAot
+DQNvGAAABighAAAKEwQDbxoAAAYoIAAACi0NA28aAAAGKCEAAAoTBQNvEAAABm8XAAAKbxgAAAoT
+BhEGcrQDAHAoIgAACiwTAgkGA28UAAAGEQQRBSgHAAAGKhEGcroDAHAoIgAACi0OEQZyxgMAcCgi
+AAAKLBECCQYDbxQAAAYRBigIAAAGKhEGctIDAHAoIgAACi0OEQZy2gMAcCgiAAAKLBQCCQYDbxQA
+AAYRBhEEEQUoCQAABioBHAAAAgBRACJzAAoAAAAAAgBKADN9AAoAAAAABioAABMwAwAzAAAAAgAA
+EXMjAAAKJQV9JAAACiUoJQAACnMmAAAKfScAAAolA30oAAAKJQR9KQAACgoCBigBAAArKgATMAMA
+IAAAAAMAABFzKgAACiUDfSsAAAolcuIDAHB9LAAACgoCBigCAAArKhMwAwB5AAAABAAAEQN+LQAA
+CiguAAAKLGsCAnsBAAAEAnsBAAAEWH0BAAAEcy8AAAolBH0wAAAKJXK0AwBwfTEAAAolA30yAAAK
+JQUoMwAACnMmAAAKfTQAAAolAnwBAAAEKDUAAAp9NgAACiUOBH03AAAKJQ4FfTgAAAoKAgYoAwAA
+KyoAAAATMAMASAAAAAUAABECAnsBAAAEAnsBAAAEWH0BAAAEczkAAAolBH06AAAKJQ4EfTsAAAol
+A308AAAKJQUoMwAACnMmAAAKfT0AAAoKAgYoBAAAKyoTMAMAYgAAAAYAABECAnsBAAAEAnsBAAAE
+WH0BAAAEcz4AAAolBH0/AAAKJQ4FfUAAAAolDgZ9QQAACiUOBH1CAAAKJQUoMwAACnMmAAAKfUMA
+AAolAnwBAAAEKDUAAAp9RAAACgoCBigFAAArKgAAEzADAC8AAAAHAAARc0UAAAolA29GAAAKKAYA
+ACsKAnsFAAAEbyEAAAYCewUAAAQGb0gAAApvHwAABioAEzADAC8AAAAHAAARc0UAAAolA29GAAAK
+KAYAACsKAnsGAAAEbycAAAYCewYAAAQGb0gAAApvJQAABioeAigqAAAGKioCAwQFKEkAAAoqUgJ7
+SgAACgJ7SwAAChaUb0wAAAoqIgIWKE0AAAoqUgJ7SgAACgJ7SwAACheUb0wAAAoqIgIXKE0AAAoq
+UgJ7SgAACgJ7SwAAChiUb0wAAAoqIgIYKE0AAAoqUgJ7SgAACgJ7SwAAChmUb0wAAAoqIgIZKE0A
+AAoqUgJ7SgAACgJ7SwAAChqUb0wAAAoqIgIaKE0AAAoqUgJ7SgAACgJ7SwAAChuUb0wAAAoqIgIb
+KE0AAAoqUgJ7SgAACgJ7SwAAChyUb0wAAAoqIgIcKE0AAAoqHgIoTgAACioeAihPAAAKKiYCFgMo
+UAAACipaAywIAhYoUQAACipy8AMAcHNSAAAKeh4CKFMAAAoqHgIoVAAACip+AihVAAAKAgJzMgAA
+Bn0DAAAEAgJzNAAABn0EAAAEKgAAABMwBABPAAAAAAAAAARyjQQAcBpvVgAACiwVAgUCAyhXAAAK
+DgRzDQAABm8wAAAGBW9YAAAKLCMCAnsHAAAEF1h9BwAABAJ7BwAABBczDAJvLAAABgIoLQAABirW
+AnsFAAAELBICewUAAARvIgAABgIUfQUAAAQCewYAAAQsEgJ7BgAABG8oAAAGAhR9BgAABCoAAAAT
+MAUAZwAAAAgAABEWCitYBAaUDgRynQQAcChZAAAKMxkCBQaaAgQGlChXAAAKDgRzHgAABn0FAAAE
+BAaUDgRytQQAcChZAAAKMxkCBQaaAgQGlChXAAAKDgRzJAAABn0GAAAEBhdYCgYDMqQCby8AAAYq
+SisHAgNvMQAABgNvHAAABi3xKjoCKFoAAAoCA30IAAAEKoICewgAAARvWwAACm9cAAAKcssEAHBv
+XQAACm9eAAAKKjoCKFoAAAoCA30JAAAEKh4CKFoAAAoqrn4KAAAELR5y7QQAcNAJAAACKF8AAApv
+YAAACnNhAAAKgAoAAAR+CgAABCoafgsAAAQqHgKACwAABCoafgwAAAQqHgIoYgAACiouczoAAAaA
+DAAABCoAQlNKQgEAAQAAAAAADAAAAHY0LjAuMzAzMTkAAAAABQBsAAAA3AsAACN+AABIDAAAXA0A
+ACNTdHJpbmdzAAAAAKQZAABgBQAAI1VTAAQfAAAQAAAAI0dVSUQAAAAUHwAA7AIAACNCbG9iAAAA
+AAAAAAIAAAFXFaIJCR0AAAD6ATMAFgAAAQAAADgAAAAKAAAADAAAADsAAAAwAAAAYgAAABAAAAAI
+AAAABgAAABYAAAAXAAAAAgAAAAEAAAAJAAAAAQAAAAIAAAAGAAAAAgAAAAAATAYBAAAAAAAGAAIF
+RgoGAJYFRgoGAE4EDQoPALoKAAAGAHsExQcGAOUExQcGAMYExQcGAH0FxQcGACIFxQcGADsFxQcG
+AJIExQcGAK0E0QUKAFYFIAMOABkIaQEOANsBaQEOAAoJaQEGACEGXwcSAG8AIAoSANcAIAoSACYB
+IAoSABIBIAoSAAEBIAoSAIYDIAoKAGYJIAMWAEYJIAMKAIQIIAMKAPcLIAMGAIALXwcaAFYApQkG
+ADEEDQoGAHcJZgoGAHMIsAceAPEDKQYeAGIEKQYeAJ8DmwcGABYERgoOAAwIQggOAAYEMgEGABgG
+XwcOAP0IQggGALMCXwcGAJYMXwcGAAoDXwcGAIQAXwcGAKQAXwcGAJ0AegEiABMDSwsGAI8AegEG
+ACgIXwcGAGIIXwcmAAEAzQkmABoAzQkmAD0AzQkGAFkDXwcGAL8CXwcGADYNxQcAAAAAzgAAAAAA
+AQABAAEAEACLBwAAGAABAAEAAQAQACcJAABhAAMADQABABAANAkAAGEAAwAeAAEAEABVCQAAYQAD
+ACQAAQAQANkLAABtAAMAKgABABAANwsAAHEACAAyAAEAEAD4CgAAcQAJADQAAAAQAG0KyQpxAAoA
+NQAAARAAJwvJCo0ADAA5AAEAbAJvAQEAlgdyAQYANwt2AQYA+Ap6AQYANAl+AQYAVQmCAQEAqAFv
+AQEA5wuGAQEA5wuGAREAaweKAREAdgOOAREAQwKTAVAgAAAAAMYAtAUGAAEAcyAAAAAAxgC/BQYA
+AQB8IAAAAADGAAkNlwEBACwiAAAAAMYAZQsGAAIAMCIAAAAAgQAZAp0BAgBwIgAAAACBAAcCEAAF
+AJwiAAAAAIEALAKkAQYAJCMAAAAAgQD3AbABCwB4IwAAAACBAOcBuQEPAOgjAAAAAIEA5gzGARUA
+JCQAAAAAgQD4DMYBFgBfJAAAAACGGPYJBgAXAGckAAAAAIYY9gnrABcAciQAAAAAhgjjCBwAGgCH
+JAAAAACGCN8GSwAaAJAkAAAAAIYIggIcABoApSQAAAAAhgiwBksAGgCuJAAAAACGCDoMHAAaAMMk
+AAAAAIYINQdLABoAzCQAAAAAhgjYAxwAGgDhJAAAAACGCMkGSwAaAOokAAAAAIYIUwIcABoA/yQA
+AAAAhgiQBksAGgAIJQAAAACGCLILHAAaAB0lAAAAAIYIAAdLABoAJiUAAAAAhgjGCxwAGgA7JQAA
+AACGCBsHSwAaAEQlAAAAAIYAIA1LABoATCUAAAAAhgCaC0sAGgBnJAAAAACGGPYJ6wAaAFQlAAAA
+AIYIVAEQAB0AXiUAAAAAhgh9Bs0BHgB1JQAAAACGAN8MBgAfAH0lAAAAAIYAlwsGAB8ATCUAAAAA
+hgCaC0sAHwBnJAAAAACGGPYJ6wAfAFQlAAAAAIYIVAEQACIAXiUAAAAAhgh9Bs0BIwB1JQAAAACG
+AN8MBgAkAH0lAAAAAIYAlwsGACQATCUAAAAAhgCaC0sAJACFJQAAAACGGPYJBgAkAKglAAAAAMYA
+xgzSASQALCIAAAAAxgFXCwYAKAADJgAAAACBALcBBgAoADwmAAAAAMYA0wzcASgALCIAAAAAxgFl
+CwYALACvJgAAAADGAb8MlwEsACwiAAAAAMYBCQ2XAS0AwiYAAAAAhhj2CegBLgDRJgAAAACGCPcH
+LwEvAPImAAAAAIYY9gnoAS8AAScAAAAAgxj2CQYAMAAJJwAAAACTCHMJ7gEwADUnAAAAAJMIXgPz
+ATAAPCcAAAAAkwhqA/kBMABEJwAAAACWCKYLAAIxAEsnAAAAAIYY9gkGADEAUycAAAAAkRj8CQUC
+MQAAAAEAJA0AAAEAngIAAAIAVQgAAAMA5gAAAAEA5gAAAAEAywEAAAIA5gAAAAMA3AMAAAQAtgsA
+AAUAygsAAAEAywEAAAIA5gAAAAMA3AMAAAQAqQIAAAEAywEAAAIA5gAAAAMA3AMAAAQAqQIAAAUA
+tgsAAAYAygsAAAEAPAIAAAEAPAIAAAEAbAkAAAIAAgsAAAMAkggAAAEAbAkAAAIAAgsAAAMAkggA
+AAEAywUAAAEAywUAAAEAbAkAAAIAAgsAAAMAkggAAAEAywUAAAEAywUAAAEA7QAAAAIA4wIAAAMA
+bAkAAAQAkggAAAEAXQsAAAIAAwoAAAMAQwsAAAQAkggAAAEAbAkAAAEAJA0AAAEA/QsAAAEA/QsA
+AAEAywUJAPYJAQARAPYJBgAZAPYJCgApAPYJEAAxAPYJEAA5APYJEABBAPYJEABJAPYJEABRAPYJ
+EABZAPYJEABhAPYJEABpAPYJBgDxAPYJBgARAfYJFQAhAfYJBgDZALQFBgDpAPcFHABxAPYJEADZ
+AL8FBgApAecDLwApAYYHBgA5AVMNNQA5AWYHHADhAAwGHAA5AXkLOAB5APYJPwB5ABkJRgBBAZ8B
+SwBBAXQGTwBBARUGVABJAdADBgA5AUsNWQBRAR8GXgA5AT8NZACRAPYJBgCRAJUBNQBZASgNbwAM
+APYJfgCRAD8GhACRAJ4CNQCRAFUINQCZAPYJBgCZAJUBNQCZAJQCNQCJAH8IogCJAHcHpgChAPYJ
+BgChAJUBNQChAE4DNQChAGsMogBRAQgDrgChANwDhABpAQwGHAChAG0CNQChAEwMogChAGMMogCp
+APYJBgCpAJUBNQCpAEEDNQCpAGsMogCpANwDhACxAPYJBgCxAJUBNQCxAAcMogCxACEMogCxAE4D
+NQCxANwDhACxAG0CNQAUAPYJBgAUAKQBfgB5AesF2gA5AZ0JHADBAPYJ6wDBAGwJ9QDBAAIL+QDJ
+ABUGVADBAEcHTwDBACANSwDBAJoLSwDBAFYH/QDBAE4HAQCJAfYJEADBAN8MBgDBAJcLBgDZAPYJ
+BgA5ATALAwHZABYLCwHJAIcLSwDZAPUAFQHhAPYJBgDZAD4BHAGZAdcHIgGhAe0CKAGpAYcJLwGx
+AdECNAGxATINPQH5APYJQwEZAfYJBgAuAAsAJgIuABMALwIuABsATgIuACMAVwIuACsAgAIuADMA
+gAIuADsAgAIuAEMAVwIuAEsAhgIuAFMAgAIuAFsAnQJDAGMA5QIjAWsA5QKBAXsA5QKJAnMATgKp
+AnMATgIgAGoAkwCdALoAxADOABEBAwABAAQADwAFABEABwATAAkAFAAKABYAAADnCAkCAADjBg0C
+AACGAgkCAAC0Bg0CAABrDAkCAAA5Bw0CAADcAwkCAADNBg0CAABtAgkCAACUBg0CAAC2CwkCAAAE
+Bw0CAADKCwkCAAAfBw0CAABYAQkCAACBBg0CAABYAQkCAACBBg0CAAD7BxECAAB3CRYCAAB+AxsC
+AACqCyECAgAOAAMAAgAPAAUAAgAQAAcAAgARAAkAAgASAAsAAgATAA0AAgAUAA8AAgAVABEAAgAW
+ABMAAgAXABUAAgAYABcAAgAZABkAAgAaABsAAgAbAB0AAQAfAB8AAQAgACEAAQAlACMAAQAmACUA
+AgAzACcAAgA2ACkAAgA3ACsAAQA4ACsAAgA5AC0AdQDSAASAAAABAAAA/R3YdQAAAAAAAKoAAAAE
+AAAAAAAAAAAAAABLAWABAAAAAAsAAAAAAAAAAAAAAFQBeQwAAAAABAAAAAAAAAAAAAAASwEyAQAA
+AAABAAEAAAAAAAAAAABdAbcDAAAAAAsAAAAAAAAAAAAAAFQBngwAAAAACwAAAAAAAAAAAAAAVAGc
+CAAAAAAEAAAAAAAAAAAAAABLAV8HAAAAAAMAAgAHAAAAAAAAAGYBSwsAAAAACwAAAAAAAAAAAAAA
+VAG/CAAAAAAAAAAAAQAAAHcKAAAAAAAAFQAQAQAAAAAXABABFACOABQAmAAWALUAFgC/ABYAyQCP
+AOYAAQBdAAIAXQAAAAAAAElEVFNDb21wb25lbnRNZXRhRGF0YTEwMABJRFRTUnVudGltZUNvbm5l
+Y3Rpb25Db2xsZWN0aW9uMTAwAElEVFNSdW50aW1lQ29ubmVjdGlvbjEwMABJRFRTQ29ubmVjdGlv
+bk1hbmFnZXIxMDAAQ2xpZW50UmVjYWxsSW5mb18yMDEATnVsbGFibGVgMQBJRW51bWVyYWJsZWAx
+AExpc3RgMQBJbnQzMgBTQ183MmVhN2EzZDNjMzI0OTU2YTk0OWFmOWNmODlkMWZjOQA8TW9kdWxl
+PgBDbG9zZUFjY291bnRfQwBBUkFDSUQASW5wdXRJRABHZXRPdXRwdXRJRABBZGp1c3RtZW50X0FE
+SgBUAFBheW1lbnRSZXZlcnNhbF9SRVYAUGF5bWVudF9QQVkAU3lzdGVtLkRhdGEAZ2V0X0NvbXBv
+bmVudE1ldGFEYXRhAHNldF9Sb3dEYXRhAG1zY29ybGliAFN5c3RlbS5EYXRhLk9kYmMAU3lzdGVt
+LkNvbGxlY3Rpb25zLkdlbmVyaWMAQWNjb3VudElkAFJlYWQAQWRkAElucHV0c0ZpbmlzaGVkAE1h
+cmtPdXRwdXRzRmluaXNoZWQAQ29sbGVjdHRBbXRQYWlkAE9kYmNDb21tYW5kAENyZWF0ZUFESlJl
+Y29yZABDcmVhdGVSRVZSZWNvcmQAQ3JlYXRlQ2xvc2VSZWNvcmQAQ3JlYXRlUmVjYWxsUmVjb3Jk
+AENyZWF0ZVBheVJlY29yZAByZWNvcmQAZGVmYXVsdEluc3RhbmNlAGdldF9UcmFuc2FjdGlvblJl
+ZmVyZW5jZQBpVHJhbnNhY3Rpb25SZWZlcmVuY2UAZ2V0X1RyYW5zVHlwZUNvZGUAQ2xvc2VDb2Rl
+AFJlY2FsbENvZGUAVHJhbnNDb2RlAElEaXNwb3NhYmxlAFJ1bnRpbWVUeXBlSGFuZGxlAEdldFR5
+cGVGcm9tSGFuZGxlAElucHV0TmFtZQBHZXRSdW50aW1lQ29ubmVjdGlvbkJ5TmFtZQBUb0RhdGVU
+aW1lAENvbW1vbkVuZ2luZQBNaWNyb3NvZnQuU3FsU2VydmVyLkR0cy5QaXBlbGluZQBSZXZlcnNh
+bFR5cGUAVHJhbnNhY3Rpb25UeXBlAGdldF9DdWx0dXJlAHNldF9DdWx0dXJlAHJlc291cmNlQ3Vs
+dHVyZQBHZW5lcmFsUHVycG9zZVJlY29yZEJhc2UAQXBwbGljYXRpb25TZXR0aW5nc0Jhc2UAUkdT
+LkFydGl2YUdlbmVyYWxQdXJwb3NlAERpc3Bvc2UAZ2V0X1RlbmRlckRhdGUAZ2V0X1N0YXRlAEVk
+aXRvckJyb3dzYWJsZVN0YXRlAENvbm5lY3Rpb25TdGF0ZQBDb21waWxlckdlbmVyYXRlZEF0dHJp
+YnV0ZQBEZWJ1Z2dlck5vblVzZXJDb2RlQXR0cmlidXRlAERlYnVnZ2FibGVBdHRyaWJ1dGUARWRp
+dG9yQnJvd3NhYmxlQXR0cmlidXRlAEFzc2VtYmx5VGl0bGVBdHRyaWJ1dGUAQXNzZW1ibHlUcmFk
+ZW1hcmtBdHRyaWJ1dGUAVGFyZ2V0RnJhbWV3b3JrQXR0cmlidXRlAEFzc2VtYmx5Q29uZmlndXJh
+dGlvbkF0dHJpYnV0ZQBBc3NlbWJseURlc2NyaXB0aW9uQXR0cmlidXRlAENvbXBpbGF0aW9uUmVs
+YXhhdGlvbnNBdHRyaWJ1dGUAQXNzZW1ibHlQcm9kdWN0QXR0cmlidXRlAEFzc2VtYmx5Q29weXJp
+Z2h0QXR0cmlidXRlAFNTSVNTY3JpcHRDb21wb25lbnRFbnRyeVBvaW50QXR0cmlidXRlAEFzc2Vt
+Ymx5Q29tcGFueUF0dHJpYnV0ZQBSdW50aW1lQ29tcGF0aWJpbGl0eUF0dHJpYnV0ZQBQcmVFeGVj
+dXRlAFBvc3RFeGVjdXRlAHZhbHVlAFN5c3RlbS5SdW50aW1lLlZlcnNpb25pbmcAV3JpdGVTdHJp
+bmcAZ2V0X0Nvbm5lY3Rpb25TdHJpbmcAVG9TdHJpbmcAR2V0U3RyaW5nAFRvRGVjaW1hbABTeXN0
+ZW0uQ29tcG9uZW50TW9kZWwARGF0ZU9mUmVjYWxsAFNDXzcyZWE3YTNkM2MzMjQ5NTZhOTQ5YWY5
+Y2Y4OWQxZmM5LmRsbABJc0RCTnVsbABzZXRfUm93RGF0YV9Jc051bGwAZ2V0X1RyYW5zYWN0aW9u
+UmVmZXJlbmNlX0lzTnVsbABnZXRfVHJhbnNUeXBlQ29kZV9Jc051bGwAZ2V0X1RlbmRlckRhdGVf
+SXNOdWxsAGdldF9DbGllbnRSZWZlcmVuY2VOdW1iZXJfSXNOdWxsAGdldF9QcmluY2lwYWxQbXRB
+bXRfSXNOdWxsAGdldF9JbnRlcmVzdFBtdEFtdF9Jc051bGwAZ2V0X1BheW1lbnRBbW91bnRfSXNO
+dWxsAFNldE51bGwAc2V0X0l0ZW0AU3lzdGVtAFRyaW0AcmVzb3VyY2VNYW4Ab3BfR3JlYXRlclRo
+YW4AT3BlbgBTY3JpcHRNYWluAGNvbm4AU3lzdGVtLkNvbmZpZ3VyYXRpb24AU3lzdGVtLkdsb2Jh
+bGl6YXRpb24AU3lzdGVtLlJlZmxlY3Rpb24AZ2V0X1J1bnRpbWVDb25uZWN0aW9uQ29sbGVjdGlv
+bgBnZXRfQXJ0aXZhQ29ubmVjdGlvbgBEYkNvbm5lY3Rpb24AT2RiY0Nvbm5lY3Rpb24ASW52YWxp
+ZE9wZXJhdGlvbkV4Y2VwdGlvbgBTeXN0ZW0uRGF0YS5Db21tb24AUmVjYWxsUmVhc29uAFN0cmlu
+Z0NvbXBhcmlzb24AQ3VsdHVyZUluZm8AWmVybwBPdXRwdXROYW1lTWFwAE91dHB1dE1hcABNaWNy
+b3NvZnQuU3FsU2VydmVyLkRUU1J1bnRpbWVXcmFwAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRFRTUGlw
+ZWxpbmVXcmFwAGdldF9DbGllbnRSZWZlcmVuY2VOdW1iZXIARGJEYXRhUmVhZGVyAE9kYmNEYXRh
+UmVhZGVyAEV4ZWN1dGVSZWFkZXIASW5wdXQwQnVmZmVyAE1haW50ZW5hbmNlQnVmZmVyAFBpcGVs
+aW5lQnVmZmVyAEFkanVzdG1lbnRCdWZmZXIAU2NyaXB0QnVmZmVyAGdldF9SZXNvdXJjZU1hbmFn
+ZXIAZ2V0X0Nvbm5lY3Rpb25NYW5hZ2VyAFRvVXBwZXIATWljcm9zb2Z0LlNxbFNlcnZlci5EdHMu
+UnVudGltZS5XcmFwcGVyAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRHRzLlBpcGVsaW5lLldyYXBwZXIA
+LmN0b3IALmNjdG9yAE91dHB1dElEcwBTeXN0ZW0uRGlhZ25vc3RpY3MAUkdTLkFydGl2YUdlbmVy
+YWxQdXJwb3NlLkRhdGEuUmVjb3JkcwBTeXN0ZW0uUnVudGltZS5Db21waWxlclNlcnZpY2VzAFN5
+c3RlbS5SZXNvdXJjZXMAU0NfNzJlYTdhM2QzYzMyNDk1NmE5NDlhZjljZjg5ZDFmYzkuUHJvcGVy
+dGllcy5SZXNvdXJjZXMucmVzb3VyY2VzAERlYnVnZ2luZ01vZGVzAFNDXzcyZWE3YTNkM2MzMjQ5
+NTZhOTQ5YWY5Y2Y4OWQxZmM5LlByb3BlcnRpZXMAVmFyaWFibGVzAEJ1ZmZlckNvbHVtbkluZGV4
+ZXMAR2V0Q29sdW1uSW5kZXhlcwBTZXR0aW5ncwBFcXVhbHMAQ29ubmVjdGlvbnMAQnVmZmVycwBG
+aWxlSGVscGVycwBGaW5pc2hPdXRwdXRzAENyZWF0ZU5ld091dHB1dFJvd3MAQ29uY2F0AE9iamVj
+dABnZXRfRW5kT2ZSb3dzZXQAU2V0RW5kT2ZSb3dzZXQAZ2V0X0RlZmF1bHQAZ2V0X1ByaW5jaXBh
+bFBtdEFtdABnZXRfSW50ZXJlc3RQbXRBbXQAVXNlckNvbXBvbmVudABQYXJlbnRDb21wb25lbnQA
+U2NyaXB0Q29tcG9uZW50AFByaW5jaXBhbEFkanVzdG1lbnRBbW91bnQASW50ZXJlc3RBZGp1c3Rt
+ZW50QW1vdW50AGdldF9QYXltZW50QW1vdW50AFByaW5jaXBhbFBheW1lbnRBbW91bnQASW50ZXJl
+c3RQYXltZW50QW1vdW50AE1pY3Jvc29mdC5TcWxTZXJ2ZXIuVHhTY3JpcHQAQ29udmVydABNaWNy
+b3NvZnQuU3FsU2VydmVyLlBpcGVsaW5lSG9zdABJbnB1dDBfUHJvY2Vzc0lucHV0AFByaW1lT3V0
+cHV0AEFkZFJvdwBBZGRNYWludGVuYW5jZVJvdwBBZGRBZGp1c3RtZW50Um93AElucHV0MF9Qcm9j
+ZXNzSW5wdXRSb3cATmV4dFJvdwBnZXRfVG9kYXkAZ2V0X0Fzc2VtYmx5AG9wX0VxdWFsaXR5AElz
+TnVsbE9yRW1wdHkAAAAAAIOrUwBFAEwARQBDAFQAIABUAE8AUAAgADEAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAAoAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAEwAVABS
+AEkATQAoAFIAVABSAEkATQAoAEEAUgBBAEMASQBEACkAKQAgAEEAUwAgAEEAUgBBAEMASQBEAAoA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAs
+AEEAUgBDAEwASQBFAE4AVAAuAEEAUgBDAEwASQBEACAACgAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIABGAFIATwBNACAACgAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACUAaQBuAG8AcgBkAGUAcgAgACAA
+IAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAQQBSAEEAQwBDAE8AVQBOAFQACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgAEoATwBJAE4AIABBAFIAQwBMAEkARQBOAFQAIABPAE4AIABB
+AFIAQQBDAEMATwBVAE4AVAAuAEEAUgBBAEMAQwBMAFQASQBEACAAPQAgAEEAUgBDAEwASQBFAE4A
+VAAuAEEAUgBDAEwASQBEACAAQQBOAEQAIABBAFIAQwBMAEkARQBOAFQALgBBAFIAQwBMAEkARAAg
+AEkATgAgACgAJwBEAEMATABBAEMASAAnACwAJwBEAEMATABZAEQARAAnACkAIAAKACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAFcASABFAFIARQAgAAoAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABBAFIA
+QQBDAEMATwBVAE4AVAAuAEEAUgBBAEMAQwBMAEEAQwBDAFQAIAA9ACAAJwABAycAAQEABUQAUAAA
+C0QAUABOAFMARgAAC0QAUABDAE8AUgAAB0QAQgBKAAAHQwBSAEoAAA1SAEUAVABVAFIATgAAgJtJ
+AHMATgB1AGwAbAAgAHAAcgBvAHAAZQByAHQAeQAgAGMAYQBuAG4AbwB0ACAAYgBlACAAcwBlAHQA
+IAB0AG8AIABGAGEAbABzAGUALgAgAEEAcwBzAGkAZwBuACAAYQAgAHYAYQBsAHUAZQAgAHQAbwAg
+AHQAaABlACAAYwBvAGwAdQBtAG4AIABpAG4AcwB0AGUAYQBkAC4AAA9JAG4AcAB1AHQAIAAwAAAX
+TQBhAGkAbgB0AGUAbgBhAG4AYwBlAAAVQQBkAGoAdQBzAHQAbQBlAG4AdAAAIUEAcgB0AGkAdgBh
+AEMAbwBuAG4AZQBjAHQAaQBvAG4AAHFTAEMAXwA3ADIAZQBhADcAYQAzAGQAMwBjADMAMgA0ADkA
+NQA2AGEAOQA0ADkAYQBmADkAYwBmADgAOQBkADEAZgBjADkALgBQAHIAbwBwAGUAcgB0AGkAZQBz
+AC4AUgBlAHMAbwB1AHIAYwBlAHMAAAC6lcmq1AuoQrFSONl+kUigAAQgAQEIAyAAAQUgAQEREQQg
+AQEOBiABARGAhQMgAA4OBwcOEj0SQRFFEUURRQ4FIAARgJkCBg4GAAMODg4OBiACAQ4SOQQgABJB
+AyAAAgQgAQIIBCABDggEAAECDgUAARFFDgUAAgIODgQHARJJBQAAEYCtCBURgLEBEYCtBSABARMA
+CQYVEYCxARGArQQKARJJBAcBEk0ECgESTQQHARJRAwYRRQcAAgIRRRFFBgABEYCtDgQKARJRBAcB
+ElUECgESVQQHARJZBAoBElkDBwEOBxUSgLkBHgALEAEBDhUSgMEBHgAECgEeAAkgAwESZR0IEmkD
+BhJlAwYdCAUgAgEIHAcgAgIOEYDJBSABHQgIAwcBCAYAAggSaQ4FIAASgM0FIAASgNEGIAESgNUO
+BCAAEnUIAAESgNkRgN0FIAASgOEHIAIBDhKA4Qi3elxWGTTgiQiJhF3NgIDMkQj6DO1KRVGnggg+
+DAjVnMPWVwIGCAMGEjkDBhIcAwYSIAMGEhADBhIUAwYSbQMGEn0EBhKAgQMGEigFIAEBEgwGIAMB
+Dg4OCyAFARFFDg4RRRFFCCAEARFFDg4ODCAGARFFDg4OEUURRQYwAQEBHgAEIAEBAgkgBAEIDhJl
+EmkLIAQBCB0IHRJlEmkFIAEBEm0EAAASfQUAABKAgQYAAQESgIEEAAASKAMAAAEDKAAOAygAAgQo
+ABJ1BAgAEn0FCAASgIEECAASKAgBAAgAAAAAAB4BAAEAVAIWV3JhcE5vbkV4Y2VwdGlvblRocm93
+cwEIAQACAAAAAAAoAQAjU0NfNzJlYTdhM2QzYzMyNDk1NmE5NDlhZjljZjg5ZDFmYzkAAAUBAAAA
+ABYBABFDb3B5cmlnaHQgQCAgMjAyMAAARwEAGi5ORVRGcmFtZXdvcmssVmVyc2lvbj12NC4wAQBU
+DhRGcmFtZXdvcmtEaXNwbGF5TmFtZRAuTkVUIEZyYW1ld29yayA0BAEAAAAAALQAAADOyu++AQAA
+AJEAAABsU3lzdGVtLlJlc291cmNlcy5SZXNvdXJjZVJlYWRlciwgbXNjb3JsaWIsIFZlcnNpb249
+NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5
+I1N5c3RlbS5SZXNvdXJjZXMuUnVudGltZVJlc291cmNlU2V0AgAAAAAAAAAAAAAAUEFEUEFEULQA
+AABASgAAAAAAAAAAAABaSgAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATEoAAAAAAAAAAAAAAABf
+Q29yRGxsTWFpbgBtc2NvcmVlLmRsbAAAAAAA/yUAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAQAAAAGAAA
+gAAAAAAAAAAAAAAAAAAAAQABAAAAMAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAASAAAAFhgAAAaBAAA
+AAAAAAAAAAAaBDQAAABWAFMAXwBWAEUAUgBTAEkATwBOAF8ASQBOAEYATwAAAAAAvQTv/gAAAQAA
+AAEA2HX9HQAAAQDYdf0dPwAAAAAAAAAEAAAAAgAAAAAAAAAAAAAAAAAAAEQAAAABAFYAYQByAEYA
+aQBsAGUASQBuAGYAbwAAAAAAJAAEAAAAVAByAGEAbgBzAGwAYQB0AGkAbwBuAAAAAAAAALAEegMA
+AAEAUwB0AHIAaQBuAGcARgBpAGwAZQBJAG4AZgBvAAAAVgMAAAEAMAAwADAAMAAwADQAYgAwAAAA
+GgABAAEAQwBvAG0AbQBlAG4AdABzAAAAAAAAACIAAQABAEMAbwBtAHAAYQBuAHkATgBhAG0AZQAA
+AAAAAAAAAHAAJAABAEYAaQBsAGUARABlAHMAYwByAGkAcAB0AGkAbwBuAAAAAABTAEMAXwA3ADIA
+ZQBhADcAYQAzAGQAMwBjADMAMgA0ADkANQA2AGEAOQA0ADkAYQBmADkAYwBmADgAOQBkADEAZgBj
+ADkAAAA+AA8AAQBGAGkAbABlAFYAZQByAHMAaQBvAG4AAAAAADEALgAwAC4ANwA2ADcANwAuADMA
+MAAxADYAOAAAAAAAcAAoAAEASQBuAHQAZQByAG4AYQBsAE4AYQBtAGUAAABTAEMAXwA3ADIAZQBh
+ADcAYQAzAGQAMwBjADMAMgA0ADkANQA2AGEAOQA0ADkAYQBmADkAYwBmADgAOQBkADEAZgBjADkA
+LgBkAGwAbAAAAEgAEgABAEwAZQBnAGEAbABDAG8AcAB5AHIAaQBnAGgAdAAAAEMAbwBwAHkAcgBp
+AGcAaAB0ACAAQAAgACAAMgAwADIAMAAAACoAAQABAEwAZQBnAGEAbABUAHIAYQBkAGUAbQBhAHIA
+awBzAAAAAAAAAAAAeAAoAAEATwByAGkAZwBpAG4AYQBsAEYAaQBsAGUAbgBhAG0AZQAAAFMAQwBf
+ADcAMgBlAGEANwBhADMAZAAzAGMAMwAyADQAOQA1ADYAYQA5ADQAOQBhAGYAOQBjAGYAOAA5AGQA
+MQBmAGMAOQAuAGQAbABsAAAAaAAkAAEAUAByAG8AZAB1AGMAdABOAGEAbQBlAAAAAABTAEMAXwA3
+ADIAZQBhADcAYQAzAGQAMwBjADMAMgA0ADkANQA2AGEAOQA0ADkAYQBmADkAYwBmADgAOQBkADEA
+ZgBjADkAAABCAA8AAQBQAHIAbwBkAHUAYwB0AFYAZQByAHMAaQBvAG4AAAAxAC4AMAAuADcANgA3
+ADcALgAzADAAMQA2ADgAAAAAAEYADwABAEEAcwBzAGUAbQBiAGwAeQAgAFYAZQByAHMAaQBvAG4A
+AAAxAC4AMAAuADcANgA3ADcALgAzADAAMQA2ADgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAMAAAAbDoAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
+                      </arrayElements>
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the Microsoft Visual Studio Tools for Applications project. Project names must be unique within a package."
+                      name="VSTAProjectName"
+                      typeConverter="NOTBROWSABLE">SC_72ea7a3d3c324956a949af9cf89d1fc9</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the programming language used by the script."
+                      name="ScriptLanguage"
+                      typeConverter="Microsoft.SqlServer.VSTAHosting.ScriptingLanguages, Microsoft.SqlServer.VSTAScriptingLib, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">CSharp</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a comma-separated list of read-only variables."
+                      name="ReadOnlyVariables"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIVariablePickerDlg, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a comma-separated list of read/write variables."
+                      name="ReadWriteVariables"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIWriteableVariablePickerDlg, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.String"
+                      description="List of breakpoints present on the script."
+                      isArray="true"
+                      name="BreakpointCollection"
+                      typeConverter="NOTBROWSABLE">
+                      <arrayElements
+                        arrayElementCount="0" />
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Checksum to match component metedata against compiled codes."
+                      name="MetadataChecksum"
+                      typeConverter="NOTBROWSABLE">29455f10cdc16a037e3683ed50cf6ade</property>
+                    <property
+                      dataType="System.String"
+                      description="Checksum to match component metedata against compiled codes."
+                      name="MetadataShaChecksum"
+                      typeConverter="NOTBROWSABLE">6886c5ea9c719639e2bb369d74ab86e2ba141c4d</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">Microsoft.SqlServer.Dts.Pipeline.ScriptComponentHost, Microsoft.SqlServer.TxScript, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Source File\Process IB File\Script Component.Connections[ArtivaConnection]"
+                      connectionManagerID="Package.ConnectionManagers[ArtivaConnection]"
+                      connectionManagerRefId="Package.ConnectionManagers[ArtivaConnection]"
+                      name="ArtivaConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Source File\Process IB File\Script Component.Inputs[Input 0]"
+                      hasSideEffects="true"
+                      name="Input 0">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Source File\Process IB File\Script Component.Inputs[Input 0].Columns[Client Reference Number]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Client Reference Number"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Client Reference Number]" />
+                        <inputColumn
+                          refId="Package\Foreach Source File\Process IB File\Script Component.Inputs[Input 0].Columns[Trans Type Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Trans Type Code"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Trans Type Code]" />
+                        <inputColumn
+                          refId="Package\Foreach Source File\Process IB File\Script Component.Inputs[Input 0].Columns[Payment Amount]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Payment Amount"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Payment Amount]" />
+                        <inputColumn
+                          refId="Package\Foreach Source File\Process IB File\Script Component.Inputs[Input 0].Columns[Tender Date]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Tender Date"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Tender Date]" />
+                        <inputColumn
+                          refId="Package\Foreach Source File\Process IB File\Script Component.Inputs[Input 0].Columns[Transaction Reference]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Transaction Reference"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Transaction Reference]" />
+                        <inputColumn
+                          refId="Package\Foreach Source File\Process IB File\Script Component.Inputs[Input 0].Columns[Principal Pmt Amt]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Principal Pmt Amt"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Principal Pmt Amt]" />
+                        <inputColumn
+                          refId="Package\Foreach Source File\Process IB File\Script Component.Inputs[Input 0].Columns[Interest Pmt Amt]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Interest Pmt Amt"
+                          lineageId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output].Columns[Interest Pmt Amt]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Source File\Process IB File\Script Component.Outputs[Maintenance]"
+                      hasSideEffects="true"
+                      name="Maintenance">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Source File\Process IB File\Script Component.Outputs[Maintenance].Columns[RowData]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1000"
+                          lineageId="Package\Foreach Source File\Process IB File\Script Component.Outputs[Maintenance].Columns[RowData]"
+                          name="RowData" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Foreach Source File\Process IB File\Script Component.Outputs[Adjustment]"
+                      hasSideEffects="true"
+                      name="Adjustment">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Source File\Process IB File\Script Component.Outputs[Adjustment].Columns[RowData]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1000"
+                          lineageId="Package\Foreach Source File\Process IB File\Script Component.Outputs[Adjustment].Columns[RowData]"
+                          name="RowData" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Foreach Source File\Process IB File.Paths[Adjustment]"
+                  endId="Package\Foreach Source File\Process IB File\Artiva Adjustment File.Inputs[Flat File Destination Input]"
+                  name="Adjustment"
+                  startId="Package\Foreach Source File\Process IB File\Script Component.Outputs[Adjustment]" />
+                <path
+                  refId="Package\Foreach Source File\Process IB File.Paths[Flat File Source Output]"
+                  endId="Package\Foreach Source File\Process IB File\Script Component.Inputs[Input 0]"
+                  name="Flat File Source Output"
+                  startId="Package\Foreach Source File\Process IB File\Flat File Source.Outputs[Flat File Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{0E3F32F3-0ABB-407D-8B7D-315CD503EB08}"
+          DTS:ObjectName="{0E3F32F3-0ABB-407D-8B7D-315CD503EB08}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::currentFile" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="148,42"
+          Id="Package\Foreach Source File\Process IB File"
+          TopLeft="5.5,5.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="159,103"
+          Size="159,146"
+          Id="Package\Foreach Source File"
+          TopLeft="5.50000000000003,5.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Foreach Source File\Process IB File">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="163,42"
+          Id="Package\Foreach Source File\Process IB File\Script Component"
+          TopLeft="238,88" />
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Foreach Source File\Process IB File\Flat File Source"
+          TopLeft="244,9" />
+        <NodeLayout
+          Size="183,42"
+          Id="Package\Foreach Source File\Process IB File\Artiva Adjustment File"
+          TopLeft="222.5,169.5" />
+        <EdgeLayout
+          Id="Package\Foreach Source File\Process IB File.Paths[Flat File Source Output]"
+          TopLeft="319.5,51">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37"
+              Start="0,0"
+              End="0,29.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Source File\Process IB File.Paths[Adjustment]"
+          TopLeft="316.75,130">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.5"
+              Start="0,0"
+              End="0,32">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-26.174453125,10.16845703125,52.34890625,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

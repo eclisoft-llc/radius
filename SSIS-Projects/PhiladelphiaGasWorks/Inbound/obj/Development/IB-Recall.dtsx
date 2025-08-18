@@ -1,0 +1,3114 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/9/2018 4:45:13 PM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="DFW2-APPDEV-003"
+  DTS:CreatorName="CORP\Spalopoli"
+  DTS:DTSID="{7FCCB678-E0F5-4943-BA51-5EC6E062252E}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="IB-Recall"
+  DTS:PackageType="5"
+  DTS:VersionBuild="98"
+  DTS:VersionGUID="{343021D5-16BD-4E2F-A14B-CE8EA4715E8C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Artiva]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{0E5FD0FE-70A3-42B8-927B-3FC2F8C04E89}"
+      DTS:ObjectName="Artiva">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">"Dsn="+ @[$Project::Namespace] +";"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Dsn=THIRDPROD;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Exception Report]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{D0DC2C05-C4EB-40E4-9D8A-AE42019BC9D8}"
+      DTS:ObjectName="Exception Report">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::exceptionReportFilename]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="M:\PhiladelphiaGasWorks\Out\Philadelphia Gas Works-ExceptionReport--0">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Column 0"
+              DTS:DTSID="{4132EEF0-C756-42F3-AC74-CDD1C4CBE7D0}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[IBFile]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{FF08EC70-6C3A-4641-BFE1-219E76AF6954}"
+      DTS:ObjectName="IBFile">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::LocalPath] + "In\\" +  @[User::currentFile]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="M:\PhiladelphiaGasWorks\In\0">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="place_id"
+              DTS:DTSID="{D71FD06E-A406-4DCA-BE6C-0357E2158FE9}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="placepool_id"
+              DTS:DTSID="{E599B084-15F5-4F72-A303-31868BD0299D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="data_id"
+              DTS:DTSID="{DDDBCB35-80D2-4D2E-A2F8-81786DC696A2}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="pri_acctno"
+              DTS:DTSID="{06E1F0AD-FAD3-4EC8-9D3B-A7B896280FB7}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="status_code"
+              DTS:DTSID="{8EEB3018-0F18-466D-9481-27C956A6FE33}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="14"
+              DTS:TextQualified="True"
+              DTS:ObjectName="bal_total"
+              DTS:DTSID="{A9500236-4FFD-4623-83C4-5F0B63AD96FA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="14"
+              DTS:TextQualified="True"
+              DTS:ObjectName="bal_principal"
+              DTS:DTSID="{23CA1648-7839-4AF2-9BDD-A500437ADAA2}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="14"
+              DTS:TextQualified="True"
+              DTS:ObjectName="bal_interest"
+              DTS:DTSID="{87E2D2F1-5713-4ED8-9FC4-0EF7B939D715}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="14"
+              DTS:TextQualified="True"
+              DTS:ObjectName="bal_fees_court"
+              DTS:DTSID="{D316560F-41CB-4A43-9FB5-9A1A1310E495}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="14"
+              DTS:TextQualified="True"
+              DTS:ObjectName="bal_fees_attorney"
+              DTS:DTSID="{51E8928B-C458-4C18-840E-2B9CE1A6D28A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="14"
+              DTS:TextQualified="True"
+              DTS:ObjectName="bal_fees_other"
+              DTS:DTSID="{FA1A730B-2718-4B31-AFD6-AFD95FBA9968}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Maintenance File]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{76EA251E-4751-4545-9377-0382B6B1A130}"
+      DTS:ObjectName="Maintenance File">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::LocalPath] + "\\Out\\ArtivaMT-" + @[$Project::Namespace] + "-" + @[$Project::ClientName] + "-" +  @[User::currentFile]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="M:\PhiladelphiaGasWorks\\Out\ArtivaMT-THIRDPROD-Philadelphia Gas Works-0">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Column 0"
+              DTS:DTSID="{4132EEF0-C756-42F3-AC74-CDD1C4CBE7D0}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[OB Status Recall]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{402554CF-C386-473A-8781-294AFB0327A6}"
+      DTS:ObjectName="OB Status Recall">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::LocalPath] + "Out\\status" + @[User::currentFile] +"_" + (DT_STR, 4, 1252) DATEPART("yyyy" , GETDATE())
++ RIGHT("0" + (DT_STR, 2, 1252) DATEPART("mm" , GETDATE()), 2)
++ RIGHT("0" + (DT_STR, 2, 1252) DATEPART("dd" , GETDATE()), 2) + ".txt"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="M:\PhiladelphiaGasWorks\Out\status0_20210203.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Column 0"
+              DTS:DTSID="{37ACD4CA-14AF-4EDC-80F6-1FCDC0E4CB4B}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:Description="Like *Recall*.txt or whatever the inbound file is"
+      DTS:DTSID="{A528ADCA-90BC-4F82-9D2F-C07CB0764E08}"
+      DTS:ObjectName="InboundFileMask"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">recall_*.txt</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2B6A3B21-3F10-47C5-854E-E2D75889D7B5}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;ArtivaMT-&quot; +  @[$Project::Namespace] + &quot;-&quot; + @[$Project::ClientName] + &quot;-&quot; + @[User::currentFile]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ArtivaRecallFilename">
+      <DTS:VariableValue
+        DTS:DataType="8">ArtivaMT-THIRDPROD-Philadelphia Gas Works-0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D64C44F3-1C43-4150-A55F-A152BDA3F122}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="currentFile">
+      <DTS:VariableValue
+        DTS:DataType="8">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3F5A8EB9-2BAA-4A2F-A27E-E78E6A9CEF88}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::LocalPath] + &quot;Out\\&quot; + @[$Project::ClientName] + &quot;-ExceptionReport-&quot; + &quot;-&quot; +  @[User::currentFile]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="exceptionReportFilename">
+      <DTS:VariableValue
+        DTS:DataType="8">M:\PhiladelphiaGasWorks\Out\Philadelphia Gas Works-ExceptionReport--0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Foreach Loop Container"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{A23FAFE6-63E7-47B9-9628-DD940069D621}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach Loop Container">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="DTS.ForEachFileEnumerator.3"
+        DTS:DTSID="{6CFBC657-F94B-4233-B27B-F4CAD9ED0D90}"
+        DTS:ObjectName="{7F315AC7-562B-4D2F-94CD-BE17D478728F}">
+        <DTS:PropertyExpression
+          DTS:Name="Directory">@[$Project::LocalPath] + "\\In\\"</DTS:PropertyExpression>
+        <DTS:PropertyExpression
+          DTS:Name="FileSpec">@[$Package::InboundFileMask]</DTS:PropertyExpression>
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="M:\PhiladelphiaGasWorks\\In\" />
+            <FEFEProperty
+              FileSpec="recall_*.txt" />
+            <FEFEProperty
+              FileNameRetrievalType="1" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Create Files"
+          DTS:CreationName="SSIS.Pipeline.3"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{096B6C10-9EF3-40B2-9645-1880AEFCFF0E}"
+          DTS:ExecutableType="SSIS.Pipeline.3"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Create Files"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Foreach Loop Container\Create Files\Exception Report"
+                  componentClassID="DTSAdapter.FlatFileDestination.3"
+                  contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Flat File Destination"
+                  localeId="1033"
+                  name="Exception Report">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether the data will overwrite or append to the destination file."
+                      name="Overwrite">true</property>
+                    <property
+                      dataType="System.Null"
+                      description="Specifies the text to write to the destination file before any data is written."
+                      expressionType="Notify"
+                      name="Header" />
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Create Files\Exception Report.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Exception Report]"
+                      connectionManagerRefId="Package.ConnectionManagers[Exception Report]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Create Files\Exception Report.Inputs[Flat File Destination Input]"
+                      hasSideEffects="true"
+                      name="Flat File Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Exception Report.Inputs[Flat File Destination Input].Columns[Data]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2000"
+                          cachedName="Data"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Create Files\Exception Report.Inputs[Flat File Destination Input].ExternalColumns[Column 0]"
+                          lineageId="Package\Foreach Loop Container\Create Files\Script Component.Outputs[ExceptionReport].Columns[Data]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Create Files\Exception Report.Inputs[Flat File Destination Input].ExternalColumns[Column 0]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Column 0" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Create Files\Flat File Source"
+                  componentClassID="DTSAdapter.FlatFileSource.3"
+                  contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Flat File Source"
+                  localeId="1033"
+                  name="Flat File Source"
+                  usesDispositions="true"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether zero-length columns are treated as null."
+                      name="RetainNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                      name="FileNameColumnName"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Create Files\Flat File Source.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[IBFile]"
+                      connectionManagerRefId="Package.ConnectionManagers[IBFile]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output]"
+                      name="Flat File Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[place_id]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[place_id]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[place_id]"
+                          name="place_id"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[placepool_id]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[placepool_id]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[placepool_id]"
+                          name="placepool_id"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[data_id]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[data_id]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[data_id]"
+                          name="data_id"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[pri_acctno]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[pri_acctno]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[pri_acctno]"
+                          name="pri_acctno"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[status_code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[status_code]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[status_code]"
+                          name="status_code"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_total]"
+                          dataType="decimal"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[bal_total]"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_total]"
+                          name="bal_total"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_principal]"
+                          dataType="decimal"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[bal_principal]"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_principal]"
+                          name="bal_principal"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_interest]"
+                          dataType="decimal"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[bal_interest]"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_interest]"
+                          name="bal_interest"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_fees_court]"
+                          dataType="decimal"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[bal_fees_court]"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_fees_court]"
+                          name="bal_fees_court"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_fees_attorney]"
+                          dataType="decimal"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[bal_fees_attorney]"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_fees_attorney]"
+                          name="bal_fees_attorney"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_fees_other]"
+                          dataType="decimal"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[bal_fees_other]"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_fees_other]"
+                          name="bal_fees_other"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[place_id]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="place_id" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[placepool_id]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="placepool_id" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[data_id]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="data_id" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[pri_acctno]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="pri_acctno" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[status_code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="status_code" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[bal_total]"
+                          dataType="decimal"
+                          name="bal_total" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[bal_principal]"
+                          dataType="decimal"
+                          name="bal_principal" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[bal_interest]"
+                          dataType="decimal"
+                          name="bal_interest" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[bal_fees_court]"
+                          dataType="decimal"
+                          name="bal_fees_court" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[bal_fees_attorney]"
+                          dataType="decimal"
+                          name="bal_fees_attorney" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[bal_fees_other]"
+                          dataType="decimal"
+                          name="bal_fees_other" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Error Output]"
+                      isErrorOut="true"
+                      name="Flat File Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          codePage="1252"
+                          dataType="text"
+                          description="Flat File Source Error Output Column"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          name="Flat File Source Error Output Column" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Create Files\Maintenance File"
+                  componentClassID="DTSAdapter.FlatFileDestination.3"
+                  contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Flat File Destination"
+                  localeId="1033"
+                  name="Maintenance File">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether the data will overwrite or append to the destination file."
+                      name="Overwrite">true</property>
+                    <property
+                      dataType="System.Null"
+                      description="Specifies the text to write to the destination file before any data is written."
+                      expressionType="Notify"
+                      name="Header" />
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Create Files\Maintenance File.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Maintenance File]"
+                      connectionManagerRefId="Package.ConnectionManagers[Maintenance File]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Create Files\Maintenance File.Inputs[Flat File Destination Input]"
+                      hasSideEffects="true"
+                      name="Flat File Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Maintenance File.Inputs[Flat File Destination Input].Columns[RowData]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2000"
+                          cachedName="RowData"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Create Files\Maintenance File.Inputs[Flat File Destination Input].ExternalColumns[Column 0]"
+                          lineageId="Package\Foreach Loop Container\Create Files\Script Component.Outputs[Maintenance].Columns[RowData]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Create Files\Maintenance File.Inputs[Flat File Destination Input].ExternalColumns[Column 0]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Column 0" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Create Files\OB Status Recall"
+                  componentClassID="DTSAdapter.FlatFileDestination.3"
+                  contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Flat File Destination"
+                  localeId="1033"
+                  name="OB Status Recall">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether the data will overwrite or append to the destination file."
+                      name="Overwrite">true</property>
+                    <property
+                      dataType="System.Null"
+                      description="Specifies the text to write to the destination file before any data is written."
+                      expressionType="Notify"
+                      name="Header" />
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Create Files\OB Status Recall.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[OB Status Recall]"
+                      connectionManagerRefId="Package.ConnectionManagers[OB Status Recall]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Create Files\OB Status Recall.Inputs[Flat File Destination Input]"
+                      hasSideEffects="true"
+                      name="Flat File Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Create Files\OB Status Recall.Inputs[Flat File Destination Input].Columns[RowData]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1000"
+                          cachedName="RowData"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Create Files\OB Status Recall.Inputs[Flat File Destination Input].ExternalColumns[Column 0]"
+                          lineageId="Package\Foreach Loop Container\Create Files\Script Component.Outputs[OBRecall].Columns[RowData]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Create Files\OB Status Recall.Inputs[Flat File Destination Input].ExternalColumns[Column 0]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Column 0" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Create Files\Script Component"
+                  componentClassID="DTS.ManagedComponentWrapper.3"
+                  contactInfo="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;8"
+                  description="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum."
+                  name="Script Component"
+                  version="8">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Stores the source code of the component"
+                      isArray="true"
+                      name="SourceCode"
+                      state="cdata">
+                      <arrayElements
+                        arrayElementCount="30">
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Resources.resx]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[main.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[#region Namespaces
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+using System.Collections.Generic;
+using RGS.ArtivaGeneralPurpose.Data.Records;
+using FileHelpers;
+using System.Data.Odbc;
+#endregion
+
+[Microsoft.SqlServer.Dts.Pipeline.SSISScriptComponentEntryPointAttribute]
+public class ScriptMain : UserComponent
+{
+    private bool _exceptionReportCreated = false, _headerAdded = false;
+    private Dictionary<string, Tuple<string, string, string, bool>> _recallInformation; //OB code, Desc 1, Desc 2, Allow keepers
+    OdbcConnection conn;
+
+    public override void PreExecute()
+    {
+        base.PreExecute();
+        conn = new OdbcConnection(Connections.ArtivaConnection.ConnectionString);
+        conn.Open();
+
+        _recallInformation = new Dictionary<string, Tuple<string, string, string, bool>> {
+             { "800000", Tuple.Create("900000", "Client Request","",true) },
+            { "800100", Tuple.Create("900100", "Client Request","Contractual",true) },
+            { "800110", Tuple.Create("900110", "Client Request","Performance",true) },
+            { "800120", Tuple.Create("900120", "Client Request","Complaints",true) },
+            { "800200", Tuple.Create("900200", "Client Request Sale","",true) },
+            { "800210", Tuple.Create("900210", "Client Request Sale","FrontEnd",true) },
+            { "800220", Tuple.Create("900220", "Client Request Sale","BackEnd",true) },
+            { "800230", Tuple.Create("900230", "Client Request Sale","Chapter 13",true) },
+            { "800240", Tuple.Create("900240", "Client Request Sale","Chapter 7",true) },
+            { "800250", Tuple.Create("900250", "Client Request Sale","Deceased",true) },
+            { "800999", Tuple.Create("900999", "Client Request","Other",true) },
+            { "801000", Tuple.Create("901000", "Bankruptcy","",false) },
+            { "801007", Tuple.Create("901007", "Bankruptcy","Chapter 7",false) },
+            { "801011", Tuple.Create("901011", "Bankruptcy","Chapter 11",false) },
+            { "801012", Tuple.Create("901012", "Bankruptcy","Chapter 12",false) },
+            { "801013", Tuple.Create("901013", "Bankruptcy","Chapter 13",false) },
+            { "801099", Tuple.Create("901099", "Bankruptcy","Other",false) },
+            { "801100", Tuple.Create("901100", "Receivership","",false) },
+            { "802000", Tuple.Create("902000", "Deceased","",false) },
+            { "804000", Tuple.Create("904000", "Insurance","",false) },
+            { "805000", Tuple.Create("905000", "Legal","",true) },
+            { "806000", Tuple.Create("906000", "PIF","",false) },
+            { "807000", Tuple.Create("907000", "SIF","",false) },
+            { "807001", Tuple.Create("907001", "SIF Request","",false) },
+            { "808000", Tuple.Create("908000", "Paid Prior","",false) },
+            { "810000", Tuple.Create("910000", "Uncollectible","",true) },
+            { "810100", Tuple.Create("910100", "Uncollectible","Broken Promise",true) },
+            { "810105", Tuple.Create("910105", "Uncollectible","Bureau Expired",true) },
+            { "810110", Tuple.Create("910110", "Uncollectible","CCCS Program",true) },
+            { "810120", Tuple.Create("910120", "Uncollectible","Cease and Desist",true) },
+            { "810125", Tuple.Create("910125", "Uncollectible","Complaints",true) },
+            { "810130", Tuple.Create("910130", "Uncollectible","Conflict of Interest",true) },
+            { "810140", Tuple.Create("910140", "Uncollectible","Counter Suit",true) },
+            { "810150", Tuple.Create("910150", "Uncollectible","Criteria Not Met",true) },
+            { "810160", Tuple.Create("910160", "Uncollectible","Disability",true) },
+            { "810170", Tuple.Create("910170", "Uncollectible","Dormant",true) },
+            { "810180", Tuple.Create("910180", "Uncollectible","Efforts Exhausted",true) },
+            { "810190", Tuple.Create("910190", "Uncollectible","Incarcerated",true) },
+            { "810200", Tuple.Create("910200", "Uncollectible","Judgment Denied",true) },
+            { "810208", Tuple.Create("910208", "Uncollectible","Military",true) },
+            { "810210", Tuple.Create("910210", "Uncollectible","No Assets",true) },
+            { "810220", Tuple.Create("910220", "Uncollectible","No Documentation",true) },
+            { "810230", Tuple.Create("910230", "Uncollectible","No Employment",true) },
+            { "810240", Tuple.Create("910240", "Uncollectible","No Responsible Party",true) },
+            { "810250", Tuple.Create("910250", "Uncollectible","No Witness",true) },
+            { "810255", Tuple.Create("910255", "Uncollectible","Nursing Home",true) },
+            { "810260", Tuple.Create("910260", "Uncollectible","Opened in Error",true) },
+            { "810270", Tuple.Create("910270", "Uncollectible","Out of Service Area",true) },
+            { "810280", Tuple.Create("910280", "Uncollectible","Out of Statute",true) },
+            { "810285", Tuple.Create("910285", "Uncollectible","Research",true) },
+            { "810290", Tuple.Create("910290", "Uncollectible","Dismissed without Prejudice",true) },
+            { "810295", Tuple.Create("910295", "Uncollectible","Dismissed with Prejudice",true) },
+            { "810297", Tuple.Create("910297", "Uncollectible","SSI",true) },
+            { "810300", Tuple.Create("910300", "Uncollectible","Too Small",true) },
+            { "810310", Tuple.Create("910310", "Uncollectible","Unable to Locate",true) },
+            { "810320", Tuple.Create("910320", "Uncollectible","Do Not Sell",true) },
+            { "810999", Tuple.Create("910999", "Uncollectible","Other",true) },
+            { "820000", Tuple.Create("920000", "Issue","Complaint",false) },
+            { "820100", Tuple.Create("920100", "Issue","Lawsuit",false) },
+            { "820150", Tuple.Create("920150", "Issue","Counterclaim",false) },
+            { "820200", Tuple.Create("920200", "Issue","Suit Threat",false) },
+            { "820220", Tuple.Create("920220", "Issue","Dispute",false) },
+            { "820250", Tuple.Create("920250", "Issue","Cease and Desist",false) },
+            { "820260", Tuple.Create("920260", "Issue","Hardship",false) },
+            { "820270", Tuple.Create("920270", "Issue","Fraud",false) },
+            { "820300", Tuple.Create("920300", "Issue","Other",false) },
+            { "840000", Tuple.Create("940000", "Recourse","Buy Back",false) },
+            { "840100", Tuple.Create("940100", "Recourse","Put Back",false) },
+            { "850000", Tuple.Create("950000", "Known FDCPA Litigant","",true) },
+            { "870100", Tuple.Create("970100", "Ready to Close","Auto Close",true) },
+            { "880100", Tuple.Create("980100", "Judgment","Dormant",true) },
+            { "880200", Tuple.Create("980200", "Judgment","Satisfied",true) },
+            { "880300", Tuple.Create("980300", "Judgment","Vacated",true) },
+            { "899000", Tuple.Create("999000", "Other","",true) },
+            { "899100", Tuple.Create("999100", "Source Request","",false) },
+            { "899101", Tuple.Create("999101", "Source Request","Length",false) },
+            { "899102", Tuple.Create("999102", "Source Request","Bureau",false) },
+            { "899103", Tuple.Create("999103", "Source Request","Statute",false) },
+            { "899104", Tuple.Create("999104", "Source Request","Source Status",false) },
+            { "899105", Tuple.Create("999105", "Source Request","Party",false) },
+            { "899106", Tuple.Create("999106", "Source Request","Bankruptcy",false) },
+            { "899107", Tuple.Create("999107", "Source Request","Deceased",false) },
+            { "899108", Tuple.Create("999108", "Source Request","Receivership",false) },
+
+            { "900000", Tuple.Create("900000", "Client Request","",false) },
+            { "900100", Tuple.Create("900100", "Client Request","Contractual",false) },
+            { "900110", Tuple.Create("900110", "Client Request","Performance",false) },
+            { "900120", Tuple.Create("900120", "Client Request","Complaints",false) },
+            { "900200", Tuple.Create("900200", "Client Request Sale","",false) },
+            { "900210", Tuple.Create("900210", "Client Request Sale","FrontEnd",false) },
+            { "900220", Tuple.Create("900220", "Client Request Sale","BackEnd",false) },
+            { "900230", Tuple.Create("900230", "Client Request Sale","Chapter 13",false) },
+            { "900240", Tuple.Create("900240", "Client Request Sale","Chapter 7",false) },
+            { "900250", Tuple.Create("900250", "Client Request Sale","Deceased",false) },
+            { "900999", Tuple.Create("900999", "Client Request","Other",false) },
+            { "901000", Tuple.Create("901000", "Bankruptcy","",false) },
+            { "901007", Tuple.Create("901007", "Bankruptcy","Chapter 7",false) },
+            { "901011", Tuple.Create("901011", "Bankruptcy","Chapter 11",false) },
+            { "901012", Tuple.Create("901012", "Bankruptcy","Chapter 12",false) },
+            { "901013", Tuple.Create("901013", "Bankruptcy","Chapter 13",false) },
+            { "901099", Tuple.Create("901099", "Bankruptcy","Other",false) },
+            { "901100", Tuple.Create("901100", "Receivership","",false) },
+            { "902000", Tuple.Create("902000", "Deceased","",false) },
+            { "904000", Tuple.Create("904000", "Insurance","",false) },
+            { "905000", Tuple.Create("905000", "Legal","",false) },
+            { "906000", Tuple.Create("906000", "PIF","",false) },
+            { "907000", Tuple.Create("907000", "SIF","",false) },
+            { "907001", Tuple.Create("907001", "SIF Request","",false) },
+            { "908000", Tuple.Create("908000", "Paid Prior","",false) },
+            { "910000", Tuple.Create("910000", "Uncollectible","",false) },
+            { "910100", Tuple.Create("910100", "Uncollectible","Broken Promise",false) },
+            { "910105", Tuple.Create("910105", "Uncollectible","Bureau Expired",false) },
+            { "910110", Tuple.Create("910110", "Uncollectible","CCCS Program",false) },
+            { "910120", Tuple.Create("910120", "Uncollectible","Cease and Desist",false) },
+            { "910125", Tuple.Create("910125", "Uncollectible","Complaints",false) },
+            { "910130", Tuple.Create("910130", "Uncollectible","Conflict of Interest",false) },
+            { "910140", Tuple.Create("910140", "Uncollectible","Counter Suit",false) },
+            { "910150", Tuple.Create("910150", "Uncollectible","Criteria Not Met",false) },
+            { "910160", Tuple.Create("910160", "Uncollectible","Disability",false) },
+            { "910170", Tuple.Create("910170", "Uncollectible","Dormant",false) },
+            { "910180", Tuple.Create("910180", "Uncollectible","Efforts Exhausted",false) },
+            { "910190", Tuple.Create("910190", "Uncollectible","Incarcerated",false) },
+            { "910200", Tuple.Create("910200", "Uncollectible","Judgment Denied",false) },
+            { "910208", Tuple.Create("910208", "Uncollectible","Military",false) },
+            { "910210", Tuple.Create("910210", "Uncollectible","No Assets",false) },
+            { "910220", Tuple.Create("910220", "Uncollectible","No Documentation",false) },
+            { "910230", Tuple.Create("910230", "Uncollectible","No Employment",false) },
+            { "910240", Tuple.Create("910240", "Uncollectible","No Responsible Party",false) },
+            { "910250", Tuple.Create("910250", "Uncollectible","No Witness",false) },
+            { "910255", Tuple.Create("910255", "Uncollectible","Nursing Home",false) },
+            { "910260", Tuple.Create("910260", "Uncollectible","Opened in Error",false) },
+            { "910270", Tuple.Create("910270", "Uncollectible","Out of Service Area",false) },
+            { "910280", Tuple.Create("910280", "Uncollectible","Out of Statute",false) },
+            { "910285", Tuple.Create("910285", "Uncollectible","Research",false) },
+            { "910290", Tuple.Create("910290", "Uncollectible","Dismissed without Prejudice",false) },
+            { "910295", Tuple.Create("910295", "Uncollectible","Dismissed with Prejudice",false) },
+            { "910297", Tuple.Create("910297", "Uncollectible","SSI",false) },
+            { "910300", Tuple.Create("910300", "Uncollectible","Too Small",false) },
+            { "910310", Tuple.Create("910310", "Uncollectible","Unable to Locate",false) },
+            { "910320", Tuple.Create("910320", "Uncollectible","Do Not Sell",false) },
+            { "910999", Tuple.Create("910999", "Uncollectible","Other",false) },
+            { "920000", Tuple.Create("920000", "Issue","Complaint",false) },
+            { "920100", Tuple.Create("920100", "Issue","Lawsuit",false) },
+            { "920150", Tuple.Create("920150", "Issue","Counterclaim",false) },
+            { "920200", Tuple.Create("920200", "Issue","Suit Threat",false) },
+            { "920220", Tuple.Create("920220", "Issue","Dispute",false) },
+            { "920250", Tuple.Create("920250", "Issue","Cease and Desist",false) },
+            { "920260", Tuple.Create("920260", "Issue","Hardship",false) },
+            { "920270", Tuple.Create("920270", "Issue","Fraud",false) },
+            { "920300", Tuple.Create("920300", "Issue","Other",false) },
+            { "940000", Tuple.Create("940000", "Recourse","Buy Back",false) },
+            { "940100", Tuple.Create("940100", "Recourse","Put Back",false) },
+            { "950000", Tuple.Create("950000", "Known FDCPA Litigant","",false) },
+            { "970100", Tuple.Create("970100", "Ready to Close","Auto Close",false) },
+            { "980100", Tuple.Create("980100", "Judgment","Dormant",false) },
+            { "980200", Tuple.Create("980200", "Judgment","Satisfied",false) },
+            { "980300", Tuple.Create("980300", "Judgment","Vacated",false) },
+            { "999000", Tuple.Create("999000", "Other","",false) },
+            { "999100", Tuple.Create("999100", "Source Request","",false) },
+            { "999101", Tuple.Create("999101", "Source Request","Length",false) },
+            { "999102", Tuple.Create("999102", "Source Request","Bureau",false) },
+            { "999103", Tuple.Create("999103", "Source Request","Statute",false) },
+            { "999104", Tuple.Create("999104", "Source Request","Source Status",false) },
+            { "999105", Tuple.Create("999105", "Source Request","Party",false) },
+            { "999106", Tuple.Create("999106", "Source Request","Bankruptcy",false) },
+            { "999107", Tuple.Create("999107", "Source Request","Deceased",false) },
+            { "999108", Tuple.Create("999108", "Source Request","Receivership",false) }
+        };
+    }
+
+    public override void PostExecute()
+    {
+        base.PostExecute();
+        if (!_exceptionReportCreated)
+            System.IO.File.Delete(Connections.ExceptionReportConnection.ConnectionString);
+
+        if (conn != null)
+        {
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    public override void Input0_ProcessInputRow(Input0Buffer Row)
+    {
+        bool accountFound = false, hasActiveArrangement = false; ;
+        string artivaID = "", howReceived = "";
+        decimal lastPayAmount = 0, promiseAmount = 0, arrelpahid = 0;
+        DateTime? lastPayDate = (DateTime?)null, promiseDate = (DateTime?)null;
+        if (!_headerAdded)
+        {
+            _headerAdded = true;
+            OBRecallBuffer.AddRow();
+            OBRecallBuffer.RowData = "data_id,status_code,status_date,bk_filing,bk_chapter,bk_case,bk_disposition,bk_location,dec_date,rec_date,promise_due,promise_amount,keeper_flag";
+        }
+
+        #region SQL Query
+        string query = @"SELECT top 1
+                                ARACID,
+                                ARACLPYDTE,
+                                ARACLPYAMT,
+                                AFTTHOWRECEIVED,
+                                ARRELPAHID
+                        --        ARPAHSPDTE,
+                        --        ARPAHSPAMT,
+                        --        CASE WHEN ARPAHACTIVE = '*' THEN 1
+                        --                ELSE 0
+                        --        END AS HasPromise
+
+                                FROM %STARTTABLE ARCLIENT
+                                INNER JOIN ARACCOUNT ON ARCLID = ARACCLTID AND ARCLID IN " + Variables.ClientIDs + @"
+                                INNER JOIN ARRELATIONSHIP arrela ON ARRELACID = ARACID AND arrela.ARRELTYPID = 'PRIM'
+                        --        LEFT JOIN ARPAHIST ON ARPAHID = ARRELPAHID AND ARPAHACTIVE = '*'
+                                INNER JOIN ARENTITY ON ARACRPID = ARENID
+                                LEFT JOIN AFTRANSACTION ON AFTRENTID = ARENID
+                                LEFT JOIN AFTRANSTYPE ON AFTRTYP = AFTTKEY
+                        --        LEFT  JOIN ARPAHISTSCHED_ARPAHIST ON ARPAHIST.ARPAHID = ARPAHISTSCHED_ARPAHIST.ARPAHID
+                                WHERE ISNULL(ARACCANCID, 'ACTIVE') NOT IN ('DUPE','RETURN')
+                                AND ARACCOUNT.ZZACCREDINTCONSACNUM = '" + Row.dataid + @"'
+                                ORDER BY AFTREFFDTE DESC";
+
+        using (var command = new OdbcCommand(query, conn))
+        {
+            if (conn.State != ConnectionState.Open)
+                conn.Open();
+
+            command.CommandTimeout = 300;
+            using (var reader = command.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    accountFound = true;
+                    artivaID = reader.GetDecimal(0).ToString();
+                    lastPayDate = reader.IsDBNull(1) ? (DateTime?)null : reader.GetDate(1);
+                    lastPayAmount = reader.IsDBNull(2) ? 0 : reader.GetDecimal(2);
+                    howReceived = reader.IsDBNull(3) ? "" : reader.GetString(3);
+                    arrelpahid = reader.IsDBNull(4) ? 0 : reader.GetDecimal(4);
+                }
+            }
+        }
+        #endregion
+
+        if (!accountFound)
+        {
+            _exceptionReportCreated = true;
+            ExceptionReportBuffer.AddRow();
+            ExceptionReportBuffer.Data = "ACCOUNT NOT FOUND IN ARTIVA,Creditor Internal Consumer Account Number from file:  " + Row.dataid;
+            return;
+        }
+
+        if (!_recallInformation.ContainsKey(Row.statuscode))
+        {
+            _exceptionReportCreated = true;
+            ExceptionReportBuffer.AddRow();
+            ExceptionReportBuffer.Data = "STATUS CODE NOT FOUND IN MAPPING,Creditor Internal Consumer Account Number from file:  " + Row.dataid + ", Status_Code from file:  " + Row.statuscode;
+            return;
+        }
+
+        #region SQL Query 2
+        if (arrelpahid != 0)
+        {
+            query = @"SELECT ARPAHSPDTE,
+                         ARPAHSPAMT,
+                         CASE WHEN ARPAHACTIVE = '*' THEN 1
+                                 ELSE 0
+                         END
+                FROM ARPAHIST 
+                LEFT  JOIN ARPAHISTSCHED_ARPAHIST ON ARPAHIST.ARPAHID = ARPAHISTSCHED_ARPAHIST.ARPAHID
+                WHERE ARPAHACTIVE = '*' AND ARPAHIST.ARPAHID = " + arrelpahid;
+
+            using (var command = new OdbcCommand(query, conn))
+            {
+                if (conn.State != ConnectionState.Open)
+                    conn.Open();
+
+                command.CommandTimeout = 300;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        promiseDate = reader.IsDBNull(0) ? (DateTime?)null : reader.GetDate(0);
+                        promiseAmount = reader.IsDBNull(1) ? 0 : reader.GetDecimal(1);
+                        hasActiveArrangement = reader.GetInt16(2) == 1;
+                    }
+                }
+            }
+        }
+        #endregion
+
+        var data = _recallInformation[Row.statuscode];
+        bool allowKeepers = data.Item4;
+        string obCode = data.Item1, desc1 = data.Item2, desc2 = data.Item3, statusCode = "";
+        string obPromiseDue = "", obPromiseAmount = "";
+        bool isKeeper = false;
+
+        if (allowKeepers && ((lastPayDate.HasValue && lastPayDate.Value >= DateTime.Today.AddDays(-15) && howReceived.ToUpper() != "C") || hasActiveArrangement))
+        {
+            Add200Record(artivaID, hasActiveArrangement);
+            statusCode = "113020";
+
+            if (hasActiveArrangement)
+            {
+                obPromiseDue = (!promiseDate.HasValue || promiseDate.Value <= DateTime.Today) ? DateTime.Today.AddDays(2).ToShortDateString() : promiseDate.Value.ToShortDateString();
+                obPromiseAmount = promiseAmount.ToString("0.00");
+            }
+            else
+            {
+                obPromiseDue = DateTime.Today.AddDays(2).ToShortDateString();
+                obPromiseAmount = lastPayAmount.ToString("0.00");
+            }
+
+            isKeeper = true;
+        }
+        else
+        {
+            Add201Record(artivaID, obCode, desc1 + " " + desc2);
+            Add211Record(artivaID, desc2);
+            AddCloseRecord(artivaID);
+
+            statusCode = obCode;
+        }
+
+        OBRecallBuffer.AddRow();
+        OBRecallBuffer.RowData = Row.dataid + "," +
+            statusCode + "," +
+            DateTime.Today.ToShortDateString() + "," +
+            ",,,,,,," +
+            obPromiseDue + "," +
+            obPromiseAmount + "," +
+            (isKeeper ? "Y" : "N");
+    }
+
+    private void Add200Record(string artivaID, bool hasActiveArrangement)
+    {
+        var rec200 = new KeeperInfo_200
+        {
+            AccountId = artivaID,
+            DateRequestedToKeep = DateTime.Today,
+            DateRequestSentToClient = DateTime.Today,
+            KeeperCode = "113020",
+            KeeperReason = hasActiveArrangement ? "POST" : ""
+        };
+
+        AddMaintenanceRow(rec200);
+    }
+
+    private void Add201Record(string artivaID, string obRecallCode, string statusDescription)
+    {
+        var rec201 = new ClientRecallInfo_201
+        {
+            AccountId = artivaID.ToString(),
+            DateOfRecall = DateTime.Today,
+            RecallCode = obRecallCode,
+            RecallReason = statusDescription,
+            ClientRecallFileName = Variables.currentFile
+        };
+
+        AddMaintenanceRow(rec201);
+    }
+
+    private void Add211Record(string artivaID, string statusCode)
+    {
+        var rec211 = new ClientReconTracking_211
+        {
+            AccountId = artivaID.ToString(),
+            LastStatusCodeSent = statusCode,
+            LastStatusCodeSentDate = DateTime.Today
+        };
+
+        AddMaintenanceRow(rec211);
+    }
+
+    private void AddCloseRecord(string artivaID)
+    {
+
+        var recC = new CloseAccount_C
+        {
+            AccountId = artivaID,
+            CloseCode = "RETURN"
+        };
+
+        AddMaintenanceRow(recC);
+    }
+
+    private void AddMaintenanceRow<T>(T record) where T : GeneralPurposeRecordBase
+    {
+        var recordList = new List<T>();
+        recordList.Add(record);
+        var recordString = CommonEngine.WriteString<T>(recordList).Replace("\r\n", "");
+        MaintenanceBuffer.AddRow();
+        MaintenanceBuffer.RowData = recordString.ToUpper();
+    }
+}]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[BufferWrapper.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services buffer wrappers
+*  This module defines classes for accessing data flow buffers
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+
+public class Input0Buffer: ScriptBuffer
+
+{
+    public Input0Buffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String placeid
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[0]);
+        }
+    }
+    public bool placeid_IsNull
+    {
+        get
+        {
+            return IsNull(0);
+        }
+    }
+
+    public String placepoolid
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[1]);
+        }
+    }
+    public bool placepoolid_IsNull
+    {
+        get
+        {
+            return IsNull(1);
+        }
+    }
+
+    public String dataid
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[2]);
+        }
+    }
+    public bool dataid_IsNull
+    {
+        get
+        {
+            return IsNull(2);
+        }
+    }
+
+    public String priacctno
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[3]);
+        }
+    }
+    public bool priacctno_IsNull
+    {
+        get
+        {
+            return IsNull(3);
+        }
+    }
+
+    public String statuscode
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[4]);
+        }
+    }
+    public bool statuscode_IsNull
+    {
+        get
+        {
+            return IsNull(4);
+        }
+    }
+
+    public Decimal baltotal
+    {
+        get
+        {
+            return Buffer.GetDecimal(BufferColumnIndexes[5]);
+        }
+    }
+    public bool baltotal_IsNull
+    {
+        get
+        {
+            return IsNull(5);
+        }
+    }
+
+    public Decimal balprincipal
+    {
+        get
+        {
+            return Buffer.GetDecimal(BufferColumnIndexes[6]);
+        }
+    }
+    public bool balprincipal_IsNull
+    {
+        get
+        {
+            return IsNull(6);
+        }
+    }
+
+    public Decimal balinterest
+    {
+        get
+        {
+            return Buffer.GetDecimal(BufferColumnIndexes[7]);
+        }
+    }
+    public bool balinterest_IsNull
+    {
+        get
+        {
+            return IsNull(7);
+        }
+    }
+
+    public Decimal balfeescourt
+    {
+        get
+        {
+            return Buffer.GetDecimal(BufferColumnIndexes[8]);
+        }
+    }
+    public bool balfeescourt_IsNull
+    {
+        get
+        {
+            return IsNull(8);
+        }
+    }
+
+    public Decimal balfeesattorney
+    {
+        get
+        {
+            return Buffer.GetDecimal(BufferColumnIndexes[9]);
+        }
+    }
+    public bool balfeesattorney_IsNull
+    {
+        get
+        {
+            return IsNull(9);
+        }
+    }
+
+    public Decimal balfeesother
+    {
+        get
+        {
+            return Buffer.GetDecimal(BufferColumnIndexes[10]);
+        }
+    }
+    public bool balfeesother_IsNull
+    {
+        get
+        {
+            return IsNull(10);
+        }
+    }
+
+    new public bool NextRow()
+    {
+        return base.NextRow();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+
+public class MaintenanceBuffer: ScriptBuffer
+
+{
+    public MaintenanceBuffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String RowData
+    {
+        set
+        {
+            this[0] = value;
+        }
+    }
+    public bool RowData_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(0);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    new public void AddRow()
+    {
+        base.AddRow();
+    }
+
+    new public void SetEndOfRowset()
+    {
+        base.SetEndOfRowset();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+
+public class OBRecallBuffer: ScriptBuffer
+
+{
+    public OBRecallBuffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String RowData
+    {
+        set
+        {
+            this[0] = value;
+        }
+    }
+    public bool RowData_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(0);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    new public void AddRow()
+    {
+        base.AddRow();
+    }
+
+    new public void SetEndOfRowset()
+    {
+        base.SetEndOfRowset();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+
+public class ExceptionReportBuffer: ScriptBuffer
+
+{
+    public ExceptionReportBuffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String Data
+    {
+        set
+        {
+            this[0] = value;
+        }
+    }
+    public bool Data_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(0);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    new public void AddRow()
+    {
+        base.AddRow();
+    }
+
+    new public void SetEndOfRowset()
+    {
+        base.SetEndOfRowset();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[ComponentWrapper.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services component wrapper
+*  This module defines the base class for your component
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+
+public class UserComponent: ScriptComponent
+{
+    public Connections Connections;
+    public Variables Variables;
+    public UserComponent()
+    {
+        Connections = new Connections(this);
+        Variables = new Variables(this);
+    }
+
+    public MaintenanceBuffer MaintenanceBuffer;
+
+    public OBRecallBuffer OBRecallBuffer;
+
+    public ExceptionReportBuffer ExceptionReportBuffer;
+
+    int InputsFinished = 0;
+
+    public override void ProcessInput(int InputID, string InputName, PipelineBuffer Buffer, OutputNameMap OutputMap)
+    {
+
+        if (InputName.Equals(@"Input 0", StringComparison.Ordinal))
+        {
+            Input0_ProcessInput(new Input0Buffer(Buffer, GetColumnIndexes(InputID), OutputMap));
+        }
+
+        if (Buffer.EndOfRowset)
+        {
+            InputsFinished = InputsFinished + 1;
+            if (InputsFinished == 1)
+            {
+                FinishOutputs();
+                MarkOutputsFinished();
+            }
+        }
+
+    }
+
+    public virtual void FinishOutputs()
+    {
+    }
+
+    private void MarkOutputsFinished()
+    {
+
+        if (null != MaintenanceBuffer)
+        {
+            MaintenanceBuffer.SetEndOfRowset();
+            MaintenanceBuffer = null;
+        }
+
+        if (null != OBRecallBuffer)
+        {
+            OBRecallBuffer.SetEndOfRowset();
+            OBRecallBuffer = null;
+        }
+
+        if (null != ExceptionReportBuffer)
+        {
+            ExceptionReportBuffer.SetEndOfRowset();
+            ExceptionReportBuffer = null;
+        }
+
+    }
+
+    public override void PrimeOutput(int Outputs, int[] OutputIDs, PipelineBuffer[] Buffers, OutputNameMap OutputMap)
+    {
+       for(int Idx = 0; Idx < Outputs; Idx++)
+       {
+            if(OutputIDs[Idx] == GetOutputID(OutputMap, @"Maintenance"))
+            {
+                MaintenanceBuffer = new MaintenanceBuffer(Buffers[Idx], GetColumnIndexes(OutputIDs[Idx]), OutputMap);
+            }
+            if(OutputIDs[Idx] == GetOutputID(OutputMap, @"OBRecall"))
+            {
+                OBRecallBuffer = new OBRecallBuffer(Buffers[Idx], GetColumnIndexes(OutputIDs[Idx]), OutputMap);
+            }
+            if(OutputIDs[Idx] == GetOutputID(OutputMap, @"ExceptionReport"))
+            {
+                ExceptionReportBuffer = new ExceptionReportBuffer(Buffers[Idx], GetColumnIndexes(OutputIDs[Idx]), OutputMap);
+            }
+        }
+
+        CreateNewOutputRows();
+
+    }
+
+    public virtual void CreateNewOutputRows()
+    {
+    }
+
+    public virtual void Input0_ProcessInput(Input0Buffer Buffer)
+    {
+        while (Buffer.NextRow())
+        {
+            Input0_ProcessInputRow(Buffer);
+        }
+    }
+
+    public virtual void Input0_ProcessInputRow(Input0Buffer Row)
+    {
+    }
+
+}
+
+public class Connections
+{
+    ScriptComponent ParentComponent;
+
+    public Connections(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+    public IDTSConnectionManager100 ExceptionReportConnection
+    {
+        get
+        {
+            return ParentComponent.ComponentMetaData.RuntimeConnectionCollection.GetRuntimeConnectionByName(@"ExceptionReportConnection").ConnectionManager;
+        }
+    }
+
+    public IDTSConnectionManager100 ArtivaConnection
+    {
+        get
+        {
+            return ParentComponent.ComponentMetaData.RuntimeConnectionCollection.GetRuntimeConnectionByName(@"ArtivaConnection").ConnectionManager;
+        }
+    }
+
+}
+
+public class Variables
+{
+    ScriptComponent ParentComponent;
+
+    public Variables(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+    public String ClientIDs
+    {
+        get
+        {
+            return (String)(ParentComponent.ReadOnlyVariables["ClientIDs"].GetValueWithContext(ScriptComponent.EvaluatorContext));
+        }
+    }
+
+    public String currentFile
+    {
+        get
+        {
+            return (String)(ParentComponent.ReadOnlyVariables["currentFile"].GetValueWithContext(ScriptComponent.EvaluatorContext));
+        }
+    }
+
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[SC_bc348bdf97b24b838db1fde0d27eeacc.csproj]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1E1BB231-0F5C-4B88-AC85-23CFF8D6CA4E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SC_bc348bdf97b24b838db1fde0d27eeacc</RootNamespace>
+    <AssemblyName>SC_bc348bdf97b24b838db1fde0d27eeacc</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonClasses, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1f7181b3d59d8c40, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>R:\Software\CommonClasses.dll</HintPath>
+    </Reference>
+    <Reference Include="FileHelpers, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>R:\Software\FileHelpers\1.1.0.0\FileHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="RGS.ArtivaGeneralPurpose, Version=1.20.0.0, Culture=neutral, PublicKeyToken=972530eacd4bf30a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>R:\Software\RGS.ArtivaGeneralPurpose\1.1.0.0\RGS.ArtivaGeneralPurpose.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.SqlServer.TxScript, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSRuntimeWrap, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSPipelineWrap, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.PipelineHost, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Compile Include="main.cs" />
+    <Compile Include="BufferWrapper.cs" />
+    <Compile Include="ComponentWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <!-- Include the build rules for a C# project.-->
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- This section defines VSTA properties that describe the host-changable project properties. -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
+        <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" DebugInfoExeName="devenv.exe" DebugInfoCommandLine="/vstaHostDebugUri:&quot;vstadebug62c77929-6680-4d8e-82fb-a1c90a92c9f7/db19b9d3-cfec-4eaf-934e-557af0d08315&quot;" />
+        <Host Name="ScriptComponent" IconIndex="0" />
+        <ProjectClient>
+          <HostIdentifier>SSIS_SC110</HostIdentifier>
+        </ProjectClient>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Settings.Designer.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_bc348bdf97b24b838db1fde0d27eeacc.Properties.Settings.get_Default():SC_bc348bdf97b24b838db1fde0d27eeacc.Properties.Sett" +
+    "ings")]
+
+namespace SC_bc348bdf97b24b838db1fde0d27eeacc.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Project]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF16LE]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+	<msb:PropertyGroup>
+		<msb:Language>msBuild</msb:Language>
+		<msb:ProjectId>{43C3A275-A769-46E8-AC3F-179A9FF6ADCC}</msb:ProjectId>
+		<msb:CodeName>SC_bc348bdf97b24b838db1fde0d27eeacc</msb:CodeName>
+		<msb:DisplayName>SC_bc348bdf97b24b838db1fde0d27eeacc</msb:DisplayName>
+	</msb:PropertyGroup>
+	<msb:ItemGroup>
+		<msb:Project Include="SC_bc348bdf97b24b838db1fde0d27eeacc.csproj"/>
+		<msb:File Include="Properties\Settings.settings"/>
+		<msb:File Include="Properties\AssemblyInfo.cs"/>
+		<msb:File Include="main.cs"/>
+		<msb:File Include="BufferWrapper.cs"/>
+		<msb:File Include="Properties\Settings.Designer.cs"/>
+		<msb:File Include="Properties\Resources.Designer.cs"/>
+		<msb:File Include="Properties\Resources.resx"/>
+		<msb:File Include="ComponentWrapper.cs"/>
+	</msb:ItemGroup>
+</c:Project>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\AssemblyInfo.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("SC_bc348bdf97b24b838db1fde0d27eeacc")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("SC_bc348bdf97b24b838db1fde0d27eeacc")]
+[assembly: AssemblyCopyright("Copyright @  2017")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Settings.settings]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Resources.Designer.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_bc348bdf97b24b838db1fde0d27eeacc.Properties.Resources.get_ResourceManager():System.Resources.Resou" +
+    "rceManager")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_bc348bdf97b24b838db1fde0d27eeacc.Properties.Resources.get_Culture():System.Globalization.CultureIn" +
+    "fo")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_bc348bdf97b24b838db1fde0d27eeacc.Properties.Resources.set_Culture(System.Globalization.CultureInfo" +
+    "):Void")]
+
+namespace SC_bc348bdf97b24b838db1fde0d27eeacc.Properties {
+    
+    
+    /// <summary>
+    ///   A strongly-typed resource class, for looking up localized strings, etc.
+    /// </summary>
+    // This class was auto-generated by the StronglyTypedResourceBuilder
+    // class via a tool like ResGen or Visual Studio.
+    // To add or remove a member, edit your .ResX file then rerun ResGen
+    // with the /str option, or rebuild your VS project.
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    internal class Resources {
+        
+        private static global::System.Resources.ResourceManager resourceMan;
+        
+        private static global::System.Globalization.CultureInfo resourceCulture;
+        
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources() {
+        }
+        
+        /// <summary>
+        ///   Returns the cached ResourceManager instance used by this class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if ((resourceMan == null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SC_bc348bdf97b24b838db1fde0d27eeacc.Properties.Resources", typeof(Resources).Assembly);
+                    resourceMan = temp;
+                }
+                return resourceMan;
+            }
+        }
+        
+        /// <summary>
+        ///   Overrides the current thread's CurrentUICulture property for all
+        ///   resource lookups using this strongly typed resource class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
+                return resourceCulture;
+            }
+            set {
+                resourceCulture = value;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                      </arrayElements>
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Stores the binary representation of the component"
+                      isArray="true"
+                      name="BinaryCode"
+                      state="cdata">
+                      <arrayElements
+                        arrayElementCount="2">
+                        <arrayElement
+                          dataType="System.String"><![CDATA[SC_bc348bdf97b24b838db1fde0d27eeacc.dll]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[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
+IgIWKF4AAAoqUgJ7WwAACgJ7XAAACheUb10AAAoqIgIXKF4AAAoqUgJ7WwAACgJ7XAAAChiUb10A
+AAoqIgIYKF4AAAoqUgJ7WwAACgJ7XAAAChmUb10AAAoqIgIZKF4AAAoqUgJ7WwAACgJ7XAAAChqU
+b10AAAoqIgIaKF4AAAoqUgJ7WwAACgJ7XAAAChuUb18AAAoqIgIbKF4AAAoqUgJ7WwAACgJ7XAAA
+ChyUb18AAAoqIgIcKF4AAAoqUgJ7WwAACgJ7XAAACh2Ub18AAAoqIgIdKF4AAAoqUgJ7WwAACgJ7
+XAAACh6Ub18AAAoqIgIeKF4AAAoqVgJ7WwAACgJ7XAAACh8JlG9fAAAKKiYCHwkoXgAACipWAntb
+AAAKAntcAAAKHwqUb18AAAoqJgIfCiheAAAKKh4CKGAAAAoqHgIoYQAACioqAgMEBShaAAAKKiYC
+FgMoYgAACipaAywIAhYoYwAACipynSEAcHNkAAAKeh4CKGUAAAoqHgIoZgAACioeAihhAAAKKioC
+AwQFKFoAAAoqJgIWAyhiAAAKKloDLAgCFihjAAAKKnKdIQBwc2QAAAp6HgIoZQAACioeAihmAAAK
+Kh4CKGEAAAoqKgIDBAUoWgAACiomAhYDKGIAAAoqWgMsCAIWKGMAAAoqcp0hAHBzZAAACnoeAihl
+AAAKKh4CKGYAAAoqHgIoYQAACio6AihnAAAKAgN9CwAABCqCAnsLAAAEb2gAAApvaQAACnI6IgBw
+b2oAAApvawAACiqCAnsLAAAEb2gAAApvaQAACnJuIgBwb2oAAApvawAACio6AihnAAAKAgN9DAAA
+BCqWAnsMAAAEb2wAAApykCIAcG9tAAAKKG4AAApvbwAACnQbAAABKpYCewwAAARvbAAACnKkIgBw
+b20AAAoobgAACm9vAAAKdBsAAAEqHgIoZwAACioAAAATMAIALQAAAAkAABF+DQAABC0gcrwiAHDQ
+CgAAAihxAAAKb3IAAApzcwAACgoGgA0AAAR+DQAABCoafg4AAAQqHgKADgAABCoafg8AAAQqLnNI
+AAAGgA8AAAQqHgIodgAACioAtAAAAM7K774BAAAAkQAAAGxTeXN0ZW0uUmVzb3VyY2VzLlJlc291
+cmNlUmVhZGVyLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1
+YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkjU3lzdGVtLlJlc291cmNlcy5SdW50aW1lUmVz
+b3VyY2VTZXQCAAAAAAAAAAAAAABQQURQQURQtAAAAEJTSkIBAAEAAAAAAAwAAAB2NC4wLjMwMzE5
+AAAAAAUAbAAAAOQNAAAjfgAAUA4AANgRAAAjU3RyaW5ncwAAAAAoIAAAMCMAACNVUwBYQwAAEAAA
+ACNHVUlEAAAAaEMAABgEAAAjQmxvYgAAAAAAAAACAAABVxWiCQkdAAAA+iUzABYAAAEAAAA/AAAA
+CwAAAA8AAABJAAAAKQAAAHYAAAAPAAAACQAAAAgAAAAjAAAAJAAAAAQAAAABAAAACgAAAAEAAAAB
+AAAABgAAAAEAAAAAAAoAAQAAAAAABgAlAQQBBgA1AQQBCgBSAUsBDgBuAVkBEgC8AQQBBgDLAQQB
+CgCTAngCCgCgAksBFgDYAscCGgCKA2QDCgBQBEsBHgB0B0wHCgAwCB8ICgBhCEwICgCjCYkJCgDO
+CbwJCgDlCbwJCgACCrwJCgAhCrwJCgA6CrwJCgBTCrwJCgBuCrwJCgCJCrwJCgCiCrwJCgDbCrsK
+CgD7CrsKCgA9C0sBCgBEC0sBBgCJCwQBFgDYC8ULCgDqC0sBCgAFDPsLDgB/CRcMCgA1DEsBCgBA
+DEsBFgBQDMcCFgBcDLsCFgB2DMULFgCTDMcCFgCwDMULCgDxDEsBGgC9DWQDGgAaDmQDGgBpDmQD
+GgCrDmQDCgDEDngCIgDXDssOJgDkDngCCgAeD0sBKgCFD1wPKgC0D1wPKgD3D1wPHgBBEEwHHgBo
+EEwHBwB4EAAAHgCoEEwHCgDnENQQCgAEEUsBCgAJEUsBCgAtEbwJDgBDERcMDgBcERcMCgBxEbsK
+AAAAAAEAAAAAAAEAAQABABAAMgAAAAUAAQABAAEAEABAAAAACAAHAAkAAQAQAEsAAAAJAAsAEgAB
+ABAAWAAAAAkACwArAAEAEABqAAAACQALADEAAQAQAHkAAAAJAAsANwABABAAjwAAAA0ACwA9AAEA
+EACbAAAADQAMAEAAAAAQAKUArwANAA0AQwAAARAA3gCvABEADwBHAAYAjwATAAYAmwAXAAYAWAAf
+AAYAagAjAAYAeQAnAAEAjAErAAEAUwJKAAEAawJKAAEAqAJNAAEA5wJcAAEAGQexAAEAGQexABEA
+QAjFABEAbQjJABEAsQjnAFAgAAAAAIYYhgEbAAEAcCAAAAAAxgDZAS4AAQDLIAAAAADGAeYBGwAF
+ANAgAAAAAIEA9AEbAAUALCEAAAAAxgAIAjgABQDPIQAAAADGARQCGwAJANEhAAAAAMYBKAJEAAkA
+5CEAAAAAxgE8AkQACgDoIQAAAADGAOwCGwALAPA2AAAAAMYA9wIbAAsAQDcAAAAAxgA8AkQACwBw
+PAAAAACBAAMDYAAMANQ8AAAAAIEAEANmAA4ALD0AAAAAgQAdA20AEQBsPQAAAACBACoDcwATAJw9
+AAAAAIEAOQN4ABQA6D0AAAAAhhiGARsAFQDwPQAAAACGGIYBiAAVAPs9AAAAAIYIpQOSABgAED4A
+AAAAhgixA5YAGAAZPgAAAACGCMQDkgAYAC4+AAAAAIYI1AOWABgANz4AAAAAhgjrA5IAGABMPgAA
+AACGCPYDlgAYAFU+AAAAAIYICASSABgAaj4AAAAAhggWBJYAGABzPgAAAACGCCsEkgAYAIg+AAAA
+AIYIOgSWABgAkT4AAAAAhghYBJoAGACmPgAAAACGCGUElgAYAK8+AAAAAIYIeQSaABgAxD4AAAAA
+hgiKBJYAGADNPgAAAACGCKIEmgAYAOI+AAAAAIYIsgSWABgA6z4AAAAAhgjJBJoAGAAAPwAAAACG
+CNoElgAYAAk/AAAAAIYI8gSaABgAHz8AAAAAhggGBZYAGAApPwAAAACGCCEFmgAYAD8/AAAAAIYI
+MgWWABgAST8AAAAAhgBKBZYAGABRPwAAAACGAFIFlgAYAFk/AAAAAIYYhgGIABgAZD8AAAAAhgij
+BnMAGwBuPwAAAACGCK8GrAAcAIU/AAAAAIYAwgYbAB0AjT8AAAAAhgDJBhsAHQCVPwAAAACGAFIF
+lgAdAJ0/AAAAAIYYhgGIAB0AqD8AAAAAhgijBnMAIACyPwAAAACGCK8GrAAhAMk/AAAAAIYAwgYb
+ACIA0T8AAAAAhgDJBhsAIgDZPwAAAACGAFIFlgAiAOE/AAAAAIYYhgGIACIA7D8AAAAAhgjvBnMA
+JQD2PwAAAACGCPgGrAAmAA1AAAAAAIYAwgYbACcAFUAAAAAAhgDJBhsAJwAdQAAAAACGAFIFlgAn
+ACVAAAAAAIYYhgG1ACcANEAAAAAAhgiNB7sAKABVQAAAAACGCKsHuwAoAHZAAAAAAIYYhgG1ACgA
+hUAAAAAAhgjrB5IAKQCrQAAAAACGCPkHkgApANFAAAAAAIMYhgEbACkA3EAAAAAAkwh9CM0AKQAV
+QQAAAACTCJEI0gApABxBAAAAAJMInQjXACkAJEEAAAAAlgjBCOsAKgA3QQAAAACGGIYBGwAqACtB
+AAAAAJEYjBFcAyoAAAABANUIAAACAN0IAAADAOcIAAAEAO4IAAABAPgIAAACAAAJAAADAAoJAAAE
+AO4IAAABAOcIAAABABIJAAABABIJAAABABYJAAACAB8JAAABABYJAAACADQJAAADAEEJAAABABYJ
+AAACAFMJAAABABYJAAABAF4JAAABAOcIAAACAGUJAAADAO4IAAABAOcIAAACAGUJAAADAO4IAAAB
+AHkJAAABAHkJAAABAOcIAAACAGUJAAADAO4IAAABAHkJAAABAHkJAAABAOcIAAACAGUJAAADAO4I
+AAABAHkJAAABAHkJAAABAH8JAAABAH8JAAABAHkJeQCGAXMAgQCGAXMAiQCGAXMAkQCGAXMAmQCG
+AXMAoQCGAXMAqQCGAXMAsQCGAXMAuQCGAXMAwQCGAXMAyQCGAfUA0QCGARsACQCGARsA2QBVC/oA
+CQBcCwEBKQBtC5YACQB9CwcB6QCGARsACQDsAhsAYQCwC5IASQCGAXMA8QDlCxsADACGARsA+QDw
+CyUBDAD3C0QBCQD3AhsAAQEKDFwB8QARDBsACQEtDBsAWQCGAfUA2QBJDGoBIQGGAXAB8QBsDHcB
+MQGADPUAIQGiDH0BQQG9DJYAQQHCDIMBWQDNDJIAQQHWDIkBOQHfDI4BFACGAZUBQQHnDJsBSQEt
+DBsA2QBJDKABDAD9DKYB2QBJDKwBWQAJDbQB2QBJDLwBQQEXDcIBDAAgDccBHAApDdcBHAAzDdwB
+HAA9DeEBHABHDeYBFABRDZYAFABeDdwBGQFoDesBGQFyDfEBGQF6DfgB2QCQDZIA2QAJDQICGQGY
+DfgBGQGrDZIAWQDNDAgC2QBJDA0CUQGGARsAUQHMDXkCUQHWDXwCUQHqDXwCUQECDnkCUQENDnkC
+WQGGARsAGQDNDJIAWQHMDXkCWQEvDnwCWQE8DnkCWQFHDnkCWQFUDnkCYQGGARsAYQHMDXkCYQGB
+DnkCYQGUDnwCaQGGARsAaQHMDXkCaQG6DnkCJACGARsAJAD3C5UBeQHyDtMC2QD+DuQCEQCGAYgA
+EQDnCPUCEQBlCfkCKQDnDJsBEQAGD4kBKQDCDIMBEQBKBZYAEQBSBZYAEQAND/0CEQAWD/UAiQGG
+AXMAEQDCBhsAEQDJBhsAGQCGARsACQCeDwMDkQHXDwkDmQEQEA8DoQErELsACQBSEBYDqQEgDRwD
+CQCTECMDsQHAECkDyQGGARsA0QEbETAD0QE2ETkDaQCGAT8D6QGGAUwD+QGGARsAIQCGARsALgAb
+ANEDLgBjAPcDLgALAGADLgATAKgDLgAjANEDLgArANEDLgAzAKgDLgA7ANcDLgBDANEDLgBbAO4D
+YwCTABIBQwGDAxIB4QGrAxIBKQSjA1MDSQSjA1MDDgFMARQCjAKbAqoCuQLqAkcDBAABAAUAFwAG
+ABkABwAbAAgAHQAJAB8ACgAhAAsAIwAAAF4FnwAAAGYFowAAAHUFnwAAAIEFowAAAJQFnwAAAJsF
+owAAAKkFnwAAALMFowAAAMQFnwAAAM8FowAAAOEFpwAAAOoFowAAAPoFpwAAAAcGowAAABsGpwAA
+ACcGowAAADoGpwAAAEcGowAAAFsGpwAAAGsGowAAAIIGpwAAAI8GowAAANgGnwAAAOAGowAAANgG
+nwAAAOAGowAAAAgHnwAAAA0HowAAAMAHwAAAANoHwAAAAAkInwAAABMInwAAADAI3QAAAKkI4gAA
+AM0I8AACABMAAwACABQABQACABUABwACABYACQACABcACwACABgADQACABkADwACABoAEQACABsA
+EwACABwAFQACAB0AFwACAB4AGQACAB8AGwACACAAHQACACEAHwACACIAIQACACMAIwACACQAJQAC
+ACUAJwACACYAKQACACcAKwACACgALQABACwALwABAC0AMQABADIAMwABADMANQABADgANwABADkA
+OQACAD4AOwACAD8APQACAEEAPwACAEIAQQACAEQAQwACAEUARQABAEYARQACAEcARwAXAWEBzgHC
+AgSAAAABAAAAfx2EXQAAAAAAABkLAAALAAAAAAAAAAAAAAABAOcAAAAAAAQAAAAAAAAAAAAAAAoA
+QgEAAAAABAAAAAAAAAAAAAAACgBLAQAAAAALAAAAAAAAAAAAAAABAJsBAAAAAAQAAAAAAAAAAAAA
+AAoAuwIAAAAAAQABAAAAAAAAAAAAfwBLAwAAAAALAAAAAAAAAAAAAAABACkHAAAAAAMAAgAHAAAA
+AAAAAMoCyw4AAAAAAgAAAAAAAAAAAAAACgBCAQAAAAALAAAAAAAAAAAAAAABADgPAAAAAAAAAAAB
+AAAAkxEAAAAAAAAhAKMDMQA9ASAAhgIgAJUCIACkAiAAswKxAN8CAQApAAAAAAAAPE1vZHVsZT4A
+U0NfYmMzNDhiZGY5N2IyNGI4MzhkYjFmZGUwZDI3ZWVhY2MuZGxsAFVzZXJDb21wb25lbnQAU2Ny
+aXB0TWFpbgBJbnB1dDBCdWZmZXIATWFpbnRlbmFuY2VCdWZmZXIAT0JSZWNhbGxCdWZmZXIARXhj
+ZXB0aW9uUmVwb3J0QnVmZmVyAENvbm5lY3Rpb25zAFZhcmlhYmxlcwBSZXNvdXJjZXMAU0NfYmMz
+NDhiZGY5N2IyNGI4MzhkYjFmZGUwZDI3ZWVhY2MuUHJvcGVydGllcwBTZXR0aW5ncwBNaWNyb3Nv
+ZnQuU3FsU2VydmVyLlR4U2NyaXB0AE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRHRzLlBpcGVsaW5lAFNj
+cmlwdENvbXBvbmVudABTY3JpcHRCdWZmZXIAbXNjb3JsaWIAU3lzdGVtAE9iamVjdABTeXN0ZW0u
+Q29uZmlndXJhdGlvbgBBcHBsaWNhdGlvblNldHRpbmdzQmFzZQAuY3RvcgBJbnB1dHNGaW5pc2hl
+ZABNaWNyb3NvZnQuU3FsU2VydmVyLlBpcGVsaW5lSG9zdABQaXBlbGluZUJ1ZmZlcgBPdXRwdXRO
+YW1lTWFwAFByb2Nlc3NJbnB1dABGaW5pc2hPdXRwdXRzAE1hcmtPdXRwdXRzRmluaXNoZWQAUHJp
+bWVPdXRwdXQAQ3JlYXRlTmV3T3V0cHV0Um93cwBJbnB1dDBfUHJvY2Vzc0lucHV0AElucHV0MF9Q
+cm9jZXNzSW5wdXRSb3cAX2V4Y2VwdGlvblJlcG9ydENyZWF0ZWQAX2hlYWRlckFkZGVkAFN5c3Rl
+bS5Db2xsZWN0aW9ucy5HZW5lcmljAERpY3Rpb25hcnlgMgBUdXBsZWA0AF9yZWNhbGxJbmZvcm1h
+dGlvbgBTeXN0ZW0uRGF0YQBTeXN0ZW0uRGF0YS5PZGJjAE9kYmNDb25uZWN0aW9uAGNvbm4AUHJl
+RXhlY3V0ZQBQb3N0RXhlY3V0ZQBBZGQyMDBSZWNvcmQAQWRkMjAxUmVjb3JkAEFkZDIxMVJlY29y
+ZABBZGRDbG9zZVJlY29yZABBZGRNYWludGVuYW5jZVJvdwBSR1MuQXJ0aXZhR2VuZXJhbFB1cnBv
+c2UAUkdTLkFydGl2YUdlbmVyYWxQdXJwb3NlLkRhdGEuUmVjb3JkcwBHZW5lcmFsUHVycG9zZVJl
+Y29yZEJhc2UAVABnZXRfcGxhY2VpZABnZXRfcGxhY2VpZF9Jc051bGwAZ2V0X3BsYWNlcG9vbGlk
+AGdldF9wbGFjZXBvb2xpZF9Jc051bGwAZ2V0X2RhdGFpZABnZXRfZGF0YWlkX0lzTnVsbABnZXRf
+cHJpYWNjdG5vAGdldF9wcmlhY2N0bm9fSXNOdWxsAGdldF9zdGF0dXNjb2RlAGdldF9zdGF0dXNj
+b2RlX0lzTnVsbABEZWNpbWFsAGdldF9iYWx0b3RhbABnZXRfYmFsdG90YWxfSXNOdWxsAGdldF9i
+YWxwcmluY2lwYWwAZ2V0X2JhbHByaW5jaXBhbF9Jc051bGwAZ2V0X2JhbGludGVyZXN0AGdldF9i
+YWxpbnRlcmVzdF9Jc051bGwAZ2V0X2JhbGZlZXNjb3VydABnZXRfYmFsZmVlc2NvdXJ0X0lzTnVs
+bABnZXRfYmFsZmVlc2F0dG9ybmV5AGdldF9iYWxmZWVzYXR0b3JuZXlfSXNOdWxsAGdldF9iYWxm
+ZWVzb3RoZXIAZ2V0X2JhbGZlZXNvdGhlcl9Jc051bGwATmV4dFJvdwBFbmRPZlJvd3NldABwbGFj
+ZWlkAHBsYWNlaWRfSXNOdWxsAHBsYWNlcG9vbGlkAHBsYWNlcG9vbGlkX0lzTnVsbABkYXRhaWQA
+ZGF0YWlkX0lzTnVsbABwcmlhY2N0bm8AcHJpYWNjdG5vX0lzTnVsbABzdGF0dXNjb2RlAHN0YXR1
+c2NvZGVfSXNOdWxsAGJhbHRvdGFsAGJhbHRvdGFsX0lzTnVsbABiYWxwcmluY2lwYWwAYmFscHJp
+bmNpcGFsX0lzTnVsbABiYWxpbnRlcmVzdABiYWxpbnRlcmVzdF9Jc051bGwAYmFsZmVlc2NvdXJ0
+AGJhbGZlZXNjb3VydF9Jc051bGwAYmFsZmVlc2F0dG9ybmV5AGJhbGZlZXNhdHRvcm5leV9Jc051
+bGwAYmFsZmVlc290aGVyAGJhbGZlZXNvdGhlcl9Jc051bGwAc2V0X1Jvd0RhdGEAc2V0X1Jvd0Rh
+dGFfSXNOdWxsAEFkZFJvdwBTZXRFbmRPZlJvd3NldABSb3dEYXRhAFJvd0RhdGFfSXNOdWxsAHNl
+dF9EYXRhAHNldF9EYXRhX0lzTnVsbABEYXRhAERhdGFfSXNOdWxsAFBhcmVudENvbXBvbmVudABN
+aWNyb3NvZnQuU3FsU2VydmVyLkRUU1J1bnRpbWVXcmFwAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRHRz
+LlJ1bnRpbWUuV3JhcHBlcgBJRFRTQ29ubmVjdGlvbk1hbmFnZXIxMDAAZ2V0X0V4Y2VwdGlvblJl
+cG9ydENvbm5lY3Rpb24AZ2V0X0FydGl2YUNvbm5lY3Rpb24ARXhjZXB0aW9uUmVwb3J0Q29ubmVj
+dGlvbgBBcnRpdmFDb25uZWN0aW9uAGdldF9DbGllbnRJRHMAZ2V0X2N1cnJlbnRGaWxlAENsaWVu
+dElEcwBjdXJyZW50RmlsZQBTeXN0ZW0uUmVzb3VyY2VzAFJlc291cmNlTWFuYWdlcgByZXNvdXJj
+ZU1hbgBTeXN0ZW0uR2xvYmFsaXphdGlvbgBDdWx0dXJlSW5mbwByZXNvdXJjZUN1bHR1cmUAZ2V0
+X1Jlc291cmNlTWFuYWdlcgBnZXRfQ3VsdHVyZQBzZXRfQ3VsdHVyZQBDdWx0dXJlAGRlZmF1bHRJ
+bnN0YW5jZQBnZXRfRGVmYXVsdABEZWZhdWx0AElucHV0SUQASW5wdXROYW1lAEJ1ZmZlcgBPdXRw
+dXRNYXAAT3V0cHV0cwBPdXRwdXRJRHMAQnVmZmVycwBSb3cAYXJ0aXZhSUQAaGFzQWN0aXZlQXJy
+YW5nZW1lbnQAb2JSZWNhbGxDb2RlAHN0YXR1c0Rlc2NyaXB0aW9uAHN0YXR1c0NvZGUAcmVjb3Jk
+AEJ1ZmZlckNvbHVtbkluZGV4ZXMAdmFsdWUAQ29tcG9uZW50AFN5c3RlbS5SdW50aW1lLlZlcnNp
+b25pbmcAVGFyZ2V0RnJhbWV3b3JrQXR0cmlidXRlAFN5c3RlbS5SZWZsZWN0aW9uAEFzc2VtYmx5
+VGl0bGVBdHRyaWJ1dGUAQXNzZW1ibHlEZXNjcmlwdGlvbkF0dHJpYnV0ZQBBc3NlbWJseUNvbmZp
+Z3VyYXRpb25BdHRyaWJ1dGUAQXNzZW1ibHlDb21wYW55QXR0cmlidXRlAEFzc2VtYmx5UHJvZHVj
+dEF0dHJpYnV0ZQBBc3NlbWJseUNvcHlyaWdodEF0dHJpYnV0ZQBBc3NlbWJseVRyYWRlbWFya0F0
+dHJpYnV0ZQBBc3NlbWJseUN1bHR1cmVBdHRyaWJ1dGUAQXNzZW1ibHlWZXJzaW9uQXR0cmlidXRl
+AFN5c3RlbS5SdW50aW1lLkNvbXBpbGVyU2VydmljZXMAQ29tcGlsYXRpb25SZWxheGF0aW9uc0F0
+dHJpYnV0ZQBSdW50aW1lQ29tcGF0aWJpbGl0eUF0dHJpYnV0ZQBTQ19iYzM0OGJkZjk3YjI0Yjgz
+OGRiMWZkZTBkMjdlZWFjYwBTdHJpbmcAU3RyaW5nQ29tcGFyaXNvbgBFcXVhbHMAR2V0Q29sdW1u
+SW5kZXhlcwBnZXRfRW5kT2ZSb3dzZXQAR2V0T3V0cHV0SUQAU1NJU1NjcmlwdENvbXBvbmVudEVu
+dHJ5UG9pbnRBdHRyaWJ1dGUAZ2V0X0Nvbm5lY3Rpb25TdHJpbmcAU3lzdGVtLkRhdGEuQ29tbW9u
+AERiQ29ubmVjdGlvbgBPcGVuAFR1cGxlAENyZWF0ZQBBZGQAU3lzdGVtLklPAEZpbGUARGVsZXRl
+AENsb3NlAFN5c3RlbS5Db21wb25lbnRNb2RlbABEaXNwb3NlAE51bGxhYmxlYDEARGF0ZVRpbWUA
+Q29uY2F0AE9kYmNDb21tYW5kAENvbm5lY3Rpb25TdGF0ZQBnZXRfU3RhdGUARGJDb21tYW5kAHNl
+dF9Db21tYW5kVGltZW91dABPZGJjRGF0YVJlYWRlcgBFeGVjdXRlUmVhZGVyAERiRGF0YVJlYWRl
+cgBSZWFkAEdldERlY2ltYWwAVG9TdHJpbmcASXNEQk51bGwAR2V0RGF0ZQBHZXRTdHJpbmcASURp
+c3Bvc2FibGUAQ29udGFpbnNLZXkAb3BfSW5lcXVhbGl0eQBHZXRJbnQxNgBnZXRfSXRlbQBnZXRf
+SXRlbTQAZ2V0X0l0ZW0xAGdldF9JdGVtMgBnZXRfSXRlbTMAZ2V0X0hhc1ZhbHVlAGdldF9WYWx1
+ZQBnZXRfVG9kYXkAQWRkRGF5cwBvcF9HcmVhdGVyVGhhbk9yRXF1YWwAVG9VcHBlcgBvcF9MZXNz
+VGhhbk9yRXF1YWwAVG9TaG9ydERhdGVTdHJpbmcAS2VlcGVySW5mb18yMDAAQWNjb3VudElkAERh
+dGVSZXF1ZXN0ZWRUb0tlZXAARGF0ZVJlcXVlc3RTZW50VG9DbGllbnQAS2VlcGVyQ29kZQBLZWVw
+ZXJSZWFzb24AQ2xpZW50UmVjYWxsSW5mb18yMDEARGF0ZU9mUmVjYWxsAFJlY2FsbENvZGUAUmVj
+YWxsUmVhc29uAENsaWVudFJlY2FsbEZpbGVOYW1lAENsaWVudFJlY29uVHJhY2tpbmdfMjExAExh
+c3RTdGF0dXNDb2RlU2VudABMYXN0U3RhdHVzQ29kZVNlbnREYXRlAENsb3NlQWNjb3VudF9DAENs
+b3NlQ29kZQBMaXN0YDEARmlsZUhlbHBlcnMAQ29tbW9uRW5naW5lAElFbnVtZXJhYmxlYDEAV3Jp
+dGVTdHJpbmcAUmVwbGFjZQBJc051bGwAc2V0X0l0ZW0AU2V0TnVsbABJbnZhbGlkT3BlcmF0aW9u
+RXhjZXB0aW9uAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRFRTUGlwZWxpbmVXcmFwAE1pY3Jvc29mdC5T
+cWxTZXJ2ZXIuRHRzLlBpcGVsaW5lLldyYXBwZXIASURUU0NvbXBvbmVudE1ldGFEYXRhMTAwAGdl
+dF9Db21wb25lbnRNZXRhRGF0YQBJRFRTUnVudGltZUNvbm5lY3Rpb25Db2xsZWN0aW9uMTAwAGdl
+dF9SdW50aW1lQ29ubmVjdGlvbkNvbGxlY3Rpb24ASURUU1J1bnRpbWVDb25uZWN0aW9uMTAwAEdl
+dFJ1bnRpbWVDb25uZWN0aW9uQnlOYW1lAGdldF9Db25uZWN0aW9uTWFuYWdlcgBJRFRTVmFyaWFi
+bGVzMTAwAGdldF9SZWFkT25seVZhcmlhYmxlcwBJRFRTVmFyaWFibGUxMDAAU2NyaXB0Q29tcG9u
+ZW50RXZhbENvbnRleHQAZ2V0X0V2YWx1YXRvckNvbnRleHQASURUU0V2YWx1YXRvckNvbnRleHQx
+MDAAR2V0VmFsdWVXaXRoQ29udGV4dABTeXN0ZW0uRGlhZ25vc3RpY3MARGVidWdnZXJOb25Vc2Vy
+Q29kZUF0dHJpYnV0ZQBUeXBlAFJ1bnRpbWVUeXBlSGFuZGxlAEdldFR5cGVGcm9tSGFuZGxlAEFz
+c2VtYmx5AGdldF9Bc3NlbWJseQBFZGl0b3JCcm93c2FibGVBdHRyaWJ1dGUARWRpdG9yQnJvd3Nh
+YmxlU3RhdGUAQ29tcGlsZXJHZW5lcmF0ZWRBdHRyaWJ1dGUALmNjdG9yAFNDX2JjMzQ4YmRmOTdi
+MjRiODM4ZGIxZmRlMGQyN2VlYWNjLlByb3BlcnRpZXMuUmVzb3VyY2VzLnJlc291cmNlcwAAAAAP
+SQBuAHAAdQB0ACAAMAAAF00AYQBpAG4AdABlAG4AYQBuAGMAZQAAEU8AQgBSAGUAYwBhAGwAbAAA
+H0UAeABjAGUAcAB0AGkAbwBuAFIAZQBwAG8AcgB0AAANOAAwADAAMAAwADAAAA05ADAAMAAwADAA
+MAAAHUMAbABpAGUAbgB0ACAAUgBlAHEAdQBlAHMAdAAAAQANOAAwADAAMQAwADAAAA05ADAAMAAx
+ADAAMAAAF0MAbwBuAHQAcgBhAGMAdAB1AGEAbAAADTgAMAAwADEAMQAwAAANOQAwADAAMQAxADAA
+ABdQAGUAcgBmAG8AcgBtAGEAbgBjAGUAAA04ADAAMAAxADIAMAAADTkAMAAwADEAMgAwAAAVQwBv
+AG0AcABsAGEAaQBuAHQAcwAADTgAMAAwADIAMAAwAAANOQAwADAAMgAwADAAACdDAGwAaQBlAG4A
+dAAgAFIAZQBxAHUAZQBzAHQAIABTAGEAbABlAAANOAAwADAAMgAxADAAAA05ADAAMAAyADEAMAAA
+EUYAcgBvAG4AdABFAG4AZAAADTgAMAAwADIAMgAwAAANOQAwADAAMgAyADAAAA9CAGEAYwBrAEUA
+bgBkAAANOAAwADAAMgAzADAAAA05ADAAMAAyADMAMAAAFUMAaABhAHAAdABlAHIAIAAxADMAAA04
+ADAAMAAyADQAMAAADTkAMAAwADIANAAwAAATQwBoAGEAcAB0AGUAcgAgADcAAA04ADAAMAAyADUA
+MAAADTkAMAAwADIANQAwAAARRABlAGMAZQBhAHMAZQBkAAANOAAwADAAOQA5ADkAAA05ADAAMAA5
+ADkAOQAAC08AdABoAGUAcgAADTgAMAAxADAAMAAwAAANOQAwADEAMAAwADAAABVCAGEAbgBrAHIA
+dQBwAHQAYwB5AAANOAAwADEAMAAwADcAAA05ADAAMQAwADAANwAADTgAMAAxADAAMQAxAAANOQAw
+ADEAMAAxADEAABVDAGgAYQBwAHQAZQByACAAMQAxAAANOAAwADEAMAAxADIAAA05ADAAMQAwADEA
+MgAAFUMAaABhAHAAdABlAHIAIAAxADIAAA04ADAAMQAwADEAMwAADTkAMAAxADAAMQAzAAANOAAw
+ADEAMAA5ADkAAA05ADAAMQAwADkAOQAADTgAMAAxADEAMAAwAAANOQAwADEAMQAwADAAABlSAGUA
+YwBlAGkAdgBlAHIAcwBoAGkAcAAADTgAMAAyADAAMAAwAAANOQAwADIAMAAwADAAAA04ADAANAAw
+ADAAMAAADTkAMAA0ADAAMAAwAAATSQBuAHMAdQByAGEAbgBjAGUAAA04ADAANQAwADAAMAAADTkA
+MAA1ADAAMAAwAAALTABlAGcAYQBsAAANOAAwADYAMAAwADAAAA05ADAANgAwADAAMAAAB1AASQBG
+AAANOAAwADcAMAAwADAAAA05ADAANwAwADAAMAAAB1MASQBGAAANOAAwADcAMAAwADEAAA05ADAA
+NwAwADAAMQAAF1MASQBGACAAUgBlAHEAdQBlAHMAdAAADTgAMAA4ADAAMAAwAAANOQAwADgAMAAw
+ADAAABVQAGEAaQBkACAAUAByAGkAbwByAAANOAAxADAAMAAwADAAAA05ADEAMAAwADAAMAAAG1UA
+bgBjAG8AbABsAGUAYwB0AGkAYgBsAGUAAA04ADEAMAAxADAAMAAADTkAMQAwADEAMAAwAAAdQgBy
+AG8AawBlAG4AIABQAHIAbwBtAGkAcwBlAAANOAAxADAAMQAwADUAAA05ADEAMAAxADAANQAAHUIA
+dQByAGUAYQB1ACAARQB4AHAAaQByAGUAZAAADTgAMQAwADEAMQAwAAANOQAxADAAMQAxADAAABlD
+AEMAQwBTACAAUAByAG8AZwByAGEAbQAADTgAMQAwADEAMgAwAAANOQAxADAAMQAyADAAACFDAGUA
+YQBzAGUAIABhAG4AZAAgAEQAZQBzAGkAcwB0AAANOAAxADAAMQAyADUAAA05ADEAMAAxADIANQAA
+DTgAMQAwADEAMwAwAAANOQAxADAAMQAzADAAAClDAG8AbgBmAGwAaQBjAHQAIABvAGYAIABJAG4A
+dABlAHIAZQBzAHQAAA04ADEAMAAxADQAMAAADTkAMQAwADEANAAwAAAZQwBvAHUAbgB0AGUAcgAg
+AFMAdQBpAHQAAA04ADEAMAAxADUAMAAADTkAMQAwADEANQAwAAAhQwByAGkAdABlAHIAaQBhACAA
+TgBvAHQAIABNAGUAdAAADTgAMQAwADEANgAwAAANOQAxADAAMQA2ADAAABVEAGkAcwBhAGIAaQBs
+AGkAdAB5AAANOAAxADAAMQA3ADAAAA05ADEAMAAxADcAMAAAD0QAbwByAG0AYQBuAHQAAA04ADEA
+MAAxADgAMAAADTkAMQAwADEAOAAwAAAjRQBmAGYAbwByAHQAcwAgAEUAeABoAGEAdQBzAHQAZQBk
+AAANOAAxADAAMQA5ADAAAA05ADEAMAAxADkAMAAAGUkAbgBjAGEAcgBjAGUAcgBhAHQAZQBkAAAN
+OAAxADAAMgAwADAAAA05ADEAMAAyADAAMAAAH0oAdQBkAGcAbQBlAG4AdAAgAEQAZQBuAGkAZQBk
+AAANOAAxADAAMgAwADgAAA05ADEAMAAyADAAOAAAEU0AaQBsAGkAdABhAHIAeQAADTgAMQAwADIA
+MQAwAAANOQAxADAAMgAxADAAABNOAG8AIABBAHMAcwBlAHQAcwAADTgAMQAwADIAMgAwAAANOQAx
+ADAAMgAyADAAACFOAG8AIABEAG8AYwB1AG0AZQBuAHQAYQB0AGkAbwBuAAANOAAxADAAMgAzADAA
+AA05ADEAMAAyADMAMAAAG04AbwAgAEUAbQBwAGwAbwB5AG0AZQBuAHQAAA04ADEAMAAyADQAMAAA
+DTkAMQAwADIANAAwAAApTgBvACAAUgBlAHMAcABvAG4AcwBpAGIAbABlACAAUABhAHIAdAB5AAAN
+OAAxADAAMgA1ADAAAA05ADEAMAAyADUAMAAAFU4AbwAgAFcAaQB0AG4AZQBzAHMAAA04ADEAMAAy
+ADUANQAADTkAMQAwADIANQA1AAAZTgB1AHIAcwBpAG4AZwAgAEgAbwBtAGUAAA04ADEAMAAyADYA
+MAAADTkAMQAwADIANgAwAAAfTwBwAGUAbgBlAGQAIABpAG4AIABFAHIAcgBvAHIAAA04ADEAMAAy
+ADcAMAAADTkAMQAwADIANwAwAAAnTwB1AHQAIABvAGYAIABTAGUAcgB2AGkAYwBlACAAQQByAGUA
+YQAADTgAMQAwADIAOAAwAAANOQAxADAAMgA4ADAAAB1PAHUAdAAgAG8AZgAgAFMAdABhAHQAdQB0
+AGUAAA04ADEAMAAyADgANQAADTkAMQAwADIAOAA1AAARUgBlAHMAZQBhAHIAYwBoAAANOAAxADAA
+MgA5ADAAAA05ADEAMAAyADkAMAAAN0QAaQBzAG0AaQBzAHMAZQBkACAAdwBpAHQAaABvAHUAdAAg
+AFAAcgBlAGoAdQBkAGkAYwBlAAANOAAxADAAMgA5ADUAAA05ADEAMAAyADkANQAAMUQAaQBzAG0A
+aQBzAHMAZQBkACAAdwBpAHQAaAAgAFAAcgBlAGoAdQBkAGkAYwBlAAANOAAxADAAMgA5ADcAAA05
+ADEAMAAyADkANwAAB1MAUwBJAAANOAAxADAAMwAwADAAAA05ADEAMAAzADAAMAAAE1QAbwBvACAA
+UwBtAGEAbABsAAANOAAxADAAMwAxADAAAA05ADEAMAAzADEAMAAAIVUAbgBhAGIAbABlACAAdABv
+ACAATABvAGMAYQB0AGUAAA04ADEAMAAzADIAMAAADTkAMQAwADMAMgAwAAAXRABvACAATgBvAHQA
+IABTAGUAbABsAAANOAAxADAAOQA5ADkAAA05ADEAMAA5ADkAOQAADTgAMgAwADAAMAAwAAANOQAy
+ADAAMAAwADAAAAtJAHMAcwB1AGUAABNDAG8AbQBwAGwAYQBpAG4AdAAADTgAMgAwADEAMAAwAAAN
+OQAyADAAMQAwADAAAA9MAGEAdwBzAHUAaQB0AAANOAAyADAAMQA1ADAAAA05ADIAMAAxADUAMAAA
+GUMAbwB1AG4AdABlAHIAYwBsAGEAaQBtAAANOAAyADAAMgAwADAAAA05ADIAMAAyADAAMAAAF1MA
+dQBpAHQAIABUAGgAcgBlAGEAdAAADTgAMgAwADIAMgAwAAANOQAyADAAMgAyADAAAA9EAGkAcwBw
+AHUAdABlAAANOAAyADAAMgA1ADAAAA05ADIAMAAyADUAMAAADTgAMgAwADIANgAwAAANOQAyADAA
+MgA2ADAAABFIAGEAcgBkAHMAaABpAHAAAA04ADIAMAAyADcAMAAADTkAMgAwADIANwAwAAALRgBy
+AGEAdQBkAAANOAAyADAAMwAwADAAAA05ADIAMAAzADAAMAAADTgANAAwADAAMAAwAAANOQA0ADAA
+MAAwADAAABFSAGUAYwBvAHUAcgBzAGUAABFCAHUAeQAgAEIAYQBjAGsAAA04ADQAMAAxADAAMAAA
+DTkANAAwADEAMAAwAAARUAB1AHQAIABCAGEAYwBrAAANOAA1ADAAMAAwADAAAA05ADUAMAAwADAA
+MAAAKUsAbgBvAHcAbgAgAEYARABDAFAAQQAgAEwAaQB0AGkAZwBhAG4AdAAADTgANwAwADEAMAAw
+AAANOQA3ADAAMQAwADAAAB1SAGUAYQBkAHkAIAB0AG8AIABDAGwAbwBzAGUAABVBAHUAdABvACAA
+QwBsAG8AcwBlAAANOAA4ADAAMQAwADAAAA05ADgAMAAxADAAMAAAEUoAdQBkAGcAbQBlAG4AdAAA
+DTgAOAAwADIAMAAwAAANOQA4ADAAMgAwADAAABNTAGEAdABpAHMAZgBpAGUAZAAADTgAOAAwADMA
+MAAwAAANOQA4ADAAMwAwADAAAA9WAGEAYwBhAHQAZQBkAAANOAA5ADkAMAAwADAAAA05ADkAOQAw
+ADAAMAAADTgAOQA5ADEAMAAwAAANOQA5ADkAMQAwADAAAB1TAG8AdQByAGMAZQAgAFIAZQBxAHUA
+ZQBzAHQAAA04ADkAOQAxADAAMQAADTkAOQA5ADEAMAAxAAANTABlAG4AZwB0AGgAAA04ADkAOQAx
+ADAAMgAADTkAOQA5ADEAMAAyAAANQgB1AHIAZQBhAHUAAA04ADkAOQAxADAAMwAADTkAOQA5ADEA
+MAAzAAAPUwB0AGEAdAB1AHQAZQAADTgAOQA5ADEAMAA0AAANOQA5ADkAMQAwADQAABtTAG8AdQBy
+AGMAZQAgAFMAdABhAHQAdQBzAAANOAA5ADkAMQAwADUAAA05ADkAOQAxADAANQAAC1AAYQByAHQA
+eQAADTgAOQA5ADEAMAA2AAANOQA5ADkAMQAwADYAAA04ADkAOQAxADAANwAADTkAOQA5ADEAMAA3
+AAANOAA5ADkAMQAwADgAAA05ADkAOQAxADAAOAAAgSFkAGEAdABhAF8AaQBkACwAcwB0AGEAdAB1
+AHMAXwBjAG8AZABlACwAcwB0AGEAdAB1AHMAXwBkAGEAdABlACwAYgBrAF8AZgBpAGwAaQBuAGcA
+LABiAGsAXwBjAGgAYQBwAHQAZQByACwAYgBrAF8AYwBhAHMAZQAsAGIAawBfAGQAaQBzAHAAbwBz
+AGkAdABpAG8AbgAsAGIAawBfAGwAbwBjAGEAdABpAG8AbgAsAGQAZQBjAF8AZABhAHQAZQAsAHIA
+ZQBjAF8AZABhAHQAZQAsAHAAcgBvAG0AaQBzAGUAXwBkAHUAZQAsAHAAcgBvAG0AaQBzAGUAXwBh
+AG0AbwB1AG4AdAAsAGsAZQBlAHAAZQByAF8AZgBsAGEAZwAAhQdTAEUATABFAEMAVAAgAHQAbwBw
+ACAAMQAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIABBAFIAQQBDAEkARAAsAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAEEAUgBBAEMATABQAFkARABUAEUA
+LAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIABBAFIAQQBDAEwAUABZAEEATQBUACwACgAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAQQBGAFQAVABIAE8AVwBS
+AEUAQwBFAEkAVgBFAEQALAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIABBAFIAUgBFAEwAUABBAEgASQBEAAoAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAALQAtACAAIAAgACAAIAAgACAA
+IABBAFIAUABBAEgAUwBQAEQAVABFACwACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAtAC0AIAAgACAAIAAgACAAIAAgAEEAUgBQAEEASABTAFAAQQBNAFQA
+LAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAC0ALQAg
+ACAAIAAgACAAIAAgACAAQwBBAFMARQAgAFcASABFAE4AIABBAFIAUABBAEgAQQBDAFQASQBWAEUA
+IAA9ACAAJwAqACcAIABUAEgARQBOACAAMQAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgAC0ALQAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAEUA
+TABTAEUAIAAwAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAALQAtACAAIAAgACAAIAAgACAAIABFAE4ARAAgAEEAUwAgAEgAYQBzAFAAcgBvAG0AaQBzAGUA
+CgAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIABGAFIATwBNACAAJQBTAFQAQQBSAFQAVABBAEIATABFACAAQQBSAEMATABJAEUA
+TgBUAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgAEkATgBOAEUAUgAgAEoATwBJAE4AIABBAFIAQQBDAEMATwBVAE4AVAAgAE8A
+TgAgAEEAUgBDAEwASQBEACAAPQAgAEEAUgBBAEMAQwBMAFQASQBEACAAQQBOAEQAIABBAFIAQwBM
+AEkARAAgAEkATgAgAAGFrwoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgAEkATgBOAEUAUgAgAEoATwBJAE4AIABBAFIAUgBFAEwA
+QQBUAEkATwBOAFMASABJAFAAIABhAHIAcgBlAGwAYQAgAE8ATgAgAEEAUgBSAEUATABBAEMASQBE
+ACAAPQAgAEEAUgBBAEMASQBEACAAQQBOAEQAIABhAHIAcgBlAGwAYQAuAEEAUgBSAEUATABUAFkA
+UABJAEQAIAA9ACAAJwBQAFIASQBNACcACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAtAC0AIAAgACAAIAAgACAAIAAgAEwARQBGAFQAIABKAE8ASQBOACAA
+QQBSAFAAQQBIAEkAUwBUACAATwBOACAAQQBSAFAAQQBIAEkARAAgAD0AIABBAFIAUgBFAEwAUABB
+AEgASQBEACAAQQBOAEQAIABBAFIAUABBAEgAQQBDAFQASQBWAEUAIAA9ACAAJwAqACcACgAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAASQBOAE4ARQBSACAASgBPAEkATgAgAEEAUgBFAE4AVABJAFQAWQAgAE8ATgAgAEEAUgBBAEMA
+UgBQAEkARAAgAD0AIABBAFIARQBOAEkARAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIABMAEUARgBUACAASgBPAEkATgAgAEEA
+RgBUAFIAQQBOAFMAQQBDAFQASQBPAE4AIABPAE4AIABBAEYAVABSAEUATgBUAEkARAAgAD0AIABB
+AFIARQBOAEkARAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIABMAEUARgBUACAASgBPAEkATgAgAEEARgBUAFIAQQBOAFMAVABZ
+AFAARQAgAE8ATgAgAEEARgBUAFIAVABZAFAAIAA9ACAAQQBGAFQAVABLAEUAWQAKACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAC0ALQAgACAAIAAgACAAIAAg
+ACAATABFAEYAVAAgACAASgBPAEkATgAgAEEAUgBQAEEASABJAFMAVABTAEMASABFAEQAXwBBAFIA
+UABBAEgASQBTAFQAIABPAE4AIABBAFIAUABBAEgASQBTAFQALgBBAFIAUABBAEgASQBEACAAPQAg
+AEEAUgBQAEEASABJAFMAVABTAEMASABFAEQAXwBBAFIAUABBAEgASQBTAFQALgBBAFIAUABBAEgA
+SQBEAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgAFcASABFAFIARQAgAEkAUwBOAFUATABMACgAQQBSAEEAQwBDAEEATgBDAEkA
+RAAsACAAJwBBAEMAVABJAFYARQAnACkAIABOAE8AVAAgAEkATgAgACgAJwBEAFUAUABFACcALAAn
+AFIARQBUAFUAUgBOACcAKQAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIABBAE4ARAAgAEEAUgBBAEMAQwBPAFUATgBUAC4AWgBa
+AEEAQwBDAFIARQBEAEkATgBUAEMATwBOAFMAQQBDAE4AVQBNACAAPQAgACcAAXUnAAoAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+AE8AUgBEAEUAUgAgAEIAWQAgAEEARgBUAFIARQBGAEYARABUAEUAIABEAEUAUwBDAAGApUEAQwBD
+AE8AVQBOAFQAIABOAE8AVAAgAEYATwBVAE4ARAAgAEkATgAgAEEAUgBUAEkAVgBBACwAQwByAGUA
+ZABpAHQAbwByACAASQBuAHQAZQByAG4AYQBsACAAQwBvAG4AcwB1AG0AZQByACAAQQBjAGMAbwB1
+AG4AdAAgAE4AdQBtAGIAZQByACAAZgByAG8AbQAgAGYAaQBsAGUAOgAgACAAAICvUwBUAEEAVABV
+AFMAIABDAE8ARABFACAATgBPAFQAIABGAE8AVQBOAEQAIABJAE4AIABNAEEAUABQAEkATgBHACwA
+QwByAGUAZABpAHQAbwByACAASQBuAHQAZQByAG4AYQBsACAAQwBvAG4AcwB1AG0AZQByACAAQQBj
+AGMAbwB1AG4AdAAgAE4AdQBtAGIAZQByACAAZgByAG8AbQAgAGYAaQBsAGUAOgAgACAAADUsACAA
+UwB0AGEAdAB1AHMAXwBDAG8AZABlACAAZgByAG8AbQAgAGYAaQBsAGUAOgAgACAAAIL9UwBFAEwA
+RQBDAFQAIABBAFIAUABBAEgAUwBQAEQAVABFACwACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgACAAIAAgACAAIAAgACAAIAAgAEEAUgBQAEEASABTAFAAQQBNAFQALAAKACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAQwBBAFMARQAgAFcASABF
+AE4AIABBAFIAUABBAEgAQQBDAFQASQBWAEUAIAA9ACAAJwAqACcAIABUAEgARQBOACAAMQAKACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAg
+ACAAIAAgAEUATABTAEUAIAAwAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAIABFAE4ARAAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAARgBS
+AE8ATQAgAEEAUgBQAEEASABJAFMAVAAgAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IABMAEUARgBUACAAIABKAE8ASQBOACAAQQBSAFAAQQBIAEkAUwBUAFMAQwBIAEUARABfAEEAUgBQ
+AEEASABJAFMAVAAgAE8ATgAgAEEAUgBQAEEASABJAFMAVAAuAEEAUgBQAEEASABJAEQAIAA9ACAA
+QQBSAFAAQQBIAEkAUwBUAFMAQwBIAEUARABfAEEAUgBQAEEASABJAFMAVAAuAEEAUgBQAEEASABJ
+AEQACgAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgAFcASABFAFIARQAgAEEAUgBQAEEA
+SABBAEMAVABJAFYARQAgAD0AIAAnACoAJwAgAEEATgBEACAAQQBSAFAAQQBIAEkAUwBUAC4AQQBS
+AFAAQQBIAEkARAAgAD0AIAABA0MAAA0xADEAMwAwADIAMAAACTAALgAwADAAAAMgAAADLAAAESwA
+LAAsACwALAAsACwALAAAA04AAANZAAAJUABPAFMAVAAADVIARQBUAFUAUgBOAAAFDQAKAACAm0kA
+cwBOAHUAbABsACAAcAByAG8AcABlAHIAdAB5ACAAYwBhAG4AbgBvAHQAIABiAGUAIABzAGUAdAAg
+AHQAbwAgAEYAYQBsAHMAZQAuACAAQQBzAHMAaQBnAG4AIABhACAAdgBhAGwAdQBlACAAdABvACAA
+dABoAGUAIABjAG8AbAB1AG0AbgAgAGkAbgBzAHQAZQBhAGQALgAAM0UAeABjAGUAcAB0AGkAbwBu
+AFIAZQBwAG8AcgB0AEMAbwBuAG4AZQBjAHQAaQBvAG4AACFBAHIAdABpAHYAYQBDAG8AbgBuAGUA
+YwB0AGkAbwBuAAATQwBsAGkAZQBuAHQASQBEAHMAABdjAHUAcgByAGUAbgB0AEYAaQBsAGUAAHFT
+AEMAXwBiAGMAMwA0ADgAYgBkAGYAOQA3AGIAMgA0AGIAOAAzADgAZABiADEAZgBkAGUAMABkADIA
+NwBlAGUAYQBjAGMALgBQAHIAbwBwAGUAcgB0AGkAZQBzAC4AUgBlAHMAbwB1AHIAYwBlAHMAAAAA
+aAq0QJoPj067TnTICFMfNQAIiYRdzYCAzJEIt3pcVhk04IkDBhIgAwYSJAMgAAEDBhIUAwYSGAMG
+EhwCBggJIAQBCA4SFRIZCyAEAQgdCB0SFRIZBSABARIQAgYCDgYVEh0CDhUSIQQODg4CAwYSJQUg
+AgEOAgYgAwEODg4FIAIBDg4EIAEBDgYwAQEBHgAI+gztSkVRp4IJIAMBEhUdCBIZAyAADgMgAAIE
+IAARLQMoAA4DKAACBCgAES0EIAEBAgMGEgUFIAEBEgUEIAASMQQoABIxAwYSNQMGEjkEAAASNQQA
+ABI5BQABARI5BAgAEjUECAASOQMGEiwEAAASLAQIABIsBCABAQgGIAICDhFxBSABHQgIBgACCBIZ
+DgMHAQgEAQAAAA0VEh0CDhUSIQQODg4CFxAEBBUSIQQeAB4BHgIeAx4AHgEeAh4DBgoEDg4OAgcg
+AgETABMBDwcBFRIdAg4VEiEEDg4OAgQAAQEOCBURgIkBEYCNBQABDh0OBiACAQ4SJQUgABGAlQUg
+ABKAnQUgAREtCAQgAQIIBiABEYCNCAUgAQETAAQgAQ4IBQACDg4OBSABAhMABwAEDg4ODg4HAAIC
+ES0RLQUAAg4cHAQgAQYIBiABEwETAAgVEiEEDg4OAgQgABMDBCAAEwAEIAATAQQgABMCBQAAEYCN
+BiABEYCNDQkAAgIRgI0RgI0FAAICDg4EIAEODgYAAw4ODg5kByMCAg4OES0RLREtFRGAiQERgI0V
+EYCJARGAjQ4SgJESgJ0SgJESgJ0VEiEEDg4OAgIODg4ODg4CHQ4RLRURgIkBEYCNFRGAiQERgI0R
+gI0RgI0RgI0RgI0RgI0RgI0dDhGAjQIGDgkGFRGAiQERgI0FCgESgKkIBwISgKkSgKkFCgESgK0I
+BwISgK0SgK0FCgESgLEIBwISgLESgLEFCgESgLUIBwISgLUSgLUHFRKAuQEeAAg+DAjVnMPWVwsQ
+AQEOFRKAwQEeAAQKAR4ABSACDg4OCgcCFRKAuQEeAA4DBhIVAwYdCAUgAgEIHAUgABKAyQUgABKA
+zQYgARKA0Q4FIAASgNUGIAESgNkcBQAAEoDdBiABHBKA4QgAARKA6RGA7QUgABKA8QcgAgEOEoDx
+BAcBEjUGIAEBEYD5CAEAAgAAAAAAAwAAAUcBABouTkVURnJhbWV3b3JrLFZlcnNpb249djQuMAEA
+VA4URnJhbWV3b3JrRGlzcGxheU5hbWUQLk5FVCBGcmFtZXdvcmsgNCgBACNTQ19iYzM0OGJkZjk3
+YjI0YjgzOGRiMWZkZTBkMjdlZWFjYwAABQEAAAAAFgEAEUNvcHlyaWdodCBAICAyMDE3AAAIAQAI
+AAAAAAAeAQABAFQCFldyYXBOb25FeGNlcHRpb25UaHJvd3MBAACgiQAAAAAAAAAAAAC+iQAAACAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAsIkAAAAAAAAAAAAAAAAAAAAAX0NvckRsbE1haW4AbXNjb3Jl
+ZS5kbGwAAAAAAP8lACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAABABAAAAAYAACAAAAAAAAAAAAAAAAAAAABAAEAAAAwAACAAAAAAAAA
+AAAAAAAAAAABAAAAAABIAAAAWKAAALADAAAAAAAAAAAAALADNAAAAFYAUwBfAFYARQBSAFMASQBP
+AE4AXwBJAE4ARgBPAAAAAAC9BO/+AAABAAAAAQCEXX8dAAABAIRdfx0/AAAAAAAAAAQAAAACAAAA
+AAAAAAAAAAAAAAAARAAAAAEAVgBhAHIARgBpAGwAZQBJAG4AZgBvAAAAAAAkAAQAAABUAHIAYQBu
+AHMAbABhAHQAaQBvAG4AAAAAAAAAsAQQAwAAAQBTAHQAcgBpAG4AZwBGAGkAbABlAEkAbgBmAG8A
+AADsAgAAAQAwADAAMAAwADAANABiADAAAABwACQAAQBGAGkAbABlAEQAZQBzAGMAcgBpAHAAdABp
+AG8AbgAAAAAAUwBDAF8AYgBjADMANAA4AGIAZABmADkANwBiADIANABiADgAMwA4AGQAYgAxAGYA
+ZABlADAAZAAyADcAZQBlAGEAYwBjAAAAQAAPAAEARgBpAGwAZQBWAGUAcgBzAGkAbwBuAAAAAAAx
+AC4AMAAuADcANQA1ADEALgAyADMAOQA0ADAAAAAAAHAAKAABAEkAbgB0AGUAcgBuAGEAbABOAGEA
+bQBlAAAAUwBDAF8AYgBjADMANAA4AGIAZABmADkANwBiADIANABiADgAMwA4AGQAYgAxAGYAZABl
+ADAAZAAyADcAZQBlAGEAYwBjAC4AZABsAGwAAABIABIAAQBMAGUAZwBhAGwAQwBvAHAAeQByAGkA
+ZwBoAHQAAABDAG8AcAB5AHIAaQBnAGgAdAAgAEAAIAAgADIAMAAxADcAAAB4ACgAAQBPAHIAaQBn
+AGkAbgBhAGwARgBpAGwAZQBuAGEAbQBlAAAAUwBDAF8AYgBjADMANAA4AGIAZABmADkANwBiADIA
+NABiADgAMwA4AGQAYgAxAGYAZABlADAAZAAyADcAZQBlAGEAYwBjAC4AZABsAGwAAABoACQAAQBQ
+AHIAbwBkAHUAYwB0AE4AYQBtAGUAAAAAAFMAQwBfAGIAYwAzADQAOABiAGQAZgA5ADcAYgAyADQA
+YgA4ADMAOABkAGIAMQBmAGQAZQAwAGQAMgA3AGUAZQBhAGMAYwAAAEQADwABAFAAcgBvAGQAdQBj
+AHQAVgBlAHIAcwBpAG8AbgAAADEALgAwAC4ANwA1ADUAMQAuADIAMwA5ADQAMAAAAAAASAAPAAEA
+QQBzAHMAZQBtAGIAbAB5ACAAVgBlAHIAcwBpAG8AbgAAADEALgAwAC4ANwA1ADUAMQAuADIAMwA5
+ADQAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AIAAAAwAAADQOQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=]]></arrayElement>
+                      </arrayElements>
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the Microsoft Visual Studio Tools for Applications project. Project names must be unique within a package."
+                      name="VSTAProjectName"
+                      typeConverter="NOTBROWSABLE">SC_bc348bdf97b24b838db1fde0d27eeacc</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the programming language used by the script."
+                      name="ScriptLanguage"
+                      typeConverter="Microsoft.SqlServer.VSTAHosting.ScriptingLanguages, Microsoft.SqlServer.VSTAScriptingLib, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">CSharp</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a comma-separated list of read-only variables."
+                      name="ReadOnlyVariables"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIVariablePickerDlg, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">User::currentFile,$Project::ClientIDs</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a comma-separated list of read/write variables."
+                      name="ReadWriteVariables"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIWriteableVariablePickerDlg, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.String"
+                      description="List of breakpoints present on the script."
+                      isArray="true"
+                      name="BreakpointCollection"
+                      typeConverter="NOTBROWSABLE">
+                      <arrayElements
+                        arrayElementCount="0" />
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Checksum to match component metedata against compiled codes."
+                      name="MetadataChecksum"
+                      typeConverter="NOTBROWSABLE">316a0f87c537aca6e2f1df884226c758</property>
+                    <property
+                      dataType="System.String"
+                      description="Checksum to match component metedata against compiled codes."
+                      name="MetadataShaChecksum"
+                      typeConverter="NOTBROWSABLE">e10e1364c665ed396b923547ddbe865f278d9c07</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">Microsoft.SqlServer.Dts.Pipeline.ScriptComponentHost, Microsoft.SqlServer.TxScript, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Create Files\Script Component.Connections[ExceptionReportConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Exception Report]"
+                      connectionManagerRefId="Package.ConnectionManagers[Exception Report]"
+                      name="ExceptionReportConnection" />
+                    <connection
+                      refId="Package\Foreach Loop Container\Create Files\Script Component.Connections[ArtivaConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Artiva]"
+                      connectionManagerRefId="Package.ConnectionManagers[Artiva]"
+                      name="ArtivaConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Create Files\Script Component.Inputs[Input 0]"
+                      hasSideEffects="true"
+                      name="Input 0">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Script Component.Inputs[Input 0].Columns[place_id]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="place_id"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[place_id]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Script Component.Inputs[Input 0].Columns[placepool_id]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="placepool_id"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[placepool_id]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Script Component.Inputs[Input 0].Columns[data_id]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="data_id"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[data_id]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Script Component.Inputs[Input 0].Columns[pri_acctno]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="pri_acctno"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[pri_acctno]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Script Component.Inputs[Input 0].Columns[status_code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="status_code"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[status_code]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Script Component.Inputs[Input 0].Columns[bal_total]"
+                          cachedDataType="decimal"
+                          cachedName="bal_total"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_total]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Script Component.Inputs[Input 0].Columns[bal_principal]"
+                          cachedDataType="decimal"
+                          cachedName="bal_principal"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_principal]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Script Component.Inputs[Input 0].Columns[bal_interest]"
+                          cachedDataType="decimal"
+                          cachedName="bal_interest"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_interest]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Script Component.Inputs[Input 0].Columns[bal_fees_court]"
+                          cachedDataType="decimal"
+                          cachedName="bal_fees_court"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_fees_court]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Script Component.Inputs[Input 0].Columns[bal_fees_attorney]"
+                          cachedDataType="decimal"
+                          cachedName="bal_fees_attorney"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_fees_attorney]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Script Component.Inputs[Input 0].Columns[bal_fees_other]"
+                          cachedDataType="decimal"
+                          cachedName="bal_fees_other"
+                          lineageId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output].Columns[bal_fees_other]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Create Files\Script Component.Outputs[Maintenance]"
+                      hasSideEffects="true"
+                      name="Maintenance">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Script Component.Outputs[Maintenance].Columns[RowData]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2000"
+                          lineageId="Package\Foreach Loop Container\Create Files\Script Component.Outputs[Maintenance].Columns[RowData]"
+                          name="RowData" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\Create Files\Script Component.Outputs[OBRecall]"
+                      hasSideEffects="true"
+                      name="OBRecall">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Script Component.Outputs[OBRecall].Columns[RowData]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1000"
+                          lineageId="Package\Foreach Loop Container\Create Files\Script Component.Outputs[OBRecall].Columns[RowData]"
+                          name="RowData" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\Create Files\Script Component.Outputs[ExceptionReport]"
+                      hasSideEffects="true"
+                      name="ExceptionReport">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Create Files\Script Component.Outputs[ExceptionReport].Columns[Data]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2000"
+                          lineageId="Package\Foreach Loop Container\Create Files\Script Component.Outputs[ExceptionReport].Columns[Data]"
+                          name="Data" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Foreach Loop Container\Create Files.Paths[ExceptionReport]"
+                  endId="Package\Foreach Loop Container\Create Files\Exception Report.Inputs[Flat File Destination Input]"
+                  name="ExceptionReport"
+                  startId="Package\Foreach Loop Container\Create Files\Script Component.Outputs[ExceptionReport]" />
+                <path
+                  refId="Package\Foreach Loop Container\Create Files.Paths[Flat File Source Output]"
+                  endId="Package\Foreach Loop Container\Create Files\Script Component.Inputs[Input 0]"
+                  name="Flat File Source Output"
+                  startId="Package\Foreach Loop Container\Create Files\Flat File Source.Outputs[Flat File Source Output]" />
+                <path
+                  refId="Package\Foreach Loop Container\Create Files.Paths[Maintenance]"
+                  endId="Package\Foreach Loop Container\Create Files\Maintenance File.Inputs[Flat File Destination Input]"
+                  name="Maintenance"
+                  startId="Package\Foreach Loop Container\Create Files\Script Component.Outputs[Maintenance]" />
+                <path
+                  refId="Package\Foreach Loop Container\Create Files.Paths[OBRecall]"
+                  endId="Package\Foreach Loop Container\Create Files\OB Status Recall.Inputs[Flat File Destination Input]"
+                  name="OBRecall"
+                  startId="Package\Foreach Loop Container\Create Files\Script Component.Outputs[OBRecall]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{9FD8F184-AB76-4C96-91F3-10DEBBCF1164}"
+          DTS:ObjectName="{9FD8F184-AB76-4C96-91F3-10DEBBCF1164}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::currentFile" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="136,42"
+          Id="Package\Foreach Loop Container\Create Files"
+          TopLeft="5.5,5.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="150,103"
+          Size="147,146"
+          Id="Package\Foreach Loop Container"
+          TopLeft="5.50000000000003,5.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Foreach Loop Container\Create Files">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="160,42"
+          Id="Package\Foreach Loop Container\Create Files\Maintenance File"
+          TopLeft="225,209.5" />
+        <NodeLayout
+          Size="153,42"
+          Id="Package\Foreach Loop Container\Create Files\Flat File Source"
+          TopLeft="228.5,5.49999999999989" />
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Foreach Loop Container\Create Files\Script Component"
+          TopLeft="222.5,107.5" />
+        <NodeLayout
+          Size="161,42"
+          Id="Package\Foreach Loop Container\Create Files\Exception Report"
+          TopLeft="445.5,209.5" />
+        <NodeLayout
+          Size="159,42"
+          Id="Package\Foreach Loop Container\Create Files\OB Status Recall"
+          TopLeft="5.50000000000006,209.5" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Create Files.Paths[OBRecall]"
+          TopLeft="265.75,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-180.75,60"
+              Start="0,0"
+              End="-180.75,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.6361829025845" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.6361829025845"
+                    Point2="0,20.6361829025845"
+                    Point3="-4,20.6361829025845" />
+                  <mssgle:LineSegment
+                    End="-176.75,20.6361829025845" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-176.75,20.6361829025845"
+                    Point2="-180.75,20.6361829025845"
+                    Point3="-180.75,24.6361829025845" />
+                  <mssgle:LineSegment
+                    End="-180.75,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-110.3096484375,25.6361829025845,39.869296875,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Create Files.Paths[Maintenance]"
+          TopLeft="305,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-28.35634765625,21.5146484375,56.7126953125,9.470703125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Create Files.Paths[Flat File Source Output]"
+          TopLeft="305,47.4999999999999">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Create Files.Paths[ExceptionReport]"
+          TopLeft="344.25,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="181.75,60"
+              Start="0,0"
+              End="181.75,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.6361829025845" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.6361829025845"
+                    Point2="0,20.6361829025845"
+                    Point3="4,20.6361829025845" />
+                  <mssgle:LineSegment
+                    End="177.75,20.6361829025845" />
+                  <mssgle:CubicBezierSegment
+                    Point1="177.75,20.6361829025845"
+                    Point2="181.75,20.6361829025845"
+                    Point3="181.75,24.6361829025845" />
+                  <mssgle:LineSegment
+                    End="181.75,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="54.26361328125,25.6361829025845,73.2227734375,11.3310546875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
